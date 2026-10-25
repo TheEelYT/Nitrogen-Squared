@@ -1,0 +1,18 @@
+name: Windows runtime compile
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  runtime:
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Compile actual runtime with original synthetic input
+        run: python tools/ci_runtime_build.py
+      # Deliberately no artifact upload: this is a compile check, not a release.

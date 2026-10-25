@@ -44,3 +44,9 @@ psxrecomp_add_game_runtime(nitrogen-runtime
     GEN_FULL_GLOB "${NITROGEN_GENERATED_DIR}/SLUS_006.37_full_*.c"
 )
 set_target_properties(nitrogen-runtime PROPERTIES OUTPUT_NAME "NitrogenSquared-dev")
+if(MSVC)
+    # The legacy C++17 lambda processor misclassifies local constexpr values
+    # in the runtime's session lambda and rejects its static_assert (C2131).
+    target_compile_options(nitrogen-runtime PRIVATE
+        "$<$<COMPILE_LANGUAGE:CXX>:/Zc:lambda>")
+endif()

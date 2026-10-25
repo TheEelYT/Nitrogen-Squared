@@ -1,5 +1,6 @@
 [
   ".github/workflows/source-checks.yml",
+  ".github/workflows/windows-runtime.yml",
   ".gitignore",
   "CMakeLists.txt",
   "LICENSE",
@@ -20,6 +21,7 @@
   "tests/test_runtime.py",
   "tools/build_recompiler.py",
   "tools/build_runtime.py",
+  "tools/ci_runtime_build.py",
   "tools/first_boot.py",
   "tools/generate.py",
   "tools/n2o_disc.py",

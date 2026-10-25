@@ -23,7 +23,18 @@ class CMakeVersionTests(unittest.TestCase):
             shutil.copy2(ROOT / "CMakeLists.txt", source / "CMakeLists.txt")
             version = (ROOT / "VERSION").read_text().strip()
             (source / "VERSION").write_text(version + "\n")
-            (framework / "dummy.c").write_text("int main(void) { return 0; }\n")
+            (framework / "dummy.cpp").write_text('''
+int main() {
+    constexpr bool offered_a = false;
+    constexpr bool offered_b = false;
+    int calls = 0;
+    auto start_session = [&]() {
+        static_assert(!offered_a && !offered_b, "Original constexpr lambda fixture");
+        return calls++;
+    };
+    return start_session();
+}
+''')
             (generated / "SLUS_006.37_dispatch.c").write_text("/* Original test fixture, no game code. */\n")
             # Model the pinned framework's problematic shared-stamp contract.
             # The actual project wrapper must supply a scalar version before
@@ -33,7 +44,8 @@ function(psxrecomp_add_game_runtime target)
     if(NOT PSX_GAME_VERSION)
         set(PSX_GAME_VERSION "$<IF:$<CONFIG:Release>,${NITROGEN_BUILD_VERSION},dev>")
     endif()
-    add_executable(${target} "${PSXRECOMP_ROOT}/dummy.c")
+    add_executable(${target} "${PSXRECOMP_ROOT}/dummy.cpp")
+    target_compile_features(${target} PRIVATE cxx_std_17)
     file(GENERATE OUTPUT "$<TARGET_FILE_DIR:${target}>/psx_game_version.txt"
          CONTENT "${PSX_GAME_VERSION}\\n")
     get_property(is_multi GLOBAL PROPERTY GENERATOR_IS_MULTI_CONFIG)
