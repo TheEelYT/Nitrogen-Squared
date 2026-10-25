@@ -26,9 +26,10 @@ Version 0.0.3 fixes the Visual Studio configuration failure mentioning
 the update and repeat `python tools/build_runtime.py` in the existing build folder;
 the project refreshes the cached version automatically.
 
-Version 0.0.4 enables MSVC's conforming lambda processor for the runtime C++ code,
-addressing C2131 at the session-start `static_assert`. Pull and repeat the same
-build command; the project remains C/C++17 and the existing build is reused.
+Version 0.0.4 enables MSVC's conforming lambda processor for the runtime C++ code
+and its C11 atomics support for the C code. These address C2131 at the session-start
+`static_assert` and C1189 (`C atomic support is not enabled`). Pull and repeat the
+same build command; the existing C11/C++17 language mix and build folder are reused.
 
 The OpenBIOS emitter currently prints cross-function-target warnings. The same
 warnings appeared in the development-host run that reached the first level;

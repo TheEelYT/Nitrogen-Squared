@@ -66,12 +66,15 @@ Multi-Config after the fix. Its root, Debug and Release version stamps all conta
 
 The user reached native runtime compilation and reported C2131 in the session
 lambda's `static_assert`. The runtime target now enables `/Zc:lambda` for MSVC
-C++ compilation, retaining the existing language mix and assertion. Microsoft
+C++ compilation, retaining the existing language mix and assertion. The first
+full Windows compile confirmed that C2131 was resolved, then exposed C1189 from
+the runtime's existing C atomics. C compilation now also enables
+`/experimental:c11atomics`. Microsoft
 documents this mode for standard-conforming C++17 lambda handling:
 https://learn.microsoft.com/en-us/cpp/build/reference/zc-lambda
 
 The small configuration fixture now compiles an original C++17 constexpr-lambda
-example. A separate Windows workflow compiles and links the complete pinned
+example and a C11 atomic operation. A separate Windows workflow compiles and links the complete pinned
 runtime with an original two-instruction synthetic PS-X program and OpenBIOS.
 It uses no game disc, assets, music, or commercial executable and uploads no
 binaries. This expands compiler coverage; it does not validate N2O gameplay.

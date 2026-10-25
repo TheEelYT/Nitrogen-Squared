@@ -48,5 +48,6 @@ if(MSVC)
     # The legacy C++17 lambda processor misclassifies local constexpr values
     # in the runtime's session lambda and rejects its static_assert (C2131).
     target_compile_options(nitrogen-runtime PRIVATE
-        "$<$<COMPILE_LANGUAGE:CXX>:/Zc:lambda>")
+        "$<$<COMPILE_LANGUAGE:CXX>:/Zc:lambda>"
+        "$<$<COMPILE_LANGUAGE:C>:/experimental:c11atomics>")
 endif()

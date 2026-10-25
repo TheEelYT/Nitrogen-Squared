@@ -23,7 +23,15 @@ class CMakeVersionTests(unittest.TestCase):
             shutil.copy2(ROOT / "CMakeLists.txt", source / "CMakeLists.txt")
             version = (ROOT / "VERSION").read_text().strip()
             (source / "VERSION").write_text(version + "\n")
+            (framework / "dummy_atomic.c").write_text('''
+#include <stdatomic.h>
+int count_once(void) {
+    atomic_int count = ATOMIC_VAR_INIT(0);
+    return atomic_fetch_add_explicit(&count, 1, memory_order_relaxed);
+}
+''')
             (framework / "dummy.cpp").write_text('''
+extern "C" int count_once(void);
 int main() {
     constexpr bool offered_a = false;
     constexpr bool offered_b = false;
@@ -32,7 +40,7 @@ int main() {
         static_assert(!offered_a && !offered_b, "Original constexpr lambda fixture");
         return calls++;
     };
-    return start_session();
+    return start_session() + count_once();
 }
 ''')
             (generated / "SLUS_006.37_dispatch.c").write_text("/* Original test fixture, no game code. */\n")
@@ -44,8 +52,8 @@ function(psxrecomp_add_game_runtime target)
     if(NOT PSX_GAME_VERSION)
         set(PSX_GAME_VERSION "$<IF:$<CONFIG:Release>,${NITROGEN_BUILD_VERSION},dev>")
     endif()
-    add_executable(${target} "${PSXRECOMP_ROOT}/dummy.cpp")
-    target_compile_features(${target} PRIVATE cxx_std_17)
+    add_executable(${target} "${PSXRECOMP_ROOT}/dummy.cpp" "${PSXRECOMP_ROOT}/dummy_atomic.c")
+    target_compile_features(${target} PRIVATE c_std_11 cxx_std_17)
     file(GENERATE OUTPUT "$<TARGET_FILE_DIR:${target}>/psx_game_version.txt"
          CONTENT "${PSX_GAME_VERSION}\\n")
     get_property(is_multi GLOBAL PROPERTY GENERATOR_IS_MULTI_CONFIG)
