@@ -47,7 +47,9 @@ set_target_properties(nitrogen-runtime PROPERTIES OUTPUT_NAME "NitrogenSquared-d
 if(MSVC)
     # The legacy C++17 lambda processor misclassifies local constexpr values
     # in the runtime's session lambda and rejects its static_assert (C2131).
+    # Visual Studio shares target-wide flags between C and C++ sources.
+    # Set both MSVC options directly so the C option is not dropped by a
+    # COMPILE_LANGUAGE expression in this mixed-language target.
     target_compile_options(nitrogen-runtime PRIVATE
-        "$<$<COMPILE_LANGUAGE:CXX>:/Zc:lambda>"
-        "$<$<COMPILE_LANGUAGE:C>:/experimental:c11atomics>")
+        /Zc:lambda /experimental:c11atomics)
 endif()
