@@ -1,0 +1,94 @@
+{
+  "schema": 1,
+  "game_id": "SLUS-00637",
+  "region": "USA",
+  "boot_exe": "SLUS_006.37",
+  "layout": "single-bin-mode2-2352",
+  "bin_size": 540680112,
+  "bin_sha256": "99b2e8c6c61dfaf64755e5164f25b6f6ad4598556ecfef585e21dbc6128757ae",
+  "tracks": [
+    {
+      "number": 1,
+      "kind": "MODE2/2352",
+      "start": 0,
+      "pregap": null
+    },
+    {
+      "number": 2,
+      "kind": "AUDIO",
+      "start": 13949,
+      "pregap": 13799
+    },
+    {
+      "number": 3,
+      "kind": "AUDIO",
+      "start": 34043,
+      "pregap": 33893
+    },
+    {
+      "number": 4,
+      "kind": "AUDIO",
+      "start": 54139,
+      "pregap": 53989
+    },
+    {
+      "number": 5,
+      "kind": "AUDIO",
+      "start": 71534,
+      "pregap": 71384
+    },
+    {
+      "number": 6,
+      "kind": "AUDIO",
+      "start": 96146,
+      "pregap": 95996
+    },
+    {
+      "number": 7,
+      "kind": "AUDIO",
+      "start": 115063,
+      "pregap": 114913
+    },
+    {
+      "number": 8,
+      "kind": "AUDIO",
+      "start": 134975,
+      "pregap": 134825
+    },
+    {
+      "number": 9,
+      "kind": "AUDIO",
+      "start": 154309,
+      "pregap": 154159
+    },
+    {
+      "number": 10,
+      "kind": "AUDIO",
+      "start": 176083,
+      "pregap": 175933
+    },
+    {
+      "number": 11,
+      "kind": "AUDIO",
+      "start": 195757,
+      "pregap": 195607
+    }
+  ],
+  "executables": [
+    {
+      "path": "N2O.EXE",
+      "size": 460800,
+      "sha256": "d82c5e9d71df1e290210ec2fbc292539607d232f19a5dfd4807be09ec1eaae5a"
+    },
+    {
+      "path": "NEW.EXE",
+      "size": 335872,
+      "sha256": "3e53e5ce0fc753389303a6fc6d0ec49108119de12bc69e0ba965a7700aabeba3"
+    },
+    {
+      "path": "SLUS_006.37",
+      "size": 55296,
+      "sha256": "8291584bf5bce97fefd3ce858150ead2ce05f7fe8f8d17f4ef49ab23dc33bb4c"
+    }
+  ]
+}

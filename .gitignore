@@ -1,0 +1,20 @@
+.local/
+build*/
+dist/
+__pycache__/
+*.pyc
+# User-owned input and all derived game content remain local.
+disc/
+generated/
+cache/
+saves/
+*.bin
+*.cue
+*.iso
+*.chd
+*.exe
+*.dll
+*.vpk
+*.elf
+*.self
+overlay_captures*
