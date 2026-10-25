@@ -3,10 +3,13 @@
 A Windows-first recompilation project for **N2O: Nitrous Oxide (PlayStation)**,
 with a planned PS Vita port and optional remaster presentation.
 
-**Current status: investigation and disc preparation. There is no playable
-Windows executable or Vita VPK yet.** The disc importer is implemented; isolated
-entry-reachable C generation has been exercised against the USA disc. That is
-not proof of working gameplay or complete code coverage.
+**Current status: 0.0.2, private desktop runtime bring-up.** The development host
+boots the opening videos and reaches the title/attract sequence, ship selection,
+level selection, tutorial screens and the first level. A repeatable local build
+command is included.
+Windows execution still needs user validation; there is no public game executable
+or Vita VPK. This is an early hybrid runtime, with native boot/BIOS code and
+interpreter fallback for much of the loaded game code, not a completed recomp.
 
 ## Bring your own game
 
@@ -57,6 +60,29 @@ adjust the `--recompiler` path. The generation command writes separate analysis
 outputs for the boot loader, `N2O.EXE` and `NEW.EXE`, using the OpenBIOS profile.
 It deliberately does not merge their overlapping code addresses or claim to build
 a working runtime. Generated C and all private caches must stay out of Git/releases.
+
+## Build the private development runtime
+
+After importing the game, open a Visual Studio developer PowerShell with the C++
+compiler and CMake available. In this repository:
+
+```powershell
+python tools/build_runtime.py
+python tools/run_runtime.py
+```
+
+The build command uses the existing import in `%LOCALAPPDATA%\NitrogenSquared`,
+builds the pinned framework tools, generates OpenBIOS and local game C, and links
+a private desktop executable under `.local/runtime-dev`. It downloads third-party
+source dependencies on the first build. Keep the original CUE/BIN in place.
+
+**Do not upload or redistribute that executable:** it contains game code generated
+from your own disc. The public source package still contains no game inputs,
+generated game C, compiled game modules, captures, or assets. A toolchain-free
+first-run compilation package remains future work.
+
+See [Windows testing steps](TESTING.md). The current baseline uses original 4:3
+presentation; remaster features follow gameplay validation. Vita remains planned.
 
 ## Checks
 

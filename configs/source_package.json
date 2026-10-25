@@ -1,8 +1,10 @@
 [
   ".github/workflows/source-checks.yml",
   ".gitignore",
+  "CMakeLists.txt",
   "LICENSE",
   "README.md",
+  "TESTING.md",
   "THIRD_PARTY.md",
   "VERSION",
   "configs/disc_usa.json",
@@ -10,12 +12,17 @@
   "docs/DISC_ANALYSIS.md",
   "docs/DISTRIBUTION.md",
   "docs/ROADMAP.md",
+  "docs/RUNTIME_BRINGUP.md",
   "docs/VALIDATION.md",
   "tests/test_disc.py",
   "tests/test_packaging.py",
+  "tests/test_runtime.py",
   "tools/build_recompiler.py",
+  "tools/build_runtime.py",
   "tools/first_boot.py",
   "tools/generate.py",
   "tools/n2o_disc.py",
-  "tools/package_source.py"
+  "tools/package_source.py",
+  "tools/probe_runtime.py",
+  "tools/run_runtime.py"
 ]

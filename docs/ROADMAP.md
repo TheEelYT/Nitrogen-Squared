@@ -5,8 +5,11 @@
 - Verified one USA merged BIN/CUE and all executable inputs.
 - Implemented local import and a first-run setup prototype.
 - Built the pinned recompiler on the development host and generated isolated C.
-- Next: trace boot → loader transitions → title → one playable level, against a
-  trusted PS1 reference. Establish code identity where executables share addresses.
+- Linked a private runtime and reached opening videos, title/attract sequence,
+  ship selection, level selection, tutorial screens and first-level gameplay on the development host.
+- Next: validate the Windows window/audio/input path and first playable level,
+  then establish code identity where executables share addresses and replace
+  loaded-region interpreter fallback with verified native translations.
 - Measure native execution and remaining fallback; do not report generation counts
   as a completion percentage.
 
