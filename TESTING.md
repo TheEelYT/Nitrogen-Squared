@@ -1,4 +1,4 @@
-# Windows development test — 0.0.2
+# Windows development test — 0.0.3
 
 The disc import already created `%LOCALAPPDATA%\NitrogenSquared\SLUS-00637`.
 Leave that folder and your original CUE/BIN in place. You do not need to reimport.
@@ -20,6 +20,16 @@ python tools/build_runtime.py
 If CMake is missing, enable **C++ CMake tools for Windows** in the Visual Studio
 Installer, reopen Developer PowerShell, and repeat the command. Python 3.10+ and
 CMake 3.20+ are required. No Sony BIOS or additional game download is needed.
+
+Version 0.0.3 fixes the Visual Studio configuration failure mentioning
+`psx_game_version.txt` being written multiple times with different content. Pull
+the update and repeat `python tools/build_runtime.py` in the existing build folder;
+the project refreshes the cached version automatically.
+
+The OpenBIOS emitter currently prints cross-function-target warnings. The same
+warnings appeared in the development-host run that reached the first level;
+they do not themselves indicate that CMake configuration or compilation failed.
+Keep the warnings when reporting an actual runtime failure.
 
 The first build fetches the pinned framework/dependencies, builds the analysis
 tools, generates local game code, then compiles the desktop runtime. It can take

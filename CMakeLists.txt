@@ -1,6 +1,19 @@
 cmake_minimum_required(VERSION 3.20)
 project(NitrogenSquared LANGUAGES C CXX)
 
+# The pinned framework's default differs between Debug and Release, but it
+# also writes a shared build-root stamp. Visual Studio/Ninja Multi-Config
+# cannot generate that file with different content for each configuration.
+# This private development project uses VERSION for every configuration.
+# FORCE also repairs an existing cache when the project version changes.
+file(READ "${CMAKE_CURRENT_SOURCE_DIR}/VERSION" NITROGEN_BUILD_VERSION)
+string(STRIP "${NITROGEN_BUILD_VERSION}" NITROGEN_BUILD_VERSION)
+if(NITROGEN_BUILD_VERSION STREQUAL "")
+    message(FATAL_ERROR "Project VERSION is empty")
+endif()
+set(PSX_GAME_VERSION "${NITROGEN_BUILD_VERSION}" CACHE STRING
+    "Project version shared by every development configuration" FORCE)
+
 # This is a PRIVATE development build. The linked game code is generated
 # from the player's disc and must never enter a distributed executable.
 set(PSXRECOMP_ROOT "" CACHE PATH "Pinned PSXRecomp checkout")

@@ -39,3 +39,25 @@ validation are still pending. See [runtime findings](RUNTIME_BRINGUP.md) and
 
 The suite now has 18 tests, adding checks for revalidation of a changed disc,
 modified extracted executable, and compiler output discovery across build layouts.
+
+## 0.0.3 Windows configuration fix
+
+Reproduced the reported `psx_game_version.txt` conflict with Ninja Multi-Config.
+The pinned framework defaults to a configuration-dependent game version and
+generates a shared build-root stamp, which cannot have different content for each
+configuration. The project now explicitly sets its VERSION value for every
+configuration and refreshes the cache on reconfigure.
+
+The added regression configures the actual project wrapper against an original
+synthetic runtime contract, checks Debug/Release/root stamps, changes VERSION in
+the same build cache, and builds the synthetic Release target. Linux uses Ninja
+Multi-Config; Windows CI uses its installed Visual Studio generator. No game or
+BIOS files are used by the test. There are now 19 automated tests.
+
+The user's cross-function-target warnings also occur in the recorded successful
+OpenBIOS generation and gameplay bring-up. This fix addresses the fatal CMake
+collision; it does not hide those emitter diagnostics or establish every BIOS path.
+
+The actual pinned framework runtime also configured successfully with Ninja
+Multi-Config after the fix. Its root, Debug and Release version stamps all contain
+`0.0.3-development`.

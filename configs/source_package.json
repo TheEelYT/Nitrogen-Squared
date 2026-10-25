@@ -14,6 +14,7 @@
   "docs/ROADMAP.md",
   "docs/RUNTIME_BRINGUP.md",
   "docs/VALIDATION.md",
+  "tests/test_cmake.py",
   "tests/test_disc.py",
   "tests/test_packaging.py",
   "tests/test_runtime.py",
