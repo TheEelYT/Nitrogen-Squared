@@ -51,5 +51,6 @@ if(MSVC)
     # Set both MSVC options directly so the C option is not dropped by a
     # COMPILE_LANGUAGE expression in this mixed-language target.
     target_compile_options(nitrogen-runtime PRIVATE
-        /Zc:lambda /experimental:c11atomics)
+        /Zc:lambda /experimental:c11atomics
+        "/FI${CMAKE_CURRENT_SOURCE_DIR}/compat/msvc_atomics.h")
 endif()

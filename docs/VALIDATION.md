@@ -73,8 +73,16 @@ the runtime's existing C atomics. C compilation now also enables
 documents this mode for standard-conforming C++17 lambda handling:
 https://learn.microsoft.com/en-us/cpp/build/reference/zc-lambda
 
-The small configuration fixture now compiles an original C++17 constexpr-lambda
-example and a C11 atomic operation. A separate Windows workflow compiles and links the complete pinned
+The next full compile exposed two unguarded GNU-style atomic calls in the OpenGL
+renderer. An original, MSVC-only forced-include header adapts those 32-bit int
+loads/stores to Interlocked intrinsics with full memory barriers. The pinned
+framework checkout remains unchanged. The adapter is deliberately limited to
+these calls; GCC and Clang keep their own builtins.
+
+The small configuration fixture now compiles and executes an original C++17
+constexpr-lambda example, a C11 atomic operation, and the GNU-style flag
+loads/stores (including negative values and integer bounds). A separate Windows
+workflow compiles and links the complete pinned
 runtime with an original two-instruction synthetic PS-X program and OpenBIOS.
 It uses no game disc, assets, music, or commercial executable and uploads no
 binaries. This expands compiler coverage; it does not validate N2O gameplay.

@@ -21,17 +21,32 @@ class CMakeVersionTests(unittest.TestCase):
             (framework / "runtime").mkdir(parents=True)
             generated.mkdir()
             shutil.copy2(ROOT / "CMakeLists.txt", source / "CMakeLists.txt")
+            shutil.copytree(ROOT / "compat", source / "compat")
             version = (ROOT / "VERSION").read_text().strip()
             (source / "VERSION").write_text(version + "\n")
             (framework / "dummy_atomic.c").write_text('''
 #include <stdatomic.h>
+#include <limits.h>
 int count_once(void) {
     atomic_int count = 0;
     return atomic_fetch_add_explicit(&count, 1, memory_order_relaxed);
 }
+int flag_roundtrip(void) {
+    int flag = 0;
+    const int values[] = {0, 1, -1, INT_MAX, INT_MIN};
+    for (int i = 0; i < 5; ++i) {
+        __atomic_store_n(&flag, values[i], __ATOMIC_RELEASE);
+        if (__atomic_load_n(&flag, __ATOMIC_ACQUIRE) != values[i])
+            return 1;
+        if (__atomic_load_n(&flag, __ATOMIC_ACQUIRE) != values[i])
+            return 1;
+    }
+    return 0;
+}
 ''')
             (framework / "dummy.cpp").write_text('''
 extern "C" int count_once(void);
+extern "C" int flag_roundtrip(void);
 int main() {
     constexpr bool offered_a = false;
     constexpr bool offered_b = false;
@@ -40,7 +55,7 @@ int main() {
         static_assert(!offered_a && !offered_b, "Original constexpr lambda fixture");
         return calls++;
     };
-    return start_session() + count_once();
+    return start_session() + count_once() + flag_roundtrip();
 }
 ''')
             (generated / "SLUS_006.37_dispatch.c").write_text("/* Original test fixture, no game code. */\n")
@@ -79,6 +94,9 @@ endfunction()
                     self.assertEqual((build / rel).read_text().strip(), expected)
             result = subprocess.run(["cmake", "--build", str(build), "--config", "Release", "--target", "nitrogen-runtime"],
                                     capture_output=True, text=True)
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+            executable = build / "Release" / ("NitrogenSquared-dev.exe" if os.name == "nt" else "NitrogenSquared-dev")
+            result = subprocess.run([str(executable)], capture_output=True, text=True, timeout=10)
             self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
 

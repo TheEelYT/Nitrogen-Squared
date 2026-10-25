@@ -8,6 +8,7 @@
   "TESTING.md",
   "THIRD_PARTY.md",
   "VERSION",
+  "compat/msvc_atomics.h",
   "configs/disc_usa.json",
   "configs/source_package.json",
   "docs/DISC_ANALYSIS.md",

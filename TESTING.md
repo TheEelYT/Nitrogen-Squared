@@ -28,8 +28,10 @@ the project refreshes the cached version automatically.
 
 Version 0.0.4 enables MSVC's conforming lambda processor for the runtime C++ code
 and its C11 atomics support for the C code. These address C2131 at the session-start
-`static_assert` and C1189 (`C atomic support is not enabled`). Pull and repeat the
-same build command; the existing C11/C++17 language mix and build folder are reused.
+`static_assert` and C1189 (`C atomic support is not enabled`). A small MSVC-only
+adapter also supplies the renderer's two GNU-style atomic calls using Windows
+Interlocked intrinsics. Pull and repeat the same build command; the existing
+C11/C++17 language mix and build folder are reused.
 
 The OpenBIOS emitter currently prints cross-function-target warnings. The same
 warnings appeared in the development-host run that reached the first level;
