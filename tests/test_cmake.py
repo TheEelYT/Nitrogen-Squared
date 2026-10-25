@@ -26,7 +26,7 @@ class CMakeVersionTests(unittest.TestCase):
             (framework / "dummy_atomic.c").write_text('''
 #include <stdatomic.h>
 int count_once(void) {
-    atomic_int count = ATOMIC_VAR_INIT(0);
+    atomic_int count = 0;
     return atomic_fetch_add_explicit(&count, 1, memory_order_relaxed);
 }
 ''')
