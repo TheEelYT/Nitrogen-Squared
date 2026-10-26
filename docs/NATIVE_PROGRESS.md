@@ -1,6 +1,6 @@
 # Native translation progress
 
-The 0.0.7 baseline has **2.12% linked native translation coverage** against the
+The 0.0.8 baseline has **2.12% linked native translation coverage** against the
 combined payload sizes of the three selected USA game executables:
 
 | Executable | Linked native range bytes | Payload bytes | Coverage |
@@ -40,10 +40,11 @@ pre-0.0.7 receipt by rebuilding first.
 
 | Service | Current status |
 | --- | --- |
-| Desktop presentation and menu | Host implementations; Windows acceptance pending for the new menu |
+| Desktop presentation and menu | Host implementations; user verified menu and keybinds on Windows |
 | Controller input | Host SDL input; analog gameplay verified by the user in 0.0.6 |
 | Music and effects | Emulated SPU/CD path; no independent cue-driven player yet |
-| Intro/end movies | Guest-driven decoding and playback; no native cutscene player yet |
+| Opening movies | Native STR/XA service for three opening routes; Windows audio acceptance pending |
+| Ending / separate STR route | Original playback until full call/return paths are qualified |
 
 The inspected disc contains interleaved XA audio in the movie extents. Replacing
 CD music alone would not replace intro audio. Native movies should own synchronized
@@ -57,3 +58,13 @@ Direct packet inspection identified standard STR video headers in `CRYSTAL.SXA`,
 occur, so native playback must handle those cases and qualify each clip's ending
 rather than infer playback rules from its filename extension. No decoded media
 was added to the repository.
+
+The opening-movie service replaces one guarded 824-byte loop while retaining its
+original setup/teardown caller. Track this separately as **3 of 3 opening routes**;
+it does not add AOT ranges to the metric above. This is not all of NEW.EXE, nor
+a defensible overall completion percentage.
+
+Native audio is fully decoded before playback and consumed on its own callback.
+Video follows that media timeline and may drop late frames. This removes rendering
+as an audio producer for these clips; it cannot eliminate OS/device interruptions.
+Gameplay audio remains guest timed.

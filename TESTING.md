@@ -1,4 +1,4 @@
-# Windows development test — 0.0.7
+# Windows development test — 0.0.8
 
 The disc import already created `%LOCALAPPDATA%\NitrogenSquared\SLUS-00637`.
 Leave that folder and your original CUE/BIN in place. You do not need to reimport.
@@ -56,6 +56,12 @@ above the complete 4:3 game image. Autohide instead reveals it over the image wh
 the mouse reaches the top. This frontend is separate from the diagnostic software
 renderer; use the default OpenGL launch to test the menu.
 
+Version 0.0.8 moves the three opening clips to native STR/XA decoding. A video
+worker prepares frames while an independent SDL callback consumes predecoded
+audio. Presentation follows the audio timeline; no FFmpeg install is required.
+Media and instruction guards come only from the verified local import. The ending
+and separate in-game movie route retain original playback.
+
 The OpenBIOS emitter currently prints cross-function-target warnings. The same
 warnings appeared in the development-host run that reached the first level;
 they do not themselves indicate that CMake configuration or compilation failed.
@@ -80,15 +86,20 @@ python tools/run_runtime.py --show-fps
 The command rechecks the disc and local executable inputs, starts a window, and
 writes output to `.local/runtime-dev/runtime.log`. Test these in order:
 
-1. Opening videos display and advance to the title screen. Check their audio.
-2. The attract demo animates and displays the prompt to start.
-3. With an Xbox controller connected, press **A** (PlayStation Cross) to enter the menus.
-4. Check that the game recognizes an analog controller. Navigate ship/level selection
+1. Let all three opening clips finish. The title bar says **[Native video]**.
+   Listen for continuous audio and check sound/image synchronization. Resize and
+   toggle fullscreen, then confirm the complete title image appears afterward.
+2. Restart and skip clips with Xbox **A/Start** or keyboard **X/Enter**. During a
+   clip open **System → Settings**: audio and video should pause and resume
+   together. Check volume/mute as well.
+3. The attract demo animates and displays the prompt to start.
+4. With an Xbox controller connected, press **A** (PlayStation Cross) to enter the menus.
+5. Check that the game recognizes an analog controller. Navigate ship/level selection
    with the D-pad or left stick; use **A** to confirm. Stick movement is now sent as
    analog axes rather than converted into D-pad presses; menu behavior follows the game.
-5. Continue through the tutorial prompts and try movement/firing in the first level.
+6. Continue through the tutorial prompts and try movement/firing in the first level.
    Record speed both while **entering game** is displayed and after it disappears.
-6. Close the window and confirm the command returns to PowerShell.
+7. Close the window and confirm the command returns to PowerShell.
 
 Other default keyboard buttons: **S** = Circle, **Z** = Square, **A** = Triangle,
 **Enter** = Start, **right Shift** = Select. **X on the keyboard** is PlayStation
@@ -97,7 +108,8 @@ first gamepad, including when no pad is connected. Xbox **B/X/Y** map to
 Circle/Square/Triangle; the Menu button maps to Start. Selection/remapping UI is
 not integrated yet. A successful controller open is recorded in `runtime.log`.
 
-Compare the **Game** speed readout on the opening videos, swirling main menu
+During native movies, the guest simulation is intentionally frozen. Its FPS
+is not movie speed. Compare the **Game** readout on the swirling main menu
 background, and first level. About **1.00x** is the target; record the speed where
 audio breaks up. This counts simulated frames, so a static logo can update the
 window infrequently while the game itself still runs at full speed.
@@ -119,8 +131,9 @@ window infrequently while the game itself still runs at full speed.
 7. Test **Quit Application**, and check the ordinary window-close button as well.
 
 Menu preferences are private `nitrogen-menu.ini` beside the executable. Fullscreen
-uses the framework's existing settings persistence. No native music/video player
-is enabled by this update; menu-driven volume uses the existing audio output.
+uses the framework's existing settings persistence. During native clips **Debug → Audio Status** shows media seconds and submitted
+samples. Gameplay music/effects retain the guest SPU/CD path; those are not yet
+decoupled from simulation.
 
 To generate the native coverage report after building:
 
