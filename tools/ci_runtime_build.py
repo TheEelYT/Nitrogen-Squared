@@ -65,6 +65,8 @@ def main():
     subprocess.run(configure, check=True)
     subprocess.run(["cmake", "--build", str(work / "build"), "--config", "Release",
                     "--target", "nitrogen-runtime", "--parallel", "2"], check=True)
+    if os.name != "nt":
+        os.environ.update(SDL_VIDEODRIVER="offscreen", SDL_AUDIODRIVER="dummy", EGL_PLATFORM="surfaceless")
     print(f"Real runtime linked with original synthetic input: {find_binary(work / 'build', 'NitrogenSquared-dev')}")
     # Reuse this build tree to run the real runtime's SDL routing/mapping with
     # a virtual controller. This entry point never boots the synthetic guest.

@@ -131,6 +131,7 @@ def main() -> int:
                         "--target", "nitrogen-runtime", "--parallel", "2"], check=True)
         executable = find_binary(build_dir, "NitrogenSquared-dev")
         record = dict(schema=1, framework_revision=FRAMEWORK_REV, source_signature=signature,
+                      generated_dir=str(generated_root), linked_executables=["SLUS_006.37"],
                       executable=str(executable), config=str(work / "game.toml"),
                       installation=str(installation),
                       disc_sha256=manifest["bin_sha256"], build_succeeded=True,

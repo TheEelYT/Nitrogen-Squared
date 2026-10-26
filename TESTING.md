@@ -1,4 +1,4 @@
-# Windows development test — 0.0.6
+# Windows development test — 0.0.7
 
 The disc import already created `%LOCALAPPDATA%\NitrogenSquared\SLUS-00637`.
 Leave that folder and your original CUE/BIN in place. You do not need to reimport.
@@ -50,6 +50,12 @@ analog DualShock mode, so the game can recognize analog support. No reimport is
 needed. To compare the old digital pad deliberately, rebuild with
 `python tools/build_runtime.py --controller-mode digital`.
 
+Version 0.0.7 adds **System** and **Debug** menus to the OpenGL window. The first
+build downloads a pinned Dear ImGui dependency. The persistent bar reserves space
+above the complete 4:3 game image. Autohide instead reveals it over the image when
+the mouse reaches the top. This frontend is separate from the diagnostic software
+renderer; use the default OpenGL launch to test the menu.
+
 The OpenBIOS emitter currently prints cross-function-target warnings. The same
 warnings appeared in the development-host run that reached the first level;
 they do not themselves indicate that CMake configuration or compilation failed.
@@ -95,6 +101,36 @@ Compare the **Game** speed readout on the opening videos, swirling main menu
 background, and first level. About **1.00x** is the target; record the speed where
 audio breaks up. This counts simulated frames, so a static logo can update the
 window infrequently while the game itself still runs at full speed.
+
+### Desktop menu checks
+
+1. Confirm the top bar contains only **System** and **Debug**, and that the top of
+   the game image/HUD remains visible below it.
+2. Open **System → Settings**. The game and audio should pause; **Escape** or the
+   settings window's close button resumes them. Game controls must not leak through.
+3. Change volume/mute, close Settings, and listen. Reopen the application and check
+   that the volume and menu visibility preferences were retained.
+4. Test **F1** to hide and restore the bar, **Autohide Menu Bar** with the mouse at
+   the top edge, and **F11** to enter/leave fullscreen. Resize the window as well.
+5. Enable the two **Debug** overlays. Gameplay should continue. Display FPS is a
+   presentation measurement; it is separate from the title bar's guest-speed value.
+6. **Hard Reset** must ask before restarting. Cancel once, then test Restart only
+   when losing current unsaved progress is acceptable. Confirm saved data remains.
+7. Test **Quit Application**, and check the ordinary window-close button as well.
+
+Menu preferences are private `nitrogen-menu.ini` beside the executable. Fullscreen
+uses the framework's existing settings persistence. No native music/video player
+is enabled by this update; menu-driven volume uses the existing audio output.
+
+To generate the native coverage report after building:
+
+```powershell
+python tools/native_progress.py
+```
+
+The report counts only native ranges linked into the build, excluding generated
+analysis-only translations and host/BIOS code. Its payload denominator includes
+embedded data, so it is not an estimate of overall project completion.
 
 If OpenGL fails or draws incorrectly, compare with:
 

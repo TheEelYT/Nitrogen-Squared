@@ -16,3 +16,14 @@ relicense it. A binary release must first audit and include the applicable notic
 The upstream framework supports PCSX-Redux OpenBIOS, an independently written
 BIOS implementation. A Sony BIOS is not required by the current analysis tools.
 No Sony BIOS, OpenBIOS image, recompiled BIOS, or game content is in this package.
+
+## Desktop menu
+
+Dear ImGui: https://github.com/ocornut/imgui
+
+Pinned revision: `f5befd2d29e66809cd1110a152e375a7f1981f06` (v1.91.9b), MIT license.
+CMake fetches its original core and SDL3/OpenGL backends into the private build.
+The menu uses an installed host font when available, with ImGui's bundled default
+as fallback; no host font file, game artwork or game font is included. The
+source package includes our integration and the dependency pin, not a vendored
+copy. Any future binary distribution must include Dear ImGui's license notice.

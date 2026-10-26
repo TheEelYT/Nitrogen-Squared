@@ -8,6 +8,10 @@
 #error The virtual input smoke test requires the default SDL3 backend
 #endif
 
+#if defined(NITROGEN_MENU_SMOKE)
+void nitrogen_menu_smoke();
+#endif
+
 static void require_input(bool condition, const char *message)
 {
     if (!condition) {
@@ -89,6 +93,9 @@ int main()
     require_input(!SDL_GameControllerGetAttached(player.handle), "observe unplugged gamepad");
     close_player(player);
     require_input(pad_sources_for(player, false).keybinds, "retain keyboard source after unplug");
+    #if defined(NITROGEN_MENU_SMOKE)
+    nitrogen_menu_smoke();
+    #endif
     SDL_Quit();
     std::puts("Runtime input smoke passed: auto routing, ten buttons, digital stick, analog DualShock sample, unplug, keyboard source");
     return 0;

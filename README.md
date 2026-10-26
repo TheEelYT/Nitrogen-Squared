@@ -3,13 +3,14 @@
 A Windows-first recompilation project for **N2O: Nitrous Oxide (PlayStation)**,
 with a planned PS Vita port and optional remaster presentation.
 
-**Current status: 0.0.6, private desktop runtime bring-up.** The development host
+**Current status: 0.0.7, private desktop runtime bring-up.** The development host
 boots the opening videos and reaches the title/attract sequence, ship selection,
 level selection, tutorial screens and the first level. A repeatable local build
 command is included.
-Windows boot and first-level gameplay are user-confirmed. This update enables
-ordered OpenGL batching for the slow menus and defaults to an analog DualShock.
-Playback tuning continues; there is no public game executable or Vita VPK. This is an early
+The user verified analog input and consistent 60 FPS gameplay in 0.0.6, with
+small remaining intro slowdowns. This update adds a System/Debug desktop menu
+and a repeatable native-translation coverage report. There is no public game
+executable or Vita VPK. This is an early
 hybrid runtime, with native boot/BIOS code and
 interpreter fallback for much of the loaded game code, not a completed recomp.
 
@@ -85,6 +86,13 @@ first-run compilation package remains future work.
 
 See [Windows testing steps](TESTING.md). The current baseline uses original 4:3
 presentation; remaster features follow gameplay validation. Vita remains planned.
+The OpenGL window now has **System** and **Debug** menus. **F1** hides/restores
+the bar; **F11** toggles fullscreen. Settings and dropdowns pause the guest and
+audio, while passive performance/audio overlays allow gameplay to continue.
+
+After building, measure linked native translations with
+`python tools/native_progress.py`. See [native progress](docs/NATIVE_PROGRESS.md)
+for the denominator and the distinction between native game code and host services.
 
 ## Checks
 
