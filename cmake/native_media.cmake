@@ -30,6 +30,7 @@ psxrecomp_add_implementation(nitrogen-runtime
         "${CMAKE_CURRENT_SOURCE_DIR}/native/mdec_host.c"
     LLE_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/native/media_reference.cpp"
     CONTRACT_FILES ${_nitrogen_media_contracts}
+        "${CMAKE_CURRENT_SOURCE_DIR}/cmake/native_media.cmake"
         "${CMAKE_CURRENT_SOURCE_DIR}/native/media.h" "${CMAKE_CURRENT_SOURCE_DIR}/native/mdec_host.h"
         "${CMAKE_CURRENT_SOURCE_DIR}/native/movie_player.h" "${CMAKE_CURRENT_SOURCE_DIR}/native/mpeg_tables.h"
         "${CMAKE_CURRENT_SOURCE_DIR}/compat/runtime_host.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/compat/n2o_gpu_mode.c"
