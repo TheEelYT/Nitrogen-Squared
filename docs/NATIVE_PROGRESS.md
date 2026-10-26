@@ -1,6 +1,6 @@
 # Native translation progress
 
-The 0.0.8 baseline has **2.12% linked native translation coverage** against the
+The 0.0.9 baseline has **2.12% linked native translation coverage** against the
 combined payload sizes of the three selected USA game executables:
 
 | Executable | Linked native range bytes | Payload bytes | Coverage |
@@ -41,6 +41,7 @@ pre-0.0.7 receipt by rebuilding first.
 | Service | Current status |
 | --- | --- |
 | Desktop presentation and menu | Host implementations; user verified menu and keybinds on Windows |
+| Gameplay render scheduling | Bounded OpenGL worker; local pixel parity checked, Windows worker acceptance pending |
 | Controller input | Host SDL input; analog gameplay verified by the user in 0.0.6 |
 | Music and effects | Emulated SPU/CD path; no independent cue-driven player yet |
 | Opening movies | Native STR/XA service for three opening routes; user verified Windows playback and skipping |
@@ -68,3 +69,9 @@ Native audio is fully decoded before playback and consumed on its own callback.
 Video follows that media timeline and may drop late frames. This removes rendering
 as an audio producer for these clips; it cannot eliminate OS/device interruptions.
 Gameplay audio remains guest timed.
+
+Version 0.0.9 changes host scheduling, telemetry and window-title ownership. None
+of those changes add native game ranges to the numerator. Coverage remains
+**2.12%**. Native sound-driver work must establish the game's cue/bank interface;
+a hardware SPU worker alone would still need correct register, DMA and interrupt
+ordering. Gameplay audio production remains guest timed.

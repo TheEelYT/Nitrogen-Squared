@@ -1,4 +1,4 @@
-# Windows development test — 0.0.8
+# Windows development test — 0.0.9
 
 The disc import already created `%LOCALAPPDATA%\NitrogenSquared\SLUS-00637`.
 Leave that folder and your original CUE/BIN in place. You do not need to reimport.
@@ -62,6 +62,12 @@ audio. Presentation follows the audio timeline; no FFmpeg install is required.
 Media and instruction guards come only from the verified local import. The ending
 and separate in-game movie route retain original playback.
 
+Version 0.0.9 requests the existing OpenGL render worker through the launch
+wrapper, with one closed frame of queued work. The original game clock remains
+unchanged. Shutdown joins the worker. Audio Status now shows buffer fill/target
+and starvation counters through a safe snapshot, including in normal builds.
+The FPS title retains its original base across menu pauses.
+
 The OpenBIOS emitter currently prints cross-function-target warnings. The same
 warnings appeared in the development-host run that reached the first level;
 they do not themselves indicate that CMake configuration or compilation failed.
@@ -116,24 +122,53 @@ window infrequently while the game itself still runs at full speed.
 
 ### Desktop menu checks
 
-1. Confirm the top bar contains only **System** and **Debug**, and that the top of
+1. With `--show-fps`, open **System**, then click back into the game at least six
+   times. Allow a second between cycles. There should remain one **Game** group
+   and one **Present** group in the title bar, with current values.
+2. Confirm the top bar contains only **System** and **Debug**, and that the top of
    the game image/HUD remains visible below it.
-2. Open **System → Settings**. The game and audio should pause; **Escape** or the
+3. Open **System → Settings**. The game and audio should pause; **Escape** or the
    settings window's close button resumes them. Game controls must not leak through.
-3. Change volume/mute, close Settings, and listen. Reopen the application and check
+4. Change volume/mute, close Settings, and listen. Reopen the application and check
    that the volume and menu visibility preferences were retained.
-4. Test **F1** to hide and restore the bar, **Autohide Menu Bar** with the mouse at
+5. Test **F1** to hide and restore the bar, **Autohide Menu Bar** with the mouse at
    the top edge, and **F11** to enter/leave fullscreen. Resize the window as well.
-5. Enable the two **Debug** overlays. Gameplay should continue. Display FPS is a
+6. Enable the two **Debug** overlays. Gameplay should continue. Display FPS is a
    presentation measurement; it is separate from the title bar's guest-speed value.
-6. **Hard Reset** must ask before restarting. Cancel once, then test Restart only
+7. **Hard Reset** must ask before restarting. Cancel once, then test Restart only
    when losing current unsaved progress is acceptable. Confirm saved data remains.
-7. Test **Quit Application**, and check the ordinary window-close button as well.
+8. Test **Quit Application**, and check the ordinary window-close button as well.
 
 Menu preferences are private `nitrogen-menu.ini` beside the executable. Fullscreen
-uses the framework's existing settings persistence. During native clips **Debug → Audio Status** shows media seconds and submitted
+uses the framework's existing settings persistence. During native clips,
+**Debug → Audio Status** shows media seconds and submitted
 samples. Gameplay music/effects retain the guest SPU/CD path; those are not yet
 decoupled from simulation.
+
+### Render worker and audio checks
+
+Enable **Debug → Performance Overlay**. During gameplay the worker should show
+active (or synchronized briefly at a required readback), with a queued-frame
+bound of 1. Check menu pause/resume, fullscreen, movie skipping and ordinary
+window close. The two debug panels should stack without overlapping.
+
+**Debug → Audio Status** shows SPU output rate, host format, buffer fill/target,
+underflow samples and overflow frames. Legacy queue mode labels empty-queue
+events instead. Counters are cumulative; note whether they grow during steady
+gameplay separately from startup, loading or fullscreen changes. Guest sound
+production still follows the game clock. The last sampled counters are written
+to `runtime.log` on clean shutdown, without needing the TCP debugger.
+
+Compare synchronous rendering without rebuilding:
+
+```powershell
+python tools/run_runtime.py --show-fps --render-worker off
+```
+
+Ordinary launch requests the worker again. An existing `PSX_RENDER_THREAD`
+environment value is honored unless `--render-worker on` or `off` is supplied.
+Software rendering always disables the worker. Higher presentation rates beyond
+the original game cadence remain future work.
 
 To generate the native coverage report after building:
 

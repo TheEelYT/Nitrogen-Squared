@@ -310,3 +310,68 @@ This closes the pending Windows playback/skip and core input/speed checks for
 0.0.8. A subsequently reported title-bar issue repeats the FPS suffix after
 opening System and resuming; it is covered by the next update's title ownership
 fix and repeated-pause regression test.
+
+
+## 0.0.9 render worker, telemetry and title ownership
+
+Normal launch requests the pinned framework's OpenGL worker with one closed frame
+of lookahead. A launch option retains synchronous rendering for comparison;
+software rendering disables the worker. Ordered drawing, copied command payloads,
+required readbacks and backpressure remain in the framework. Guest simulation and
+SPU sample production keep their timing. This does not implement native sound
+cues or unlocked presentation.
+
+The reported title duplication was traced to `present_session_reset`: it clears
+the FPS base while leaving the decorated SDL title intact. A narrow getter in
+the original host bridge retains the original title by SDL window ID. Menu resume
+re-anchors timing without adopting a previous Game/Present suffix. Native movies
+retain that base; a new window gets its own title. No pinned framework file is
+edited.
+
+The bridge observes the original SPU drain and publishes a mutex-protected host
+snapshot. It preserves drain bytes/count and locks the audio bridge while reading
+its callback-owned statistics. UI drawing reads that snapshot, not a mutable DSP
+or audio device. Queue statistics are sampled on their owning main thread without
+a graphics-context handoff. Normal shutdown joins the GL worker before final host
+teardown completes and logs the last sampled counters. Underflow is labeled in
+samples for the bridge and empty-queue events for the legacy path. Passive panels
+stack using their measured heights.
+
+Local qualification used Linux x86-64/GCC 13.3, Mesa llvmpipe, native-resolution
+OpenGL, a dummy audio device and separate private saves:
+
+- All 34 synthetic source tests passed; source audit passed with 62 reviewed
+  text files and no commercial payloads.
+- The native fixture passed exact SPU drain/count, host snapshots, six repetitions
+  of the real pause-reset path and a new-window title. Real menu, analog virtual
+  gamepad and independent native media smoke checks also passed.
+- The pinned render queue passed 8,843 checks for command/payload order, ring
+  wrap, frame bounds, context handoffs and shutdown. OpenGL worker-on/off fixtures
+  matched readback/native/hires/wide digests at 1x and 4x, including dynamic
+  resolution transitions. All 671 existing batching checks also passed.
+- Fresh N2O boots used the same frame-scheduled input route with the worker off/on.
+  Both skipped all three native movies, reached first-level tutorial gameplay,
+  completed six host pause/resume cycles, dispatched F1/F11 and closed normally.
+  GPU captures at frames 800, 1500, 2800 and 3600 were pixel-identical.
+- At the final worker sample, the bound was 1 and produced/consumed frames both
+  read 4,203. About 16.5 million commands had been recorded. The synchronous run
+  recorded none, establishing that rendering actually used the worker.
+- A sampled loading interval around frames 1200–1500 ran at 59.93 guest FPS both
+  ways, with no bridge underflow in that interval. Later cumulative counters
+  recorded underflow in both instrumented routes, which enabled full-VRAM history
+  and exercised pause/fullscreen. This does not establish starvation-free gameplay.
+- A normal build including the worker shutdown hook completed all three native
+  movies and closed cleanly in 34.6 seconds. A subsequent extended normal-build
+  counter comparison was interrupted by loss of the development environment;
+  no result is claimed for that unfinished comparison.
+
+Commercial captures, private routes and generated game inputs remain outside
+Git/releases. Linked game-code coverage stays 2.12%; host scheduling and telemetry
+do not increase it. Windows worker/menu/audio acceptance remains a player check.
+
+The final CI attempt initially passed native title/menu/input/media checks but
+failed two analytic fractional-UV samples in the unchanged, standalone pinned
+renderer fixture on Linux. That fixture passed locally and on two preceding
+commits; it does not link the title host bridge or frontend. An isolated retry
+and a fresh full run retain all original assertions. The result is recorded
+below when those checks finish; no renderer assertion is relaxed.

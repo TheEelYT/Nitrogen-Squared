@@ -3,17 +3,18 @@
 A Windows-first recompilation project for **N2O: Nitrous Oxide (PlayStation)**,
 with a planned PS Vita port and optional remaster presentation.
 
-**Current status: 0.0.8, private desktop runtime bring-up.** The development host
-boots the opening videos and reaches the title/attract sequence, ship selection,
-level selection, tutorial screens and the first level. A repeatable local build
-command is included.
-The user verified analog input and consistent 60 FPS gameplay in 0.0.6, with
-small remaining intro slowdowns, and verified the menu and keybinds in 0.0.7.
-This update adds native opening movies with independent audio playback and a
-video worker. There is no public game
-executable or Vita VPK. This is an early
-hybrid runtime, with native boot/BIOS code and
-interpreter fallback for much of the loaded game code, not a completed recomp.
+**Current status: 0.0.9, private desktop runtime bring-up.** The user verified
+native opening movies and skipping, analog input, and consistent 60 FPS gameplay
+on Windows in 0.0.8. Normal launch now requests the framework's OpenGL render
+worker with one closed frame of lookahead. System/Debug remain available, audio
+health uses a thread-safe host snapshot, and the FPS title stays single across
+menu pauses. Native cutscene audio already runs independently of rendering.
+Gameplay sound production still follows the guest clock; native sound cues and
+unlocked presentation remain future work.
+
+There is no public game executable or Vita VPK. The current hybrid runtime uses
+native boot/BIOS code and interpreter fallback for much of the loaded game code.
+A repeatable private build command is included.
 
 ## Bring your own game
 
