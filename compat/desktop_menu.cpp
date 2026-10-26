@@ -29,7 +29,7 @@ struct DesktopMenu {
     bool escape = false, close_requested = false;
     int volume = 100, unmuted = 100;
     Uint32 volume_event = 0;
-    float bar_height = 24.0f;
+    float bar_height = 24.0f, performance_height = 0;
     std::string preferences;
     double rate_time = 0, sample_rate = 0;
     uint64_t last_samples = 0;
@@ -163,7 +163,7 @@ int event(void *context, const void *input)
 void passive_window(DesktopMenu &m, const char *title, bool audio)
 {
     ImGui::SetNextWindowBgAlpha(.9f);
-    ImGui::SetNextWindowPos(ImVec2(12, m.bar_height + (audio && m.performance ? 85 : 12)), ImGuiCond_Always);
+    ImGui::SetNextWindowPos(ImVec2(12, m.bar_height + 12 + (audio && m.performance ? m.performance_height + 8 : 0)), ImGuiCond_Always);
     ImGui::Begin(title, nullptr, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoInputs |
                  ImGuiWindowFlags_NoNav | ImGuiWindowFlags_NoSavedSettings);
     if (audio) {
@@ -194,6 +194,7 @@ void passive_window(DesktopMenu &m, const char *title, bool audio)
         }
         ImGui::TextUnformatted("Game speed: use the title-bar readout (--show-fps).");
     }
+    if (!audio) m.performance_height = ImGui::GetWindowHeight();
     ImGui::End();
 }
 

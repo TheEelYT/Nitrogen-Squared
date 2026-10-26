@@ -25,6 +25,12 @@ extern "C" void debug_server_shutdown(void);
 extern "C" void nitrogen_runtime_shutdown(void)
 {
     gl_renderer_render_thread_stop();
+    NitrogenRuntimeStatus status{};
+    nitrogen_runtime_status(&status);
+    std::fprintf(stdout, "nitrogen: last audio/render sample: worker=%d bound=%d rate=%d output_frames=%llu underflow_%s=%llu overflow_frames=%llu\n",
+        status.worker_active, status.max_frames, status.host_rate,
+        (unsigned long long)status.samples, status.legacy ? "events" : "samples",
+        (unsigned long long)status.underruns, (unsigned long long)status.overflow_drops);
     debug_server_shutdown();
 }
 namespace {
