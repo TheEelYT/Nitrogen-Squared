@@ -10,11 +10,30 @@ from build_runtime import load_installation
 from n2o_disc import ROOT
 
 
+def runtime_environment(work: Path, display_ring: bool = False, show_fps: bool = False) -> dict[str, str]:
+    env = os.environ.copy()
+    # Full-VRAM history takes a synchronous GPU readback every frame. Keep
+    # one-shot diagnostics available without paying that cost during play.
+    env["PSX_DISPLAY_RING"] = "1" if display_ring else "0"
+    env.setdefault("PSX_DEBUG_TOGGLES", "0")
+    if show_fps:
+        env["PSX_FPS_TELEMETRY"] = "1"
+    # Captures and caches are private. Overlay compilation has no configured
+    # recipe yet; do not invoke the upstream default shell recipe.
+    env["PSX_OVERLAY_AUTOCOMPILE_OFF"] = "1"
+    env["PSX_OVERLAY_CAPTURES"] = str(work / "overlay_captures.json")
+    env["PSX_OVERLAY_CAPTURE_ROOT"] = str(work / "overlay-private")
+    return env
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--work-dir", type=Path, default=ROOT / ".local/runtime-dev")
     p.add_argument("--renderer", choices=["software", "opengl"], default="opengl")
     p.add_argument("--headless", action="store_true")
+    p.add_argument("--display-ring", action="store_true",
+                   help="Expensive full-VRAM frame history for developer diagnosis")
+    p.add_argument("--show-fps", action="store_true", help="Show guest FPS and speed in the window title")
     p.add_argument("--debug-port", type=int, default=4370)
     args = p.parse_args()
     try:
@@ -32,12 +51,9 @@ def main():
                    "--memcard-dir", str(work / "saves")]
         if args.headless:
             command.append("--headless")
-        env = os.environ.copy()
-        # Captures and caches are private, and automated overlay compilation is
-        # not yet integrated. Do not accidentally invoke upstream's default shell recipe.
-        env["PSX_OVERLAY_AUTOCOMPILE_OFF"] = "1"
-        env["PSX_OVERLAY_CAPTURES"] = str(work / "overlay_captures.json")
-        env["PSX_OVERLAY_CAPTURE_ROOT"] = str(work / "overlay-private")
+        if args.display_ring and record.get("diagnostics_enabled") is False:
+            raise ValueError("--display-ring requires a build made with build_runtime.py --diagnostics")
+        env = runtime_environment(work, args.display_ring, args.show_fps)
         with (work / "runtime.log").open("w", encoding="utf-8") as log:
             proc = subprocess.Popen(command, cwd=work, env=env, stdout=log, stderr=subprocess.STDOUT)
             print(f"Runtime started (PID {proc.pid}). Log: {work / 'runtime.log'}", flush=True)

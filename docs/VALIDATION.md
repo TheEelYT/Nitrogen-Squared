@@ -86,3 +86,38 @@ workflow compiles and links the complete pinned
 runtime with an original two-instruction synthetic PS-X program and OpenBIOS.
 It uses no game disc, assets, music, or commercial executable and uploads no
 binaries. This expands compiler coverage; it does not validate N2O gameplay.
+
+The complete Windows runtime compiled and linked successfully in
+[run 40239430944](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/40239430944).
+The user subsequently confirmed Windows boot and reported low speed, audio
+stutter, title-screen corruption and an unresponsive Xbox controller.
+
+## 0.0.5 playback corrections
+
+The wrapper previously forced `PSX_DEBUG_TOOLS=ON`. Besides enabling continuous
+full-VRAM capture, that keeps per-instruction tracing and disables the pinned
+framework's production RAM-load/cycle fast paths. Normal builds now omit that
+instrumentation; `--diagnostics` retains it in a separate private build when
+needed. Normal launch disables display history and offers `--show-fps` for the
+lightweight guest-speed readout. Native internal resolution is explicit so
+removing the debug toggles cannot silently select the framework's HD defaults.
+
+A private trace identified N2O's 640x480 title upload at frame 833 while GP1 still
+selected 24-bit movie output; GP1 changed to 15-bit at frame 834. The GL movie-upload
+heuristic skips that transfer. The project's GP1 adapter republishes the
+CPU-authoritative VRAM once at a 24-to-15-bit transition. It neither changes the
+guest image nor crops the output. The adapter test checks ordering, repeated
+mode writes, unrelated commands, and non-GL backends.
+
+The generated game configuration now requests `p1_device = "auto"` explicitly;
+the framework's existing keyboard source remains available. A native smoke-test
+entry point uses an original SDL virtual gamepad with the real runtime routing
+and mapping functions, including face buttons, Start/Select, D-pad, digital stick
+movement and unplug handling. It never executes a guest program. Windows
+physical-controller behavior and real audio-device playback still need user
+verification.
+
+The status probe now filters nested audio/pad counters and can measure guest
+frame progress over a bounded interval. Its tests reject commands outside the
+allowlist and omit unrequested response fields. No private game images, generated
+C, captures, snapshots, or linked binaries are part of this update.

@@ -31,7 +31,8 @@ set(PSX_OPENXR OFF CACHE BOOL "No VR integration" FORCE)
 set(PSX_ENABLE_VULKAN OFF CACHE BOOL "OpenGL and software baseline" FORCE)
 set(PSXRECOMP_BIOS_STEMS OpenBIOS CACHE STRING "OpenBIOS only" FORCE)
 set(PSXRECOMP_REQUIRE_GAME_C ON CACHE BOOL "Never produce an empty setup runtime" FORCE)
-set(PSX_DEBUG_TOOLS ON CACHE BOOL "Development diagnostics" FORCE)
+option(NITROGEN_DIAGNOSTICS "Enable expensive per-instruction diagnostics and the TCP probe" OFF)
+set(PSX_DEBUG_TOOLS ${NITROGEN_DIAGNOSTICS} CACHE BOOL "Development diagnostics" FORCE)
 include("${PSXRECOMP_ROOT}/runtime/runtime.cmake")
 
 psxrecomp_add_game_runtime(nitrogen-runtime
@@ -44,6 +45,29 @@ psxrecomp_add_game_runtime(nitrogen-runtime
     GEN_FULL_GLOB "${NITROGEN_GENERATED_DIR}/SLUS_006.37_full_*.c"
 )
 set_target_properties(nitrogen-runtime PROPERTIES OUTPUT_NAME "NitrogenSquared-dev")
+get_target_property(_nitrogen_sources nitrogen-runtime SOURCES)
+set(_nitrogen_gpu "${PSXRECOMP_ROOT}/runtime/src/gpu.c")
+if(_nitrogen_gpu IN_LIST _nitrogen_sources)
+    # Interpose only this public entry point. The pinned checkout stays clean;
+    # a depth transition publishes the CPU-authoritative movie/title uploads.
+    set_property(SOURCE "${_nitrogen_gpu}" APPEND PROPERTY COMPILE_DEFINITIONS
+        gpu_write_gp1=nitrogen_framework_gpu_write_gp1)
+    target_sources(nitrogen-runtime PRIVATE compat/n2o_gpu_mode.c)
+endif()
+option(NITROGEN_INPUT_SMOKE "Replace guest execution with the original virtual-gamepad test" OFF)
+if(NITROGEN_INPUT_SMOKE)
+    get_target_property(_nitrogen_sources nitrogen-runtime SOURCES)
+    set(_nitrogen_main "${PSXRECOMP_ROOT}/runtime/src/main.cpp")
+    if(NOT _nitrogen_main IN_LIST _nitrogen_sources)
+        message(FATAL_ERROR "The pinned runtime main source was not found for the input test")
+    endif()
+    list(REMOVE_ITEM _nitrogen_sources "${_nitrogen_main}")
+    set_property(TARGET nitrogen-runtime PROPERTY SOURCES ${_nitrogen_sources}
+        "${CMAKE_CURRENT_SOURCE_DIR}/tests/runtime_input_smoke.cpp")
+    set_property(SOURCE tests/runtime_input_smoke.cpp APPEND PROPERTY COMPILE_DEFINITIONS
+        NITROGEN_RUNTIME_MAIN="${_nitrogen_main}")
+    set_target_properties(nitrogen-runtime PROPERTIES OUTPUT_NAME "NitrogenSquared-input-test")
+endif()
 if(MSVC)
     # The legacy C++17 lambda processor misclassifies local constexpr values
     # in the runtime's session lambda and rejects its static_assert (C2131).

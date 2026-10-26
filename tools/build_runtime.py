@@ -59,7 +59,8 @@ def runtime_config(manifest: dict, installation: Path, generated: Path) -> str:
         '\n[runtime]\nwindow_title = "Nitrogen Squared development"\n'
         'memcard_dir = "saves"\noverlay_cache = true\n'
         '\n[video]\nrenderer = "opengl"\naspect_ratio = "4:3"\n'
-        '\n[controller]\ndefault_mode = "digital"\n'
+        'internal_resolution = "native"\nsupersampling = 1\ndynamic_resolution = false\n'
+        '\n[controller]\ndefault_mode = "digital"\np1_device = "auto"\np2_device = "none"\n'
     )
 
 
@@ -72,6 +73,8 @@ def main() -> int:
     p.add_argument("--cmake", default="cmake")
     p.add_argument("--console-host", action="store_true", help="Linux headless/offscreen build; not for Windows")
     p.add_argument("--configure-only", action="store_true")
+    p.add_argument("--diagnostics", action="store_true",
+                   help="Enable the slower per-instruction instrumentation and TCP status probe")
     p.add_argument("--cmake-arg", action="append", default=[], help="Additional configure argument, e.g. --cmake-arg=-DNAME=VALUE")
     args = p.parse_args()
     try:
@@ -111,7 +114,8 @@ def main() -> int:
         build_dir = work / "build"
         command = [args.cmake, "-S", str(ROOT), "-B", str(build_dir),
                    f"-DPSXRECOMP_ROOT={framework}", f"-DNITROGEN_GENERATED_DIR={generated}",
-                   "-DCMAKE_BUILD_TYPE=Release", "-DBUILD_TESTING=OFF"]
+                   "-DCMAKE_BUILD_TYPE=Release", "-DBUILD_TESTING=OFF", "-DNITROGEN_INPUT_SMOKE=OFF",
+                   f"-DNITROGEN_DIAGNOSTICS={'ON' if args.diagnostics else 'OFF'}"]
         if args.console_host:
             command.append("-DSDL_UNIX_CONSOLE_BUILD=ON")
         command.extend(args.cmake_arg)
@@ -126,7 +130,8 @@ def main() -> int:
                       executable=str(executable), config=str(work / "game.toml"),
                       installation=str(installation),
                       disc_sha256=manifest["bin_sha256"], build_succeeded=True,
-                      gameplay_verified=False, public_distribution_allowed=False)
+                      gameplay_verified=False, public_distribution_allowed=False,
+                      diagnostics_enabled=args.diagnostics)
         (work / "runtime-build.json").write_text(json.dumps(record, indent=2) + "\n", encoding="utf-8")
         print(f"\nPrivate runtime built: {executable}\nStart with: python tools/run_runtime.py")
         return 0

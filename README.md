@@ -3,12 +3,13 @@
 A Windows-first recompilation project for **N2O: Nitrous Oxide (PlayStation)**,
 with a planned PS Vita port and optional remaster presentation.
 
-**Current status: 0.0.4, private desktop runtime bring-up.** The development host
+**Current status: 0.0.5, private desktop runtime bring-up.** The development host
 boots the opening videos and reaches the title/attract sequence, ship selection,
 level selection, tutorial screens and the first level. A repeatable local build
 command is included.
-Windows execution still needs user validation; there is no public game executable
-or Vita VPK. This is an early hybrid runtime, with native boot/BIOS code and
+Windows boot is user-confirmed. Playback tuning and controller/title-screen fixes
+are in progress; there is no public game executable or Vita VPK. This is an early
+hybrid runtime, with native boot/BIOS code and
 interpreter fallback for much of the loaded game code, not a completed recomp.
 
 ## Bring your own game

@@ -18,8 +18,9 @@ manifest's `runtime_ready` is not changed into a misleading completion flag.
 
 `run_runtime.py` validates inputs again, retains a startup log, keeps saves and
 overlay captures under the private work directory, and disables unconfigured
-background overlay compilation. `probe_runtime.py` reports an allowlist of numeric
-status fields; it has no RAM-dump or code-capture operation.
+background overlay compilation. Normal 0.0.5 builds omit per-instruction tracing;
+use a separate `--diagnostics` build for `probe_runtime.py`. The probe reports
+allowlisted status fields; it has no RAM-dump or code-capture operation.
 
 ## Observed on the development host
 
@@ -39,7 +40,9 @@ overlap identities and function discovery remain the next recompilation work.
 The development host lacks desktop X11/Wayland headers, so its test build used
 `--console-host` and a system GL shared library override. Those are host-specific
 test flags, not Windows setup requirements. The Windows build uses desktop SDL3
-and system OpenGL. Its real window, audio, keyboard, and exit path need user tests.
+and system OpenGL. The user has now confirmed Windows boot, with performance,
+audio, title presentation and controller problems reported against 0.0.4. See
+[validation notes](VALIDATION.md) for the playback corrections.
 
 The source-only release gate continues to exclude binaries and generated code.
 Public binary packaging and toolchain-free first-run preparation remain separate

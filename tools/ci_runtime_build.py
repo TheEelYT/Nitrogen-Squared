@@ -57,10 +57,19 @@ def main():
     subprocess.run([str(game), "--config", str(config), "--project-root", str(framework)], check=True)
     subprocess.run(["cmake", "-S", str(ROOT), "-B", str(work / "build"),
                     f"-DPSXRECOMP_ROOT={framework}", f"-DNITROGEN_GENERATED_DIR={generated}",
-                    "-DCMAKE_BUILD_TYPE=Release", "-DBUILD_TESTING=OFF"], check=True)
+                    "-DCMAKE_BUILD_TYPE=Release", "-DBUILD_TESTING=OFF", "-DNITROGEN_INPUT_SMOKE=OFF",
+                    "-DNITROGEN_DIAGNOSTICS=OFF"], check=True)
     subprocess.run(["cmake", "--build", str(work / "build"), "--config", "Release",
                     "--target", "nitrogen-runtime", "--parallel", "2"], check=True)
     print(f"Real runtime linked with original synthetic input: {find_binary(work / 'build', 'NitrogenSquared-dev')}")
+    # Reuse this build tree to run the real runtime's SDL routing/mapping with
+    # a virtual controller. This entry point never boots the synthetic guest.
+    subprocess.run(["cmake", "-S", str(ROOT), "-B", str(work / "build"),
+                    "-DNITROGEN_INPUT_SMOKE=ON"], check=True)
+    subprocess.run(["cmake", "--build", str(work / "build"), "--config", "Release",
+                    "--target", "nitrogen-runtime", "--parallel", "2"], check=True)
+    subprocess.run([str(find_binary(work / "build", "NitrogenSquared-input-test"))],
+                   check=True, timeout=15)
 
 
 if __name__ == "__main__":

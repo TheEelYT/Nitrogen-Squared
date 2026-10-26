@@ -7,6 +7,7 @@ from unittest.mock import patch
 from test_disc import fixture
 from n2o_disc import DiscError, prepare
 import build_runtime
+import run_runtime
 
 
 class RuntimePreparationTests(unittest.TestCase):
@@ -56,6 +57,25 @@ class RuntimePreparationTests(unittest.TestCase):
         binary.unlink()
         with self.assertRaises(FileNotFoundError):
             build_runtime.find_binary(build, "test-emitter")
+
+    def test_runtime_config_explicitly_routes_first_gamepad(self):
+        manifest = json.loads((self.installation / "installation.json").read_text())
+        manifest["executables"][0]["path"] = "SLUS_006.37"
+        text = build_runtime.runtime_config(manifest, self.installation, self.root / "generated")
+        controller = text.split("[controller]\n", 1)[1]
+        self.assertIn('p1_device = "auto"', controller)
+        self.assertIn('p2_device = "none"', controller)
+        self.assertIn('default_mode = "digital"', controller)
+
+    def test_play_environment_disables_frame_history_without_changing_parent(self):
+        with patch.dict(run_runtime.os.environ, {"PSX_DISPLAY_RING": "1"}):
+            env = run_runtime.runtime_environment(self.root)
+            self.assertEqual(env["PSX_DISPLAY_RING"], "0")
+            self.assertEqual(env["PSX_OVERLAY_AUTOCOMPILE_OFF"], "1")
+            self.assertEqual(Path(env["PSX_OVERLAY_CAPTURES"]), self.root / "overlay_captures.json")
+            self.assertEqual(run_runtime.os.environ["PSX_DISPLAY_RING"], "1")
+            self.assertEqual(run_runtime.runtime_environment(self.root, True)["PSX_DISPLAY_RING"], "1")
+            self.assertEqual(run_runtime.runtime_environment(self.root, show_fps=True)["PSX_FPS_TELEMETRY"], "1")
 
 
 if __name__ == "__main__":
