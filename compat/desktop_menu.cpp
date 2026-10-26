@@ -179,7 +179,8 @@ void passive_window(DesktopMenu &m, const char *title, bool audio)
         if (stats.audio_active) {
             ImGui::Text("Output: %d Hz (%s)", stats.host_rate, stats.legacy ? "queue" : "clock bridge");
             ImGui::Text("Buffer: %.1f ms | target %.1f ms", stats.fill_ms, stats.target_ms);
-            ImGui::Text("Underruns: %llu | overflow drops: %llu",
+            ImGui::Text("%s: %llu | overflow frames: %llu",
+                stats.legacy ? "Empty queue events" : "Underflow samples",
                 (unsigned long long)stats.underruns, (unsigned long long)stats.overflow_drops);
         } else ImGui::TextUnformatted("Audio output initializing.");
         ImGui::TextUnformatted("Independent output callback; guest-timed SPU/CD.");

@@ -13,10 +13,20 @@ static const char *nitrogen_base_window_title(SDL_Window *window)
 #define SDL_GetWindowTitle nitrogen_base_window_title
 // Observe the existing host drain, preserving the guest DSP's sole owner.
 #define spu_output_pop nitrogen_runtime_spu_output_pop
+#define debug_server_shutdown nitrogen_runtime_shutdown
 #include NITROGEN_FRAMEWORK_MAIN
 #undef spu_output_pop
+#undef debug_server_shutdown
 #undef SDL_GetWindowTitle
 extern "C" uint32_t spu_output_pop(int16_t *, uint32_t);
+extern "C" void debug_server_shutdown(void);
+// The pinned main reaches this last step of every normal shutdown, including
+// window-close paths that call exit(). Join GL before global UI mutexes die.
+extern "C" void nitrogen_runtime_shutdown(void)
+{
+    gl_renderer_render_thread_stop();
+    debug_server_shutdown();
+}
 namespace {
 std::mutex runtime_status_mutex;
 NitrogenRuntimeStatus runtime_status_snapshot{};
