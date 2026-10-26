@@ -45,7 +45,9 @@ def load_installation(installation: Path) -> dict:
     return current
 
 
-def runtime_config(manifest: dict, installation: Path, generated: Path) -> str:
+def runtime_config(manifest: dict, installation: Path, generated: Path, controller_mode: str = "analog") -> str:
+    if controller_mode not in ("analog", "digital"):
+        raise ValueError("Controller mode must be analog or digital")
     boot = next(e for e in manifest["executables"] if e["path"] == "SLUS_006.37")
     q = lambda value: json.dumps(str(value))
     return (
@@ -60,7 +62,7 @@ def runtime_config(manifest: dict, installation: Path, generated: Path) -> str:
         'memcard_dir = "saves"\noverlay_cache = true\n'
         '\n[video]\nrenderer = "opengl"\naspect_ratio = "4:3"\n'
         'internal_resolution = "native"\nsupersampling = 1\ndynamic_resolution = false\n'
-        '\n[controller]\ndefault_mode = "digital"\np1_device = "auto"\np2_device = "none"\n'
+        f'\n[controller]\ndefault_mode = "{controller_mode}"\np1_device = "auto"\np2_device = "none"\n'
     )
 
 
@@ -75,6 +77,8 @@ def main() -> int:
     p.add_argument("--configure-only", action="store_true")
     p.add_argument("--diagnostics", action="store_true",
                    help="Enable the slower per-instruction instrumentation and TCP status probe")
+    p.add_argument("--controller-mode", choices=["analog", "digital"], default="analog",
+                   help="PS1 controller type presented to the game (default: analog DualShock)")
     p.add_argument("--cmake-arg", action="append", default=[], help="Additional configure argument, e.g. --cmake-arg=-DNAME=VALUE")
     args = p.parse_args()
     try:
@@ -110,7 +114,7 @@ def main() -> int:
                 raise RuntimeError("Incomplete cached generation; use a new --work-dir")
         generated = generated_root / "SLUS_006.37"
         work.mkdir(parents=True, exist_ok=True)
-        (work / "game.toml").write_text(runtime_config(manifest, installation, generated), encoding="utf-8")
+        (work / "game.toml").write_text(runtime_config(manifest, installation, generated, args.controller_mode), encoding="utf-8")
         build_dir = work / "build"
         command = [args.cmake, "-S", str(ROOT), "-B", str(build_dir),
                    f"-DPSXRECOMP_ROOT={framework}", f"-DNITROGEN_GENERATED_DIR={generated}",

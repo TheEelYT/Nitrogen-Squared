@@ -90,8 +90,13 @@ endfunction()
                 self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
                 cache = (build / "CMakeCache.txt").read_text()
                 self.assertIn("CMAKE_CONFIGURATION_TYPES:STRING=", cache)
+                self.assertIn("PSX_GL_BATCH_IMPL:STRING=HLE", cache)
                 for rel in ("psx_game_version.txt", "Debug/psx_game_version.txt", "Release/psx_game_version.txt"):
                     self.assertEqual((build / rel).read_text().strip(), expected)
+            for profile, expected_batch in (("REFERENCE", "LLE"), ("ENHANCED", "HLE")):
+                result = subprocess.run(cmd + [f"-DPSX_EXECUTION_PROFILE={profile}"], capture_output=True, text=True)
+                self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+                self.assertIn(f"PSX_GL_BATCH_IMPL:STRING={expected_batch}", (build / "CMakeCache.txt").read_text())
             result = subprocess.run(["cmake", "--build", str(build), "--config", "Release", "--target", "nitrogen-runtime"],
                                     capture_output=True, text=True)
             self.assertEqual(result.returncode, 0, result.stdout + result.stderr)

@@ -75,12 +75,21 @@ int main()
     update_virtual_input();
     require_input((pad_buttons_for(player, 1, false) & PAD_RIGHT) == 0, "fold left stick into digital movement");
     require_input((pad_buttons_for(player, 1, true) & PAD_RIGHT) != 0, "suppress stick fold when requested");
+    sio_init();
+    player.mode = PSXRecompV4::PAD_MODE_ANALOG;
+    refresh_player_devices();
+    require_input(sio_get_pad_analog(0) == SIO_PAD_DUALSHOCK, "present an analog DualShock to the guest");
+    PsxNetPad sample{};
+    require_input(capture_pad_slot(0, &sample, false) != 0, "capture routed analog input");
+    require_input(sample.connected && sample.analog == SIO_PAD_DUALSHOCK, "retain analog pad identity in sample");
+    require_input(sample.lx >= 250 && sample.ly == 128, "report left stick as analog axes");
+    require_input((sample.buttons & PAD_RIGHT) != 0, "analog movement does not press digital right");
     require_input(SDL_DetachVirtualJoystick(id), "unplug virtual gamepad");
     update_virtual_input();
     require_input(!SDL_GameControllerGetAttached(player.handle), "observe unplugged gamepad");
     close_player(player);
     require_input(pad_sources_for(player, false).keybinds, "retain keyboard source after unplug");
     SDL_Quit();
-    std::puts("Runtime input smoke passed: auto routing, ten buttons, digital stick, unplug, keyboard source");
+    std::puts("Runtime input smoke passed: auto routing, ten buttons, digital stick, analog DualShock sample, unplug, keyboard source");
     return 0;
 }

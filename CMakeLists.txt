@@ -33,6 +33,13 @@ set(PSXRECOMP_BIOS_STEMS OpenBIOS CACHE STRING "OpenBIOS only" FORCE)
 set(PSXRECOMP_REQUIRE_GAME_C ON CACHE BOOL "Never produce an empty setup runtime" FORCE)
 option(NITROGEN_DIAGNOSTICS "Enable expensive per-instruction diagnostics and the TCP probe" OFF)
 set(PSX_DEBUG_TOOLS ${NITROGEN_DIAGNOSTICS} CACHE BOOL "Development diagnostics" FORCE)
+set(PSX_EXECUTION_PROFILE "ENHANCED" CACHE STRING "ENHANCED or REFERENCE implementation profile")
+string(TOUPPER "${PSX_EXECUTION_PROFILE}" _nitrogen_profile)
+if(_nitrogen_profile STREQUAL "REFERENCE")
+    set(PSX_GL_BATCH_IMPL "LLE" CACHE STRING "OpenGL batching selected by execution profile" FORCE)
+else()
+    set(PSX_GL_BATCH_IMPL "HLE" CACHE STRING "OpenGL batching selected by execution profile" FORCE)
+endif()
 include("${PSXRECOMP_ROOT}/runtime/runtime.cmake")
 
 psxrecomp_add_game_runtime(nitrogen-runtime
@@ -54,6 +61,24 @@ if(_nitrogen_gpu IN_LIST _nitrogen_sources)
         gpu_write_gp1=nitrogen_framework_gpu_write_gp1)
     target_sources(nitrogen-runtime PRIVATE compat/n2o_gpu_mode.c)
 endif()
+set(_nitrogen_batch_selector "${PSXRECOMP_ROOT}/runtime/src/gl_batch_policy_select.c")
+if(_nitrogen_batch_selector IN_LIST _nitrogen_sources)
+    get_target_property(_nitrogen_sources nitrogen-runtime SOURCES)
+    list(REMOVE_ITEM _nitrogen_sources "${_nitrogen_batch_selector}")
+    set_property(TARGET nitrogen-runtime PROPERTY SOURCES ${_nitrogen_sources})
+    target_include_directories(nitrogen-runtime PRIVATE "${PSXRECOMP_ROOT}/runtime/src")
+    # Select at build time and record the implementation in the framework's
+    # execution identity. REFERENCE keeps the original single-primitive path.
+    psxrecomp_add_implementation(nitrogen-runtime
+        NAME n2o-textured-batching CONTRACT ordered-ps1-texture-blending-v1
+        HLE_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/compat/gl_batch_enhanced.c"
+        LLE_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/compat/gl_batch_reference.c"
+        CONTRACT_FILES
+            "${PSXRECOMP_ROOT}/runtime/src/gl_batch_policy.h"
+            "${PSXRECOMP_ROOT}/runtime/src/gl_batch_policy_hle.c"
+            "${PSXRECOMP_ROOT}/runtime/src/gl_batch_policy_lle.c"
+            "${PSXRECOMP_ROOT}/runtime/src/gpu_gl_renderer.c")
+endif()
 option(NITROGEN_INPUT_SMOKE "Replace guest execution with the original virtual-gamepad test" OFF)
 if(NITROGEN_INPUT_SMOKE)
     get_target_property(_nitrogen_sources nitrogen-runtime SOURCES)
@@ -67,6 +92,12 @@ if(NITROGEN_INPUT_SMOKE)
     set_property(SOURCE tests/runtime_input_smoke.cpp APPEND PROPERTY COMPILE_DEFINITIONS
         NITROGEN_RUNTIME_MAIN="${_nitrogen_main}")
     set_target_properties(nitrogen-runtime PROPERTIES OUTPUT_NAME "NitrogenSquared-input-test")
+    if(MSVC)
+        get_target_property(_nitrogen_link_options nitrogen-runtime LINK_OPTIONS)
+        list(FILTER _nitrogen_link_options EXCLUDE REGEX "/SUBSYSTEM:WINDOWS")
+        set_property(TARGET nitrogen-runtime PROPERTY LINK_OPTIONS ${_nitrogen_link_options})
+        target_link_options(nitrogen-runtime PRIVATE /SUBSYSTEM:CONSOLE)
+    endif()
 endif()
 if(MSVC)
     # The legacy C++17 lambda processor misclassifies local constexpr values

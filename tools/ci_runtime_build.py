@@ -7,6 +7,7 @@ N2O behavior, disc access, assets or audio. It is not a player import bypass.
 from __future__ import annotations
 import argparse
 import json
+import os
 from pathlib import Path
 import struct
 import subprocess
@@ -55,10 +56,13 @@ def main():
         f'bios_config = {q(framework / "bios/OpenBIOS.toml")}\nstrict = true\ndiscovery = "reachable"\n',
         encoding="utf-8")
     subprocess.run([str(game), "--config", str(config), "--project-root", str(framework)], check=True)
-    subprocess.run(["cmake", "-S", str(ROOT), "-B", str(work / "build"),
+    configure = ["cmake", "-S", str(ROOT), "-B", str(work / "build"),
                     f"-DPSXRECOMP_ROOT={framework}", f"-DNITROGEN_GENERATED_DIR={generated}",
                     "-DCMAKE_BUILD_TYPE=Release", "-DBUILD_TESTING=OFF", "-DNITROGEN_INPUT_SMOKE=OFF",
-                    "-DNITROGEN_DIAGNOSTICS=OFF"], check=True)
+                    "-DNITROGEN_DIAGNOSTICS=OFF", "-DPSX_EXECUTION_PROFILE=ENHANCED"]
+    if os.name != "nt":
+        configure.append("-DSDL_UNIX_CONSOLE_BUILD=ON")
+    subprocess.run(configure, check=True)
     subprocess.run(["cmake", "--build", str(work / "build"), "--config", "Release",
                     "--target", "nitrogen-runtime", "--parallel", "2"], check=True)
     print(f"Real runtime linked with original synthetic input: {find_binary(work / 'build', 'NitrogenSquared-dev')}")
@@ -68,8 +72,27 @@ def main():
                     "-DNITROGEN_INPUT_SMOKE=ON"], check=True)
     subprocess.run(["cmake", "--build", str(work / "build"), "--config", "Release",
                     "--target", "nitrogen-runtime", "--parallel", "2"], check=True)
-    subprocess.run([str(find_binary(work / "build", "NitrogenSquared-input-test"))],
-                   check=True, timeout=15)
+    result = subprocess.run([str(find_binary(work / "build", "NitrogenSquared-input-test"))],
+                            check=True, timeout=15, capture_output=True, text=True)
+    if "Runtime input smoke passed:" not in result.stdout:
+        raise RuntimeError("Virtual input test exited without its success receipt: " + result.stdout + result.stderr)
+    print(result.stdout, end="", flush=True)
+    if os.name != "nt":
+        subprocess.run(["python", str(ROOT / "tools/check_renderer.py"),
+                        "--framework", str(framework), "--runtime-build", str(work / "build"),
+                        "--output", str(work / "renderer-check")], check=True)
+        enhanced = json.loads(Path(str(find_binary(work / "build", "NitrogenSquared-input-test")) + ".execution.json").read_text())
+        subprocess.run(["cmake", "-S", str(ROOT), "-B", str(work / "build"),
+                        "-DPSX_EXECUTION_PROFILE=REFERENCE"], check=True)
+        subprocess.run(["cmake", "--build", str(work / "build"), "--config", "Release",
+                        "--target", "nitrogen-runtime", "--parallel", "2"], check=True)
+        reference_binary = find_binary(work / "build", "NitrogenSquared-input-test")
+        reference = json.loads(Path(str(reference_binary) + ".execution.json").read_text())
+        if (enhanced["profile"] != "ENHANCED" or reference["profile"] != "REFERENCE" or
+                enhanced["identity"] == reference["identity"] or
+                not any(x["name"] == "n2o-textured-batching" for x in reference["implementations"])):
+            raise RuntimeError("Renderer profiles did not select distinct implementation identities")
+        subprocess.run([str(reference_binary)], check=True, timeout=15)
 
 
 if __name__ == "__main__":

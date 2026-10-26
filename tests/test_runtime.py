@@ -65,7 +65,11 @@ class RuntimePreparationTests(unittest.TestCase):
         controller = text.split("[controller]\n", 1)[1]
         self.assertIn('p1_device = "auto"', controller)
         self.assertIn('p2_device = "none"', controller)
-        self.assertIn('default_mode = "digital"', controller)
+        self.assertIn('default_mode = "analog"', controller)
+        digital = build_runtime.runtime_config(manifest, self.installation, self.root / "generated", "digital")
+        self.assertIn('default_mode = "digital"', digital)
+        with self.assertRaises(ValueError):
+            build_runtime.runtime_config(manifest, self.installation, self.root / "generated", "invalid")
 
     def test_play_environment_disables_frame_history_without_changing_parent(self):
         with patch.dict(run_runtime.os.environ, {"PSX_DISPLAY_RING": "1"}):

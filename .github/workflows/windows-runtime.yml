@@ -1,4 +1,4 @@
-name: Windows runtime compile
+name: Runtime and renderer checks
 on:
   push:
   pull_request:
@@ -6,13 +6,19 @@ permissions:
   contents: read
 jobs:
   runtime:
-    runs-on: windows-latest
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
+      - name: Offscreen OpenGL prerequisites
+        if: runner.os == 'Linux'
+        run: sudo apt-get update -qq && sudo apt-get install -y libgl-dev libegl-dev libgl1-mesa-dri
       - name: Compile actual runtime with original synthetic input
         run: python tools/ci_runtime_build.py
       # Deliberately no artifact upload: this is a compile check, not a release.
