@@ -49,8 +49,8 @@ static void runtime_status_and_title_smoke()
 #ifdef _WIN32
     SDL_SetHint(SDL_HINT_VIDEO_DRIVER, "dummy");
 #endif
-    require_input(SDL_InitSubSystem(SDL_INIT_VIDEO), "initialize hidden title fixture");
-    SDL_Window *window = SDL_CreateWindow("Original title fixture", 320, 240, SDL_WINDOW_HIDDEN);
+    require_input(psx_sdl_init_subsystem(SDL_INIT_VIDEO) == 0, "initialize hidden title fixture");
+    SDL_Window *window = psx_sdl_create_window("Original title fixture", 0, 0, 320, 240, SDL_WINDOW_HIDDEN);
     require_input(window != nullptr, "create hidden title fixture");
     SDL_Window *saved_window = sdl_window; sdl_window = window;
     require_input(std::string(nitrogen_base_window_title(window)) == "Original title fixture", "capture original window title");
@@ -62,7 +62,7 @@ static void runtime_status_and_title_smoke()
         require_input(std::string(nitrogen_base_window_title(window)) == "Original title fixture", "menu resume never captures an FPS suffix");
     }
     SDL_DestroyWindow(window);
-    window = SDL_CreateWindow("New session title", 320, 240, SDL_WINDOW_HIDDEN);
+    window = psx_sdl_create_window("New session title", 0, 0, 320, 240, SDL_WINDOW_HIDDEN);
     require_input(window && std::string(nitrogen_base_window_title(window)) == "New session title", "new window gets its own base title");
     SDL_DestroyWindow(window); sdl_window = saved_window;
     SDL_QuitSubSystem(SDL_INIT_VIDEO);
