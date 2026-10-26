@@ -34,50 +34,80 @@ static const uint16_t default_intra_matrix[256] = {
         27, 29, 35, 38, 46, 56, 69, 83
 };
 static const uint16_t vlc_dc_lum_code[12] = {
-    0x4, 0x0, 0x1, 0x5, 0…2940 tokens truncated…                }
-            }
-        }
-    }
-    return pcm;
+    0x4, 0x0, 0x1, 0x5, 0x6, 0xe, 0x1e, 0x3e, 0x7e, 0xfe, 0x1fe, 0x1ff,
+};
+static const unsigned char vlc_dc_lum_bits[12] = {
+    3, 2, 2, 3, 3, 4, 5, 6, 7, 8, 9, 9,
+};
+static const uint16_t vlc_dc_chroma_code[12] = {
+    0x0, 0x1, 0x2, 0x6, 0xe, 0x1e, 0x3e, 0x7e, 0xfe, 0x1fe, 0x3fe, 0x3ff,
+};
+static const unsigned char vlc_dc_chroma_bits[12] = {
+    2, 2, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10,
+};
+static const uint16_t vlc_table[111 + 2][2] = {
+ { 0x3, 2 }, { 0x4, 4 }, { 0x5, 5 }, { 0x6, 7 },
+ { 0x26, 8 }, { 0x21, 8 }, { 0xa, 10 }, { 0x1d, 12 },
+ { 0x18, 12 }, { 0x13, 12 }, { 0x10, 12 }, { 0x1a, 13 },
+ { 0x19, 13 }, { 0x18, 13 }, { 0x17, 13 }, { 0x1f, 14 },
+ { 0x1e, 14 }, { 0x1d, 14 }, { 0x1c, 14 }, { 0x1b, 14 },
+ { 0x1a, 14 }, { 0x19, 14 }, { 0x18, 14 }, { 0x17, 14 },
+ { 0x16, 14 }, { 0x15, 14 }, { 0x14, 14 }, { 0x13, 14 },
+ { 0x12, 14 }, { 0x11, 14 }, { 0x10, 14 }, { 0x18, 15 },
+ { 0x17, 15 }, { 0x16, 15 }, { 0x15, 15 }, { 0x14, 15 },
+ { 0x13, 15 }, { 0x12, 15 }, { 0x11, 15 }, { 0x10, 15 },
+ { 0x3, 3 }, { 0x6, 6 }, { 0x25, 8 }, { 0xc, 10 },
+ { 0x1b, 12 }, { 0x16, 13 }, { 0x15, 13 }, { 0x1f, 15 },
+ { 0x1e, 15 }, { 0x1d, 15 }, { 0x1c, 15 }, { 0x1b, 15 },
+ { 0x1a, 15 }, { 0x19, 15 }, { 0x13, 16 }, { 0x12, 16 },
+ { 0x11, 16 }, { 0x10, 16 }, { 0x5, 4 }, { 0x4, 7 },
+ { 0xb, 10 }, { 0x14, 12 }, { 0x14, 13 }, { 0x7, 5 },
+ { 0x24, 8 }, { 0x1c, 12 }, { 0x13, 13 }, { 0x6, 5 },
+ { 0xf, 10 }, { 0x12, 12 }, { 0x7, 6 }, { 0x9, 10 },
+ { 0x12, 13 }, { 0x5, 6 }, { 0x1e, 12 }, { 0x14, 16 },
+ { 0x4, 6 }, { 0x15, 12 }, { 0x7, 7 }, { 0x11, 12 },
+ { 0x5, 7 }, { 0x11, 13 }, { 0x27, 8 }, { 0x10, 13 },
+ { 0x23, 8 }, { 0x1a, 16 }, { 0x22, 8 }, { 0x19, 16 },
+ { 0x20, 8 }, { 0x18, 16 }, { 0xe, 10 }, { 0x17, 16 },
+ { 0xd, 10 }, { 0x16, 16 }, { 0x8, 10 }, { 0x15, 16 },
+ { 0x1f, 12 }, { 0x1a, 12 }, { 0x19, 12 }, { 0x17, 12 },
+ { 0x16, 12 }, { 0x1f, 13 }, { 0x1e, 13 }, { 0x1d, 13 },
+ { 0x1c, 13 }, { 0x1b, 13 }, { 0x1f, 16 }, { 0x1e, 16 },
+ { 0x1d, 16 }, { 0x1c, 16 }, { 0x1b, 16 },
+ { 0x1, 6 }, /* escape */
+ { 0x2, 2 }, /* EOB */
+};
+static const int8_t level[111] = {
+  1,  2,  3,  4,  5,  6,  7,  8,
+  9, 10, 11, 12, 13, 14, 15, 16,
+ 17, 18, 19, 20, 21, 22, 23, 24,
+ 25, 26, 27, 28, 29, 30, 31, 32,
+ 33, 34, 35, 36, 37, 38, 39, 40,
+  1,  2,  3,  4,  5,  6,  7,  8,
+  9, 10, 11, 12, 13, 14, 15, 16,
+ 17, 18,  1,  2,  3,  4,  5,  1,
+  2,  3,  4,  1,  2,  3,  1,  2,
+  3,  1,  2,  3,  1,  2,  1,  2,
+  1,  2,  1,  2,  1,  2,  1,  2,
+  1,  2,  1,  2,  1,  2,  1,  2,
+  1,  1,  1,  1,  1,  1,  1,  1,
+  1,  1,  1,  1,  1,  1,  1,
+};
+static const int8_t run[111] = {
+  0,  0,  0,  0,  0,  0,  0,  0,
+  0,  0,  0,  0,  0,  0,  0,  0,
+  0,  0,  0,  0,  0,  0,  0,  0,
+  0,  0,  0,  0,  0,  0,  0,  0,
+  0,  0,  0,  0,  0,  0,  0,  0,
+  1,  1,  1,  1,  1,  1,  1,  1,
+  1,  1,  1,  1,  1,  1,  1,  1,
+  1,  1,  2,  2,  2,  2,  2,  3,
+  3,  3,  3,  4,  4,  4,  5,  5,
+  5,  6,  6,  6,  7,  7,  8,  8,
+  9,  9, 10, 10, 11, 11, 12, 12,
+ 13, 13, 14, 14, 15, 15, 16, 16,
+ 17, 18, 19, 20, 21, 22, 23, 24,
+ 25, 26, 27, 28, 29, 30, 31,
+};
 }
-Clip read_clip(const std::string &bin, uint32_t lba, uint32_t sectors, unsigned channel)
-{
-    require(sectors > 0 && sectors <= 150 * 120 && channel < 32, "Invalid native movie extent");
-    std::ifstream input(bin, std::ios::binary); require(input.good(), "Cannot open native movie disc");
-    input.seekg((uint64_t)lba * 2352);
-    Clip clip; XaDecoder xa;
-    Packet pending; std::vector<bool> received; unsigned chunks = 0, completed = 0;
-    std::array<uint8_t,2352> raw{};
-    for (unsigned sector = 0; sector < sectors; ++sector) {
-        input.read((char *)raw.data(), raw.size()); require(input.gcount() == (std::streamsize)raw.size(), "Truncated native movie extent");
-        require(raw[0] == 0 && raw[11] == 0 && raw[15] == 2 && std::memcmp(raw.data()+16,raw.data()+20,4)==0, "Invalid movie sector header");
-        if ((raw[18] & 4) && raw[16] == 1 && raw[17] == channel) {
-            const unsigned rate = raw[19] & 4 ? 18900 : 37800;
-            if (!clip.audio.empty()) require(clip.sample_rate == rate, "XA rate changes inside movie");
-            clip.sample_rate = rate; auto samples = xa.decode(raw.data(), raw.size());
-            const size_t start = (uint64_t)sector * rate / 150;
-            if (clip.audio.size() / 2 < start) clip.audio.resize(start * 2, 0);
-            clip.audio.insert(clip.audio.end(), samples.begin(), samples.end());
-        }
-        if (u32(raw.data()+24) != 0x80010160u) continue;
-        const unsigned chunk = u16(raw.data()+28), count = u16(raw.data()+30);
-        const unsigned number = u32(raw.data()+32), size = u32(raw.data()+36);
-        const unsigned width = u16(raw.data()+40), height = u16(raw.data()+42);
-        require(count > 0 && count <= 512 && chunk < count && size >= 8 && size <= count * 2016 && size <= 1024*1024, "Invalid STR chunk bounds");
-        require(width && width <= 640 && height && height <= 480, "Invalid STR frame dimensions");
-        if (received.empty()) {
-            pending = Packet{}; pending.number = number; pending.width = width; pending.height = height;
-            pending.bytes.resize(size); received.assign(count, false); chunks = count; completed = 0;
-        }
-        require(number == pending.number && width == pending.width && height == pending.height && size == pending.bytes.size() && count == chunks && !received[chunk], "Inconsistent or repeated STR chunk");
-        const size_t offset = (size_t)chunk * 2016;
-        // Some authored ending packets include padding-only chunks.
-        if (offset < size) std::memcpy(pending.bytes.data()+offset, raw.data()+56, std::min<size_t>(2016,size-offset));
-        received[chunk] = true; completed++; pending.end_sector = sector;
-        if (completed == chunks) { clip.video.push_back(std::move(pending)); received.clear(); }
-    }
-    require(received.empty() && !clip.video.empty() && !clip.audio.empty(), "Incomplete native movie stream");
-    clip.duration = std::max(clip.video.back().pts() + 1.0/150, clip.audio.size() / (2.0 * clip.sample_rate));
-    return clip;
-}
-}
+
