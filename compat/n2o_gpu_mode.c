@@ -18,7 +18,8 @@ void gpu_write_gp1(uint32_t value)
         gpu_display_is_depth24() && (value & 0x10u) == 0u;
     nitrogen_framework_gpu_write_gp1(value);
     int publishing_title = 0;
-    if (native_movie_completed && ((value >> 24) & 0x3fu) == 8u && !gpu_display_is_depth24()) {
+    const unsigned command = (value >> 24) & 0x3fu;
+    if (native_movie_completed && (command == 3 || (command >= 5 && command <= 8)) && !gpu_display_is_depth24()) {
         GpuDisplayInfo display;
         gpu_get_display_info(&display);
         if (display.width == 640 && display.height > 240) { native_movie_completed = 0; publishing_title = 1; }

@@ -77,7 +77,7 @@ int main(void) {
     gpu_write_gp1(0x08000027);
     CHECK(stages == 1);
     width = 640; height = 476; cpu_pixel = 5678;
-    gpu_write_gp1(0x08000027);
+    gpu_write_gp1(0x07040212); /* vertical range may be written after mode */
     CHECK(stages == 2 && invalidations == 2 && fbo_pixel == 5678);
     gpu_write_gp1(0x08000027);
     CHECK(stages == 2);
