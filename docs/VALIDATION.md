@@ -188,3 +188,48 @@ The pad status reported connected analog type 1. The entry logo/transition still
 adds rendering work on the instrumented llvmpipe host; this check establishes
 progress with the enhanced renderer and analog protocol, not sustained 60 FPS
 during that transition or physical-controller acceptance.
+
+## 0.0.7 desktop menu and coverage reporting
+
+The user verified 0.0.6: analog input works, gameplay is consistently 60 FPS,
+and only the intro cutscenes retain small drops of about 2–3 FPS. This replaces
+the earlier pending Windows acceptance for menu/gameplay speed and analog input.
+
+The new frontend implements the framework's existing menu-provider contract.
+Dear ImGui and its SDL3/OpenGL backends are pinned and fetched privately. A
+build-local copy of the pinned presenter changes only the letterbox helper to
+reserve the persistent menu strip. The source checkout stays clean; framebuffer
+dimensions and aspect ratio remain intact. Autohide uses a transient overlay.
+Settings/dropdowns use the host's existing pause and input-capture policy.
+Fullscreen and restart/quit requests use the host interface; volume changes are
+posted to the main event thread. No Mods tab or unimplemented media controls are
+shown. The software renderer retains its diagnostic role without this frontend.
+
+The native SDL/OpenGL smoke test renders an original colored canvas and the real
+menu, checks pixels above/below the strip, verifies the 4:3 inset, opens System by
+mouse, tests F1/F11, captures gamepad input in Settings, preserves Quit events,
+checks Escape/resume, and detaches/reattaches the provider. The development-host
+test passed. An actual N2O fresh boot also logged the attached desktop provider
+and reached guest frame 4800. The menu-enabled normal build ran frames 4500–4800
+of the attract sequence in 5.120 seconds (58.6 FPS) on Mesa llvmpipe with dummy
+audio. This is not a main-menu benchmark or physical Windows audio/UI acceptance.
+
+All 30 synthetic source tests passed locally and on Windows/Linux CI. The public
+source package audit passed with 44 reviewed text files and no game payloads.
+The new native-progress command reproduced 17,908 linked native range bytes over
+845,824 original executable payload bytes: 2.1172%. See
+[the metric definition](NATIVE_PROGRESS.md); it does not count host code, BIOS or
+analysis-only translations and is not an overall completion estimate.
+
+Native music, effects and movies are not enabled in this update. Disc inspection
+identified standard STR video packets and interleaved XA audio in all five movie
+extents, including files named .SXA. That is a concrete starting point for a
+native synchronized cutscene player; skip/stop/return-to-game behavior still needs
+title-specific qualification.
+
+The complete runtime compiled and linked on Windows and Linux in
+[run 40256098996](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/40256098996).
+Windows passed the real virtual-gamepad test. Linux passed both the real menu
+and input tests in ENHANCED and REFERENCE builds, plus all 671 renderer
+equivalence checks. Physical Windows menu, fullscreen, reset and real audio
+behavior remain the player checks listed in TESTING.md.

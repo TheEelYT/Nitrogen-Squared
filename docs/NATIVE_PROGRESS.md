@@ -50,3 +50,10 @@ CD music alone would not replace intro audio. Native movies should own synchroni
 audio/video playback on one media timeline, with verified play, skip, stop and
 return-to-game behavior. All media must continue to come from the user's verified
 disc; no movie, sound bank, decoded cache or generated game code may ship publicly.
+
+Direct packet inspection identified standard STR video headers in `CRYSTAL.SXA`,
+`FOX.SXA`, `N2O.STR`, `N2O.SXA` and `N2OEND.SXA`. Most frames are 320x240;
+`N2O.STR` uses 320x192. Small 16x16 frames and noncontinuous frame numbers also
+occur, so native playback must handle those cases and qualify each clip's ending
+rather than infer playback rules from its filename extension. No decoded media
+was added to the repository.
