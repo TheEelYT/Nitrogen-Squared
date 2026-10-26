@@ -36,10 +36,11 @@ extern "C" uint32_t nitrogen_runtime_spu_output_pop(int16_t *out, uint32_t count
     double correction = 0;
     // The callback mutates bridge stats under this same device lock. UI
     // drawing must never read the bridge or a device being torn down.
-    if (sdl_audio_device) psx_sdl_audio_lock(sdl_audio_device);
+    const bool lock_bridge = sdl_audio_device && !audio_legacy_mode();
+    if (lock_bridge) psx_sdl_audio_lock(sdl_audio_device);
     status.audio_active = psx_audio_out_stats(&status.fill_ms, &status.target_ms,
         &status.underruns, &status.overflow_drops, &correction, &status.legacy, &status.host_rate);
-    if (sdl_audio_device) psx_sdl_audio_unlock(sdl_audio_device);
+    if (lock_bridge) psx_sdl_audio_unlock(sdl_audio_device);
     RtStats render{};
     rt_get_stats(&render); // Emulation-thread API; no context hand-off.
     status.worker_active = render.running;
