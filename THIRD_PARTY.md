@@ -27,3 +27,20 @@ The menu uses an installed host font when available, with ImGui's bundled defaul
 as fallback; no host font file, game artwork or game font is included. The
 source package includes our integration and the dependency pin, not a vendored
 copy. Any future binary distribution must include Dear ImGui's license notice.
+
+## Native movie decoder tables
+
+`native/mpeg_tables.h` adapts MPEG-1 VLC, DC, run/level and quantization tables
+from [FFmpeg n7.1 libavcodec/mpeg12data.c](https://github.com/FFmpeg/FFmpeg/blob/n7.1/libavcodec/mpeg12data.c).
+Copyright (c) 2000, 2001 Fabrice Bellard; (c) 2002-2004 Michael Niedermayer.
+These tables retain **LGPL 2.1-or-later** terms. The full license is included in
+[third_party/COPYING.LGPLv2.1](third_party/COPYING.LGPLv2.1). This project's MIT
+license does not relicense those tables. Their preferred modifiable source is
+included in the source package with attribution.
+
+The sector assembler, bit reader, XA decoder and player are original integration
+code. The isolated MDEC DSP includes the pinned framework implementation privately
+at build time, under its separate terms. No FFmpeg executable or library is needed
+at runtime. Future binary distribution must satisfy applicable LGPL notice,
+source/relinking requirements and the framework license. This project currently
+distributes source only.

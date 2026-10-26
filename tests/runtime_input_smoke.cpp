@@ -12,6 +12,10 @@
 void nitrogen_menu_smoke();
 #endif
 
+#if defined(NITROGEN_MEDIA_SMOKE)
+void nitrogen_media_smoke();
+#endif
+
 static void require_input(bool condition, const char *message)
 {
     if (!condition) {
@@ -95,6 +99,9 @@ int main()
     require_input(pad_sources_for(player, false).keybinds, "retain keyboard source after unplug");
     #if defined(NITROGEN_MENU_SMOKE)
     nitrogen_menu_smoke();
+    #endif
+    #if defined(NITROGEN_MEDIA_SMOKE)
+    nitrogen_media_smoke();
     #endif
     SDL_Quit();
     std::puts("Runtime input smoke passed: auto routing, ten buttons, digital stick, analog DualShock sample, unplug, keyboard source");

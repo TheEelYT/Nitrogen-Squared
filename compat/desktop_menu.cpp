@@ -3,6 +3,7 @@
 #include "psx_menu_host.h"
 #include "host_osd.h"
 #include "audio_trace.h"
+#include "../native/movie_player.h"
 #include <SDL3/SDL.h>
 #include "imgui.h"
 #include "imgui_impl_sdl3.h"
@@ -168,9 +169,16 @@ void passive_window(DesktopMenu &m, const char *title, bool audio)
     if (audio) {
         AudioTraceStats stats{};
         audio_trace_get_stats(&stats);
+        if (nitrogen_media_is_active()) {
+            double seconds; uint64_t samples; nitrogen_media_get_stats(&seconds, &samples);
+            ImGui::Text("Native media: %.2f seconds", seconds);
+            ImGui::Text("Audio submitted: %llu samples", (unsigned long long)samples);
+            ImGui::TextUnformatted("Independent audio; video follows media clock.");
+        } else {
         ImGui::Text("SPU production: %.0f samples/s", m.sample_rate);
         ImGui::Text("Output underruns: %llu", (unsigned long long)stats.underruns);
-        ImGui::TextUnformatted("Guest-timed audio; native playback is not enabled.");
+        ImGui::TextUnformatted("Gameplay audio: guest-timed SPU/CD.");
+        }
     } else {
         ImGui::Text("Display: %.1f FPS", ImGui::GetIO().Framerate);
         ImGui::TextUnformatted("Game speed: use the title-bar readout (--show-fps).");

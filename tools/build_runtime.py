@@ -15,6 +15,7 @@ import subprocess
 
 from build_recompiler import FRAMEWORK_REV, build, verify_framework
 from generate import generate
+from prepare_media import prepare_media
 from n2o_disc import ROOT, DiscError, default_data_dir, digest, inspect
 
 
@@ -115,9 +116,11 @@ def main() -> int:
         generated = generated_root / "SLUS_006.37"
         work.mkdir(parents=True, exist_ok=True)
         (work / "game.toml").write_text(runtime_config(manifest, installation, generated, args.controller_mode), encoding="utf-8")
+        media_header = prepare_media(manifest, installation, work / "private/n2o_media_binding.h")
         build_dir = work / "build"
         command = [args.cmake, "-S", str(ROOT), "-B", str(build_dir),
                    f"-DPSXRECOMP_ROOT={framework}", f"-DNITROGEN_GENERATED_DIR={generated}",
+                   f"-DNITROGEN_MEDIA_BINDING={media_header}",
                    "-DCMAKE_BUILD_TYPE=Release", "-DBUILD_TESTING=OFF", "-DNITROGEN_INPUT_SMOKE=OFF",
                    f"-DNITROGEN_DIAGNOSTICS={'ON' if args.diagnostics else 'OFF'}"]
         if args.console_host:

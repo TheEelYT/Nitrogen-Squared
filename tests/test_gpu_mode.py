@@ -15,6 +15,9 @@ class GpuModeTests(unittest.TestCase):
             root = Path(tmp)
             (root / "gpu.h").write_text('''
 #include <stdint.h>
+typedef struct { unsigned width, height; } GpuDisplayInfo;
+void gpu_get_display_info(GpuDisplayInfo*);
+void nitrogen_gpu_native_movie_complete(void);
 int gpu_display_is_depth24(void);
 void gpu_write_gp1(uint32_t);
 ''')
@@ -33,6 +36,8 @@ void gl_renderer_invalidate_present(void);
 #include <stdlib.h>
 #define CHECK(c) do { if (!(c)) { fprintf(stderr, "Failed at line %d\\n", __LINE__); exit(1); } } while (0)
 static int depth, mode_calls, stages, invalidations, cpu_pixel, fbo_pixel;
+static unsigned width = 320, height = 240;
+void gpu_get_display_info(GpuDisplayInfo* out) { out->width = width; out->height = height; }
 static GrBackend backend = GR_BACKEND_OPENGL;
 static uint32_t last_value;
 int gpu_display_is_depth24(void) { return depth; }
@@ -67,6 +72,15 @@ int main(void) {
     gpu_write_gp1(0x08000011);
     gpu_write_gp1(0x08000027);
     CHECK(stages == 1 && invalidations == 1 && mode_calls == 8);
+    backend = GR_BACKEND_OPENGL;
+    nitrogen_gpu_native_movie_complete();
+    gpu_write_gp1(0x08000027);
+    CHECK(stages == 1);
+    width = 640; height = 476; cpu_pixel = 5678;
+    gpu_write_gp1(0x08000027);
+    CHECK(stages == 2 && invalidations == 2 && fbo_pixel == 5678);
+    gpu_write_gp1(0x08000027);
+    CHECK(stages == 2);
     return 0;
 }
 ''')

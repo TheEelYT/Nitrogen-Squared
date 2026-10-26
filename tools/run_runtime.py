@@ -54,6 +54,7 @@ def main():
         if args.display_ring and record.get("diagnostics_enabled") is False:
             raise ValueError("--display-ring requires a build made with build_runtime.py --diagnostics")
         env = runtime_environment(work, args.display_ring, args.show_fps)
+        env["NITROGEN_NATIVE_DISC_BIN"] = current["bin"]
         with (work / "runtime.log").open("w", encoding="utf-8") as log:
             proc = subprocess.Popen(command, cwd=work, env=env, stdout=log, stderr=subprocess.STDOUT)
             print(f"Runtime started (PID {proc.pid}). Log: {work / 'runtime.log'}", flush=True)

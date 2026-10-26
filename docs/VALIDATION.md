@@ -233,3 +233,35 @@ Windows passed the real virtual-gamepad test. Linux passed both the real menu
 and input tests in ENHANCED and REFERENCE builds, plus all 671 renderer
 equivalence checks. Physical Windows menu, fullscreen, reset and real audio
 behavior remain the player checks listed in TESTING.md.
+
+## 0.0.8 native opening movies — in qualification
+
+The user verified the 0.0.7 menu and keybinds on Windows. Native movie work is
+being qualified on a separate development branch before main is updated.
+
+The new host service replaces the guarded inner movie loop at NEW.EXE
+0x80022350–0x80022688, with the original setup/teardown caller retained. The
+verified import generates the instruction guard/body hash and ISO extents into a
+private build header. Unsupported overlay identities, netplay, software display,
+the ending and separate .STR route retain original playback. Native routes are
+FOX, N2O and CRYSTAL, in the original opening order. No commercial instructions,
+media, decoded caches or linked executables are part of the source package.
+
+A bounded STR assembler handles v2/v3 bitstreams, padding-only tail chunks and
+noncontinuous frame IDs. Sector position provides timestamps at the title's
+2x CD cadence. An isolated framework MDEC DSP instance decodes on a video worker
+with a three-frame queue. XA audio is decoded before playback into immutable
+stereo PCM. An independent SDL callback consumes it; the audio timeline schedules
+video. Slow presentation can drop video frames without starving that audio.
+Menu pause, volume, skip, device events and quit/reset requests use the host
+interfaces. The guest clocks are frozen during native playback. Live guest
+snapshots during a native clip are not supported.
+
+Before the environment interruption, private Linux tests decoded all four SXA
+extents without errors. FOX stereo PCM matched FFmpeg n7.1 sample for sample after
+accounting for 756 initial silence frames retained by native sector timing. A
+selected FOX RGB frame differed by 0.209 levels on average, maximum 5, across
+8-bit RGB channels. All three native opening routes completed and returned to
+menus and first-level gameplay. Those tests used a dummy audio device; physical
+Windows audio synchronization remains a player acceptance check. The restored
+implementation is being rebuilt and retested, including title presentation.
