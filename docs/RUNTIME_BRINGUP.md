@@ -22,6 +22,14 @@ background overlay compilation. Normal 0.0.5 builds omit per-instruction tracing
 use a separate `--diagnostics` build for `probe_runtime.py`. The probe reports
 allowlisted status fields; it has no RAM-dump or code-capture operation.
 
+Normal 0.0.6 builds select ordered textured batching through the framework's
+`ENHANCED` implementation profile, with a distinct execution identity. For a
+graphics comparison, pass `--cmake-arg=-DPSX_EXECUTION_PROFILE=REFERENCE` to
+`build_runtime.py`; return to the default with
+`--cmake-arg=-DPSX_EXECUTION_PROFILE=ENHANCED`. The reference profile keeps the
+original isolated textured batches. `--controller-mode digital` selects the
+previous digital controller; the default now presents an analog DualShock.
+
 ## Observed on the development host
 
 Linux x86-64, GCC 13.3, SDL3 3.4.10, software rendering, OpenBIOS, no window/audio

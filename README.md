@@ -3,12 +3,13 @@
 A Windows-first recompilation project for **N2O: Nitrous Oxide (PlayStation)**,
 with a planned PS Vita port and optional remaster presentation.
 
-**Current status: 0.0.5, private desktop runtime bring-up.** The development host
+**Current status: 0.0.6, private desktop runtime bring-up.** The development host
 boots the opening videos and reaches the title/attract sequence, ship selection,
 level selection, tutorial screens and the first level. A repeatable local build
 command is included.
-Windows boot is user-confirmed. Playback tuning and controller/title-screen fixes
-are in progress; there is no public game executable or Vita VPK. This is an early
+Windows boot and first-level gameplay are user-confirmed. This update enables
+ordered OpenGL batching for the slow menus and defaults to an analog DualShock.
+Playback tuning continues; there is no public game executable or Vita VPK. This is an early
 hybrid runtime, with native boot/BIOS code and
 interpreter fallback for much of the loaded game code, not a completed recomp.
 
@@ -96,6 +97,8 @@ python tools/package_source.py --output dist/Nitrogen-Squared-source.zip
 Tests use hand-authored synthetic sectors and code, never the commercial disc.
 The source ZIP uses only reviewed text files; `.local/` is never traversed.
 CI runs the tests and packaging audit on Windows and Linux without game data.
+It also links the complete runtime with an original synthetic program, exercises
+virtual gamepad input, and compares the reference/enhanced renderer on Linux.
 
 See [disc findings](docs/DISC_ANALYSIS.md), [roadmap](docs/ROADMAP.md), and
 [validation record](docs/VALIDATION.md). Original code is MIT licensed. Dependencies

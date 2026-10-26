@@ -139,3 +139,52 @@ FPS**. Guest work fell from 5.244 to 4.238 seconds. An earlier 300-frame window
 at 3000–3300 was already paced near 60 FPS in both builds, but guest work fell
 from 3.342 to 2.407 seconds (about 28%). These are local timing results, not a
 Windows hardware/audio acceptance result or a native-code coverage percentage.
+
+## 0.0.6 main-menu batching and analog input — 2026-10-26
+
+The user reports opening videos at roughly 55–60 FPS, functional Xbox input,
+and smooth 60 FPS gameplay after the entering-game text disappears. The actual
+swirling main menu remains slow (the supplied screenshot shows 26 guest FPS),
+level entry runs around 40–48 FPS, and the game identifies the pad as digital.
+The 0.0.5 attract-sequence benchmark above did not exercise this main menu.
+
+A new private main-menu trace measured 3,218 primitives and about 2,837 OpenGL
+batches per frame. Graphics accounted for roughly 71% of instrumented wall time.
+The pinned renderer already provides an ordered dual-source batching implementation;
+this update selects it through an original implementation-family wrapper instead
+of modifying the pinned checkout. Mask-check and subtractive operations retain
+the reference path. `REFERENCE` and `ENHANCED` builds record distinct execution
+identities, and switching profiles refreshes the existing cache.
+
+With otherwise identical native-resolution, diagnostic builds on Linux/Mesa
+llvmpipe, batches fell to 218 per frame. Average CPU textured-flush time fell
+from 37.724 to 6.983 ms, and average total frame time from 56.867 to 26.319 ms.
+These are instrumented development-host samples at different animation frames,
+not a Windows performance guarantee. Fresh boots with the same frame-scheduled
+Cross input also captured guest frame 4200: both 364x238 main-menu images were
+pixel-identical (zero changed pixels). Commercial images and captures remain private.
+
+The upstream original renderer fixture passed 331 checks at native resolution
+and 340 at 4x, comparing LLE/HLE output for overlapping blend modes, masking,
+texturing, filtering and feedback. Linux CI repeats these checks without game
+data and compiles/runs both execution profiles. The 27 synthetic source tests
+also passed locally and in Windows/Linux CI; the source package contains 37
+reviewed text files.
+
+The previous generated configuration explicitly selected a digital controller.
+The default is now analog DualShock, with `--controller-mode digital` as an
+explicit comparison option. The runtime's virtual-gamepad smoke test now checks
+the guest-facing DualShock identity and analog-axis sample, including that moving
+the stick does not also press the digital Right button. The complete runtime
+compiled and linked on Windows and Linux in
+[run 40251120659](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/40251120659).
+Both platforms printed the analog smoke-test success receipt; Linux also passed
+the test in the reference profile. Physical Xbox behavior, real audio playback,
+and the level-entry frame rate still need Windows acceptance testing.
+
+A private fresh boot with injected DualShock protocol input also advanced through
+the main menu and level selection into the first level and tutorial prompts.
+The pad status reported connected analog type 1. The entry logo/transition still
+adds rendering work on the instrumented llvmpipe host; this check establishes
+progress with the enhanced renderer and analog protocol, not sustained 60 FPS
+during that transition or physical-controller acceptance.

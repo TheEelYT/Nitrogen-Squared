@@ -1,4 +1,4 @@
-# Windows development test — 0.0.5
+# Windows development test — 0.0.6
 
 The disc import already created `%LOCALAPPDATA%\NitrogenSquared\SLUS-00637`.
 Leave that folder and your original CUE/BIN in place. You do not need to reimport.
@@ -41,6 +41,15 @@ replace the older instrumented executable and refresh the controller defaults.
 The baseline explicitly uses native internal resolution; HD enhancements remain
 future work.
 
+Version 0.0.6 enables the pinned renderer's ordered textured batching. The animated
+main menu previously submitted almost one OpenGL batch per primitive. The enhanced
+path combines compatible work while retaining draw order and the reference path
+for mask checks and subtractive blending. The same build command replaces the
+cached renderer selection. It also refreshes the controller configuration to
+analog DualShock mode, so the game can recognize analog support. No reimport is
+needed. To compare the old digital pad deliberately, rebuild with
+`python tools/build_runtime.py --controller-mode digital`.
+
 The OpenBIOS emitter currently prints cross-function-target warnings. The same
 warnings appeared in the development-host run that reached the first level;
 they do not themselves indicate that CMake configuration or compilation failed.
@@ -68,8 +77,11 @@ writes output to `.local/runtime-dev/runtime.log`. Test these in order:
 1. Opening videos display and advance to the title screen. Check their audio.
 2. The attract demo animates and displays the prompt to start.
 3. With an Xbox controller connected, press **A** (PlayStation Cross) to enter the menus.
-4. Navigate ship/level selection with the D-pad or left stick; use **A** to confirm.
+4. Check that the game recognizes an analog controller. Navigate ship/level selection
+   with the D-pad or left stick; use **A** to confirm. Stick movement is now sent as
+   analog axes rather than converted into D-pad presses; menu behavior follows the game.
 5. Continue through the tutorial prompts and try movement/firing in the first level.
+   Record speed both while **entering game** is displayed and after it disappears.
 6. Close the window and confirm the command returns to PowerShell.
 
 Other default keyboard buttons: **S** = Circle, **Z** = Square, **A** = Triangle,
@@ -79,7 +91,7 @@ first gamepad, including when no pad is connected. Xbox **B/X/Y** map to
 Circle/Square/Triangle; the Menu button maps to Start. Selection/remapping UI is
 not integrated yet. A successful controller open is recorded in `runtime.log`.
 
-Compare the **Game** speed readout on the attract sequence, swirling menu
+Compare the **Game** speed readout on the opening videos, swirling main menu
 background, and first level. About **1.00x** is the target; record the speed where
 audio breaks up. This counts simulated frames, so a static logo can update the
 window infrequently while the game itself still runs at full speed.
