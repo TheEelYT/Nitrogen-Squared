@@ -121,3 +121,21 @@ The status probe now filters nested audio/pad counters and can measure guest
 frame progress over a bounded interval. Its tests reject commands outside the
 allowlist and omit unrequested response fields. No private game images, generated
 C, captures, snapshots, or linked binaries are part of this update.
+
+The 27 source tests passed locally and in Windows/Linux CI. The full Windows
+runtime compiled and linked, and its virtual-gamepad smoke process exited
+successfully in [run 40248055918](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/40248055918).
+The Linux smoke test also printed its success receipt for auto routing, ten
+buttons, digital stick movement, unplug and keyboard-source availability.
+Composed OpenGL frame captures showed the complete title after the GP1 adapter,
+including the right-hand logo and copyright text.
+
+Private fresh-boot comparisons used Linux x86-64, GCC 13.3 and Mesa llvmpipe
+OpenGL at native internal resolution, with a dummy audio device. Both builds
+disabled display history and used the same disc/configuration and no input.
+In the animated attract background at guest frames 4500–4800, 300 frames took
+6.069 seconds with tracing and 5.061 seconds without it: **49.4 to 59.3 guest
+FPS**. Guest work fell from 5.244 to 4.238 seconds. An earlier 300-frame window
+at 3000–3300 was already paced near 60 FPS in both builds, but guest work fell
+from 3.342 to 2.407 seconds (about 28%). These are local timing results, not a
+Windows hardware/audio acceptance result or a native-code coverage percentage.
