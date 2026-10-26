@@ -372,6 +372,16 @@ do not increase it. Windows worker/menu/audio acceptance remains a player check.
 The final CI attempt initially passed native title/menu/input/media checks but
 failed two analytic fractional-UV samples in the unchanged, standalone pinned
 renderer fixture on Linux. That fixture passed locally and on two preceding
-commits; it does not link the title host bridge or frontend. An isolated retry
-and a fresh full run retain all original assertions. The result is recorded
-below when those checks finish; no renderer assertion is relaxed.
+commits; it does not link the title host bridge or frontend. The isolated Linux retry and a fresh full
+Windows/Linux run subsequently passed with all original assertions retained.
+The cause of the initial failure remains unresolved; it is not hidden by a
+changed tolerance or omitted check.
+
+The complete normal runtime and native fixtures passed on Windows and Linux in
+[run 40308692238](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/40308692238).
+Both platforms passed analog input, independent media, and the exact-drain/title
+regression checks. Linux also passed both execution profiles, queue lifecycle,
+worker pixel equivalence and all 671 batching checks. Source tests and packaging
+passed on both platforms in
+[run 40308692247](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/40308692247).
+No binary artifact was uploaded.
