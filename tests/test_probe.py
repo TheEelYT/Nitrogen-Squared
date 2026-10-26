@@ -14,6 +14,13 @@ class ProbeTests(unittest.TestCase):
         self.assertEqual(report, {"pump_calls": 50, "underruns": 3,
                                   "out": {"active": 1, "fill_ms": 40.5, "underruns": 2}})
 
+    def test_render_worker_report_keeps_counters_without_capture_data(self):
+        reply = {"active": 1, "max_frames": 1, "frames_produced": 123, "frames_consumed": 122,
+                 "backpressure_ms": 2.5, "capture": "private", "recent_acquires": ["omitted"]}
+        self.assertEqual(probe_runtime.select_fields(reply, probe_runtime.FIELDS["render_thread"]),
+                         {"active": 1, "max_frames": 1, "frames_produced": 123,
+                          "frames_consumed": 122, "backpressure_ms": 2.5})
+
     def test_request_reassembles_status_and_filters_response(self):
         reply = json.dumps({"id": 1, "ok": True, "frame": 10, "unrequested": "not retained"}).encode()
         sock = MagicMock()

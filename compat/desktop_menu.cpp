@@ -2,7 +2,7 @@
 #include "desktop_menu.h"
 #include "psx_menu_host.h"
 #include "host_osd.h"
-#include "audio_trace.h"
+#include "runtime_telemetry.h"
 #include "../native/movie_player.h"
 #include <SDL3/SDL.h>
 #include "imgui.h"
@@ -167,8 +167,8 @@ void passive_window(DesktopMenu &m, const char *title, bool audio)
     ImGui::Begin(title, nullptr, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoInputs |
                  ImGuiWindowFlags_NoNav | ImGuiWindowFlags_NoSavedSettings);
     if (audio) {
-        AudioTraceStats stats{};
-        audio_trace_get_stats(&stats);
+        NitrogenRuntimeStatus stats{};
+        nitrogen_runtime_status(&stats);
         if (nitrogen_media_is_active()) {
             double seconds; uint64_t samples; nitrogen_media_get_stats(&seconds, &samples);
             ImGui::Text("Native media: %.2f seconds", seconds);
@@ -176,11 +176,21 @@ void passive_window(DesktopMenu &m, const char *title, bool audio)
             ImGui::TextUnformatted("Independent audio; video follows media clock.");
         } else {
         ImGui::Text("SPU production: %.0f samples/s", m.sample_rate);
-        ImGui::Text("Output underruns: %llu", (unsigned long long)stats.underruns);
-        ImGui::TextUnformatted("Gameplay audio: guest-timed SPU/CD.");
+        if (stats.audio_active) {
+            ImGui::Text("Output: %d Hz (%s)", stats.host_rate, stats.legacy ? "queue" : "clock bridge");
+            ImGui::Text("Buffer: %.1f ms | target %.1f ms", stats.fill_ms, stats.target_ms);
+            ImGui::Text("Underruns: %llu | overflow drops: %llu",
+                (unsigned long long)stats.underruns, (unsigned long long)stats.overflow_drops);
+        } else ImGui::TextUnformatted("Audio output initializing.");
+        ImGui::TextUnformatted("Independent output callback; guest-timed SPU/CD.");
         }
     } else {
         ImGui::Text("Display: %.1f FPS", ImGui::GetIO().Framerate);
+        NitrogenRuntimeStatus stats{}; nitrogen_runtime_status(&stats);
+        if (!nitrogen_media_is_active()) {
+            ImGui::Text("Render worker: %s", stats.worker_active ? (stats.worker_held ? "synchronized" : "active") : "off");
+            if (stats.worker_active) ImGui::Text("Queued frame bound: %d", stats.max_frames);
+        }
         ImGui::TextUnformatted("Game speed: use the title-bar readout (--show-fps).");
     }
     ImGui::End();
@@ -274,14 +284,14 @@ void draw(void *context, int, int)
         if (ImGui::Button("Cancel") || close) { m.reset = false; ImGui::CloseCurrentPopup(); }
         ImGui::EndPopup();
     }
-    AudioTraceStats stats{};
-    audio_trace_get_stats(&stats);
+    NitrogenRuntimeStatus stats{};
+    nitrogen_runtime_status(&stats);
     const double now = ImGui::GetTime();
     if (m.rate_time && now - m.rate_time >= 1.0) {
-        const uint64_t count = stats.tap_frames[AUDIO_TAP_SPU_OUT];
+        const uint64_t count = stats.samples;
         m.sample_rate = count >= m.last_samples ? (count - m.last_samples) / (now - m.rate_time) : 0;
         m.last_samples = count; m.rate_time = now;
-    } else if (!m.rate_time) { m.rate_time = now; m.last_samples = stats.tap_frames[AUDIO_TAP_SPU_OUT]; }
+    } else if (!m.rate_time) { m.rate_time = now; m.last_samples = stats.samples; }
     if (m.performance) passive_window(m, "Performance", false);
     if (m.audio) passive_window(m, "Audio Status", true);
     m.open = popup || m.settings || m.about || m.reset;

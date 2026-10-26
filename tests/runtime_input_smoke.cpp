@@ -31,6 +31,47 @@ static void update_virtual_input()
     SDL_UpdateGamepads();
 }
 
+static void runtime_status_and_title_smoke()
+{
+    NitrogenRuntimeStatus before{}, after{};
+    nitrogen_runtime_status(&before);
+    spu_init(); spu_catch_up();
+    psx_cycle_count += 768u * 32u;
+    spu_catch_up();
+    const uint32_t queued = spu_output_available();
+    require_input(queued == 32, "generate original silent SPU samples");
+    int16_t pcm[64];
+    require_input(nitrogen_runtime_spu_output_pop(pcm, 32) == 32, "preserve the SPU drain result");
+    require_input(spu_output_available() == 0, "drain each sample exactly once");
+    nitrogen_runtime_status(&after);
+    require_input(after.samples - before.samples == 32, "publish actual drained samples");
+    require_input(!after.audio_active && !after.worker_active, "snapshot handles an unopened device/worker");
+#ifdef _WIN32
+    SDL_SetHint(SDL_HINT_VIDEO_DRIVER, "dummy");
+#endif
+    require_input(SDL_InitSubSystem(SDL_INIT_VIDEO), "initialize hidden title fixture");
+    SDL_Window *window = SDL_CreateWindow("Original title fixture", 320, 240, SDL_WINDOW_HIDDEN);
+    require_input(window != nullptr, "create hidden title fixture");
+    SDL_Window *saved_window = sdl_window; sdl_window = window;
+    require_input(std::string(nitrogen_base_window_title(window)) == "Original title fixture", "capture original window title");
+    for (int pause = 0; pause < 6; ++pause) {
+        s_fps_base_title = nitrogen_base_window_title(window);
+        std::string decorated = s_fps_base_title + "  [Game 60 fps 1.00x] [Present 60.0 fps]";
+        SDL_SetWindowTitle(window, decorated.c_str());
+        present_session_reset(); // The real menu resume clears the FPS baseline.
+        require_input(std::string(nitrogen_base_window_title(window)) == "Original title fixture", "menu resume never captures an FPS suffix");
+    }
+    SDL_DestroyWindow(window);
+    window = SDL_CreateWindow("New session title", 320, 240, SDL_WINDOW_HIDDEN);
+    require_input(window && std::string(nitrogen_base_window_title(window)) == "New session title", "new window gets its own base title");
+    SDL_DestroyWindow(window); sdl_window = saved_window;
+    SDL_QuitSubSystem(SDL_INIT_VIDEO);
+#ifdef _WIN32
+    SDL_ResetHint(SDL_HINT_VIDEO_DRIVER);
+#endif
+    std::puts("Runtime status/title smoke passed: exact SPU drain, coherent snapshot, six pause cycles, new window");
+}
+
 int main()
 {
     SDL_SetHint(SDL_HINT_JOYSTICK_ALLOW_BACKGROUND_EVENTS, "1");
@@ -97,6 +138,7 @@ int main()
     require_input(!SDL_GameControllerGetAttached(player.handle), "observe unplugged gamepad");
     close_player(player);
     require_input(pad_sources_for(player, false).keybinds, "retain keyboard source after unplug");
+    runtime_status_and_title_smoke();
     #if defined(NITROGEN_MENU_SMOKE)
     nitrogen_menu_smoke();
     #endif

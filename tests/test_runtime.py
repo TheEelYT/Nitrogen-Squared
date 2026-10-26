@@ -81,6 +81,18 @@ class RuntimePreparationTests(unittest.TestCase):
             self.assertEqual(run_runtime.runtime_environment(self.root, True)["PSX_DISPLAY_RING"], "1")
             self.assertEqual(run_runtime.runtime_environment(self.root, show_fps=True)["PSX_FPS_TELEMETRY"], "1")
 
+    def test_render_worker_defaults_and_explicit_comparison(self):
+        with patch.dict(run_runtime.os.environ, {}, clear=True):
+            env = run_runtime.runtime_environment(self.root)
+            self.assertEqual(env["PSX_RENDER_THREAD"], "1")
+            self.assertEqual(env["PSX_RENDER_THREAD_FRAMES"], "1")
+            self.assertNotIn("PSX_RENDER_THREAD", run_runtime.os.environ)
+        with patch.dict(run_runtime.os.environ, {"PSX_RENDER_THREAD": "0", "PSX_RENDER_THREAD_FRAMES": "2"}):
+            self.assertEqual(run_runtime.runtime_environment(self.root)["PSX_RENDER_THREAD"], "0")
+            self.assertEqual(run_runtime.runtime_environment(self.root, render_worker=True)["PSX_RENDER_THREAD"], "1")
+            self.assertEqual(run_runtime.runtime_environment(self.root, render_worker=False)["PSX_RENDER_THREAD"], "0")
+            self.assertEqual(run_runtime.runtime_environment(self.root)["PSX_RENDER_THREAD_FRAMES"], "2")
+
 
 if __name__ == "__main__":
     unittest.main()

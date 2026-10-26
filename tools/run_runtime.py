@@ -10,12 +10,19 @@ from build_runtime import load_installation
 from n2o_disc import ROOT
 
 
-def runtime_environment(work: Path, display_ring: bool = False, show_fps: bool = False) -> dict[str, str]:
+def runtime_environment(work: Path, display_ring: bool = False, show_fps: bool = False,
+                        render_worker: bool | None = None) -> dict[str, str]:
     env = os.environ.copy()
     # Full-VRAM history takes a synchronous GPU readback every frame. Keep
     # one-shot diagnostics available without paying that cost during play.
     env["PSX_DISPLAY_RING"] = "1" if display_ring else "0"
     env.setdefault("PSX_DEBUG_TOGGLES", "0")
+    if render_worker is None:
+        env.setdefault("PSX_RENDER_THREAD", "1")
+    else:
+        env["PSX_RENDER_THREAD"] = "1" if render_worker else "0"
+    # One closed frame of lookahead bounds queued work and controller latency.
+    env.setdefault("PSX_RENDER_THREAD_FRAMES", "1")
     if show_fps:
         env["PSX_FPS_TELEMETRY"] = "1"
     # Captures and caches are private. Overlay compilation has no configured
@@ -30,6 +37,8 @@ def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--work-dir", type=Path, default=ROOT / ".local/runtime-dev")
     p.add_argument("--renderer", choices=["software", "opengl"], default="opengl")
+    p.add_argument("--render-worker", choices=["on", "off"],
+                   help="OpenGL render worker (default: on; environment override honored)")
     p.add_argument("--headless", action="store_true")
     p.add_argument("--display-ring", action="store_true",
                    help="Expensive full-VRAM frame history for developer diagnosis")
@@ -53,7 +62,9 @@ def main():
             command.append("--headless")
         if args.display_ring and record.get("diagnostics_enabled") is False:
             raise ValueError("--display-ring requires a build made with build_runtime.py --diagnostics")
-        env = runtime_environment(work, args.display_ring, args.show_fps)
+        worker = None if args.render_worker is None else args.render_worker == "on"
+        if args.renderer != "opengl": worker = False
+        env = runtime_environment(work, args.display_ring, args.show_fps, worker)
         env["NITROGEN_NATIVE_DISC_BIN"] = current["bin"]
         with (work / "runtime.log").open("w", encoding="utf-8") as log:
             proc = subprocess.Popen(command, cwd=work, env=env, stdout=log, stderr=subprocess.STDOUT)

@@ -78,7 +78,8 @@ def main():
     result = subprocess.run([str(find_binary(work / "build", "NitrogenSquared-input-test"))],
                             check=True, timeout=15, capture_output=True, text=True)
     if ("Runtime input smoke passed:" not in result.stdout or
-            "Runtime media smoke passed:" not in result.stdout):
+            "Runtime media smoke passed:" not in result.stdout or
+            "Runtime status/title smoke passed:" not in result.stdout):
         raise RuntimeError("Virtual input test exited without its success receipt: " + result.stdout + result.stderr)
     print(result.stdout, end="", flush=True)
     if os.name != "nt":

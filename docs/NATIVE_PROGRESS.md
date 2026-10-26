@@ -43,7 +43,7 @@ pre-0.0.7 receipt by rebuilding first.
 | Desktop presentation and menu | Host implementations; user verified menu and keybinds on Windows |
 | Controller input | Host SDL input; analog gameplay verified by the user in 0.0.6 |
 | Music and effects | Emulated SPU/CD path; no independent cue-driven player yet |
-| Opening movies | Native STR/XA service for three opening routes; Windows audio acceptance pending |
+| Opening movies | Native STR/XA service for three opening routes; user verified Windows playback and skipping |
 | Ending / separate STR route | Original playback until full call/return paths are qualified |
 
 The inspected disc contains interleaved XA audio in the movie extents. Replacing

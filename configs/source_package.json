@@ -17,6 +17,8 @@
   "compat/msvc_atomics.h",
   "compat/n2o_gpu_mode.c",
   "compat/runtime_host.cpp",
+  "compat/runtime_telemetry.h",
+  "compat/window_title.h",
   "configs/disc_usa.json",
   "configs/source_package.json",
   "docs/DISC_ANALYSIS.md",

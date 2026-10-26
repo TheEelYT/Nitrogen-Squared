@@ -70,6 +70,19 @@ def main():
         if not summary or int(summary[1]) == 0 or "FAIL " in result.stderr:
             raise RuntimeError("Renderer fixture did not report a complete passing result")
         print(f"OpenGL LLE/HLE equivalence at {scale}x: {lines[-1]}", flush=True)
+    queue = out / "render-queue-check"
+    run([args.cc, "-std=c11", "-O2", "-D_GNU_SOURCE=1", "-pthread", *includes,
+         framework / "runtime/tests/test_render_thread.c", framework / "runtime/src/render_thread.c",
+         "-o", queue])
+    result = run([queue])
+    summary = re.search(r"checks=(\d+) failures=0", result.stdout)
+    if not summary or int(summary[1]) == 0 or "FAIL " in result.stderr:
+        raise RuntimeError("Render queue fixture did not complete")
+    print(f"Render queue checks: {summary[0]}", flush=True)
+    run([sys.executable, framework / "runtime/tests/run_gl_render_thread.py",
+         "--sdl-include", sdl / "sdl3-src/include", "--sdl-library", library,
+         "--output", out / "render-thread"])
+    print("OpenGL render-worker equivalence passed at 1x and 4x", flush=True)
     return 0
 
 

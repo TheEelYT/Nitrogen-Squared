@@ -19,6 +19,9 @@ FIELDS = {
     "perf": ("valid", "measurement", "fps", "swaps", "span_ms", "mean_us", "p95_us", "p99_us", "hitches"),
     "audio_stats": ("pump_calls", "pump_skips", "underruns", "out.active", "out.mode", "out.host_rate",
                     "out.fill_ms", "out.target_ms", "out.underruns", "out.overflow_drops"),
+    "render_thread": ("active", "held", "max_frames", "records", "frames_produced", "frames_consumed",
+                      "presents", "presents_stale", "acquires", "releases", "backpressure_waits",
+                      "backpressure_ms", "acquire_ms", "render_busy_ms", "render_idle_ms", "ring_high_water"),
     "pad_status": ("slot0.buttons", "slot0.connected", "slot0.type", "slot0.sticks", "slot1.connected"),
 }
 

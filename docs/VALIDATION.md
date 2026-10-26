@@ -300,3 +300,13 @@ when selected, codec/host bridge inputs and build recipe. Source checks also
 passed on Windows and Linux in
 [run 40293176502](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/40293176502).
 These workflows use only original synthetic inputs and upload no binaries.
+
+
+## Windows acceptance of 0.0.8
+
+The user verified native opening movies with no noticeable playback issues,
+working movie skipping, analog input, and continued consistent 60 FPS gameplay.
+This closes the pending Windows playback/skip and core input/speed checks for
+0.0.8. A subsequently reported title-bar issue repeats the FPS suffix after
+opening System and resuming; it is covered by the next update's title ownership
+fix and repeated-pause regression test.
