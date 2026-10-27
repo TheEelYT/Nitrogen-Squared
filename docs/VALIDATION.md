@@ -647,3 +647,18 @@ This update records acceptance and the investigation only. VERSION remains
 0.0.11-development; linked coverage remains 4.0193%, with 95.9807% outside linked
 ranges. No runtime rebuild or new player test is required by these documentation
 changes. The source-package audit and whitespace check are the relevant checks.
+
+
+## Extended Windows acceptance — 0.0.11 through level 9
+
+The user extended the same build's play session through level 9 and reports no
+bugs noticed other than the save slowdown. This supersedes level 4 as the furthest
+reported 0.0.11 gameplay coverage. It does not establish coverage beyond level 9
+or independently verify every historical host-menu check. Card-access performance
+remains open; no additional progression, save files or repeat playthrough is
+requested for this documentation update.
+
+Runtime code and VERSION are unchanged. Linked native coverage remains 4.0193%,
+with 95.9807% outside linked ranges; longer playtesting does not increase that
+metric. The source-package audit and whitespace check passed. No runtime rebuild
+or new gameplay test was needed.

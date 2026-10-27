@@ -12,7 +12,7 @@ The verified importer, private build and source-only distribution gate stay in
 place. Version 0.0.10 added two native gameplay lookup routines, verified by the user
 in first-level play. Version 0.0.11 adds 25 packet-preparation entries and guarded
 internal resumes: 4.0193% of selected payload bytes, with 95.9807% outside linked
-ranges. The user verified this larger batch through level 4 with no other gameplay
+ranges. The user verified this larger batch through level 9 with no other gameplay
 issues; dips during card slot listing/saving remain open. See
 [native progress](NATIVE_PROGRESS.md) for the metric and separate native services.
 

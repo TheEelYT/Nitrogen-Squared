@@ -9,9 +9,9 @@ without the executable suffix; the wrapper now reads that name on both platforms
 Keep the existing build/import/save folders. The compiled runtime and native
 coverage are unchanged (**4.0193% / 95.9807%**). All 40 local source tests pass,
 including both filename layouts; Windows CI now reads the real sidecar as well.
-The user subsequently built/tested this version and reached level 4; see acceptance below.
+The user subsequently built/tested this version and reached level 9; see acceptance below.
 
-**0.0.11 — Windows gameplay verified through level 4:** 25 additional drawing-packet
+**0.0.11 — Windows gameplay verified through level 9:** 25 additional drawing-packet
 entry ranges now execute natively, with guarded internal-block resumes for
 computed jumps. Unqualified, changed and unselected code retains fallback. The
 linked report is **4.0193% native ranges / 95.9807% outside those ranges**; this
@@ -25,9 +25,9 @@ passed. The final Windows/Linux runtime and source CI jobs also passed.
 These local checks complement the user report below; they do not establish
 physical audio quality or untested campaign coverage.
 
-The user reports no other gameplay issues and reached level 4 again after this
-build. They observed the FPS dip both while loading save slots and while actually
-saving. This accepts the tested gameplay route, while leaving card-access
+The user extended the same build's play session through level 9 and reports no
+bugs noticed other than the save slowdown. They previously observed the FPS dip
+both while loading save slots and while actually saving. This accepts the tested gameplay route, while leaving card-access
 performance open. It does not imply that every historical host-menu check or
 later campaign level was retested. No additional campaign progression is needed.
 

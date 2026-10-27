@@ -9,11 +9,12 @@ if it failed after linking. Native coverage is unchanged at **4.0193%**, with
 **95.9807%** outside linked ranges.
 Twenty-five packet-building entries now join the two native angle-table readers.
 Internal computed transfers resume in guarded native blocks; unsupported or changed
-code retains interpreter fallback. The user verified gameplay through level 4 in this update.
+code retains interpreter fallback. The user verified gameplay through level 9 in this update, with no bugs noticed
+other than the save slowdown.
 Dips around save-slot listing and saving remain under investigation; startup
 card reads overlap the locally reproduced loading dip.
 The user verified first-level gameplay in 0.0.10 and gameplay through level 4,
-saves and high scores in 0.0.9. Later campaign levels remain unverified.
+saves and high scores in 0.0.9. Levels beyond 9 remain unverified.
 Normal launch requests the OpenGL render worker with one closed frame of lookahead.
 System/Debug and analog input remain available. Native cutscene audio already
 runs independently of rendering. Gameplay sound production still follows the
