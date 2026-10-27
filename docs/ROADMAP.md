@@ -1,19 +1,18 @@
 # Windows first, Vita by design
 
-## Accepted baseline — 0.0.9
+## Accepted player baseline — 0.0.11 through level 9
 
-Windows gameplay is user-tested through level 4 with no issues reported. Saving
-and high scores work. Native openings/skipping, analog input and consistent 60 FPS
-gameplay were verified in preceding updates; the user reports no regressions in
-0.0.9. That is enough player coverage to continue native work. Later levels and
-two-player behavior remain unverified, without blocking this next milestone.
+The user tested Windows gameplay through level 9 with no bugs noticed beyond the
+save slowdown. Saving/high scores, native openings/skipping and analog input were
+accepted in preceding updates. This is enough player coverage to continue native
+work; levels beyond 9 and two-player behavior remain unverified.
 
-The verified importer, private build and source-only distribution gate stay in
-place. Version 0.0.10 added two native gameplay lookup routines, verified by the user
-in first-level play. Version 0.0.11 adds 25 packet-preparation entries and guarded
-internal resumes: 4.0193% of selected payload bytes, with 95.9807% outside linked
-ranges. The user verified this larger batch through level 9 with no other gameplay
-issues; dips during card slot listing/saving remain open. See
+The importer, private build and source-only distribution gate remain in place.
+Version 0.0.12 adds 20 card-control/BIOS-call entry ranges to the previous packet
+and angle group. Linked coverage is 4.2642%, with 95.7358% outside linked ranges.
+Local card-access samples improved to roughly 60 FPS, and setup-card images
+matched the baseline after fresh creation and overwrite. Windows acceptance of
+this replacement is pending the focused read/write checks in TESTING.md. See
 [native progress](NATIVE_PROGRESS.md) for the metric and separate native services.
 
 ## 1. Loaded-code identity and native game slices — underway

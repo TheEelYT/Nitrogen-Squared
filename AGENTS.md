@@ -13,6 +13,12 @@
   high-score reads. Local baseline tracing overlaps the startup dip with card
   reads, but does not establish the high-score caller or root cause. Treat card
   access performance as open; do not require later levels or new user files.
+- Version 0.0.12 adds 20 native card-control/BIOS-call entry ranges. Local
+  diagnostic card-access samples improved to about 60 FPS; fresh setup creation
+  and existing-card overwrite matched the 0.0.11 images. BIOS/serial handling and
+  synchronous file publication remain compatibility services. Windows player
+  acceptance is pending; do not infer game-progress-save or later-level coverage
+  from setup-card tests. Keep the 0.0.11 level-9 report as the prior acceptance.
 - Every runtime update must update `TESTING.md` with the version, concrete changes,
   focused player checks and pending/verified status. Prior acceptance is history,
   not automatic verification of a replacement. Avoid requesting unrelated full

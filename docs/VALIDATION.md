@@ -694,7 +694,7 @@ Remote CI is deferred to the complete candidate commit; no player rebuild is
 requested for this intermediate work branch.
 
 
-## 0.0.12 candidate — card-control production selection
+## 0.0.12 — card-control production selection
 
 The existing declarative native binding now selects 20 additional entries:
 12 card-control/event-polling routines and eight BIOS-call trampolines, totaling
@@ -780,3 +780,34 @@ Synchronous file publication still runs on the emulation thread. These local
 results do not establish starvation-free audio, device-independent write latency,
 full game-progress-save coverage or every card error path. The normal build and
 short first-level comparison remain pending at this checkpoint.
+
+
+The full normal build with diagnostics disabled completed and reproduced the
+4.2642% report. A private SDL host fixture reused the production objects, let all
+three native opening movies finish, supplied virtual-controller input, exercised
+F1 hide/restore and closed through SDL_QUIT. It returned successfully, recording
+1,340,425 native dispatches and zero residency rejections. The final dummy-device
+snapshot reported zero underflow samples and 44,726 overflow frames. This is one
+local transport check, not proof of physical audio quality or starvation-free
+playback. The bounded render worker remained active with one frame in flight.
+A final diagnostic first-level visual comparison is still pending.
+
+
+Final visual qualification repeated the existing frame-scheduled opening/menu/
+first-level route with full-VRAM history enabled, separately for the preserved
+0.0.11 and production 0.0.12 diagnostic executables. Scanout images at guest
+frames 800, 1,500, 2,200, 3,000 and 4,000 were pixel-identical, including first-level
+enemies and HUD. Both routes reached frame 4,500 and exited successfully. These
+history-enabled runs are visual checks, not performance samples or later-campaign
+qualification. The normal build, real-disc route, cross-version setup-card tests,
+original synthetic native fixtures and complete Windows/Linux matrix are now
+complete. No pinned framework source was changed.
+
+The final documentation-only commit records these completed checks and skips a
+redundant CI run; compiled candidate code is the code tested in run 40453311167.
+The 70-file source-package audit and whitespace check passed after the final
+reporting changes. Windows 0.0.12 player acceptance remains pending the focused
+card-read/write and short first-level checks in TESTING.md. Existing 0.0.11
+acceptance through level 9 remains history; neither full game-progress-save
+coverage nor a physical Windows audio/performance result is inferred from these
+local setup-card tests.

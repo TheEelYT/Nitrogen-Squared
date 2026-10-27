@@ -3,7 +3,7 @@
 A Windows-first recompilation project for **N2O: Nitrous Oxide (PlayStation)**,
 with a planned PS Vita port and optional remaster presentation.
 
-**Current status: 0.0.12 candidate, native memory-card control under qualification.**
+**Current status: 0.0.12, private runtime with expanded native card control.**
 Twenty additional card-control and BIOS-call entries join the existing native
 packet/angle group. The card polling loop retains its original BIOS events and
 guest timing; serial protocol and save-file publication remain compatibility

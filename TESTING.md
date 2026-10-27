@@ -21,6 +21,13 @@ writing separately. A short first-level session is enough for movement/firing;
 no repeat trip to level 9 is requested. The previous level-9 acceptance below
 remains the 0.0.11 baseline, not acceptance of this replacement.
 
+Local qualification completed fresh setup-card creation/reload and existing-card
+load/overwrite with full card images identical to 0.0.11. Five matching-frame
+visual checks through first-level gameplay were pixel-identical. The normal
+movie/controller/close check and both Windows/Linux CI matrices passed. These
+checks support the pending Windows player check; they do not establish physical
+audio quality, every game-progress-save case or later campaign coverage.
+
 Copy the private `.local/runtime-dev/saves` folder before a deliberate write test
 with valued saves. No reimport, cache deletion or new user files are needed.
 Final local runtime and platform results are recorded in docs/VALIDATION.md.
