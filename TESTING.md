@@ -1,6 +1,19 @@
-# Windows development test — 0.0.11
+# Windows development test — 0.0.12 candidate
 
 ## Current acceptance and update checks
+
+**0.0.12 candidate — local qualification in progress:** 20 additional card-control
+and BIOS-call entries are selected. The hot card-event polling loop is compiled
+natively; BIOS events, serial timing, card format and synchronous file publication
+retain their original paths. This is not a native save-system replacement or
+an asynchronous save writer. Native coverage will be refreshed from the completed
+production build before promotion. Windows player acceptance remains pending.
+
+After the final update, focus on the opening-to-title card check, listing existing
+saves and one save/load operation using a private backup. Check that high scores
+and existing game saves remain readable and the game returns to normal play.
+A short first-level session is enough; no repeat trip to level 9 is requested.
+Final build results and concrete instructions will replace this candidate note.
 
 **0.0.11 Windows build fix:** if compilation finishes but the wrapper reports a
 missing `NitrogenSquared-dev.exe.execution.json`, pull and repeat

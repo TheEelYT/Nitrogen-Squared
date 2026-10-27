@@ -692,3 +692,22 @@ production runtime objects. This checkpoint adds tests/documentation only;
 shipping VERSION, bindings and the 4.0193% coverage report remain unchanged.
 Remote CI is deferred to the complete candidate commit; no player rebuild is
 requested for this intermediate work branch.
+
+
+## 0.0.12 candidate — card-control production selection
+
+The existing declarative native binding now selects 20 additional entries:
+12 card-control/event-polling routines and eight BIOS-call trampolines, totaling
+2,072 bytes. All bodies and full-range guards are generated privately from the
+verified user input. No instructions, private test sources, card data or compiled
+game modules are added to Git. Interpreter fallback and REFERENCE remain intact.
+
+The private live-boundary checker matched 218 comparisons at 57 entry/continuation
+PCs across startup, empty-card error paths and a manually confirmed setup save.
+That disposable card showed an allocated save block, the game displayed its
+successful-save result, and publication reported flush_result=0 with no dirty
+buffer remaining. A complete automated save/reload comparison, final production
+coverage report, normal-build checks and Windows/Linux matrix remain pending.
+The selected routines retain BIOS event calls and guest timing; the serial device
+and synchronous whole-card publication remain unchanged. Windows player
+acceptance is pending, separately from the accepted 0.0.11 level-9 route.

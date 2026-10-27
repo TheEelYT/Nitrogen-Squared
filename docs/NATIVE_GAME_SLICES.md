@@ -90,3 +90,25 @@ bodies or private capture/replay sources are included in Git or packages.
 Dispatch counters include internal resumes from this version onward. They are
 neither original function-call counts nor an execution-weighted native share.
 The PS1 GPU command path and guest-timed SPU/CD path remain in use.
+
+
+## 0.0.12 candidate — card control and BIOS-call entries
+
+Twenty additional entry ranges cover card-control/event-polling code and its
+small BIOS-call trampolines. They use the existing private emitter and whole-range
+residency gate, including internal continuation aliases. The polling code retains
+its original BIOS calls and guest instruction timing. It does not skip the wait,
+fabricate completion or replace the serial device or persistence service.
+
+The new boundary is a caller that yields to separately dispatched callees and
+resumes afterward. The original synthetic fixture tests this across separate
+compiled records, with zero/1/2/7/64 iterations, the call/return delay slots and
+restoration of the saved SP/RA. Private live tests compare each observed compiled
+segment with interpreted execution up to the next outgoing call or return.
+Device time is frozen for comparison; the live call then executes normally.
+Full save/load tests and exact frame comparisons remain separate requirements.
+
+The 0.0.11 baseline is accepted through level 9. This candidate has not yet been
+accepted on Windows; focused card-read/write checks will replace an unrelated
+campaign replay. The selected new ranges total 2,072 bytes. A production build
+and verified coverage report are required before updating the reported metric.

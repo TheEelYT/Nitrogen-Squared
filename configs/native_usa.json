@@ -233,5 +233,185 @@
     ],
     "executable": "N2O.EXE",
     "purpose": "Drawing packet construction"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x8006D628",
+    "size": 164,
+    "entries": [
+      "0x8006D628"
+    ],
+    "purpose": "Memory card control and event polling"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x8006D6CC",
+    "size": 72,
+    "entries": [
+      "0x8006D6CC"
+    ],
+    "purpose": "Memory card control and event polling"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x8006D714",
+    "size": 152,
+    "entries": [
+      "0x8006D714"
+    ],
+    "purpose": "Memory card control and event polling"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x8006D7AC",
+    "size": 88,
+    "entries": [
+      "0x8006D7AC"
+    ],
+    "purpose": "Memory card control and event polling"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x8006D804",
+    "size": 236,
+    "entries": [
+      "0x8006D804"
+    ],
+    "purpose": "Memory card control and event polling"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x8006D8F0",
+    "size": 84,
+    "entries": [
+      "0x8006D8F0"
+    ],
+    "purpose": "Memory card control and event polling"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x8006D944",
+    "size": 72,
+    "entries": [
+      "0x8006D944"
+    ],
+    "purpose": "Memory card control and event polling"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x8006D98C",
+    "size": 48,
+    "entries": [
+      "0x8006D98C"
+    ],
+    "purpose": "Memory card control and event polling"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x8006D9BC",
+    "size": 376,
+    "entries": [
+      "0x8006D9BC"
+    ],
+    "purpose": "Memory card control and event polling"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x8006DB34",
+    "size": 256,
+    "entries": [
+      "0x8006DB34"
+    ],
+    "purpose": "Memory card control and event polling"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x8006DC34",
+    "size": 76,
+    "entries": [
+      "0x8006DC34"
+    ],
+    "purpose": "Memory card control and event polling"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x8006DC80",
+    "size": 352,
+    "entries": [
+      "0x8006DC80"
+    ],
+    "purpose": "Memory card control and event polling"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x80071CDC",
+    "size": 12,
+    "entries": [
+      "0x80071CDC"
+    ],
+    "purpose": "BIOS service call trampoline"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x80071CEC",
+    "size": 12,
+    "entries": [
+      "0x80071CEC"
+    ],
+    "purpose": "BIOS service call trampoline"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x80071CFC",
+    "size": 12,
+    "entries": [
+      "0x80071CFC"
+    ],
+    "purpose": "BIOS service call trampoline"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x80071D0C",
+    "size": 12,
+    "entries": [
+      "0x80071D0C"
+    ],
+    "purpose": "BIOS service call trampoline"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x80071D1C",
+    "size": 12,
+    "entries": [
+      "0x80071D1C"
+    ],
+    "purpose": "BIOS service call trampoline"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x80071D2C",
+    "size": 12,
+    "entries": [
+      "0x80071D2C"
+    ],
+    "purpose": "BIOS service call trampoline"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x80071D9C",
+    "size": 12,
+    "entries": [
+      "0x80071D9C"
+    ],
+    "purpose": "BIOS service call trampoline"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x80071DAC",
+    "size": 12,
+    "entries": [
+      "0x80071DAC"
+    ],
+    "purpose": "BIOS service call trampoline"
   }
 ]
