@@ -4,6 +4,234 @@
     "purpose": "Two leaf routines reading the paired 12-bit angle lookup table",
     "start": "0x800566D4",
     "size": 56,
-    "entries": ["0x800566D4", "0x800566F0"]
+    "entries": [
+      "0x800566D4",
+      "0x800566F0"
+    ]
+  },
+  {
+    "start": "0x80050180",
+    "size": 844,
+    "entries": [
+      "0x80050180"
+    ],
+    "executable": "N2O.EXE",
+    "purpose": "Drawing packet construction"
+  },
+  {
+    "start": "0x80050538",
+    "size": 896,
+    "entries": [
+      "0x80050538"
+    ],
+    "executable": "N2O.EXE",
+    "purpose": "Drawing packet construction"
+  },
+  {
+    "start": "0x800508B8",
+    "size": 496,
+    "entries": [
+      "0x800508B8"
+    ],
+    "executable": "N2O.EXE",
+    "purpose": "Drawing packet construction"
+  },
+  {
+    "start": "0x80050AA8",
+    "size": 528,
+    "entries": [
+      "0x80050AA8"
+    ],
+    "executable": "N2O.EXE",
+    "purpose": "Drawing packet construction"
+  },
+  {
+    "start": "0x80050CB8",
+    "size": 608,
+    "entries": [
+      "0x80050CB8"
+    ],
+    "executable": "N2O.EXE",
+    "purpose": "Drawing packet construction"
+  },
+  {
+    "start": "0x80050F18",
+    "size": 284,
+    "entries": [
+      "0x80050F18"
+    ],
+    "executable": "N2O.EXE",
+    "purpose": "Drawing packet construction"
+  },
+  {
+    "start": "0x80051034",
+    "size": 360,
+    "entries": [
+      "0x80051034"
+    ],
+    "executable": "N2O.EXE",
+    "purpose": "Drawing packet construction"
+  },
+  {
+    "start": "0x8005119C",
+    "size": 660,
+    "entries": [
+      "0x8005119C"
+    ],
+    "executable": "N2O.EXE",
+    "purpose": "Drawing packet construction"
+  },
+  {
+    "start": "0x80051430",
+    "size": 1236,
+    "entries": [
+      "0x80051430"
+    ],
+    "executable": "N2O.EXE",
+    "purpose": "Drawing packet construction"
+  },
+  {
+    "start": "0x80051904",
+    "size": 1080,
+    "entries": [
+      "0x80051904"
+    ],
+    "executable": "N2O.EXE",
+    "purpose": "Drawing packet construction"
+  },
+  {
+    "start": "0x80051D3C",
+    "size": 76,
+    "entries": [
+      "0x80051D3C"
+    ],
+    "executable": "N2O.EXE",
+    "purpose": "Drawing packet construction"
+  },
+  {
+    "start": "0x80052434",
+    "size": 896,
+    "entries": [
+      "0x80052434"
+    ],
+    "executable": "N2O.EXE",
+    "purpose": "Drawing packet construction"
+  },
+  {
+    "start": "0x800527B4",
+    "size": 1204,
+    "entries": [
+      "0x800527B4"
+    ],
+    "executable": "N2O.EXE",
+    "purpose": "Drawing packet construction"
+  },
+  {
+    "start": "0x80052DB4",
+    "size": 388,
+    "entries": [
+      "0x80052DB4"
+    ],
+    "executable": "N2O.EXE",
+    "purpose": "Drawing packet construction"
+  },
+  {
+    "start": "0x80052F38",
+    "size": 1244,
+    "entries": [
+      "0x80052F38"
+    ],
+    "executable": "N2O.EXE",
+    "purpose": "Drawing packet construction"
+  },
+  {
+    "start": "0x80053414",
+    "size": 292,
+    "entries": [
+      "0x80053414"
+    ],
+    "executable": "N2O.EXE",
+    "purpose": "Drawing packet construction"
+  },
+  {
+    "start": "0x80053538",
+    "size": 528,
+    "entries": [
+      "0x80053538"
+    ],
+    "executable": "N2O.EXE",
+    "purpose": "Drawing packet construction"
+  },
+  {
+    "start": "0x80053748",
+    "size": 608,
+    "entries": [
+      "0x80053748"
+    ],
+    "executable": "N2O.EXE",
+    "purpose": "Drawing packet construction"
+  },
+  {
+    "start": "0x800539A8",
+    "size": 456,
+    "entries": [
+      "0x800539A8"
+    ],
+    "executable": "N2O.EXE",
+    "purpose": "Drawing packet construction"
+  },
+  {
+    "start": "0x80053B70",
+    "size": 456,
+    "entries": [
+      "0x80053B70"
+    ],
+    "executable": "N2O.EXE",
+    "purpose": "Drawing packet construction"
+  },
+  {
+    "start": "0x80053D38",
+    "size": 704,
+    "entries": [
+      "0x80053D38"
+    ],
+    "executable": "N2O.EXE",
+    "purpose": "Drawing packet construction"
+  },
+  {
+    "start": "0x80053FF8",
+    "size": 360,
+    "entries": [
+      "0x80053FF8"
+    ],
+    "executable": "N2O.EXE",
+    "purpose": "Drawing packet construction"
+  },
+  {
+    "start": "0x80054B70",
+    "size": 784,
+    "entries": [
+      "0x80054B70"
+    ],
+    "executable": "N2O.EXE",
+    "purpose": "Drawing packet construction"
+  },
+  {
+    "start": "0x80054E80",
+    "size": 784,
+    "entries": [
+      "0x80054E80"
+    ],
+    "executable": "N2O.EXE",
+    "purpose": "Drawing packet construction"
+  },
+  {
+    "start": "0x80055190",
+    "size": 260,
+    "entries": [
+      "0x80055190"
+    ],
+    "executable": "N2O.EXE",
+    "purpose": "Drawing packet construction"
   }
 ]

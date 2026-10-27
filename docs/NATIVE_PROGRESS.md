@@ -1,23 +1,23 @@
 # Native translation progress
 
-The 0.0.10 baseline has **2.1238% linked native translation coverage** against the
+The 0.0.11 build has **4.0193% linked native translation coverage** against the
 combined payload sizes of the three selected USA game executables:
 
-The complementary **97.8762% (827,860 bytes)** is outside those linked translation
+The complementary **95.9807% (811,828 bytes)** is outside those linked translation
 ranges. It is not a measured interpreter-execution percentage: payload data and
 separately tracked native service replacements prevent that interpretation.
 
 | Executable | Linked native range bytes | Payload bytes | Coverage |
 | --- | ---: | ---: | ---: |
 | SLUS_006.37 (boot loader) | 17,908 | 53,248 | 33.63% |
-| N2O.EXE | 56 | 458,752 | 0.0122% |
+| N2O.EXE | 16,088 | 458,752 | 3.5069% |
 | NEW.EXE | 0 | 333,824 | 0.00% |
-| Combined | 17,964 | 845,824 | 2.1238% |
+| Combined | 33,996 | 845,824 | 4.0193% |
 
 This deliberately conservative metric counts the union of emitted native code
 ranges for executables actually linked into the private runtime. The boot loader
-has 86 linked generated functions. Two privately generated leaf routines in
-N2O.EXE add 56 bytes; the full analysis C for N2O.EXE and NEW.EXE does not count.
+has 86 linked generated functions. Twenty-seven selected entries in
+N2O.EXE add 16,088 bytes; the full analysis C for N2O.EXE and NEW.EXE does not count.
 BIOS, interpreter, renderer, audio backend and desktop menu do not
 count as native game code.
 
@@ -50,7 +50,8 @@ pre-0.0.7 receipt by rebuilding first.
 | Desktop presentation and menu | Host implementations; user verified menu and keybinds on Windows |
 | Gameplay render scheduling | Bounded OpenGL worker; local pixel parity checked, user reports no issues with 0.0.9 on Windows |
 | Controller input | Host SDL input; analog gameplay verified by the user in 0.0.6 |
-| Gameplay angle-table lookups | Two native leaf translations in N2O.EXE; private interpreter comparisons passed, Windows player check pending |
+| Gameplay angle-table lookups | Two native leaf translations in N2O.EXE; private comparisons passed and user verified first-level gameplay in 0.0.10 |
+| Drawing packet preparation | 25 additional native entry ranges, with guarded internal resumes; Windows 0.0.11 player check pending |
 | Music and effects | Emulated SPU/CD path; no independent cue-driven player yet |
 | Opening movies | Native STR/XA service for three opening routes; user verified Windows playback and skipping |
 | Ending / separate STR route | Original playback until full call/return paths are qualified |
@@ -101,3 +102,10 @@ show small increments; the metric itself has not changed. Both lookup routines
 were exhaustively compared privately, although the sampled first-level route
 observed calls to only the first. Do not count a synthetic fixture, emitted but
 unlinked function, or host service toward these numbers.
+
+Version 0.0.11 adds 25 drawing-packet entry ranges totaling 16,032 bytes. The
+linked report now counts 113 root entries (86 boot, 27 N2O) and 33,996 bytes.
+The 397 internal continuation aliases in the selected N2O slices receive no extra
+function or byte credit. Some selected ranges transfer into unselected shared
+code, which continues through fallback. These are native packet-preparation
+translations, not a replacement scene renderer or native gameplay audio service.

@@ -9,9 +9,10 @@ gameplay were verified in preceding updates; the user reports no regressions in
 two-player behavior remain unverified, without blocking this next milestone.
 
 The verified importer, private build and source-only distribution gate stay in
-place. Version 0.0.10 adds two native gameplay lookup routines to the boot-loader
-translations: 2.1238% of selected executable payload bytes, with 97.8762% outside
-linked ranges. Windows player acceptance of this new slice is pending. See
+place. Version 0.0.10 added two native gameplay lookup routines, verified by the user
+in first-level play. Version 0.0.11 adds 25 packet-preparation entries and guarded
+internal resumes: 4.0193% of selected payload bytes, with 95.9807% outside linked
+ranges. Windows player acceptance of this larger batch is pending. See
 [native progress](NATIVE_PROGRESS.md) for the metric and separate native services.
 
 ## 1. Loaded-code identity and native game slices — underway

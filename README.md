@@ -3,36 +3,35 @@
 A Windows-first recompilation project for **N2O: Nitrous Oxide (PlayStation)**,
 with a planned PS Vita port and optional remaster presentation.
 
-**Current status: 0.0.10, private Windows runtime with a first native gameplay slice.**
-Two leaf angle-table routines now run as guarded native translations. Windows
-first-level gameplay is verified by the user with no issues reported. The user reports no
-issues with 0.0.9, gameplay tested through level 4, and working saves,
-including high scores. That is the accepted player baseline for continuing native
-work; later levels have not been verified. Normal launch requests the framework's OpenGL render
-worker with one closed frame of lookahead. System/Debug remain available, audio
-health uses a thread-safe host snapshot, and the FPS title stays single across
-menu pauses. Native cutscene audio already runs independently of rendering.
-Gameplay sound production still follows the guest clock; native sound cues and
-unlocked presentation remain future work.
+**Current status: 0.0.11, private Windows runtime with expanded native drawing preparation.**
+Twenty-five packet-building entries now join the two native angle-table readers.
+Internal computed transfers resume in guarded native blocks; unsupported or changed
+code retains interpreter fallback. Windows acceptance of this update is pending.
+The user verified first-level gameplay in 0.0.10 and gameplay through level 4,
+saves and high scores in 0.0.9. Later campaign levels remain unverified.
+Normal launch requests the OpenGL render worker with one closed frame of lookahead.
+System/Debug and analog input remain available. Native cutscene audio already
+runs independently of rendering. Gameplay sound production still follows the
+guest clock; native sound cues and unlocked presentation remain future work.
 
 There is no public game executable or Vita VPK. The current hybrid runtime uses
 native boot/BIOS code and interpreter fallback for much of the loaded game code.
 A repeatable private build command is included.
 
-## Native progress — 0.0.10
+## Native progress — 0.0.11
 
 | Selected executable payloads | Bytes | Share |
 | --- | ---: | ---: |
-| Covered by linked native translations | 17,964 | **2.1238%** |
-| Outside linked native translation ranges | 827,860 | **97.8762%** |
+| Covered by linked native translations | 33,996 | **4.0193%** |
+| Outside linked native translation ranges | 811,828 | **95.9807%** |
 | Total | 845,824 | 100.00% |
 
 These are executable-range measurements, not overall completion or the share of
 CPU time spent natively. Payloads include embedded data. Linked translations
-cover the boot loader and two routines in `N2O.EXE`; the full analysis outputs for
-`N2O.EXE` and `NEW.EXE` are not linked. Game code still relies heavily on
-interpreter fallback. This update adds 56 bytes over 0.0.9's 2.1172%; the displayed
-precision is increased so that small qualified slices remain visible.
+cover the boot loader and 27 selected entries in `N2O.EXE`; the full analysis
+outputs for `N2O.EXE` and `NEW.EXE` are not linked. Game code still relies heavily
+on interpreter fallback. This update adds 16,032 bytes over 0.0.10. Internal resume
+aliases receive no additional byte or function credit.
 
 Native services are tracked separately: the desktop frontend and controller input
 use host implementations; **3 of 3 opening movie routes** use native playback.
@@ -42,7 +41,7 @@ worker schedules PS1 graphics commands; it does not replace the game's renderer
 with a native scene engine. Host services do not increase the percentage above.
 
 Next: expand verified slices and qualify their callers while retaining the
-working fallback. See the [first native slice](docs/NATIVE_GAME_SLICES.md),
+working fallback. See the [native slices](docs/NATIVE_GAME_SLICES.md),
 [native roadmap](docs/ROADMAP.md) and [metric definition](docs/NATIVE_PROGRESS.md).
 Every runtime update will refresh this section and [TESTING.md](TESTING.md),
 including an explicit unchanged percentage when no new native ranges are linked.

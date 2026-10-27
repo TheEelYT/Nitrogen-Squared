@@ -511,24 +511,57 @@ first-level route. Later-level testing and an exhaustive repeat of every host
 menu/save check are not inferred. The startup-loading observation above remains
 unconfirmed, with recovery to 60 FPS.
 
-## Larger native batch — checkpoint, not a release
+## 0.0.11 — expanded native packet preparation
 
-The next conversion is under qualification. Handwritten integration now provides
-guarded continuation wrappers for compiled blocks, using the pinned emitter's
-ownership map and resume-arm helper. Synthetic CI fixtures have been extended to
-exercise RAM-writing loops, GTE saturation and computed transfers that resume at
-an internal block. Additional source tests reject continuations lacking a guarded
-owner. The shipping native binding and runtime version have not changed yet.
+The integration-only checkpoint passed Windows/Linux runtime CI in
+[run 40441495690](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/40441495690)
+and source CI in
+[run 40441495682](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/40441495682).
+Original synthetic programs cover RAM-writing loops, unsigned wrap, GTE saturation
+and computed internal transfers. A resume fixture clears the incoming CPU PC and
+checks that the alias resumes instead of restarting; modifying its owner's code
+invalidates that alias. Source tests reject missing/unguarded continuation owners.
 
-Private qualification has matched 25 complete captured calls across CPU state,
-main RAM, scratchpad and geometry state. A broader adapted-input comparison found
-one routine with mismatches that still require investigation; no unqualified
-larger group has been promoted. These counts are checkpoint findings, not an
-increase to reported native coverage or a claim of complete gameplay validation.
+The selected production binding adds 25 packet-building entry ranges to the two
+lookup entries. It contains only declarative addresses, lengths and descriptions
+in the existing reviewed schema. Generated translations, instruction guards,
+private capture/replay sources, candidate inventories and witness files remain
+outside Git/releases. One additional candidate produced mismatching exception
+behavior in adapted contexts and is excluded entirely, including its passing cases.
 
-Private capture/replay sources, candidate-input inventories, witness snapshots,
-generated game code and detailed dumps are excluded from this checkpoint. The
-saved public changes contain only handwritten integration, original synthetic
-tests and documentation. Before release: resolve or exclude unqualified cases,
-repeat controlled loading/gameplay comparisons, run Windows/Linux checks, and
-refresh the actual linked coverage and focused player testing instructions.
+Local qualification uses the same Linux/GCC/Mesa/dummy-audio environment as
+0.0.10, a verified local disc and isolated saves:
+
+- All 25 complete live calls across four packet-entry groups matched GPRs, HI/LO,
+  PC, COP0, GTE data/control, all 2 MiB main RAM and the 1 KiB scratchpad. Capturing
+  scratchpad and driving internal native resumptions were required for a valid
+  comparison; incomplete earlier fixtures are not counted as product failures.
+- Adapted captured contexts and sixteen geometry-state edge variations produced
+  2,856 successful comparisons across the 25 selected entries. This is bounded
+  input coverage, not proof of all possible inputs or observed live execution of
+  all 25 roots. Non-RAM/non-scratch device accesses are rejected by this fixture.
+  Isolated device time is frozen; full-session timing equivalence is not inferred.
+- The actual candidate built and linked 27 N2O root entries plus 397 guarded
+  continuation aliases. Aliases use the complete owning root's residency ranges;
+  range manifests award no extra bytes/functions for them. The verified report is
+  33,996 / 845,824 bytes = **4.0193%** linked, **95.9807%** outside linked ranges.
+- A controlled diagnostic route skipped all native openings, followed identical
+  frame-scheduled input through menus/first-level tutorial, reached frame 4,500
+  and closed normally. By frame 4,359 it recorded 23,262 native dispatches across
+  eight entry PCs, including internal resumes. These are not original function
+  call counts or execution-weighted native percentages. Late sampled intervals
+  ran at 59.94 guest FPS on this host. Physical audio/controller quality still
+  needs the Windows player check.
+- Controlled loading samples around frames 1,200–1,350 measured 28.19 FPS for the
+  old native build, 29.47 with a no-op dispatcher, 28.42 with interpreter dispatch
+  consultation compiled out, and 28.48 for this candidate. Native calls were zero
+  during the interval. These single local samples reproduce the dip without the
+  hooks, but do not establish its cause or explain Windows performance. All routes
+  recovered afterward. No speculative guest-clock/CD-timing change was made.
+- All 39 source tests passed locally with CMake available; the source audit passed
+  with 70 reviewed text files. No tests were skipped in that final local suite.
+
+Exact-frame visual comparisons, a normal-build playback/close check and a final
+platform matrix are pending at this checkpoint. Windows 0.0.11 player acceptance
+is pending the focused first-level checks in TESTING.md; the user's successful
+0.0.10 first-level route remains the previous accepted result.

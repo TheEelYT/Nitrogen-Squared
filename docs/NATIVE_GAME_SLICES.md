@@ -1,4 +1,4 @@
-# First loaded-game native slice
+# Loaded-game native slices
 
 Version 0.0.10 links two privately generated leaf routines from the verified USA
 N2O.EXE. This establishes a small native gameplay path through the existing
@@ -33,8 +33,8 @@ separate global executable switch to execute that routine correctly.
 
 This uses CRC residency checks, not a cryptographic runtime-authentication claim.
 The original input is separately SHA-256 verified. No pinned framework source is
-edited. Larger routines with calls, shared continuations or self-modification
-will need additional boundary qualification before they are selected.
+edited. Nested calls, shared continuations and self-modification require additional
+boundary qualification before their ranges are selected.
 
 ## Build selection and measurements
 
@@ -57,3 +57,36 @@ execution-weighted native percentage.
 
 See [validation](VALIDATION.md) for private interpreter comparisons and synthetic
 same-address replacement tests, and [Windows checks](../TESTING.md) for acceptance.
+
+## 0.0.11 — drawing packet preparation
+
+Twenty-five additional entry ranges in the existing declarative binding select
+16,032 bytes of packet/geometry preparation from the local N2O.EXE. Together with
+the two lookup readers, N2O has 27 selected roots and 16,088 linked bytes. Combined
+with boot translations this is **33,996 / 845,824 = 4.0193%**, with **95.9807%**
+outside linked ranges. Some ranges are prefixes that tail-transfer to unselected
+shared code. No complete native scene-rendering engine is claimed.
+
+The pinned emitter identifies internal continuations. Preparation uses its
+resume-arm helper and emits wrappers that set the exact guest PC before entering
+the owning native function. Each alias carries the complete owner's residency
+ranges/CRC; missing owners are rejected. Real roots take priority. A code change
+invalidates both the root and its aliases. The build currently has 397 aliases;
+range manifests credit only the 27 roots, with no duplicate byte coverage.
+
+Private qualification compares CPU registers, HI/LO, return PC, COP0, GTE state,
+main RAM and scratchpad against the interpreter. Twenty-five live calls across
+four packet-entry groups matched; adapted contexts and geometry edge states
+produced 2,856 successful comparisons across the selected 25 entries. This is a
+bounded corpus, not every possible game input. Device time is frozen for isolated
+comparisons, so full-session timing is checked separately. An additional candidate
+with reference/native exception behavior mismatches remains excluded entirely.
+
+Original synthetic CI programs test RAM-writing loops, unsigned wrap, GTE
+saturation and a computed transfer that must resume rather than restart. Owner
+mutation invalidates its continuation. No game instructions, witnesses, generated
+bodies or private capture/replay sources are included in Git or packages.
+
+Dispatch counters include internal resumes from this version onward. They are
+neither original function-call counts nor an execution-weighted native share.
+The PS1 GPU command path and guest-timed SPU/CD path remain in use.

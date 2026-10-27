@@ -1,6 +1,20 @@
-# Windows development test — 0.0.10
+# Windows development test — 0.0.11
 
 ## Current acceptance and update checks
+
+**0.0.11 — Windows player acceptance pending:** 25 additional drawing-packet
+entry ranges now execute natively, with guarded internal-block resumes for
+computed jumps. Unqualified, changed and unselected code retains fallback. The
+linked report is **4.0193% native ranges / 95.9807% outside those ranges**; this
+is not overall completion or an execution-time percentage. Original timing,
+audio and graphics services are unchanged. This update does not promise a speed
+increase, independent gameplay audio or unlocked framerate.
+
+Focused checks: play a short first-level session with analog movement/firing.
+Watch enemies, explosions, HUD and animated menus for visual changes; check
+pause/resume and reset/quit, and that existing saves/high scores still load.
+Reaching later levels is not required. The accepted 0.0.10 first-level result
+below is history, not automatic acceptance of this replacement.
 
 **0.0.9 accepted on Windows:** the user reports no issues, playable gameplay
 through level 4, and working saving, including high scores. Earlier checks also
@@ -23,7 +37,9 @@ the loading screen after the opening movies and splash, immediately before the
 attract/title screen. Performance returns to 60 FPS afterward. The user notes it
 may also have occurred in the preceding update. Track this as an unconfirmed
 startup performance issue, not an intentional delay or established regression.
-No additional files or immediate repeat test are needed for this report.
+Controlled local startup tests reproduced a loading dip with native-dispatch
+hooks compiled out as well. Its cause remains unresolved; it is not an intentional
+delay. No additional files or immediate repeat test are needed for this report.
 
 Rebuild with the commands below after pulling this update.
 Check the opening-to-menu route, analog movement/firing and a short first-level
@@ -222,11 +238,13 @@ python tools/native_progress.py
 The report counts only native ranges linked into the build, excluding generated
 analysis-only translations and host/BIOS code. Its payload denominator includes
 embedded data, so it is not an estimate of overall project completion.
-The default 0.0.10 ENHANCED build should report **2.1238%** linked and **97.8762%**
+The default 0.0.11 ENHANCED build should report **4.0193%** linked and **95.9807%**
 outside linked ranges. Its normal clean-shutdown log also prints
 `nitrogen: native game slice: dispatches=... residency_rejections=...`.
 After first-level gameplay the dispatch count should be positive. This is an
 execution check, not a native-instruction percentage or speed measurement.
+The count now includes internal continuation resumes, so it is not a count of
+original function calls and should not be compared directly with 0.0.10.
 Residency rejections select the interpreter and can be normal while different
 code occupies the address; they are not failed game calls.
 
