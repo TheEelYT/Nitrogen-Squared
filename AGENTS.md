@@ -12,13 +12,16 @@
   They report FPS dips during save-slot listing and saving, and suspect startup
   high-score reads. Local baseline tracing overlaps the startup dip with card
   reads, but does not establish the high-score caller or root cause. Treat card
-  access performance as open; do not require later levels or new user files.
+  access performance as historical; the 0.0.12 save/load report below supersedes
+  its open status. Do not require later levels or new user files.
 - Version 0.0.12 adds 20 native card-control/BIOS-call entry ranges. Local
   diagnostic card-access samples improved to about 60 FPS; fresh setup creation
   and existing-card overwrite matched the 0.0.11 images. BIOS/serial handling and
-  synchronous file publication remain compatibility services. Windows player
-  acceptance is pending; do not infer game-progress-save or later-level coverage
-  from setup-card tests. Keep the 0.0.11 level-9 report as the prior acceptance.
+  synchronous file publication remain compatibility services. The user reports no
+  saving/loading slowdowns on Windows in 0.0.12; record that specific performance
+  check as passed. Exact FPS, startup-only timing and a new campaign playthrough
+  were not separately reported. Keep the 0.0.11 level-9 report as prior gameplay
+  acceptance; no repeated playthrough is required for this acceptance note.
 - Every runtime update must update `TESTING.md` with the version, concrete changes,
   focused player checks and pending/verified status. Prior acceptance is history,
   not automatic verification of a replacement. Avoid requesting unrelated full

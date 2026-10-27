@@ -8,7 +8,8 @@ Twenty additional card-control and BIOS-call entries join the existing native
 packet/angle group. The card polling loop retains its original BIOS events and
 guest timing; serial protocol and save-file publication remain compatibility
 services. Local diagnostic comparisons improved the sampled startup interval
-from roughly 25–27 FPS to 60 FPS. Windows performance/acceptance is pending.
+from roughly 25–27 FPS to 60 FPS. The user now reports no saving/loading
+slowdowns on Windows in 0.0.12. Exact Windows FPS was not separately measured.
 The user verified 0.0.11 gameplay through level 9, with no bugs noticed beyond
 the save slowdown. Levels beyond 9 remain unverified.
 Normal launch requests the OpenGL render worker with one closed frame of lookahead.

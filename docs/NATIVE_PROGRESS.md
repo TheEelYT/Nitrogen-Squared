@@ -52,14 +52,15 @@ pre-0.0.7 receipt by rebuilding first.
 | Controller input | Host SDL input; analog gameplay verified by the user in 0.0.6 |
 | Gameplay angle-table lookups | Two native leaf translations in N2O.EXE; private comparisons passed and user verified first-level gameplay in 0.0.10 |
 | Drawing packet preparation | 25 additional native entry ranges, with guarded internal resumes; user verified 0.0.11 gameplay through level 9 |
-| Card-control/event polling | 20 additional native entry ranges; BIOS/serial protocol and file publication retain compatibility services; Windows 0.0.12 check pending |
+| Card-control/event polling | 20 additional native entry ranges; BIOS/serial protocol and file publication retain compatibility services; user reports no Windows saving/loading slowdowns in 0.0.12 |
 | Music and effects | Emulated SPU/CD path; no independent cue-driven player yet |
 | Opening movies | Native STR/XA service for three opening routes; user verified Windows playback and skipping |
 | Ending / separate STR route | Original playback until full call/return paths are qualified |
 | Saves and high scores | Guest persistence through compatibility services; user reports working on Windows, not a native save-system replacement |
 
 The Windows player baseline now reaches level 9 in 0.0.11, with no other gameplay
-issues reported. Card-access FPS dips during slot listing/saving remain open. Further
+issues reported. The later 0.0.12 save/load slowdown check passed on the user's
+Windows route; no new level-9 playthrough is inferred. Further
 campaign progression is not required for the next native milestone. This does not
 change the linked-range count or qualify untested later-level behavior.
 

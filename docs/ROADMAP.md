@@ -11,8 +11,9 @@ The importer, private build and source-only distribution gate remain in place.
 Version 0.0.12 adds 20 card-control/BIOS-call entry ranges to the previous packet
 and angle group. Linked coverage is 4.2642%, with 95.7358% outside linked ranges.
 Local card-access samples improved to roughly 60 FPS, and setup-card images
-matched the baseline after fresh creation and overwrite. Windows acceptance of
-this replacement is pending the focused read/write checks in TESTING.md. See
+matched the baseline after fresh creation and overwrite. The user reports no
+saving/loading slowdowns on Windows in 0.0.12, passing that focused performance
+check. Exact FPS and a new campaign playthrough were not separately reported. See
 [native progress](NATIVE_PROGRESS.md) for the metric and separate native services.
 
 ## 1. Loaded-code identity and native game slices — underway
@@ -52,17 +53,17 @@ working reference route available for comparisons. Track linked range coverage
 and, when available, route-specific native/fallback execution separately so a
 small hot function's runtime benefit is visible without inflating completion.
 
-Prioritize the card-access performance lead alongside expansion: measure guest
-serial-driver/interrupt cost separately from synchronous save-file publication.
-Startup reads overlap the reproduced dip, but the high-score caller and root
-cause remain unconfirmed. Preserve card formats and error/completion semantics;
-qualify any native service against private copies of existing saves.
+The reported save/load slowdown is resolved on the user's 0.0.12 Windows route.
+Retain the card benchmarks and reference path as native groups expand. Guest
+serial-driver/interrupt work and synchronous file publication remain distinct
+costs. Preserve card formats and error/completion semantics; qualify any future
+native save service against private copies of existing saves.
 
 Version 0.0.12 advances that card-control work through 20 guarded native entry
 ranges, retaining original BIOS-event and persistence paths. The production build
 reports 4.2642% linked payload coverage and 95.7358% outside linked ranges. Windows
-player acceptance is pending; 0.0.11 through level 9 is the previous accepted
-baseline. This does not establish a native save-system service.
+save/load slowdown check passed on Windows; 0.0.11 through level 9 remains the
+previous accepted campaign baseline. This does not establish a native save-system service.
 
 Native gameplay audio follows qualification of the game's sound-driver boundary:
 identify cue IDs, bank/sequence ownership, voice control, music transport and

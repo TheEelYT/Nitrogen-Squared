@@ -811,3 +811,21 @@ card-read/write and short first-level checks in TESTING.md. Existing 0.0.11
 acceptance through level 9 remains history; neither full game-progress-save
 coverage nor a physical Windows audio/performance result is inferred from these
 local setup-card tests.
+
+
+## Windows 0.0.12 save/load performance acceptance
+
+The user reports: “No more slowdowns when saving/loading.” This passes the
+reported Windows save/load performance check for 0.0.12. No exact FPS sample,
+startup-only timing result, exhaustive persistence test or new campaign
+playthrough was supplied, so those are not inferred. The 0.0.11 level-9 report
+remains the previous campaign acceptance. No repeat playthrough or additional
+files are requested for this acceptance note.
+
+This is a documentation-only update. Runtime code, VERSION and linked coverage
+remain unchanged: 4.2642% linked, 95.7358% outside linked ranges. The execution
+workspace is offline, so no local rebuild, source-package audit or new runtime
+test was run for this note. The remotely edited files are the existing six
+reviewed Markdown paths only; their text was checked for whitespace errors and
+the repository tree is checked to retain the same tracked path set. The prior
+runtime CI and local validation above remain the evidence for the compiled build.

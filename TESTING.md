@@ -2,30 +2,30 @@
 
 ## Current acceptance and update checks
 
-**0.0.12 — Windows player acceptance pending:** 20 additional card-control
+**0.0.12 — Windows save/load slowdown check passed:** 20 additional card-control
 and BIOS-call entries now execute natively. The hot card-event polling loop is
 compiled; BIOS events, serial timing, card format and synchronous file publication
 retain their original paths. Local sampled startup performance improved from
-roughly 25–27 FPS to 60 FPS. This is not a Windows speed guarantee, a native
-save-system replacement or an asynchronous save writer.
+roughly 25–27 FPS to 60 FPS. The user reports no more slowdowns when saving or
+loading on Windows. This confirms the reported performance fix on their tested
+route; exact FPS and startup-only timing were not separately reported. The BIOS,
+serial and persistence paths remain in use.
 
 The production build reports **4.2642% linked native ranges / 95.7358% outside
 those ranges** (2,072 new bytes). Those are payload-range measurements, not total
 completion or a native CPU-time share. All 40 local source tests passed.
 
-Focused checks after rebuilding: let the opening-to-title card check finish;
-list existing game saves, load a known save and check that high scores remain.
-If practical, test one write/reload using a backup or disposable card/save, then
-restart and confirm persistence. Note FPS during slot listing, reading and
-writing separately. A short first-level session is enough for movement/firing;
-no repeat trip to level 9 is requested. The previous level-9 acceptance below
-remains the 0.0.11 baseline, not acceptance of this replacement.
+No rebuild or repeat save/load test is needed for this acceptance note. The
+previous level-9 gameplay acceptance below remains the 0.0.11 baseline; this
+save/load report does not imply a new campaign playthrough, an exhaustive
+persistence check or a repeat of every historical host-menu test. Future player
+checks will be tied to the behavior changed by the next runtime update.
 
 Local qualification completed fresh setup-card creation/reload and existing-card
 load/overwrite with full card images identical to 0.0.11. Five matching-frame
 visual checks through first-level gameplay were pixel-identical. The normal
 movie/controller/close check and both Windows/Linux CI matrices passed. These
-checks support the pending Windows player check; they do not establish physical
+checks complement the Windows save/load report; they do not establish physical
 audio quality, every game-progress-save case or later campaign coverage.
 
 Copy the private `.local/runtime-dev/saves` folder before a deliberate write test
@@ -86,14 +86,15 @@ Controlled local startup tests reproduced a loading dip with native-dispatch
 hooks compiled out as well. Its cause remains unresolved; it is not an intentional
 delay. No additional files or immediate repeat test are needed for this report.
 
-**Memory-card performance lead:** slot enumeration and saving now reproduce the
+**Historical memory-card performance lead (0.0.11):** slot enumeration and saving reproduced the
 reported dip on Windows. The user suspects the startup phase reads high scores.
 A local preserved 0.0.10 diagnostic baseline confirms card reads throughout its
 startup dip and recovery afterward, but also reads before the dip. That is a
 correlation, not a confirmed high-score call or root cause. Reads use card data
 already held in RAM; save publication performs synchronous file writes. Investigate
-guest protocol/driver cost and file-write cost separately. No timing or save-format
-change has been made.
+guest protocol/driver cost and file-write cost separately. The later 0.0.12 native
+card-control batch addresses the measured CPU cost; the user's save/load report
+above supersedes this earlier open performance status. No save-format change was made.
 
 This documentation-only acceptance update needs no rebuild or repeat playthrough.
 Keep existing saves. Further card-performance checks will be specified with an
