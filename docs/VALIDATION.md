@@ -724,3 +724,59 @@ Final save/reload, normal-runtime and platform checks are still pending. Automat
 menu routes that failed to reach a save confirmation are excluded from save and
 card-image equivalence evidence; only the confirmed manual write above is counted
 at this intermediate checkpoint.
+
+
+The final candidate code passed the complete Windows/Linux runtime matrix in
+[run 40453311167](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/40453311167).
+Both hosts passed the new original cross-slice call fixture and retained the
+existing native/input/media/title checks. Linux additionally passed the menu,
+reference-profile, renderer and worker checks. Neither workflow uploads a game
+binary or commercial input. The later coverage/checkpoint changes are documents
+only and do not change that tested code.
+
+A manual cross-version setup-card test succeeded in both directions: 0.0.11
+loaded a candidate-created disposable card, then wrote it again; the production
+candidate loaded that baseline-written card and rewrote it. Both games displayed
+successful read/save results with flush_result=0 and no remaining dirty buffer.
+The resulting complete 128 KiB images were byte-identical. A separate fresh-card
+0.0.11 run reproduced the earlier candidate's first-create image exactly. First
+creation and later overwrite differ in the baseline too; this observation is not
+a claim that every setup-file initialization detail is understood or fixed.
+A production fresh-card repeat and normal-build verification are still pending.
+
+
+The corrected frame-scheduled fresh-card route subsequently reached the actual
+setup-save confirmation, completed the write and confirmed a reload in both the
+preserved 0.0.11 baseline and the production 0.0.12 candidate. Both complete
+128 KiB card images matched byte for byte, with an allocated save block and clean
+publication status. The first-create result matches the earlier manual candidate
+image too. Thus both fresh creation and existing-card overwrite reproduce the
+baseline in these tested setup-card cases. This does not claim full campaign-save,
+physical-device or every error-path coverage. Windows checks should include the
+player's existing game-progress saves and high scores using backed-up cards.
+The preceding invalid navigation routes are not included in this evidence.
+
+The normal build with diagnostics disabled and a short first-level comparison
+remain the final local checks before promotion.
+
+
+The production fresh-card repeat completed and matched the baseline's entire
+128 KiB image byte for byte after save and reload. Both fresh creation and
+existing-card overwrite are now covered by successful UI outcomes and card-image
+comparisons, using disposable cards only. The focused frame-scheduled setup-card
+route produced the following approximate diagnostic guest-speed samples. Bounds
+use the nearest approximately 30-frame sample, so these are not exact per-call
+latencies or Windows benchmarks.
+
+| Sample window (guest frames) | 0.0.11 baseline FPS | 0.0.12 candidate FPS |
+| --- | ---: | ---: |
+| Startup card read (1180–1330) | 27.01 | 59.94 |
+| Setup-save card check (3180–3540) | 46.70 | 59.89 |
+| Setup save/write (3600–4200) | 52.26 | 59.90 |
+| Setup-load card check (4380–4740) | 48.22 | 59.95 |
+| Confirmed setup read (4800–5160) | 47.22 | 59.94 |
+
+Synchronous file publication still runs on the emulation thread. These local
+results do not establish starvation-free audio, device-independent write latency,
+full game-progress-save coverage or every card error path. The normal build and
+short first-level comparison remain pending at this checkpoint.
