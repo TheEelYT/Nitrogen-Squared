@@ -431,6 +431,10 @@ dummy audio, separate private saves and the verified USA disc:
 - A changed covered instruction declined, restoring the instruction rematched,
   and the actual NEW.EXE bytes loaded at these same addresses declined both
   N2O.EXE entries. No global active-executable guess was needed for this slice.
+- The pinned production static-match stress fixture passed cache saturation,
+  eviction and code replacement. A REFERENCE CMake configuration also succeeded
+  with the private generated slice directory temporarily absent. Restoring that
+  directory and ENHANCED selection reproduced the exact prior profile header.
 - A fresh diagnostic boot skipped all three native movies, reached first-level
   tutorial gameplay and closed normally. The static-entry counters recorded
   5,120 calls to the first routine by frame 4,228. The second was qualified in
@@ -458,7 +462,22 @@ at 1x/4x. All original assertions were retained. Source CI also passed in
 
 Final shutdown-count logging and additional report/filter checks were added after
 that matrix; local normal linking/playback and the 37-test suite passed with those
-refinements. A fresh final matrix is pending. Windows player acceptance of 0.0.10
-remains the focused checks in TESTING.md; 0.0.9 through level 4 remains the accepted
+refinements. The fresh final Windows/Linux matrix passed in
+[run 40434467307](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/40434467307),
+retaining all native/input/media/title, reference, renderer and queue assertions
+listed above. Source tests and packaging passed on both platforms in
+[run 40434467313](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/40434467313).
+Windows player acceptance of 0.0.10 remains the focused checks in TESTING.md;
+0.0.9 through level 4 remains the accepted
 player baseline. No commercial payload, capture, generated body or executable was
 added to Git or uploaded by CI.
+
+Final review also kept native counter probing on `overlay_loader_status`, which
+is supported in both profiles. A separate static-entry query is unavailable in
+REFERENCE and was removed from the probe's default command list before promotion.
+The revised filtering test retains only aggregate counters, excluding entry/code
+data. This Python-only compatibility refinement receives local source tests;
+it does not change the runtime objects exercised by the final matrix. All 37
+source tests, the 70-file source audit and `git diff --check` passed again locally
+after that refinement. The final validation/probe commit skips CI because the
+compiled runtime is unchanged and the Python-only adjustment was tested locally.

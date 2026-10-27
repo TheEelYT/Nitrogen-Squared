@@ -17,7 +17,6 @@ FIELDS = {
     "overlay_loader_status": ("active", "registered", "dispatch_native", "dispatch_interp_fallback", "stale_blocked",
                               "static_checks", "static_hits", "static_variant_misses", "static_address_misses",
                               "static_rehashes", "static_crc_misses", "static_gen_fastpath"),
-    "overlay_static_entries": ("entries", "total_hits", "range_entries", "range_variants", "range_hits", "range_hit_entries"),
     "dirty_ram_stats": ("blocks_run", "insns_run", "aborts", "guard_yields", "native_handoffs"),
     "perf": ("valid", "measurement", "fps", "swaps", "span_ms", "mean_us", "p95_us", "p99_us", "hitches"),
     "audio_stats": ("pump_calls", "pump_skips", "underruns", "out.active", "out.mode", "out.host_rate",

@@ -217,6 +217,8 @@ outside linked ranges. Its normal clean-shutdown log also prints
 `nitrogen: native game slice: dispatches=... residency_rejections=...`.
 After first-level gameplay the dispatch count should be positive. This is an
 execution check, not a native-instruction percentage or speed measurement.
+Residency rejections select the interpreter and can be normal while different
+code occupies the address; they are not failed game calls.
 
 If OpenGL fails or draws incorrectly, compare with:
 
