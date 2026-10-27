@@ -2,6 +2,7 @@
   ".github/workflows/source-checks.yml",
   ".github/workflows/windows-runtime.yml",
   ".gitignore",
+  "AGENTS.md",
   "CMakeLists.txt",
   "LICENSE",
   "README.md",

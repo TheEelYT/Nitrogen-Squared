@@ -3,9 +3,10 @@
 A Windows-first recompilation project for **N2O: Nitrous Oxide (PlayStation)**,
 with a planned PS Vita port and optional remaster presentation.
 
-**Current status: 0.0.9, private desktop runtime bring-up.** The user verified
-native opening movies and skipping, analog input, and consistent 60 FPS gameplay
-on Windows in 0.0.8. Normal launch now requests the framework's OpenGL render
+**Current status: 0.0.9, playable private Windows runtime.** The user reports no
+issues with this update, gameplay tested through level 4, and working saves,
+including high scores. That is the accepted player baseline for continuing native
+work; later levels have not been verified. Normal launch requests the framework's OpenGL render
 worker with one closed frame of lookahead. System/Debug remain available, audio
 health uses a thread-safe host snapshot, and the FPS title stays single across
 menu pauses. Native cutscene audio already runs independently of rendering.
@@ -15,6 +16,32 @@ unlocked presentation remain future work.
 There is no public game executable or Vita VPK. The current hybrid runtime uses
 native boot/BIOS code and interpreter fallback for much of the loaded game code.
 A repeatable private build command is included.
+
+## Native progress — 0.0.9
+
+| Selected executable payloads | Bytes | Share |
+| --- | ---: | ---: |
+| Covered by linked native translations | 17,908 | **2.12%** |
+| Outside linked native translation ranges | 827,916 | **97.88%** |
+| Total | 845,824 | 100.00% |
+
+These are executable-range measurements, not overall completion or the share of
+CPU time spent natively. Payloads include embedded data. Only boot-loader
+translations are linked; generated analysis for `N2O.EXE` and `NEW.EXE` is not
+linked, and their game code still relies heavily on interpreter fallback.
+
+Native services are tracked separately: the desktop frontend and controller input
+use host implementations; **3 of 3 opening movie routes** use native playback.
+Gameplay logic remains largely guest code, music/effects retain the guest SPU/CD
+path, and ending/separate STR playback retains the original route. The OpenGL
+worker schedules PS1 graphics commands; it does not replace the game's renderer
+with a native scene engine. Host services do not increase the percentage above.
+
+Next: qualify loaded-executable identity and enable a small verified native game
+slice, then expand coverage while retaining the working fallback. See the
+[native roadmap](docs/ROADMAP.md) and [metric definition](docs/NATIVE_PROGRESS.md).
+Every runtime update will refresh this section and [TESTING.md](TESTING.md),
+including an explicit unchanged percentage when no new native ranges are linked.
 
 ## Bring your own game
 

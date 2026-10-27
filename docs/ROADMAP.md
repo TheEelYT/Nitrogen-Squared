@@ -1,26 +1,71 @@
 # Windows first, Vita by design
 
-## 1. Disc and code analysis — underway
+## Accepted baseline — 0.0.9
 
-- Verified one USA merged BIN/CUE and all executable inputs.
-- Implemented local import and a first-run setup prototype.
-- Built the pinned recompiler on the development host and generated isolated C.
-- Linked a private runtime and reached opening videos, title/attract sequence,
-  ship selection, level selection, tutorial screens and first-level gameplay on the development host.
-- Next: validate the Windows window/audio/input path and first playable level,
-  then establish code identity where executables share addresses and replace
-  loaded-region interpreter fallback with verified native translations.
-- Measure native execution and remaining fallback; do not report generation counts
-  as a completion percentage.
+Windows gameplay is user-tested through level 4 with no issues reported. Saving
+and high scores work. Native openings/skipping, analog input and consistent 60 FPS
+gameplay were verified in preceding updates; the user reports no regressions in
+0.0.9. That is enough player coverage to continue native work. Later levels and
+two-player behavior remain unverified, without blocking this next milestone.
 
-## 2. Repeatable faithful Windows runtime
+The verified importer, private build and source-only distribution gate stay in
+place. Only boot-loader translations are linked today: 2.12% of selected
+executable payload bytes, with 97.88% outside linked ranges. See
+[native progress](NATIVE_PROGRESS.md) for the metric and separate native services.
 
-Integrate native game modules with graphics, SPU audio, CD/audio playback, input,
-timing and memory cards. Validate a repeatable play route, two-player behavior and
-save/load before visual changes. The native module/cache must be generated from
-each player's own disc; no game-derived module is shipped in the public package.
+## 1. Next update: loaded-code identity and a first native game slice
 
-## 3. Optional remaster presentation
+`N2O.EXE` and `NEW.EXE` have overlapping addresses. Simply linking all analysis
+output could dispatch a function belonging to the wrong executable. The next
+runtime milestone is therefore a small, guarded native slice of loaded game code:
+
+1. Map load/transition boundaries and active executable identity on the accepted
+   opening-to-menu/first-level route. Select candidate functions using bounded
+   private execution measurements, not generated function counts alone.
+2. Qualify dispatch against the active executable and verified code bytes, with
+   stale native mappings invalidated when code is replaced. Establish handling of
+   calls into/out of the selected slice and preserve interpreter fallback for
+   unknown or changed code. Test same-address/different-code dispatch with original
+   synthetic fixtures before enabling commercial-game translations privately.
+3. Link a small verified function group generated from the player's own import.
+   Compare its results with the reference path at the function's observable
+   boundary, including memory/register effects and timing-sensitive behavior.
+4. Repeat the short Windows route and affected persistence/menu/input checks.
+   Increase the linked coverage only for ranges actually linked and qualified;
+   if this update establishes infrastructure alone, report unchanged coverage.
+
+Do not enable both full executable translations in one unqualified change. No
+game-derived source, guard instructions, modules or captures may ship publicly.
+
+## 2. Expand native game execution and replace guest services
+
+Grow the verified slices through frequently executed routines and then their
+callers: menu/level transitions, simulation and rendering preparation. Keep the
+working reference route available for comparisons. Track linked range coverage
+and, when available, route-specific native/fallback execution separately so a
+small hot function's runtime benefit is visible without inflating completion.
+
+Native gameplay audio follows qualification of the game's sound-driver boundary:
+identify cue IDs, bank/sequence ownership, voice control, music transport and
+volume behavior. Then deliver timestamped commands to a host audio service with
+independent sample production. Qualify pause/resume, stop/reset, scene changes,
+looping and buffer bounds. Moving the hardware SPU to a worker alone would still
+retain PS1 sound emulation and would not establish a native cue interface.
+
+Keep existing saves/high scores readable while replacing their game-facing
+services. Test writes using private copies. Full campaign and two-player checks
+can be added as coverage reaches their distinct code paths; do not require a full
+playthrough for each small update.
+
+## 3. Native rendering and optional remaster presentation
+
+After game execution boundaries are understood, replace selected graphics
+submission paths with host rendering at a stable game-facing boundary. The
+current GL worker consumes PS1 commands; it is not this scene-level replacement.
+Introduce higher resolution and other options separately so visual changes can
+be compared against the original presentation. For unlocked display rates, first
+separate fixed simulation ticks from presentation and qualify interpolation;
+changing the guest clock is not a framerate-unlock implementation.
 
 | Feature | Windows target | Vita target |
 | --- | --- | --- |
@@ -41,6 +86,8 @@ layouts need per-game work. Do not tie simulation speed to presentation FPS.
 Keep game-facing code free of Windows APIs. Platform-specific services must cover
 display/rendering, audio, input, filesystem/user-data paths, fibers, and module loading.
 Windows and Vita require different native module architectures and cache identities.
+Run small ARM/platform feasibility checks alongside the Windows native milestones;
+do not wait for nominal 100% coverage to discover a blocking Vita assumption.
 
 The candidate runtime currently targets desktop SDL/OpenGL/Vulkan and Win32/POSIX
 fibers. A Vita build is **not** available by simply changing the compiler:
@@ -55,3 +102,12 @@ fibers. A Vita build is **not** available by simply changing the compiler:
   hardware before selecting presentation features.
 
 No Vita release date or performance claim until the core runtime is measured there.
+
+## Update reporting
+
+For every runtime update, refresh README.md's native/uncovered measurements and
+native-service summary, and TESTING.md's current changes, focused player checks
+and verification status. Record evidence and limitations in VALIDATION.md. Keep
+earlier acceptance as history; never mark a replacement verified solely because
+its previous implementation worked. Documentation-only updates need no runtime
+version bump or player rebuild.

@@ -1,5 +1,28 @@
 # Windows development test — 0.0.9
 
+## Current acceptance and update checks
+
+**0.0.9 accepted on Windows:** the user reports no issues, playable gameplay
+through level 4, and working saving, including high scores. Earlier checks also
+verified native opening playback/skipping, analog input and consistent 60 FPS
+gameplay. Testing through level 4 is sufficient for the current native-work
+baseline; reaching later levels is not a prerequisite for continuing.
+
+**This documentation update needs no rebuild or additional player checks.**
+It records acceptance and the next native milestones without changing the runtime.
+
+Each runtime update will replace this update-specific summary with what changed,
+the affected checks to run, and their pending/verified status. Unrelated historical
+checks below are a reference, not a request to repeat every test on every update.
+Newly affected behavior remains pending until tested; previous acceptance does not
+automatically qualify a new native implementation.
+
+For the next native game-code slice, planned checks are: the usual opening-to-menu
+route, analog movement/firing and a short first-level session, pause/reset/quit,
+and loading an existing save/high scores. Additional checks will follow the actual
+functions selected. Do not overwrite a valued save to perform a test; copy the
+private `.local/runtime-dev/saves` directory before any deliberate save-write test.
+
 The disc import already created `%LOCALAPPDATA%\NitrogenSquared\SLUS-00637`.
 Leave that folder and your original CUE/BIN in place. You do not need to reimport.
 

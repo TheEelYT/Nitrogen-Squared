@@ -385,3 +385,23 @@ worker pixel equivalence and all 671 batching checks. Source tests and packaging
 passed on both platforms in
 [run 40308692247](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/40308692247).
 No binary artifact was uploaded.
+
+## Windows acceptance of 0.0.9 and native-work baseline
+
+The user reports no issues with 0.0.9, describes the game as fully playable in
+their testing through level 4, and confirms saving works, including high scores.
+This closes the general pending Windows acceptance for the render-worker update.
+It is a player report, not an isolated benchmark or proof of every individual
+menu/audio counter check. Later campaign levels remain unverified and are not a
+prerequisite for continuing native development.
+
+The following documentation update records that acceptance, places both linked
+native coverage (2.12%) and its uncovered complement (97.88%) in README.md, and
+defines the next native milestones. It changes no runtime code or VERSION and
+requires no additional player test. Saving currently validates the guest
+compatibility/persistence path; it is not evidence of a native save-system rewrite.
+
+Documentation maintenance instructions are now recorded in root AGENTS.md and
+included in the reviewed source allowlist. All six packaging regression tests,
+the source audit (63 reviewed text files), and `git diff --check` passed locally.
+No runtime code changed, so no runtime rebuild or additional player test was run.

@@ -3,6 +3,10 @@
 The 0.0.9 baseline has **2.12% linked native translation coverage** against the
 combined payload sizes of the three selected USA game executables:
 
+The complementary **97.88% (827,916 bytes)** is outside those linked translation
+ranges. It is not a measured interpreter-execution percentage: payload data and
+separately tracked native service replacements prevent that interpretation.
+
 | Executable | Linked native range bytes | Payload bytes | Coverage |
 | --- | ---: | ---: | ---: |
 | SLUS_006.37 (boot loader) | 17,908 | 53,248 | 33.63% |
@@ -41,11 +45,22 @@ pre-0.0.7 receipt by rebuilding first.
 | Service | Current status |
 | --- | --- |
 | Desktop presentation and menu | Host implementations; user verified menu and keybinds on Windows |
-| Gameplay render scheduling | Bounded OpenGL worker; local pixel parity checked, Windows worker acceptance pending |
+| Gameplay render scheduling | Bounded OpenGL worker; local pixel parity checked, user reports no issues with 0.0.9 on Windows |
 | Controller input | Host SDL input; analog gameplay verified by the user in 0.0.6 |
 | Music and effects | Emulated SPU/CD path; no independent cue-driven player yet |
 | Opening movies | Native STR/XA service for three opening routes; user verified Windows playback and skipping |
 | Ending / separate STR route | Original playback until full call/return paths are qualified |
+| Saves and high scores | Guest persistence through compatibility services; user reports working on Windows, not a native save-system replacement |
+
+The Windows player baseline now reaches level 4 with no issues reported. Further
+campaign progression is not required for the next native milestone. This does not
+change the linked-range count or qualify untested later-level behavior.
+
+Every runtime update must refresh the README's measured native/uncovered shares,
+this service inventory when affected, and TESTING.md's specific player checks.
+Report unchanged coverage explicitly for host-only work. Future execution-weighted
+native/fallback measurements must be labeled separately with their sampled route;
+they must not replace this denominator without a documented metric change.
 
 The inspected disc contains interleaved XA audio in the movie extents. Replacing
 CD music alone would not replace intro audio. Native movies should own synchronized
