@@ -5,9 +5,15 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
+#include <initializer_list>
 
 extern "C" {
 void psx_write_word(uint32_t, uint32_t);
+uint32_t psx_read_word(uint32_t);
+void psx_write_half(uint32_t, uint16_t);
+uint16_t psx_read_half(uint32_t);
+void psx_write_byte(uint32_t, uint8_t);
+uint8_t psx_read_byte(uint32_t);
 int psx_overlay_dispatch(CPUState *, uint32_t);
 int psx_overlay_static_can_dispatch(uint32_t);
 }
@@ -21,6 +27,14 @@ void load(uint32_t delta) {
     const uint32_t code[] = {0x3408000B, 0x00A64821, 0x00094840, 0x00E05025,
                              delta, 0x03E00008, 0x012A1821};
     for (unsigned i = 0; i < 7; ++i) psx_write_word(entry + i * 4, code[i]);
+}
+CPUState fixture_cpu() {
+    CPUState cpu{};
+    cpu.read_word = psx_read_word; cpu.write_word = psx_write_word;
+    cpu.read_half = psx_read_half; cpu.write_half = psx_write_half;
+    cpu.read_byte = psx_read_byte; cpu.write_byte = psx_write_byte;
+    cpu.gpr[29] = 0x801FFF00; cpu.gpr[31] = 0x8001C000;
+    return cpu;
 }
 }
 
@@ -52,7 +66,46 @@ void nitrogen_native_smoke() {
     overlay_loader_resync_validation_after_restore();
     load(0x24820007);
     check(psx_overlay_static_can_dispatch(entry), "restore permits a valid variant again");
-    std::puts("Runtime native slice smoke passed: same-address variants, 384 calls, tail invalidation, segment isolation, restore");
+    const uint32_t loop[] = {0x10C00009, 0, 0x8C880000, 0x24840004, 0x01074021, 0xACA80000,
+                             0x24A50004, 0x24C6FFFF, 0x14C0FFF9, 0, 0x03E00008, 0x00A01021};
+    for (unsigned i = 0; i < 12; ++i) psx_write_word(0x8001B100 + i * 4, loop[i]);
+    for (unsigned count : {0u, 1u, 2u, 7u, 16u}) {
+        for (unsigned i = 0; i < 17; ++i) {
+            psx_write_word(0x80100000 + i * 4, 0xFFFFFFF0u + i);
+            psx_write_word(0x80101000 + i * 4, 0xAABBCCDDu);
+        }
+        auto cpu = fixture_cpu();
+        cpu.gpr[4] = 0x80100000; cpu.gpr[5] = 0x80101000; cpu.gpr[6] = count; cpu.gpr[7] = 0x22;
+        check(psx_overlay_dispatch(&cpu, 0x8001B100), "dispatch a RAM loop");
+        for (unsigned i = 0; i < 17; ++i)
+            check(psx_read_word(0x80101000 + i * 4) == (i < count ? 0x12u + i : 0xAABBCCDDu),
+                  "RAM writes, wraparound arithmetic and buffer end");
+        check(cpu.gpr[2] == 0x80101000 + 4 * count && cpu.gpr[6] == 0, "loop return and counter");
+    }
+    const uint32_t geometry[] = {0x48844800, 0x48855000, 0x48865800, 0, 0,
+                                 0x4A000028, 0x4802C800, 0x48034800, 0x03E00008, 0};
+    for (unsigned i = 0; i < 10; ++i) psx_write_word(0x8001B200 + i * 4, geometry[i]);
+    for (int value : {-32768, -30000, -182, -1, 0, 1, 181, 182, 32767}) {
+        auto cpu = fixture_cpu();
+        cpu.gpr[4] = uint32_t(value); cpu.gpr[5] = 1; cpu.gpr[6] = uint32_t(-1);
+        check(psx_overlay_dispatch(&cpu, 0x8001B200), "dispatch GTE arithmetic");
+        uint32_t square = uint32_t(value * value);
+        check(cpu.gpr[2] == square, "GTE MAC result");
+        check(cpu.gpr[3] == (square > 32767 ? 32767 : square), "GTE signed input and IR saturation");
+        check(cpu.gpr[29] == 0x801FFF00 && cpu.gpr[31] == 0x8001C000, "GTE preserves SP/RA");
+    }
+    const uint32_t resume[] = {0x10800003, 0, 0x00E00008, 0x24820007, 0x00A61821, 0x03E00008, 0};
+    for (unsigned i = 0; i < 7; ++i) psx_write_word(0x8001B300 + i * 4, resume[i]);
+    auto cpu = fixture_cpu();
+    cpu.gpr[4] = 1; cpu.gpr[5] = 20; cpu.gpr[6] = 30; cpu.gpr[7] = 0x8001B310;
+    check(psx_overlay_dispatch(&cpu, 0x8001B300), "enter computed-transfer fixture");
+    check(cpu.pc == 0x8001B310 && cpu.gpr[2] == 8, "publish internal transfer and delay slot");
+    cpu.pc = 0; // The outer dispatcher clears PC before selecting its backend.
+    check(psx_overlay_dispatch(&cpu, 0x8001B310), "dispatch a guarded native resume alias");
+    check(cpu.gpr[2] == 8 && cpu.gpr[3] == 50 && cpu.pc == cpu.gpr[31], "resume at the block, not the function start");
+    psx_write_word(0x8001B300, 0);
+    check(!psx_overlay_static_can_dispatch(0x8001B310), "owner code change invalidates a resume alias");
+    std::puts("Runtime native slice smoke passed: 384 variant calls, replacement/restore, segment isolation, RAM loops, GTE saturation and guarded CPS resumes");
 #else
     std::puts("Runtime native slice smoke passed: REFERENCE links no loaded-code translations");
 #endif

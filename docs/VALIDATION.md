@@ -502,3 +502,33 @@ The screen location and recovery to 60 FPS are recorded in TESTING.md. No runtim
 code, timing policy, VERSION or coverage measurement changes with this note.
 The source audit and `git diff --check` passed. No new player files or immediate
 repeat testing are requested.
+
+## Windows first-level acceptance of 0.0.10
+
+The user reports no issues during first-level gameplay in 0.0.10 and authorizes
+a substantially larger native conversion group next. This accepts the tested
+first-level route. Later-level testing and an exhaustive repeat of every host
+menu/save check are not inferred. The startup-loading observation above remains
+unconfirmed, with recovery to 60 FPS.
+
+## Larger native batch — checkpoint, not a release
+
+The next conversion is under qualification. Handwritten integration now provides
+guarded continuation wrappers for compiled blocks, using the pinned emitter's
+ownership map and resume-arm helper. Synthetic CI fixtures have been extended to
+exercise RAM-writing loops, GTE saturation and computed transfers that resume at
+an internal block. Additional source tests reject continuations lacking a guarded
+owner. The shipping native binding and runtime version have not changed yet.
+
+Private qualification has matched 25 complete captured calls across CPU state,
+main RAM, scratchpad and geometry state. A broader adapted-input comparison found
+one routine with mismatches that still require investigation; no unqualified
+larger group has been promoted. These counts are checkpoint findings, not an
+increase to reported native coverage or a claim of complete gameplay validation.
+
+Private capture/replay sources, candidate-input inventories, witness snapshots,
+generated game code and detailed dumps are excluded from this checkpoint. The
+saved public changes contain only handwritten integration, original synthetic
+tests and documentation. Before release: resolve or exclude unqualified cases,
+repeat controlled loading/gameplay comparisons, run Windows/Linux checks, and
+refresh the actual linked coverage and focused player testing instructions.

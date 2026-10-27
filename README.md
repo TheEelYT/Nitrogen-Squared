@@ -5,7 +5,7 @@ with a planned PS Vita port and optional remaster presentation.
 
 **Current status: 0.0.10, private Windows runtime with a first native gameplay slice.**
 Two leaf angle-table routines now run as guarded native translations. Windows
-player verification of this update is pending. The user reports no
+first-level gameplay is verified by the user with no issues reported. The user reports no
 issues with 0.0.9, gameplay tested through level 4, and working saves,
 including high scores. That is the accepted player baseline for continuing native
 work; later levels have not been verified. Normal launch requests the framework's OpenGL render

@@ -63,6 +63,15 @@ def main():
     records = [("SYNTHETIC", capture(struct.pack("<7I", *prefix, delta, 0x03E00008, 0x012A1821),
                                        0x8001B000, [0x8001B000]))
                for delta in (0x24820007, 0x2482FFF7)]
+    # Original RAM loop: copy/add words, including zero count and load/branch
+    # delay slots. Original GTE leaf: square signed IR values and read MAC/IR.
+    loop = [0x10C00009, 0, 0x8C880000, 0x24840004, 0x01074021, 0xACA80000,
+            0x24A50004, 0x24C6FFFF, 0x14C0FFF9, 0, 0x03E00008, 0x00A01021]
+    geometry = [0x48844800, 0x48855000, 0x48865800, 0, 0,
+                0x4A000028, 0x4802C800, 0x48034800, 0x03E00008, 0]
+    resume = [0x10800003, 0, 0x00E00008, 0x24820007, 0x00A61821, 0x03E00008, 0]
+    records.extend(("SYNTHETIC", capture(struct.pack("<" + "I" * len(words), *words), pc, [pc]))
+                   for pc, words in [(0x8001B100, loop), (0x8001B200, geometry), (0x8001B300, resume)])
     native = emit(records, framework, game, config, work / "native-slices")
     configure = ["cmake", "-S", str(ROOT), "-B", str(work / "build"),
                     f"-DPSXRECOMP_ROOT={framework}", f"-DNITROGEN_GENERATED_DIR={generated}",

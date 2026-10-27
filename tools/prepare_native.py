@@ -34,6 +34,38 @@ def capture(data: bytes, base: int, entries: list[int]) -> dict:
                 function_entry_pcs=pcs)
 
 
+def add_resumes(compiler, part: dict) -> list[dict]:
+    """Expose compiled block resumptions through the same residency gate.
+
+    Use the pinned emitter's continuation ownership and resume-arm helper,
+    as its static CLI does. An alias is not an additional translated function.
+    """
+    owners = {}
+    for entry, owner in sorted(part["continuation_owners"].items()):
+        if entry in part["func_addrs"]:
+            continue
+        identities = part["ids_by_addr"].get(owner, [])
+        if not identities or not all(any(lo <= entry < lo + size for lo, size in ranges)
+                                    for _, ranges in identities):
+            raise ValueError("Native continuation has no guarded owner range")
+        owners.setdefault(owner, []).append(entry)
+    requests = [(part["symbols"][owner], owner, entries) for owner, entries in owners.items()]
+    part["src"], accepted = compiler.add_cps_resume_cases(part["src"], requests)
+    resumes = []
+    for owner, entries in owners.items():
+        host = part["symbols"][owner]
+        for entry in entries:
+            if entry not in accepted.get(host, ()):
+                raise ValueError("Pinned emitter could not bind a native continuation")
+            symbol = f"{part['namespace']}_resume_{entry:08X}"
+            part["src"] += (f"\nvoid {symbol}(CPUState *cpu)\n{{\n"
+                            f"    cpu->pc = 0x{entry:08X}u;\n    {host}(cpu);\n}}\n")
+            for crc, ranges in part["ids_by_addr"][owner]:
+                part["variants"].append(dict(addr=entry, symbol=symbol, crc=crc, ranges=ranges))
+            resumes.append(dict(entry=entry, owner=owner))
+    return resumes
+
+
 def emit(records: list[tuple[str, dict]], framework: Path, recompiler: Path,
          game_toml: Path, output: Path, cmake="cmake") -> Path:
     """Shared production/synthetic path; return a metadata-only private receipt."""
@@ -83,7 +115,9 @@ def emit(records: list[tuple[str, dict]], framework: Path, recompiler: Path,
         manifest = output / f"slice-{index}.ranges"
         write_text(manifest, text)
         manifests.append(manifest)
-        inventories.append(dict(executable=executable, ranges=manifest.name, entries=sorted(entries)))
+        resumes = add_resumes(compiler, part)
+        inventories.append(dict(executable=executable, ranges=manifest.name, entries=sorted(entries),
+                                resume_entries=resumes))
         parts.append(part)
         variants.extend(part["variants"])
     files = compiler.write_static_outputs(str(main), parts, variants,

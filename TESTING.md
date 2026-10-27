@@ -8,12 +8,15 @@ verified native opening playback/skipping, analog input and consistent 60 FPS
 gameplay. Testing through level 4 is sufficient for the current native-work
 baseline; reaching later levels is not a prerequisite for continuing.
 
-**0.0.10 — player verification pending:** two gameplay angle-table
+**0.0.10 — first-level gameplay verified by the user:** two gameplay angle-table
 lookup routines are generated privately, linked and selected only when their
 resident code ranges match. Changed code and unsupported PC segments retain
 interpreter fallback. This is a small native-execution milestone, not a promised
 speed increase. Native-progress reporting now includes the linked slice and
 rejects source/range files changed after the recorded build.
+The user reports no issues during first-level gameplay and permits a larger
+native conversion group for the next update. This confirms that route, without
+implying a later-level or exhaustive repeat of all host-menu/save checks.
 
 **Reported startup observation:** the user noticed a "20 fps slowdown" during
 the loading screen after the opening movies and splash, immediately before the

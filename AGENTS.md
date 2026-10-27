@@ -5,6 +5,9 @@
 - The accepted 0.0.9 player baseline reaches level 4 with no issues reported and
   working saves/high scores. Do not require later-level progression before the
   next native milestone. Add focused checks for behavior affected by each change.
+- The user also verified first-level gameplay without issues in 0.0.10 and
+  authorized a substantially larger next conversion batch. Its temporary startup
+  loading dip returns to 60 FPS and may predate that version; it is unconfirmed.
 - Every runtime update must update `TESTING.md` with the version, concrete changes,
   focused player checks and pending/verified status. Prior acceptance is history,
   not automatic verification of a replacement. Avoid requesting unrelated full
