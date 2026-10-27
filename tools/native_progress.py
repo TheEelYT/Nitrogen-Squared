@@ -48,6 +48,22 @@ def report(work: Path) -> dict:
     known = {e["path"] for e in identity["executables"]}
     if linked - known:
         raise ValueError("Unknown executable in build receipt")
+    slice_texts = {}
+    for selected in receipt.get("native_slices", []):
+        manifest = Path(selected["manifest"])
+        if digest(manifest) != selected["sha256"]:
+            raise ValueError("Linked native slice receipt changed; rebuild first")
+        inventory = json.loads(manifest.read_text())
+        if inventory.get("schema") != 1:
+            raise ValueError("Unsupported native slice receipt")
+        for name, expected_hash in inventory["files"].items():
+            if Path(name).name != name or digest(manifest.parent / name) != expected_hash:
+                raise ValueError("Linked native slice source/ranges changed; rebuild first")
+        for item in inventory["slices"]:
+            if item["executable"] not in known or item["ranges"] not in inventory["files"]:
+                raise ValueError("Unknown native slice executable/ranges")
+            slice_texts.setdefault(item["executable"], []).append(
+                (manifest.parent / item["ranges"]).read_text())
     rows = []
     for expected in identity["executables"]:
         name = expected["path"]
@@ -55,11 +71,12 @@ def report(work: Path) -> dict:
         if exe.stat().st_size != expected["size"] or digest(exe) != expected["sha256"]:
             raise ValueError(f"Extracted executable changed: {name}")
         header = exe_header(exe.read_bytes())
-        count = functions = 0
+        texts = slice_texts.get(name, []).copy()
         if name in linked:
             ranges = generated / name / (name + "_full.ranges")
-            count, functions = covered_ranges(ranges.read_text(), header["load_address"], header["text_size"])
-        rows.append(dict(executable=name, linked=name in linked, native_range_bytes=count,
+            texts.append(ranges.read_text())
+        count, functions = covered_ranges("\n".join(texts), header["load_address"], header["text_size"])
+        rows.append(dict(executable=name, linked=bool(texts), native_range_bytes=count,
                          payload_bytes=header["text_size"], linked_functions=functions,
                          percent=round(100 * count / header["text_size"], 4)))
     native = sum(row["native_range_bytes"] for row in rows)
@@ -81,9 +98,9 @@ def main():
         if args.output:
             args.output.parent.mkdir(parents=True, exist_ok=True)
             args.output.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
-        print(f"Linked native translation coverage: {result['percent']:.2f}%")
+        print(f"Linked native translation coverage: {result['percent']:.4f}%")
         for row in result["executables"]:
-            print(f"  {row['executable']}: {row['percent']:.2f}% ({row['linked_functions']} linked functions)")
+            print(f"  {row['executable']}: {row['percent']:.4f}% ({row['linked_functions']} linked functions)")
         print(result["caveat"])
     except (OSError, ValueError, KeyError) as e:
         p.exit(1, f"Native progress failed: {e}\n")

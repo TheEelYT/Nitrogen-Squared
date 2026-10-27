@@ -1,0 +1,9 @@
+[
+  {
+    "executable": "N2O.EXE",
+    "purpose": "Two leaf routines reading the paired 12-bit angle lookup table",
+    "start": "0x800566D4",
+    "size": 56,
+    "entries": ["0x800566D4", "0x800566F0"]
+  }
+]

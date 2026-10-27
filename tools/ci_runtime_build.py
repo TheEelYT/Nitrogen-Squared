@@ -15,6 +15,7 @@ import subprocess
 from build_recompiler import build
 from build_runtime import find_binary
 from n2o_disc import ROOT
+from prepare_native import capture, emit
 
 
 def main():
@@ -56,8 +57,17 @@ def main():
         f'bios_config = {q(framework / "bios/OpenBIOS.toml")}\nstrict = true\ndiscovery = "reachable"\n',
         encoding="utf-8")
     subprocess.run([str(game), "--config", str(config), "--project-root", str(framework)], check=True)
+    # Original leaf programs: identical entry and first four words, different
+    # fifth instruction. This tests complete-body identity, not a prologue guard.
+    prefix = [0x3408000B, 0x00A64821, 0x00094840, 0x00E05025]
+    records = [("SYNTHETIC", capture(struct.pack("<7I", *prefix, delta, 0x03E00008, 0x012A1821),
+                                       0x8001B000, [0x8001B000]))
+               for delta in (0x24820007, 0x2482FFF7)]
+    native = emit(records, framework, game, config, work / "native-slices")
     configure = ["cmake", "-S", str(ROOT), "-B", str(work / "build"),
                     f"-DPSXRECOMP_ROOT={framework}", f"-DNITROGEN_GENERATED_DIR={generated}",
+                    f"-DNITROGEN_NATIVE_STATIC={native.parent / 'overlays_static.c'}",
+                    "-DNITROGEN_NATIVE_SMOKE=ON",
                     "-DCMAKE_BUILD_TYPE=Release", "-DBUILD_TESTING=OFF", "-DNITROGEN_INPUT_SMOKE=OFF",
                     "-DNITROGEN_DIAGNOSTICS=OFF", "-DPSX_EXECUTION_PROFILE=ENHANCED"]
     if os.name != "nt":
@@ -79,6 +89,7 @@ def main():
                             check=True, timeout=15, capture_output=True, text=True)
     if ("Runtime input smoke passed:" not in result.stdout or
             "Runtime media smoke passed:" not in result.stdout or
+            "Runtime native slice smoke passed:" not in result.stdout or
             "Runtime status/title smoke passed:" not in result.stdout):
         raise RuntimeError("Virtual input test exited without its success receipt: " + result.stdout + result.stderr)
     print(result.stdout, end="", flush=True)

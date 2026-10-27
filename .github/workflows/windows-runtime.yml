@@ -20,5 +20,7 @@ jobs:
         if: runner.os == 'Linux'
         run: sudo apt-get update -qq && sudo apt-get install -y libgl-dev libegl-dev libgl1-mesa-dri
       - name: Compile actual runtime with original synthetic input
-        run: python tools/ci_runtime_build.py
+        run: |
+          python -m pip install tomli
+          python tools/ci_runtime_build.py
       # Deliberately no artifact upload: this is a compile check, not a release.

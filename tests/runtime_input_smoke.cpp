@@ -145,6 +145,10 @@ int main()
     #if defined(NITROGEN_MEDIA_SMOKE)
     nitrogen_media_smoke();
     #endif
+    #if defined(NITROGEN_NATIVE_SMOKE)
+    extern void nitrogen_native_smoke();
+    nitrogen_native_smoke();
+    #endif
     SDL_Quit();
     std::puts("Runtime input smoke passed: auto routing, ten buttons, digital stick, analog DualShock sample, unplug, keyboard source");
     return 0;

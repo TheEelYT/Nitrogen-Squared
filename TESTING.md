@@ -1,4 +1,4 @@
-# Windows development test — 0.0.9
+# Windows development test — 0.0.10 candidate
 
 ## Current acceptance and update checks
 
@@ -8,8 +8,18 @@ verified native opening playback/skipping, analog input and consistent 60 FPS
 gameplay. Testing through level 4 is sufficient for the current native-work
 baseline; reaching later levels is not a prerequisite for continuing.
 
-**This documentation update needs no rebuild or additional player checks.**
-It records acceptance and the next native milestones without changing the runtime.
+**0.0.10 candidate — player verification pending:** two gameplay angle-table
+lookup routines are generated privately, linked and selected only when their
+resident code ranges match. Changed code and unsupported PC segments retain
+interpreter fallback. This is a small native-execution milestone, not a promised
+speed increase. Native-progress reporting now includes the linked slice and
+rejects source/range files changed after the recorded build.
+
+After this candidate is qualified and published, rebuild with the commands below.
+Check the opening-to-menu route, analog movement/firing and a short first-level
+session, including the entering-game transition and tutorial. Check host
+pause/resume, reset/quit, and loading an existing save/high scores. Level 4 remains
+enough campaign coverage; there is no request to reach later levels for this update.
 
 Each runtime update will replace this update-specific summary with what changed,
 the affected checks to run, and their pending/verified status. Unrelated historical
@@ -17,10 +27,7 @@ checks below are a reference, not a request to repeat every test on every update
 Newly affected behavior remains pending until tested; previous acceptance does not
 automatically qualify a new native implementation.
 
-For the next native game-code slice, planned checks are: the usual opening-to-menu
-route, analog movement/firing and a short first-level session, pause/reset/quit,
-and loading an existing save/high scores. Additional checks will follow the actual
-functions selected. Do not overwrite a valued save to perform a test; copy the
+Do not overwrite a valued save to perform a test; copy the
 private `.local/runtime-dev/saves` directory before any deliberate save-write test.
 
 The disc import already created `%LOCALAPPDATA%\NitrogenSquared\SLUS-00637`.
@@ -43,6 +50,9 @@ python tools/build_runtime.py
 If CMake is missing, enable **C++ CMake tools for Windows** in the Visual Studio
 Installer, reopen Developer PowerShell, and repeat the command. Python 3.10+ and
 CMake 3.20+ are required. No Sony BIOS or additional game download is needed.
+Python 3.10 additionally needs `python -m pip install tomli` for the pinned
+native-slice generator. Python 3.11+ includes its TOML reader already. The disc
+importer remains standard-library-only.
 
 Version 0.0.3 fixes the Visual Studio configuration failure mentioning
 `psx_game_version.txt` being written multiple times with different content. Pull

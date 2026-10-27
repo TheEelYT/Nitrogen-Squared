@@ -405,3 +405,10 @@ Documentation maintenance instructions are now recorded in root AGENTS.md and
 included in the reviewed source allowlist. All six packaging regression tests,
 the source audit (63 reviewed text files), and `git diff --check` passed locally.
 No runtime code changed, so no runtime rebuild or additional player test was run.
+
+## 0.0.10 candidate — loaded game-code slice
+
+Qualification is in progress. The candidate uses the pinned static-overlay
+emitter and its per-range CRC/page-generation residency gate for two leaf
+angle-table readers in N2O.EXE. The current accepted player baseline remains
+0.0.9 through level 4. Candidate results will be recorded before promotion.

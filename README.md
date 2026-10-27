@@ -17,7 +17,7 @@ There is no public game executable or Vita VPK. The current hybrid runtime uses
 native boot/BIOS code and interpreter fallback for much of the loaded game code.
 A repeatable private build command is included.
 
-## Native progress — 0.0.9
+## Native progress — accepted 0.0.9 baseline
 
 | Selected executable payloads | Bytes | Share |
 | --- | ---: | ---: |
@@ -42,6 +42,10 @@ slice, then expand coverage while retaining the working fallback. See the
 [native roadmap](docs/ROADMAP.md) and [metric definition](docs/NATIVE_PROGRESS.md).
 Every runtime update will refresh this section and [TESTING.md](TESTING.md),
 including an explicit unchanged percentage when no new native ranges are linked.
+
+The 0.0.10 candidate adds two privately generated gameplay lookup routines behind
+the framework's resident-code gate. Its build and execution qualification are in
+progress; the table above remains the accepted baseline until those checks pass.
 
 ## Bring your own game
 
