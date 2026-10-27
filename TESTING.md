@@ -10,6 +10,12 @@ is not overall completion or an execution-time percentage. Original timing,
 audio and graphics services are unchanged. This update does not promise a speed
 increase, independent gameplay audio or unlocked framerate.
 
+Local qualification passed a controlled first-level route and five matching-frame
+pixel comparisons against 0.0.10. All 39 source tests and the 70-file source audit
+passed. The final Windows/Linux runtime and source CI jobs also passed.
+These checks complement the pending Windows player test below; they do
+not establish physical audio quality or later-level coverage.
+
 Focused checks: play a short first-level session with analog movement/firing.
 Watch enemies, explosions, HUD and animated menus for visual changes; check
 pause/resume and reset/quit, and that existing saves/high scores still load.

@@ -561,7 +561,27 @@ Local qualification uses the same Linux/GCC/Mesa/dummy-audio environment as
 - All 39 source tests passed locally with CMake available; the source audit passed
   with 70 reviewed text files. No tests were skipped in that final local suite.
 
-Exact-frame visual comparisons, a normal-build playback/close check and a final
-platform matrix are pending at this checkpoint. Windows 0.0.11 player acceptance
+A separate visual comparison enabled full-VRAM frame history and repeated the
+same frame-scheduled input route once per build. The baseline and candidate
+scanout images at guest frames 800, 1,500, 2,200, 3,000 and 4,000 were pixel-identical,
+including first-level enemies/HUD. These history-enabled runs are not performance
+samples and do not establish parity for unsampled frames or later levels.
+
+The normal build with diagnostics disabled also completed successfully and
+reproduced the coverage report. A private host fixture reused its production
+objects, attached an SDL virtual controller, let all three opening clips finish,
+injected gamepad input and F1 hide/restore, then closed via SDL_QUIT. It exited
+successfully, recording 952 native dispatches and zero residency rejections.
+Dummy-device audio underflows/overflows were recorded; this is not a physical
+audio-quality or starvation-free claim. No TCP diagnostic server was used.
+
+The final Windows/Linux runtime matrix passed in
+[run 40444614554](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/40444614554).
+Both platforms passed the original native slice, input, media and title checks.
+Linux additionally passed menu composition, the reference profile, renderer
+batching, queue and worker-equivalence checks. Source tests and packaging passed on both platforms in
+[run 40444614449](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/40444614449).
+No binary artifact was uploaded. A final documentation-only validation commit
+records these results without changing the tested runtime code. Windows 0.0.11 player acceptance
 is pending the focused first-level checks in TESTING.md; the user's successful
 0.0.10 first-level route remains the previous accepted result.
