@@ -9,11 +9,17 @@ gameplay were verified in preceding updates; the user reports no regressions in
 two-player behavior remain unverified, without blocking this next milestone.
 
 The verified importer, private build and source-only distribution gate stay in
-place. Only boot-loader translations are linked today: 2.12% of selected
-executable payload bytes, with 97.88% outside linked ranges. See
+place. Version 0.0.10 adds two native gameplay lookup routines to the boot-loader
+translations: 2.1238% of selected executable payload bytes, with 97.8762% outside
+linked ranges. Windows player acceptance of this new slice is pending. See
 [native progress](NATIVE_PROGRESS.md) for the metric and separate native services.
 
-## 1. Next update: loaded-code identity and a first native game slice
+## 1. Loaded-code identity and native game slices — underway
+
+The [first slice](NATIVE_GAME_SLICES.md) uses per-entry resident code identity and
+retains the interpreter on a mismatch. Private comparisons qualify its two leaf
+routines. Continue with measured candidates and their caller boundaries below;
+the general load/transition and nested-call problem is not yet fully qualified.
 
 `N2O.EXE` and `NEW.EXE` have overlapping addresses. Simply linking all analysis
 output could dispatch a function belonging to the wrong executable. The next

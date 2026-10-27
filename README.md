@@ -3,8 +3,10 @@
 A Windows-first recompilation project for **N2O: Nitrous Oxide (PlayStation)**,
 with a planned PS Vita port and optional remaster presentation.
 
-**Current status: 0.0.9, playable private Windows runtime.** The user reports no
-issues with this update, gameplay tested through level 4, and working saves,
+**Current status: 0.0.10, private Windows runtime with a first native gameplay slice.**
+Two leaf angle-table routines now run as guarded native translations. Windows
+player verification of this update is pending. The user reports no
+issues with 0.0.9, gameplay tested through level 4, and working saves,
 including high scores. That is the accepted player baseline for continuing native
 work; later levels have not been verified. Normal launch requests the framework's OpenGL render
 worker with one closed frame of lookahead. System/Debug remain available, audio
@@ -17,18 +19,20 @@ There is no public game executable or Vita VPK. The current hybrid runtime uses
 native boot/BIOS code and interpreter fallback for much of the loaded game code.
 A repeatable private build command is included.
 
-## Native progress — accepted 0.0.9 baseline
+## Native progress — 0.0.10
 
 | Selected executable payloads | Bytes | Share |
 | --- | ---: | ---: |
-| Covered by linked native translations | 17,908 | **2.12%** |
-| Outside linked native translation ranges | 827,916 | **97.88%** |
+| Covered by linked native translations | 17,964 | **2.1238%** |
+| Outside linked native translation ranges | 827,860 | **97.8762%** |
 | Total | 845,824 | 100.00% |
 
 These are executable-range measurements, not overall completion or the share of
-CPU time spent natively. Payloads include embedded data. Only boot-loader
-translations are linked; generated analysis for `N2O.EXE` and `NEW.EXE` is not
-linked, and their game code still relies heavily on interpreter fallback.
+CPU time spent natively. Payloads include embedded data. Linked translations
+cover the boot loader and two routines in `N2O.EXE`; the full analysis outputs for
+`N2O.EXE` and `NEW.EXE` are not linked. Game code still relies heavily on
+interpreter fallback. This update adds 56 bytes over 0.0.9's 2.1172%; the displayed
+precision is increased so that small qualified slices remain visible.
 
 Native services are tracked separately: the desktop frontend and controller input
 use host implementations; **3 of 3 opening movie routes** use native playback.
@@ -37,15 +41,11 @@ path, and ending/separate STR playback retains the original route. The OpenGL
 worker schedules PS1 graphics commands; it does not replace the game's renderer
 with a native scene engine. Host services do not increase the percentage above.
 
-Next: qualify loaded-executable identity and enable a small verified native game
-slice, then expand coverage while retaining the working fallback. See the
+Next: expand verified slices and qualify their callers while retaining the
+working fallback. See the [first native slice](docs/NATIVE_GAME_SLICES.md),
 [native roadmap](docs/ROADMAP.md) and [metric definition](docs/NATIVE_PROGRESS.md).
 Every runtime update will refresh this section and [TESTING.md](TESTING.md),
 including an explicit unchanged percentage when no new native ranges are linked.
-
-The 0.0.10 candidate adds two privately generated gameplay lookup routines behind
-the framework's resident-code gate. Its build and execution qualification are in
-progress; the table above remains the accepted baseline until those checks pass.
 
 ## Bring your own game
 
@@ -85,6 +85,8 @@ python tools/n2o_disc.py 'B:\Discs\N2O\N2O - Nitrous Oxide (USA).cue' --prepare 
 Install Git, CMake 3.20+, Python 3.10+ and a C/C++ toolchain. On Windows, run in
 a Visual Studio developer shell (VS 2022+), or use a working MinGW environment.
 The bootstrap downloads a pinned upstream checkout separately into `.local/`.
+Python 3.10 native-slice builds additionally need `python -m pip install tomli`;
+Python 3.11+ includes its TOML reader. The importer needs neither.
 
 ```powershell
 python tools/build_recompiler.py

@@ -53,7 +53,10 @@ class NativeProgressTests(unittest.TestCase):
             build = root / "runtime-build.json"
             build.write_text(json.dumps(receipt))
             with patch("native_progress.ROOT", root):
-                self.assertEqual(report(root)["native_range_bytes"], 24)
+                measured = report(root)
+                self.assertEqual(measured["native_range_bytes"], 24)
+                self.assertEqual(measured["uncovered_range_bytes"], 40)
+                self.assertEqual(measured["uncovered_percent"], 62.5)
                 source.write_text("/* Changed after linking. */\n")
                 with self.assertRaisesRegex(ValueError, "source/ranges changed"):
                     report(root)

@@ -6,6 +6,12 @@ import probe_runtime
 
 
 class ProbeTests(unittest.TestCase):
+    def test_native_slice_probe_keeps_counts_without_private_entries(self):
+        reply = {"entries": 2, "total_hits": 100, "range_hits": 100,
+                 "top": [{"addr": "private", "hits": 100}], "code": "omitted"}
+        self.assertEqual(probe_runtime.select_fields(reply, probe_runtime.FIELDS["overlay_static_entries"]),
+                         {"entries": 2, "total_hits": 100, "range_hits": 100})
+
     def test_nested_audio_report_excludes_unrequested_data(self):
         reply = {"pump_calls": 50, "underruns": 3, "unrequested": "not retained",
                  "out": {"active": 1, "fill_ms": 40.5, "underruns": 2,

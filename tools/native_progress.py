@@ -83,6 +83,8 @@ def report(work: Path) -> dict:
     total = sum(row["payload_bytes"] for row in rows)
     return dict(schema=1, metric="linked-native-ranges / original-executable-payload-bytes",
                 percent=round(100 * native / total, 4), native_range_bytes=native,
+                uncovered_percent=round(100 * (total - native) / total, 4),
+                uncovered_range_bytes=total - native,
                 payload_bytes=total, executables=rows,
                 caveat="Payloads include embedded data. Excludes BIOS, host services and analysis-only C. "
                        "Not project completion or scene-weighted native execution.")
@@ -99,6 +101,7 @@ def main():
             args.output.parent.mkdir(parents=True, exist_ok=True)
             args.output.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
         print(f"Linked native translation coverage: {result['percent']:.4f}%")
+        print(f"Outside linked native ranges: {result['uncovered_percent']:.4f}%")
         for row in result["executables"]:
             print(f"  {row['executable']}: {row['percent']:.4f}% ({row['linked_functions']} linked functions)")
         print(result["caveat"])

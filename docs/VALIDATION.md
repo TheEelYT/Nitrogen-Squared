@@ -406,9 +406,59 @@ included in the reviewed source allowlist. All six packaging regression tests,
 the source audit (63 reviewed text files), and `git diff --check` passed locally.
 No runtime code changed, so no runtime rebuild or additional player test was run.
 
-## 0.0.10 candidate — loaded game-code slice
+## 0.0.10 — first loaded-game native slice
 
-Qualification is in progress. The candidate uses the pinned static-overlay
-emitter and its per-range CRC/page-generation residency gate for two leaf
-angle-table readers in N2O.EXE. The current accepted player baseline remains
-0.0.9 through level 4. Candidate results will be recorded before promotion.
+The update uses the pinned static-overlay emitter and its per-range
+CRC/page-generation residency gate for two leaf angle-table readers in N2O.EXE.
+Only this 56-byte slice is selected, not the executable's full analysis output.
+Each source/range manifest remains private and is hashed in the build receipt.
+The selected implementation and preparation/residency contracts participate in
+execution identity. REFERENCE retains interpreter execution.
+
+Local qualification used Linux x86-64/GCC 13.3, Mesa llvmpipe at native resolution,
+dummy audio, separate private saves and the verified USA disc:
+
+- All 37 source tests passed, including slice-input bounds, source/range changes
+  after linking, union coverage without double-counting, reference omission and
+  aggregate-only probe filtering. The source audit passed with 70 reviewed text
+  files; `git diff --check` passed.
+- An isolated private fixture linked the production objects and compared native
+  execution against `dirty_ram_run_span` from the real interpreter. All 4,096
+  angles, three upper-bit patterns and both routines passed: 24,576 calls with
+  equal GPRs, HI/LO and return PC. Warmed per-call guest-cycle deltas matched;
+  native work charged 319,515 cycles overall. This is a bounded routine test,
+  not a full-session timing-equivalence or speed-improvement claim.
+- A changed covered instruction declined, restoring the instruction rematched,
+  and the actual NEW.EXE bytes loaded at these same addresses declined both
+  N2O.EXE entries. No global active-executable guess was needed for this slice.
+- A fresh diagnostic boot skipped all three native movies, reached first-level
+  tutorial gameplay and closed normally. The static-entry counters recorded
+  5,120 calls to the first routine by frame 4,228. The second was qualified in
+  the exhaustive fixture but was not observed in this sampled gameplay route.
+- A normal build with diagnostics disabled completed all three native openings.
+  A private host fixture added an SDL virtual controller and injected real
+  controller presses plus F1 twice. The normal runtime recorded 453 native game
+  dispatches, zero residency rejections and clean window-close shutdown. The
+  fixture changed only test entry/input plumbing; production runtime objects
+  were reused. Dummy-device underflow/overflow counters occurred, so this does
+  not establish physical audio quality or starvation-free playback.
+- The normal build report reproduced 17,964 / 845,824 bytes = 2.1238% linked
+  native coverage and 97.8762% outside linked ranges. The denominator is unchanged;
+  the increase over 0.0.9 is 56 bytes, not an estimate of overall completion.
+
+The initial Windows/Linux runtime matrix passed in
+[run 40433168990](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/40433168990).
+Both platforms passed the generated original same-address fixture: two programs
+share their first four words and differ in the fifth, with 384 successful calls,
+tail invalidation, KUSEG/KSEG1 isolation and restore checks. Linux also passed the
+REFERENCE profile with no linked loaded-code translations, menu/input/media/title
+checks, all 671 batching checks, 8,843 queue checks and worker pixel equivalence
+at 1x/4x. All original assertions were retained. Source CI also passed in
+[run 40433168984](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/40433168984).
+
+Final shutdown-count logging and additional report/filter checks were added after
+that matrix; local normal linking/playback and the 37-test suite passed with those
+refinements. A fresh final matrix is pending. Windows player acceptance of 0.0.10
+remains the focused checks in TESTING.md; 0.0.9 through level 4 remains the accepted
+player baseline. No commercial payload, capture, generated body or executable was
+added to Git or uploaded by CI.

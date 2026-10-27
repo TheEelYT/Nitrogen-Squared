@@ -20,6 +20,9 @@ static const char *nitrogen_base_window_title(SDL_Window *window)
 #undef SDL_GetWindowTitle
 extern "C" uint32_t spu_output_pop(int16_t *, uint32_t);
 extern "C" void debug_server_shutdown(void);
+#ifdef PSX_HAS_OVERLAY_DISPATCH
+extern "C" void psx_overlay_static_get_stats(uint64_t *, uint64_t *, uint64_t *, uint64_t *);
+#endif
 // The pinned main reaches this last step of every normal shutdown, including
 // window-close paths that call exit(). Join GL before global UI mutexes die.
 extern "C" void nitrogen_runtime_shutdown(void)
@@ -31,6 +34,12 @@ extern "C" void nitrogen_runtime_shutdown(void)
         status.worker_active, status.max_frames, status.host_rate,
         (unsigned long long)status.samples, status.legacy ? "events" : "samples",
         (unsigned long long)status.underruns, (unsigned long long)status.overflow_drops);
+#ifdef PSX_HAS_OVERLAY_DISPATCH
+    uint64_t checks = 0, hits = 0, variant_misses = 0, address_misses = 0;
+    psx_overlay_static_get_stats(&checks, &hits, &variant_misses, &address_misses);
+    std::fprintf(stdout, "nitrogen: native game slice: dispatches=%llu residency_rejections=%llu\n",
+        (unsigned long long)hits, (unsigned long long)variant_misses);
+#endif
     debug_server_shutdown();
 }
 namespace {

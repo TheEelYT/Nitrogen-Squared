@@ -1,4 +1,4 @@
-# Windows development test — 0.0.10 candidate
+# Windows development test — 0.0.10
 
 ## Current acceptance and update checks
 
@@ -8,14 +8,14 @@ verified native opening playback/skipping, analog input and consistent 60 FPS
 gameplay. Testing through level 4 is sufficient for the current native-work
 baseline; reaching later levels is not a prerequisite for continuing.
 
-**0.0.10 candidate — player verification pending:** two gameplay angle-table
+**0.0.10 — player verification pending:** two gameplay angle-table
 lookup routines are generated privately, linked and selected only when their
 resident code ranges match. Changed code and unsupported PC segments retain
 interpreter fallback. This is a small native-execution milestone, not a promised
 speed increase. Native-progress reporting now includes the linked slice and
 rejects source/range files changed after the recorded build.
 
-After this candidate is qualified and published, rebuild with the commands below.
+Rebuild with the commands below after pulling this update.
 Check the opening-to-menu route, analog movement/firing and a short first-level
 session, including the entering-game transition and tutorial. Check host
 pause/resume, reset/quit, and loading an existing save/high scores. Level 4 remains
@@ -212,6 +212,11 @@ python tools/native_progress.py
 The report counts only native ranges linked into the build, excluding generated
 analysis-only translations and host/BIOS code. Its payload denominator includes
 embedded data, so it is not an estimate of overall project completion.
+The default 0.0.10 ENHANCED build should report **2.1238%** linked and **97.8762%**
+outside linked ranges. Its normal clean-shutdown log also prints
+`nitrogen: native game slice: dispatches=... residency_rejections=...`.
+After first-level gameplay the dispatch count should be positive. This is an
+execution check, not a native-instruction percentage or speed measurement.
 
 If OpenGL fails or draws incorrectly, compare with:
 

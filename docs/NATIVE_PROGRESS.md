@@ -1,30 +1,31 @@
 # Native translation progress
 
-The 0.0.9 baseline has **2.12% linked native translation coverage** against the
+The 0.0.10 baseline has **2.1238% linked native translation coverage** against the
 combined payload sizes of the three selected USA game executables:
 
-The complementary **97.88% (827,916 bytes)** is outside those linked translation
+The complementary **97.8762% (827,860 bytes)** is outside those linked translation
 ranges. It is not a measured interpreter-execution percentage: payload data and
 separately tracked native service replacements prevent that interpretation.
 
 | Executable | Linked native range bytes | Payload bytes | Coverage |
 | --- | ---: | ---: | ---: |
 | SLUS_006.37 (boot loader) | 17,908 | 53,248 | 33.63% |
-| N2O.EXE | 0 | 458,752 | 0.00% |
+| N2O.EXE | 56 | 458,752 | 0.0122% |
 | NEW.EXE | 0 | 333,824 | 0.00% |
-| Combined | 17,908 | 845,824 | 2.12% |
+| Combined | 17,964 | 845,824 | 2.1238% |
 
 This deliberately conservative metric counts the union of emitted native code
 ranges for executables actually linked into the private runtime. The boot loader
-has 86 linked generated functions. Analysis-only C for N2O.EXE and NEW.EXE does
-not count. BIOS, interpreter, renderer, audio backend and desktop menu do not
+has 86 linked generated functions. Two privately generated leaf routines in
+N2O.EXE add 56 bytes; the full analysis C for N2O.EXE and NEW.EXE does not count.
+BIOS, interpreter, renderer, audio backend and desktop menu do not
 count as native game code.
 
 The denominator includes embedded data, which has not yet been fully separated
 from instructions. Therefore this is **not a project-completion percentage**, a
 confirmed-function conversion percentage, or a scene-weighted native instruction
-percentage. The two main executable translations are not linked yet; current
-playability relies heavily on the interpreter. A future instruction/data map and
+percentage. The two main executable translations are not linked wholesale;
+current playability relies heavily on the interpreter. A future instruction/data map and
 execution measurements will refine the metric rather than silently change its
 meaning. Overlapping addresses in the two main executables remain separate
 identities, never deduplicated by RAM address alone.
@@ -37,7 +38,9 @@ python tools/native_progress.py --output .local/runtime-dev/native-progress.json
 
 The command rechecks the extracted executable hashes, counts coalesced ranges
 without double-counting overlapping blocks, and uses the build receipt's linked
-executable list. It writes counts/metadata, not game code or media. Reject a stale
+executable/slice lists. Selected slice manifests and source/range hashes are also
+checked; reference builds get no slice credit. It writes counts/metadata, not
+game code or media. Reject a stale
 pre-0.0.7 receipt by rebuilding first.
 
 ## Native services tracked separately
@@ -47,6 +50,7 @@ pre-0.0.7 receipt by rebuilding first.
 | Desktop presentation and menu | Host implementations; user verified menu and keybinds on Windows |
 | Gameplay render scheduling | Bounded OpenGL worker; local pixel parity checked, user reports no issues with 0.0.9 on Windows |
 | Controller input | Host SDL input; analog gameplay verified by the user in 0.0.6 |
+| Gameplay angle-table lookups | Two native leaf translations in N2O.EXE; private interpreter comparisons passed, Windows player check pending |
 | Music and effects | Emulated SPU/CD path; no independent cue-driven player yet |
 | Opening movies | Native STR/XA service for three opening routes; user verified Windows playback and skipping |
 | Ending / separate STR route | Original playback until full call/return paths are qualified |
@@ -90,3 +94,10 @@ of those changes add native game ranges to the numerator. Coverage remains
 **2.12%**. Native sound-driver work must establish the game's cue/bank interface;
 a hardware SPU worker alone would still need correct register, DMA and interrupt
 ordering. Gameplay audio production remains guest timed.
+
+Version 0.0.10 adds the [first loaded-game slice](NATIVE_GAME_SLICES.md). Coverage
+rises from 17,908 to 17,964 bytes (2.1172% to 2.1238%). Four decimal places now
+show small increments; the metric itself has not changed. Both lookup routines
+were exhaustively compared privately, although the sampled first-level route
+observed calls to only the first. Do not count a synthetic fixture, emitted but
+unlinked function, or host service toward these numbers.
