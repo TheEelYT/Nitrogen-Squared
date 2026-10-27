@@ -8,6 +8,11 @@
 - The user also verified first-level gameplay without issues in 0.0.10 and
   authorized a substantially larger next conversion batch. Its temporary startup
   loading dip returns to 60 FPS and may predate that version; it is unconfirmed.
+- The user verified 0.0.11 gameplay through level 4 with no other gameplay issues.
+  They report FPS dips during save-slot listing and saving, and suspect startup
+  high-score reads. Local baseline tracing overlaps the startup dip with card
+  reads, but does not establish the high-score caller or root cause. Treat card
+  access performance as open; do not require later levels or new user files.
 - Every runtime update must update `TESTING.md` with the version, concrete changes,
   focused player checks and pending/verified status. Prior acceptance is history,
   not automatic verification of a replacement. Avoid requesting unrelated full

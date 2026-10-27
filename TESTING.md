@@ -9,9 +9,9 @@ without the executable suffix; the wrapper now reads that name on both platforms
 Keep the existing build/import/save folders. The compiled runtime and native
 coverage are unchanged (**4.0193% / 95.9807%**). All 40 local source tests pass,
 including both filename layouts; Windows CI now reads the real sidecar as well.
-The focused gameplay checks below remain pending after a successful Windows build.
+The user subsequently built/tested this version and reached level 4; see acceptance below.
 
-**0.0.11 — Windows player acceptance pending:** 25 additional drawing-packet
+**0.0.11 — Windows gameplay verified through level 4:** 25 additional drawing-packet
 entry ranges now execute natively, with guarded internal-block resumes for
 computed jumps. Unqualified, changed and unselected code retains fallback. The
 linked report is **4.0193% native ranges / 95.9807% outside those ranges**; this
@@ -22,14 +22,14 @@ increase, independent gameplay audio or unlocked framerate.
 Local qualification passed a controlled first-level route and five matching-frame
 pixel comparisons against 0.0.10. All 39 source tests and the 70-file source audit
 passed. The final Windows/Linux runtime and source CI jobs also passed.
-These checks complement the pending Windows player test below; they do
-not establish physical audio quality or later-level coverage.
+These local checks complement the user report below; they do not establish
+physical audio quality or untested campaign coverage.
 
-Focused checks: play a short first-level session with analog movement/firing.
-Watch enemies, explosions, HUD and animated menus for visual changes; check
-pause/resume and reset/quit, and that existing saves/high scores still load.
-Reaching later levels is not required. The accepted 0.0.10 first-level result
-below is history, not automatic acceptance of this replacement.
+The user reports no other gameplay issues and reached level 4 again after this
+build. They observed the FPS dip both while loading save slots and while actually
+saving. This accepts the tested gameplay route, while leaving card-access
+performance open. It does not imply that every historical host-menu check or
+later campaign level was retested. No additional campaign progression is needed.
 
 **0.0.9 accepted on Windows:** the user reports no issues, playable gameplay
 through level 4, and working saving, including high scores. Earlier checks also
@@ -56,11 +56,18 @@ Controlled local startup tests reproduced a loading dip with native-dispatch
 hooks compiled out as well. Its cause remains unresolved; it is not an intentional
 delay. No additional files or immediate repeat test are needed for this report.
 
-Rebuild with the commands below after pulling this update.
-Check the opening-to-menu route, analog movement/firing and a short first-level
-session, including the entering-game transition and tutorial. Check host
-pause/resume, reset/quit, and loading an existing save/high scores. Level 4 remains
-enough campaign coverage; there is no request to reach later levels for this update.
+**Memory-card performance lead:** slot enumeration and saving now reproduce the
+reported dip on Windows. The user suspects the startup phase reads high scores.
+A local preserved 0.0.10 diagnostic baseline confirms card reads throughout its
+startup dip and recovery afterward, but also reads before the dip. That is a
+correlation, not a confirmed high-score call or root cause. Reads use card data
+already held in RAM; save publication performs synchronous file writes. Investigate
+guest protocol/driver cost and file-write cost separately. No timing or save-format
+change has been made.
+
+This documentation-only acceptance update needs no rebuild or repeat playthrough.
+Keep existing saves. Further card-performance checks will be specified with an
+actual runtime change; no additional files are requested now.
 
 Each runtime update will replace this update-specific summary with what changed,
 the affected checks to run, and their pending/verified status. Unrelated historical

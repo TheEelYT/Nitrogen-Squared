@@ -605,10 +605,45 @@ manifest. The 70-file source-package audit and diff whitespace check passed.
 
 CI previously read profile manifests only inside its Linux-only reference check,
 so a successful Windows compile did not exercise the failing lookup. Both hosts
-now read the normal runtime and input fixture manifests. The expanded remote
-matrix is pending when this correction is published. No compiled runtime code,
+now read the normal runtime and input fixture manifests. The expanded Windows/Linux runtime matrix passed in
+[run 40447137969](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/40447137969),
+and both source jobs passed in
+[run 40447137991](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/40447137991). No compiled runtime code,
 framework source or game binding changed; VERSION stays 0.0.11-development and
 coverage stays 4.0193% linked / 95.9807% outside linked ranges. No additional local
 runtime rebuild or play test was needed for this Python metadata correction.
 The user's existing Windows build can be reused by rerunning the normal build
 command; import and saves remain in place.
+
+
+## Windows 0.0.11 acceptance and card-access performance lead
+
+The user reports reaching level 4 again in the corrected 0.0.11 build, with no
+other gameplay issues. They observed the FPS dip while loading the save-slot
+list and again during saving. They suspect startup high-score loading explains
+the earlier opening-to-title dip. Record that caller identity as a hypothesis;
+this report does not independently verify a specific high-score read or imply
+an exhaustive repeat of all host-menu/save checks.
+
+A bounded local diagnostic run used the preserved 0.0.10 executable, which has
+the same card implementation, an isolated newly formatted card and the existing
+frame-scheduled route. Full-VRAM history stayed off. Samples every roughly 30
+guest frames showed successful card reads from about frame 1,026 to 1,361. The
+1,179–1,329 intervals measured 24.47–29.78 guest FPS while reads continued; after
+the sequence ended, subsequent intervals returned to roughly 60 FPS. Earlier
+read intervals also ran at 60 FPS. There were 149 closed card transactions and no
+reported card aborts. The run reached frame 1,900 and closed normally. These are
+instrumented Linux-host observations, not a Windows benchmark or proof of the
+root cause; the blank-card run cannot identify saved high-score processing.
+
+Source inspection shows sector reads copy from the already resident card buffer.
+Each successful sector write reaches synchronous whole-card publication, including
+flush/durability operations. This gives two distinct costs to profile: interpreted
+guest protocol/interrupt work and host persistence latency. No runtime or save
+behavior has been changed on the strength of correlation alone. All private
+traces, card data, screenshots and test scripts remain outside Git/releases.
+
+This update records acceptance and the investigation only. VERSION remains
+0.0.11-development; linked coverage remains 4.0193%, with 95.9807% outside linked
+ranges. No runtime rebuild or new player test is required by these documentation
+changes. The source-package audit and whitespace check are the relevant checks.

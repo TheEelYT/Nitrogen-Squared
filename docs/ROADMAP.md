@@ -12,7 +12,8 @@ The verified importer, private build and source-only distribution gate stay in
 place. Version 0.0.10 added two native gameplay lookup routines, verified by the user
 in first-level play. Version 0.0.11 adds 25 packet-preparation entries and guarded
 internal resumes: 4.0193% of selected payload bytes, with 95.9807% outside linked
-ranges. Windows player acceptance of this larger batch is pending. See
+ranges. The user verified this larger batch through level 4 with no other gameplay
+issues; dips during card slot listing/saving remain open. See
 [native progress](NATIVE_PROGRESS.md) for the metric and separate native services.
 
 ## 1. Loaded-code identity and native game slices — underway
@@ -51,6 +52,12 @@ callers: menu/level transitions, simulation and rendering preparation. Keep the
 working reference route available for comparisons. Track linked range coverage
 and, when available, route-specific native/fallback execution separately so a
 small hot function's runtime benefit is visible without inflating completion.
+
+Prioritize the card-access performance lead alongside expansion: measure guest
+serial-driver/interrupt cost separately from synchronous save-file publication.
+Startup reads overlap the reproduced dip, but the high-score caller and root
+cause remain unconfirmed. Preserve card formats and error/completion semantics;
+qualify any native service against private copies of existing saves.
 
 Native gameplay audio follows qualification of the game's sound-driver boundary:
 identify cue IDs, bank/sequence ownership, voice control, music transport and
