@@ -71,6 +71,24 @@ class RuntimePreparationTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             build_runtime.runtime_config(manifest, self.installation, self.root / "generated", "invalid")
 
+    def test_execution_manifest_matches_cmake_basename_for_both_layouts(self):
+        for rel in ("Release/NitrogenSquared-dev.exe", "NitrogenSquared-dev"):
+            with self.subTest(binary=rel):
+                executable = self.root / rel
+                executable.parent.mkdir(parents=True, exist_ok=True)
+                executable.write_text("original synthetic placeholder")
+                sidecar = executable.parent / "NitrogenSquared-dev.execution.json"
+                for profile in ("REFERENCE", "ENHANCED"):
+                    expected = dict(schema=1, profile=profile, identity="synthetic")
+                    sidecar.write_text(json.dumps(expected))
+                    if executable.suffix == ".exe":
+                        # A stale file with the old, incorrect name must not win.
+                        Path(str(executable) + ".execution.json").write_text('{"profile":"stale"}')
+                    self.assertEqual(build_runtime.load_execution_manifest(executable), expected)
+                sidecar.unlink()
+                with self.assertRaises(FileNotFoundError):
+                    build_runtime.load_execution_manifest(executable)
+
     def test_play_environment_disables_frame_history_without_changing_parent(self):
         with patch.dict(run_runtime.os.environ, {"PSX_DISPLAY_RING": "1"}):
             env = run_runtime.runtime_environment(self.root)

@@ -31,6 +31,11 @@ def find_binary(directory: Path, name: str) -> Path:
     raise FileNotFoundError(f"Build did not produce {name} under {directory}")
 
 
+def load_execution_manifest(executable: Path) -> dict:
+    # The pinned CMake recipe uses TARGET_FILE_BASE_NAME, excluding .exe.
+    return json.loads(executable.with_suffix(".execution.json").read_text())
+
+
 def load_installation(installation: Path) -> dict:
     identity = json.loads((ROOT / "configs/disc_usa.json").read_text())
     manifest = json.loads((installation / "installation.json").read_text())
@@ -137,7 +142,7 @@ def main() -> int:
         subprocess.run([args.cmake, "--build", str(build_dir), "--config", "Release",
                         "--target", "nitrogen-runtime", "--parallel", "2"], check=True)
         executable = find_binary(build_dir, "NitrogenSquared-dev")
-        execution = json.loads(Path(str(executable) + ".execution.json").read_text())
+        execution = load_execution_manifest(executable)
         native_slices = ([dict(manifest=str(native_receipt), sha256=digest(native_receipt))]
                          if execution["profile"] == "ENHANCED" else [])
         record = dict(schema=1, framework_revision=FRAMEWORK_REV, source_signature=signature,

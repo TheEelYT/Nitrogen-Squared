@@ -2,6 +2,15 @@
 
 ## Current acceptance and update checks
 
+**0.0.11 Windows build fix:** if compilation finishes but the wrapper reports a
+missing `NitrogenSquared-dev.exe.execution.json`, pull and repeat
+`python tools/build_runtime.py`. CMake produces `NitrogenSquared-dev.execution.json`
+without the executable suffix; the wrapper now reads that name on both platforms.
+Keep the existing build/import/save folders. The compiled runtime and native
+coverage are unchanged (**4.0193% / 95.9807%**). All 40 local source tests pass,
+including both filename layouts; Windows CI now reads the real sidecar as well.
+The focused gameplay checks below remain pending after a successful Windows build.
+
 **0.0.11 — Windows player acceptance pending:** 25 additional drawing-packet
 entry ranges now execute natively, with guarded internal-block resumes for
 computed jumps. Unqualified, changed and unselected code retains fallback. The

@@ -13,7 +13,7 @@ import struct
 import subprocess
 
 from build_recompiler import build
-from build_runtime import find_binary
+from build_runtime import find_binary, load_execution_manifest
 from n2o_disc import ROOT
 from prepare_native import capture, emit
 
@@ -87,7 +87,10 @@ def main():
     os.environ["SDL_AUDIODRIVER"] = "dummy"
     if os.name != "nt":
         os.environ.update(SDL_VIDEODRIVER="offscreen", SDL_AUDIODRIVER="dummy", EGL_PLATFORM="surfaceless")
-    print(f"Real runtime linked with original synthetic input: {find_binary(work / 'build', 'NitrogenSquared-dev')}")
+    runtime_binary = find_binary(work / "build", "NitrogenSquared-dev")
+    if load_execution_manifest(runtime_binary)["profile"] != "ENHANCED":
+        raise RuntimeError("Normal runtime execution manifest has the wrong profile")
+    print(f"Real runtime linked with original synthetic input: {runtime_binary}")
     # Reuse this build tree to run the real runtime's SDL routing/mapping with
     # a virtual controller. This entry point never boots the synthetic guest.
     subprocess.run(["cmake", "-S", str(ROOT), "-B", str(work / "build"),
@@ -102,17 +105,19 @@ def main():
             "Runtime status/title smoke passed:" not in result.stdout):
         raise RuntimeError("Virtual input test exited without its success receipt: " + result.stdout + result.stderr)
     print(result.stdout, end="", flush=True)
+    enhanced = load_execution_manifest(find_binary(work / "build", "NitrogenSquared-input-test"))
+    if enhanced["profile"] != "ENHANCED":
+        raise RuntimeError("Input fixture execution manifest has the wrong profile")
     if os.name != "nt":
         subprocess.run(["python", str(ROOT / "tools/check_renderer.py"),
                         "--framework", str(framework), "--runtime-build", str(work / "build"),
                         "--output", str(work / "renderer-check")], check=True)
-        enhanced = json.loads(Path(str(find_binary(work / "build", "NitrogenSquared-input-test")) + ".execution.json").read_text())
         subprocess.run(["cmake", "-S", str(ROOT), "-B", str(work / "build"),
                         "-DPSX_EXECUTION_PROFILE=REFERENCE"], check=True)
         subprocess.run(["cmake", "--build", str(work / "build"), "--config", "Release",
                         "--target", "nitrogen-runtime", "--parallel", "2"], check=True)
         reference_binary = find_binary(work / "build", "NitrogenSquared-input-test")
-        reference = json.loads(Path(str(reference_binary) + ".execution.json").read_text())
+        reference = load_execution_manifest(reference_binary)
         if (enhanced["profile"] != "ENHANCED" or reference["profile"] != "REFERENCE" or
                 enhanced["identity"] == reference["identity"] or
                 not any(x["name"] == "n2o-textured-batching" for x in reference["implementations"])):

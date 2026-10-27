@@ -585,3 +585,30 @@ No binary artifact was uploaded. A final documentation-only validation commit
 records these results without changing the tested runtime code. Windows 0.0.11 player acceptance
 is pending the focused first-level checks in TESTING.md; the user's successful
 0.0.10 first-level route remains the previous accepted result.
+
+
+## 0.0.11 Windows build-receipt correction
+
+The user's Visual Studio build linked successfully, then failed while reading
+`NitrogenSquared-dev.exe.execution.json`. The pinned framework's post-build copy
+uses `TARGET_FILE_BASE_NAME`, producing `NitrogenSquared-dev.execution.json`.
+Appending the suffix to the entire executable path worked on Linux but was wrong
+on Windows. The common manifest reader now replaces the executable suffix and is
+used by both the private build wrapper and CI. Missing metadata still fails; no
+profile or native coverage is guessed from a filename or build option.
+
+All 40 local source tests passed, with no skips. The new regression covers
+Visual Studio Release/.exe and single-config layouts, both execution profiles,
+a misleading stale .exe.execution.json file and missing-sidecar failure. The
+same reader successfully loaded the existing complete normal runtime's ENHANCED
+manifest. The 70-file source-package audit and diff whitespace check passed.
+
+CI previously read profile manifests only inside its Linux-only reference check,
+so a successful Windows compile did not exercise the failing lookup. Both hosts
+now read the normal runtime and input fixture manifests. The expanded remote
+matrix is pending when this correction is published. No compiled runtime code,
+framework source or game binding changed; VERSION stays 0.0.11-development and
+coverage stays 4.0193% linked / 95.9807% outside linked ranges. No additional local
+runtime rebuild or play test was needed for this Python metadata correction.
+The user's existing Windows build can be reused by rerunning the normal build
+command; import and saves remain in place.

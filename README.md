@@ -4,6 +4,9 @@ A Windows-first recompilation project for **N2O: Nitrous Oxide (PlayStation)**,
 with a planned PS Vita port and optional remaster presentation.
 
 **Current status: 0.0.11, private Windows runtime with expanded native drawing preparation.**
+The Windows build-metadata filename lookup is corrected; pull and rerun the build
+if it failed after linking. Native coverage is unchanged at **4.0193%**, with
+**95.9807%** outside linked ranges.
 Twenty-five packet-building entries now join the two native angle-table readers.
 Internal computed transfers resume in guarded native blocks; unsupported or changed
 code retains interpreter fallback. Windows acceptance of this update is pending.
