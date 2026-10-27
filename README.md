@@ -20,21 +20,19 @@ There is no public game executable or Vita VPK. The current hybrid runtime uses
 native boot/BIOS code and interpreter fallback for much of the loaded game code.
 A repeatable private build command is included.
 
-## Native progress — 0.0.11 baseline
-
-The candidate production report is pending; these are the last verified counts.
+## Native progress — 0.0.12
 
 | Selected executable payloads | Bytes | Share |
 | --- | ---: | ---: |
-| Covered by linked native translations | 33,996 | **4.0193%** |
-| Outside linked native translation ranges | 811,828 | **95.9807%** |
+| Covered by linked native translations | 36,068 | **4.2642%** |
+| Outside linked native translation ranges | 809,756 | **95.7358%** |
 | Total | 845,824 | 100.00% |
 
 These are executable-range measurements, not overall completion or the share of
 CPU time spent natively. Payloads include embedded data. Linked translations
-cover the boot loader and 27 selected entries in `N2O.EXE`; the full analysis
+cover the boot loader and 47 selected entries in `N2O.EXE`; the full analysis
 outputs for `N2O.EXE` and `NEW.EXE` are not linked. Game code still relies heavily
-on interpreter fallback. This update adds 16,032 bytes over 0.0.10. Internal resume
+on interpreter fallback. This update adds 2,072 bytes over 0.0.11. Internal resume
 aliases receive no additional byte or function credit.
 
 Native services are tracked separately: the desktop frontend and controller input

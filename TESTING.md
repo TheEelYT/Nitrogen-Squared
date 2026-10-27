@@ -1,19 +1,29 @@
-# Windows development test — 0.0.12 candidate
+# Windows development test — 0.0.12
 
 ## Current acceptance and update checks
 
-**0.0.12 candidate — local qualification in progress:** 20 additional card-control
-and BIOS-call entries are selected. The hot card-event polling loop is compiled
-natively; BIOS events, serial timing, card format and synchronous file publication
-retain their original paths. This is not a native save-system replacement or
-an asynchronous save writer. Native coverage will be refreshed from the completed
-production build before promotion. Windows player acceptance remains pending.
+**0.0.12 — Windows player acceptance pending:** 20 additional card-control
+and BIOS-call entries now execute natively. The hot card-event polling loop is
+compiled; BIOS events, serial timing, card format and synchronous file publication
+retain their original paths. Local sampled startup performance improved from
+roughly 25–27 FPS to 60 FPS. This is not a Windows speed guarantee, a native
+save-system replacement or an asynchronous save writer.
 
-After the final update, focus on the opening-to-title card check, listing existing
-saves and one save/load operation using a private backup. Check that high scores
-and existing game saves remain readable and the game returns to normal play.
-A short first-level session is enough; no repeat trip to level 9 is requested.
-Final build results and concrete instructions will replace this candidate note.
+The production build reports **4.2642% linked native ranges / 95.7358% outside
+those ranges** (2,072 new bytes). Those are payload-range measurements, not total
+completion or a native CPU-time share. All 40 local source tests passed.
+
+Focused checks after rebuilding: let the opening-to-title card check finish;
+list existing game saves, load a known save and check that high scores remain.
+If practical, test one write/reload using a backup or disposable card/save, then
+restart and confirm persistence. Note FPS during slot listing, reading and
+writing separately. A short first-level session is enough for movement/firing;
+no repeat trip to level 9 is requested. The previous level-9 acceptance below
+remains the 0.0.11 baseline, not acceptance of this replacement.
+
+Copy the private `.local/runtime-dev/saves` folder before a deliberate write test
+with valued saves. No reimport, cache deletion or new user files are needed.
+Final local runtime and platform results are recorded in docs/VALIDATION.md.
 
 **0.0.11 Windows build fix:** if compilation finishes but the wrapper reports a
 missing `NitrogenSquared-dev.exe.execution.json`, pull and repeat
@@ -273,12 +283,13 @@ python tools/native_progress.py
 The report counts only native ranges linked into the build, excluding generated
 analysis-only translations and host/BIOS code. Its payload denominator includes
 embedded data, so it is not an estimate of overall project completion.
-The default 0.0.11 ENHANCED build should report **4.0193%** linked and **95.9807%**
+The default 0.0.12 ENHANCED build should report **4.2642%** linked and **95.7358%**
 outside linked ranges. Its normal clean-shutdown log also prints
 `nitrogen: native game slice: dispatches=... residency_rejections=...`.
 After first-level gameplay the dispatch count should be positive. This is an
 execution check, not a native-instruction percentage or speed measurement.
-The count now includes internal continuation resumes, so it is not a count of
+The count includes internal continuation resumes; card polling can generate
+large counts without increasing the reported byte coverage. It is not a count of
 original function calls and should not be compared directly with 0.0.10.
 Residency rejections select the interpreter and can be normal while different
 code occupies the address; they are not failed game calls.

@@ -711,3 +711,16 @@ coverage report, normal-build checks and Windows/Linux matrix remain pending.
 The selected routines retain BIOS event calls and guest timing; the serial device
 and synchronous whole-card publication remain unchanged. Windows player
 acceptance is pending, separately from the accepted 0.0.11 level-9 route.
+
+
+The complete production diagnostic candidate built successfully. Its verified
+native report is 36,068 / 845,824 = 4.2642%, with 95.7358% outside linked ranges;
+N2O has 47 root entries and 531 continuation aliases. All 40 source tests passed
+locally with no skips, and the source audit still contains 70 reviewed text files.
+The original cross-slice native fixture passed locally as well. Both remote source
+jobs passed in
+[run 40453311216](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/40453311216).
+Final save/reload, normal-runtime and platform checks are still pending. Automated
+menu routes that failed to reach a save confirmation are excluded from save and
+card-image equivalence evidence; only the confirmed manual write above is counted
+at this intermediate checkpoint.

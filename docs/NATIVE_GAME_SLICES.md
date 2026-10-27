@@ -92,7 +92,7 @@ neither original function-call counts nor an execution-weighted native share.
 The PS1 GPU command path and guest-timed SPU/CD path remain in use.
 
 
-## 0.0.12 candidate — card control and BIOS-call entries
+## 0.0.12 — card control and BIOS-call entries
 
 Twenty additional entry ranges cover card-control/event-polling code and its
 small BIOS-call trampolines. They use the existing private emitter and whole-range
@@ -110,5 +110,6 @@ Full save/load tests and exact frame comparisons remain separate requirements.
 
 The 0.0.11 baseline is accepted through level 9. This candidate has not yet been
 accepted on Windows; focused card-read/write checks will replace an unrelated
-campaign replay. The selected new ranges total 2,072 bytes. A production build
-and verified coverage report are required before updating the reported metric.
+campaign replay. The selected new ranges total 2,072 bytes. The production report verifies
+36,068 / 845,824 = **4.2642%**, with **95.7358%** outside linked ranges. N2O has
+47 roots and 531 continuation aliases; aliases receive no additional byte credit.

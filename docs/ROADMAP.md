@@ -59,10 +59,11 @@ Startup reads overlap the reproduced dip, but the high-score caller and root
 cause remain unconfirmed. Preserve card formats and error/completion semantics;
 qualify any native service against private copies of existing saves.
 
-The 0.0.12 candidate advances that card-control work through guarded native
-translations, retaining the original BIOS-event and persistence paths. It needs
-its own card/read/write qualification and Windows player check before replacing
-the accepted 0.0.11 baseline. This does not establish a native save-system service.
+Version 0.0.12 advances that card-control work through 20 guarded native entry
+ranges, retaining original BIOS-event and persistence paths. The production build
+reports 4.2642% linked payload coverage and 95.7358% outside linked ranges. Windows
+player acceptance is pending; 0.0.11 through level 9 is the previous accepted
+baseline. This does not establish a native save-system service.
 
 Native gameplay audio follows qualification of the game's sound-driver boundary:
 identify cue IDs, bank/sequence ownership, voice control, music transport and
