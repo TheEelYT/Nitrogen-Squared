@@ -105,7 +105,28 @@ void nitrogen_native_smoke() {
     check(cpu.gpr[2] == 8 && cpu.gpr[3] == 50 && cpu.pc == cpu.gpr[31], "resume at the block, not the function start");
     psx_write_word(0x8001B300, 0);
     check(!psx_overlay_static_can_dispatch(0x8001B310), "owner code change invalidates a resume alias");
-    std::puts("Runtime native slice smoke passed: 384 variant calls, replacement/restore, segment isolation, RAM loops, GTE saturation and guarded CPS resumes");
+    const uint32_t caller[] = {0x27BDFFF0, 0xAFBF000C, 0x10800005, 0, 0x0C006D40, 0,
+                               0x1440FFFD, 0x24630001, 0x8FBF000C, 0x27BD0010, 0x03E00008, 0};
+    const uint32_t callee[] = {0x2484FFFF, 0x03E00008, 0x00801021};
+    for (unsigned i = 0; i < 12; ++i) psx_write_word(0x8001B400 + i * 4, caller[i]);
+    for (unsigned i = 0; i < 3; ++i) psx_write_word(0x8001B500 + i * 4, callee[i]);
+    for (unsigned count : {0u, 1u, 2u, 7u, 64u}) {
+        auto nested = fixture_cpu();
+        nested.gpr[4] = count; nested.gpr[3] = 0x20;
+        uint32_t next = 0x8001B400;
+        unsigned transfers = 0;
+        do {
+            nested.pc = 0;
+            check(psx_overlay_dispatch(&nested, next), "dispatch caller, callee or caller continuation");
+            next = nested.pc;
+            check(++transfers < 512, "nested call loop terminates");
+        } while (next != 0x8001C000);
+        check(nested.gpr[2] == 0 && nested.gpr[4] == 0 && nested.gpr[3] == 0x20 + count,
+              "callee result and caller branch-delay count");
+        check(nested.gpr[29] == 0x801FFF00 && nested.gpr[31] == 0x8001C000,
+              "nested calls restore caller SP and RA");
+    }
+    std::puts("Runtime native slice smoke passed: 384 variant calls, replacement/restore, segment isolation, RAM loops, GTE saturation, guarded CPS resumes and cross-slice calls");
 #else
     std::puts("Runtime native slice smoke passed: REFERENCE links no loaded-code translations");
 #endif

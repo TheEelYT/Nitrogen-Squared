@@ -662,3 +662,33 @@ Runtime code and VERSION are unchanged. Linked native coverage remains 4.0193%,
 with 95.9807% outside linked ranges; longer playtesting does not increase that
 metric. The source-package audit and whitespace check passed. No runtime rebuild
 or new gameplay test was needed.
+
+
+## Card-control conversion — qualification checkpoint
+
+A next candidate selects a coherent group of card-control routines and BIOS-call
+trampolines. In a preserved 0.0.10 diagnostic baseline, the sampled startup dip
+was predominantly interpreted work (88.47% wall samples in a two-second window),
+including a game loop repeatedly polling four BIOS events. Graphics processing
+accounted for negligible samples in that window. The same frame-scheduled route
+measured 26.52 FPS, then 25.52 FPS with the current 0.0.11 diagnostic baseline;
+the private experimental card candidate measured 60.00 FPS in its corresponding
+interval. All three interval samples completed 73 card reads and their startup
+routes closed 149 card transactions. These are local diagnostic observations,
+not Windows performance or physical-audio measurements.
+
+A private live-boundary fixture matched 125 comparisons at 54 observed entry/
+continuation PCs during startup. It compares CPU architectural registers, main
+RAM, scratchpad and GTE state up to the next outgoing call/return, with device
+time frozen during comparison. It restores the live state and runs the selected
+code normally afterward. It does not replay device I/O twice. Unobserved entries
+and full save/load sequences remain to be qualified. No private fixture source,
+instruction bytes, snapshots or captures are included in this checkpoint.
+
+The original synthetic CI programs now include a separately compiled caller and
+callee, with zero/1/2/7/64 iterations, branch-delay accounting and saved SP/RA.
+The complete native fixture passed locally using the actual pinned emitter and
+production runtime objects. This checkpoint adds tests/documentation only;
+shipping VERSION, bindings and the 4.0193% coverage report remain unchanged.
+Remote CI is deferred to the complete candidate commit; no player rebuild is
+requested for this intermediate work branch.

@@ -72,6 +72,13 @@ def main():
     resume = [0x10800003, 0, 0x00E00008, 0x24820007, 0x00A61821, 0x03E00008, 0]
     records.extend(("SYNTHETIC", capture(struct.pack("<" + "I" * len(words), *words), pc, [pc]))
                    for pc, words in [(0x8001B100, loop), (0x8001B200, geometry), (0x8001B300, resume)])
+    # Original caller and separately compiled callee. Exercise repeated calls,
+    # caller continuation aliases, saved RA and zero-count loop termination.
+    caller = [0x27BDFFF0, 0xAFBF000C, 0x10800005, 0, 0x0C006D40, 0,
+              0x1440FFFD, 0x24630001, 0x8FBF000C, 0x27BD0010, 0x03E00008, 0]
+    callee = [0x2484FFFF, 0x03E00008, 0x00801021]
+    records.extend(("SYNTHETIC", capture(struct.pack("<" + "I" * len(words), *words), pc, [pc]))
+                   for pc, words in [(0x8001B400, caller), (0x8001B500, callee)])
     native = emit(records, framework, game, config, work / "native-slices")
     configure = ["cmake", "-S", str(ROOT), "-B", str(work / "build"),
                     f"-DPSXRECOMP_ROOT={framework}", f"-DNITROGEN_GENERATED_DIR={generated}",
