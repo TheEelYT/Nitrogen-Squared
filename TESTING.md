@@ -15,6 +15,13 @@ interpreter fallback. This is a small native-execution milestone, not a promised
 speed increase. Native-progress reporting now includes the linked slice and
 rejects source/range files changed after the recorded build.
 
+**Reported startup observation:** the user noticed a "20 fps slowdown" during
+the loading screen after the opening movies and splash, immediately before the
+attract/title screen. Performance returns to 60 FPS afterward. The user notes it
+may also have occurred in the preceding update. Track this as an unconfirmed
+startup performance issue, not an intentional delay or established regression.
+No additional files or immediate repeat test are needed for this report.
+
 Rebuild with the commands below after pulling this update.
 Check the opening-to-menu route, analog movement/firing and a short first-level
 session, including the entering-game transition and tutorial. Check host

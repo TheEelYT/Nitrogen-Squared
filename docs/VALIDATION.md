@@ -481,3 +481,24 @@ it does not change the runtime objects exercised by the final matrix. All 37
 source tests, the 70-file source audit and `git diff --check` passed again locally
 after that refinement. The final validation/probe commit skips CI because the
 compiled runtime is unchanged and the Python-only adjustment was tested locally.
+
+## 0.0.10 startup-loading observation
+
+The user clarified that the observed "20 fps slowdown" occurs at the loading
+screen after the movies and splash, immediately before the attract/title screen.
+Performance returns to 60 FPS. They also note the slowdown may have existed in
+the preceding update, so this is not yet an established 0.0.10 regression.
+
+Saved diagnostic routes include an approximately 300-frame interval around
+frames 1200–1500 at roughly 59 FPS in the baseline and 40 FPS in the candidate,
+with zero native-slice calls in the candidate through that sample. These were
+instrumented development-host runs using wall-time-held input, not repeated
+controlled samples with an explicit marker for the user's loading screen.
+They do not isolate dispatch overhead or establish the cause of the Windows
+observation. The native routine bodies were not executing during that sampled
+interval; dispatch checks and other loading work remain possible contributors.
+
+The screen location and recovery to 60 FPS are recorded in TESTING.md. No runtime
+code, timing policy, VERSION or coverage measurement changes with this note.
+The source audit and `git diff --check` passed. No new player files or immediate
+repeat testing are requested.
