@@ -3,57 +3,53 @@
 A Windows-first recompilation project for **N2O: Nitrous Oxide (PlayStation)**,
 with a planned PS Vita port and optional remaster presentation.
 
-**Current status: 0.0.13, private runtime with expanded native presentation code.**
-Thirty-two additional entry ranges cover geometry transformation, object/drawing
-preparation, angle calculation and text formatting. Private caller comparisons
-and two first-level visual routes passed. Normal and diagnostic builds passed;
-The user reports no issues in the focused Windows playtest. This retains PS1 graphics/audio and
-BIOS compatibility services, including the existing save format.
-The user verified 0.0.11 gameplay through level 9 and reports no saving/loading
-slowdowns in 0.0.12. Levels beyond 9 remain unverified.
+**Current status: 0.0.14, expanded native model and game/menu presentation code.**
+Forty-six additional roots cover model/object primitive preparation and game/menu
+presentation control. The final selection passed 10,316 private segment comparisons and 17 exact-frame
+visual checks. The normal build, movie/controller/shutdown fixture and
+Windows/Linux CI passed.
+Windows 0.0.14 player acceptance is pending the focused checks in TESTING.md.
+The user reports no issues in the 0.0.13 focused Windows playtest; earlier
+0.0.11 gameplay reached level 9 and 0.0.12 resolved the reported save/load slowdown.
+Those reports remain history for their tested versions.
+
 Normal launch requests the OpenGL render worker with one closed frame of lookahead.
-System/Debug and analog input remain available. Native cutscene audio already
-runs independently of rendering. Gameplay sound production still follows the
-guest clock; native sound cues and unlocked presentation remain future work.
+System/Debug and analog input remain available. Native cutscene audio runs
+independently of rendering. Gameplay sound production follows the guest clock;
+native sound cues and unlocked presentation remain future work.
 
-There is no public game executable or Vita VPK. The current hybrid runtime uses
-native boot/BIOS code and interpreter fallback for much of the loaded game code.
-A repeatable private build command is included.
+There is no public game executable or Vita VPK. The hybrid runtime uses native
+boot/BIOS code, selected native game routines and interpreter fallback. Players
+build privately from their verified local game input.
 
-The 0.0.14 development branch selects 46 further model/object and menu
-presentation roots after candidate comparisons. Final reduced-selection checks
-and production measurements are pending;
-the accepted baseline figures below do not count candidate inputs.
-
-## Accepted native progress — 0.0.13
+## Native progress — 0.0.14
 
 | Selected executable payloads | Bytes | Share |
 | --- | ---: | ---: |
-| Covered by linked native translations | 73,000 | **8.6306%** |
-| Outside linked native translation ranges | 772,824 | **91.3694%** |
+| Covered by linked native translations | 148,948 | **17.6098%** |
+| Outside linked native translation ranges | 696,876 | **82.3902%** |
 | Total | 845,824 | 100.00% |
 
-These are executable-range measurements, not overall completion or the share of
-CPU time spent natively. Payloads include embedded data. Linked translations
-cover the boot loader and 79 selected entries in `N2O.EXE`; the full analysis
-outputs for `N2O.EXE` and `NEW.EXE` are not linked. Game code still relies heavily
-on interpreter fallback. This update adds 36,932 bytes over 0.0.12. Internal resume
-aliases receive no additional byte or function credit.
+These are executable-range measurements, not overall completion or native CPU
+time. Payloads include embedded data. Linked translations cover the boot loader
+and 125 selected roots in `N2O.EXE`; analysis-only outputs for `N2O.EXE` and
+`NEW.EXE` receive no credit. The update adds 75,948 bytes over 0.0.13, increasing
+coverage from 8.6306% to 17.6098% (about 2.04 times). The 4,189 continuation
+aliases add no byte/function credit. The normal build reproduces these figures.
 
-Native services are tracked separately: the desktop frontend and controller input
-use host implementations; **3 of 3 opening movie routes** use native playback.
-The new game routines still submit PS1 drawing packets and use the existing GTE
-math service. Music/effects retain the guest SPU/CD path; ending/separate STR
-playback retains the original route. The OpenGL worker schedules PS1 graphics
-commands. Host services do not increase the percentage above.
+Native services are tracked separately: desktop presentation and controller
+input use host implementations, and **3 of 3 opening movie routes** use native
+playback. Game routines still submit PS1 drawing packets and use GTE, guest
+SPU/CD audio and BIOS/card compatibility services. These services do not increase
+the linked-range percentage above.
 
-Private qualification passed 17,475 native/interpreter segment comparisons across
-live and constructed inputs, covering all 32 new roots. Twenty matching-frame
-comparisons across two menu/first-level routes were pixel-identical to 0.0.12.
-The original 122 mixed-backend boundary cases passed Windows/Linux CI. These are
-bounded checks, not full campaign or every-input qualification. Normal-build checks and final Windows/Linux CI passed.
-Windows player acceptance remains pending. See the
-[native slices](docs/NATIVE_GAME_SLICES.md), [metric](docs/NATIVE_PROGRESS.md) and
+All 46 added roots have bounded comparison evidence: 35 were observed live and
+11 passed constructed packet calls. The two large model roots also passed 648
+constructed calls each. An exception/return mismatch excludes one candidate
+entirely; 28 others without adequate evidence remain unselected. These checks do
+not establish every branch, input or later campaign behavior. Final selection
+results and player status are recorded in the [native slices](docs/NATIVE_GAME_SLICES.md),
+[metric](docs/NATIVE_PROGRESS.md), [validation](docs/VALIDATION.md) and
 [focused testing instructions](TESTING.md).
 
 ## Bring your own game

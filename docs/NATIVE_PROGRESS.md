@@ -1,23 +1,24 @@
 # Native translation progress
 
-The 0.0.13 build has **8.6306% linked native translation coverage** against the
-combined payload sizes of the three selected USA game executables:
+The 0.0.14 normal build verifies **17.6098% linked native translation
+coverage** against the combined payload sizes of the three selected USA game
+executables.
 
-The complementary **91.3694% (772,824 bytes)** is outside those linked translation
-ranges. It is not a measured interpreter-execution percentage: payload data and
-separately tracked native service replacements prevent that interpretation.
+The complementary **82.3902% (696,876 bytes)** is outside those linked ranges.
+This is not a measured interpreter-execution percentage: payload data and
+separately tracked native services prevent that interpretation.
 
 | Executable | Linked native range bytes | Payload bytes | Coverage |
 | --- | ---: | ---: | ---: |
-| SLUS_006.37 (boot loader) | 17,908 | 53,248 | 33.63% |
-| N2O.EXE | 55,092 | 458,752 | 12.0091% |
-| NEW.EXE | 0 | 333,824 | 0.00% |
-| Combined | 73,000 | 845,824 | 8.6306% |
+| SLUS_006.37 (boot loader) | 17,908 | 53,248 | 33.6313% |
+| N2O.EXE | 131,040 | 458,752 | 28.5645% |
+| NEW.EXE | 0 | 333,824 | 0.0000% |
+| Combined | 148,948 | 845,824 | 17.6098% |
 
 This deliberately conservative metric counts the union of emitted native code
 ranges for executables actually linked into the private runtime. The boot loader
-has 86 linked generated functions. Seventy-nine selected entries in
-N2O.EXE add 55,092 bytes; the full analysis C for N2O.EXE and NEW.EXE does not count.
+has 86 linked generated functions. The 125 selected roots in
+N2O.EXE add 131,040 bytes; the full analysis C for N2O.EXE and NEW.EXE does not count.
 BIOS, interpreter, renderer, audio backend and desktop menu do not
 count as native game code.
 
@@ -53,6 +54,7 @@ pre-0.0.7 receipt by rebuilding first.
 | Gameplay angle-table lookups | Two native leaf translations in N2O.EXE; private comparisons passed and user verified first-level gameplay in 0.0.10 |
 | Drawing packet preparation | 25 additional native entry ranges, with guarded internal resumes; user verified 0.0.11 gameplay through level 9 |
 | Geometry/object presentation and text | 32 additional native entry ranges in 0.0.13; private comparisons, first-level visuals, normal build and Windows/Linux CI passed; user reports no issues in the focused Windows playtest |
+| Model primitives and game/menu control | 46 additional roots in 0.0.14; 10,316 private comparisons, 17 exact-frame checks, normal production/controller fixture and Windows/Linux CI passed; Windows player acceptance pending |
 | Card-control/event polling | 20 additional native entry ranges; BIOS/serial protocol and file publication retain compatibility services; user reports no Windows saving/loading slowdowns in 0.0.12 |
 | Music and effects | Emulated SPU/CD path; no independent cue-driven player yet |
 | Opening movies | Native STR/XA service for three opening routes; user verified Windows playback and skipping |
@@ -140,3 +142,18 @@ The count measures emitted ranges, not coverage of every branch or game scenario
 The normal build and final Windows/Linux CI passed. The user subsequently
 reports no issues noticed in the focused Windows playtest; no new level-9
 campaign acceptance or exhaustive branch coverage is inferred.
+
+## 0.0.14 — model primitives and game/menu control
+
+Forty-six new roots add 75,948 bytes. The reduced binding has 125 N2O roots and
+4,189 continuation aliases; aliases add no byte/function credit. Combined linked
+coverage rises from 73,000 / 845,824 (8.6306%) to 148,948 / 845,824 (17.6098%),
+about 2.04 times the previous share. The excluded share is 82.3902%.
+
+Thirty-five new roots were observed live; 11 further packet roots have bounded
+complete-call comparisons. The two large model roots have additional constructed
+primitive/geometry cases. A candidate with an exception/return mismatch and 28
+without adequate evidence remain on fallback. This is the selected emitted-range
+inventory, not proof of every branch or an execution-time share. The final selection passed 10,316 private comparisons and 17 exact-frame
+checks. The normal production build/controller fixture and Windows/Linux CI passed. Windows 0.0.14 player
+acceptance remains pending its focused menu/first-level checks.

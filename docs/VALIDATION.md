@@ -1046,3 +1046,87 @@ preservation. This changes CI only. Both source jobs passed in run 40784546820
 and both runtime jobs passed in run 40784546819 at checkpoint
 a801d3a5fa14117adf4ad090ef1916c1289c33c0. Final binding checkpoint CI will be
 recorded separately. No game data or generated translation is published.
+
+### Final reduced diagnostic qualification — passed
+
+The production preparation wrapper regenerated the reduced binding from the
+verified import. Its diagnostic build verifies 148,948 / 845,824 = 17.6098%
+linked coverage, with 696,876 bytes (82.3902%) outside. N2O has 125 selected
+roots, 4,189 aliases and 131,040 linked bytes; the boot numerator remains 17,908.
+The excluded 0x8004EB48 owner and its aliases are absent from the final binding.
+
+All final-selection comparison runs passed with zero mismatches:
+
+| Corpus | Successful compared segments |
+| --- | ---: |
+| Final extended live route and root GTE edge inputs | 1,223 |
+| 25 captured-input/GTE variants at 171 final-owned PCs | 4,275 |
+| 648 complete calls each to the two model roots | 2,046 |
+| 216 complete calls each to eleven packet roots | 2,772 |
+| Final-selection total | 10,316 |
+
+The constructed model/packet corpora contain 3,672 complete calls. All 46 new
+roots have comparison evidence in the reduced build. The comparison checks GPRs,
+HI/LO, return PC, COP0, GTE data/control, all 2 MiB RAM and 1 KiB scratchpad, with
+device time frozen for each isolated segment. Compatibility callees retain their
+existing backend. This does not establish every possible input, branch or cycle.
+The earlier 75-root exploration totals are superseded for final qualification;
+they are not added to the 10,316 comparisons above.
+
+Seventeen final-selection scanouts at guest frames 800, 1,500, 1,900, 2,100,
+2,300, 2,500, 2,700, 3,000, 3,500, 4,000, 4,200, 4,300, 4,500, 4,700,
+5,000, 5,500 and 6,000 are pixel-identical to the preserved 0.0.13 extended
+route. The route includes title/menu, first-level firing/movement and pause/resume.
+Its final matched run completed past frame 6,300. This complements the isolated
+state checks; it is not later-level campaign qualification.
+
+All 40 local source tests passed, as did the 71-file source-package audit and
+whitespace check. The normal diagnostics-disabled production build, its exact
+selected-source comparison, normal controller/movie/shutdown fixture and final
+platform result recording remain pending. Windows 0.0.14 player acceptance is
+pending its focused TESTING.md checks; 0.0.13's accepted playtest remains history.
+
+### Final binding platform checks — passed
+
+Both Windows/Linux source jobs passed in
+[run 40786538206](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/40786538206).
+Both Windows/Linux runtime jobs passed in
+[run 40786538060](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/40786538060)
+at code/binding checkpoint `c95f8e1471767ccceef0c69e556b2b3c00f8f459`.
+Logs confirm 384 original native variant calls, 122 mixed-backend cases, media,
+input and status/title checks on both hosts. Linux also passed the real menu
+fixture, reference profile, 331 OpenGL checks at 1x, 340 at 4x, 8,843 render-queue
+checks and render-worker equivalence at both scales. CI uses original synthetic
+programs and does not compile or publish private game-derived translations.
+Normal production-build results are recorded separately below.
+
+### Final 0.0.14 normal production result — passed
+
+The normal diagnostics-disabled build succeeded through the production wrapper.
+It reproduces 148,948 / 845,824 = 17.6098% linked coverage and 82.3902% outside.
+Its selected source/range hashes and slice inventory exactly match the qualified
+reduced diagnostic build. The ENHANCED execution identity is
+`1999919e7b9aec4b95b9078ccba57d636874cdbf35e047af1062357a6829f516`. The production link contains no
+private comparison/replay hooks, model/packet corpus code or controller fixture.
+
+A separate private SDL controller fixture reused those production objects,
+completed all three native opening movies, navigated to the first level and
+supplied firing, analog movement and Start input. The correct left-stick lanes
+reported X=217 then X=38, Y=128 at frames 3,300 and 3,500, with analog pad type 1
+and firing buttons BFFF. Private captures at frames 3,000 and 4,000 confirm
+first-level gameplay, enemies/shots, movement and HUD activity. SDL_QUIT at frame
+4,500 closed cleanly with exit code 0. The run logged 1,820,892 native dispatches,
+zero residency rejections and a render-worker bound of one frame. Dispatches
+include continuation entries and are not a native instruction/time percentage.
+
+The final dummy audio/render snapshot recorded 38,097 underflow samples and
+43,876 overflow frames at 44,100 Hz. These observations do not establish physical
+audio quality, starvation-free playback or a Windows FPS benchmark. No valued
+save was overwritten, and no new campaign progression is inferred.
+
+All 40 local source tests and the 71-file reviewed source audit passed. Final
+reporting changes pass whitespace/source audits; they change documentation only
+and skip redundant CI. The pinned framework checkout remains unchanged. Windows
+0.0.14 player acceptance remains pending TESTING.md's focused route; the prior
+0.0.13 player acceptance and older level-9/save-load reports retain their own
+version scope. No later-level replay, new files or reimport is required.

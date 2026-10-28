@@ -2,18 +2,37 @@
 
 ## Current acceptance and update checks
 
-**0.0.14 selected batch — final build checks pending:** 46 additional roots
-cover model/object primitive preparation and game/menu presentation control.
-The selection adds 75,948 bytes and targets 148,948 / 845,824 = 17.6098%
-linked coverage, with 82.3902% outside. Final reduced-selection comparisons,
-normal production measurement and final checkpoint CI remain pending.
+**0.0.14 — local and platform checks passed; Windows player acceptance pending:** 46 additional roots now cover model/object primitive
+preparation and game/menu presentation control. Residency guards, continuation
+aliases and interpreter fallback remain in use. The previous 0.0.13 focused
+Windows playtest was accepted; it does not automatically accept this update.
 
-The larger 75-root candidate passed two controlled visual routes (27 matching
-frames). One packet root failed a constructed exception/return comparison and
-is excluded; 28 others lack adequate qualification and remain unselected.
-The selected roots have live or constructed-input comparison evidence. These
-bounded checks do not prove every branch or later-level scenario. No player
-rebuild is requested at this checkpoint.
+Linked coverage is **17.6098% / 82.3902%** (148,948 / 845,824 bytes, +75,948
+bytes from 0.0.13), about 2.04 times the previous linked share. N2O has 125 roots
+and 4,189 aliases; aliases add no byte/function credit. This measures executable
+ranges, not project completion or native CPU time. PS1 graphics/GTE, guest SPU/CD
+and BIOS/card compatibility services remain in use.
+
+Completed: 10,316 final-selection CPU/RAM/scratchpad/GTE segment comparisons,
+with all 46 new roots covered; 17 pixel-identical scanouts on the extended
+menu/first-level route; 40 local source tests; the 71-file source-package audit;
+and both Windows/Linux source and runtime CI matrices for the final binding.
+The normal diagnostics-disabled build and movie/controller/shutdown fixture
+passed, and its selected source/range hashes match the qualified build. One candidate with an exception/return mismatch and 28 without adequate
+evidence remain unselected. These bounded checks do not prove every branch,
+input or later-level scenario. Details are in docs/VALIDATION.md.
+
+After pulling 0.0.14 and rebuilding with the usual commands below, check:
+
+1. Navigate title/menu, ship and level selection. Check labels, models and animation;
+   confirm existing score/save-slot labels remain readable.
+2. Play a short first-level session with analog movement and firing. Check tunnel
+   surfaces, enemies, shots, explosions, ship effects, HUD and score/counters.
+3. Pause/resume, continue moving/firing, return to the menu and quit normally.
+
+No later-level progression, reimport, new files or deliberate save overwrite is
+required. Preserve existing saves. Windows 0.0.14 player acceptance remains pending
+this focused route; no repeated campaign playthrough is requested.
 
 **0.0.13 — focused Windows playtest accepted:** the user reports no issues
 noticed. This accepts the tested menu/first-level route without implying a new

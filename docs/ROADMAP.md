@@ -22,6 +22,13 @@ coverage is 8.6306%, with 91.3694% outside linked ranges. The normal build and
 final Windows/Linux CI passed; the user reports no issues in the focused Windows playtest.
 This does not replace the PS1 graphics/GTE or sound services.
 
+Version 0.0.14 selects 46 more model/packet and game/menu presentation roots,
+adding 75,948 bytes. Normal-build coverage is 17.6098% linked / 82.3902%
+outside, about 2.04 times 0.0.13. One exception/return mismatch and 28 unqualified
+candidates remain unselected. The final selection passed 10,316 segment comparisons and 17 exact-frame
+checks. The normal production/controller fixture and Windows/Linux CI passed;
+focused Windows 0.0.14 player acceptance is pending.
+
 ## 1. Loaded-code identity and native game slices — underway
 
 The [first slice](NATIVE_GAME_SLICES.md) uses per-entry resident code identity and

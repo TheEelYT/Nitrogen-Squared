@@ -169,4 +169,37 @@ The normal build verifies 73,000 / 845,824 = **8.6306%**, with **91.3694%**
 outside linked ranges. GTE/PS1 packet rendering, guest SPU/CD and card compatibility
 services remain in use. This is native execution of more game code; it does not
 replace the scene renderer or audio engine. The normal build and final platform
-checkpoint checks passed; Windows player acceptance remains pending.
+checkpoint checks passed. The user subsequently reports no issues in the focused
+Windows 0.0.13 playtest.
+
+## 0.0.14 — model primitive and game/menu presentation control
+
+Forty-six further roots add 75,948 bytes from the verified local N2O.EXE.
+Model primitive preparation, object packet helpers and game/menu presentation
+control use the existing private emitter, complete-owner residency checks and
+CPS continuation mechanism. The selected inventory has 125 N2O roots, 4,189
+aliases and 131,040 N2O bytes; combined linked ranges total 148,948 / 845,824 =
+17.6098%, with 82.3902% outside. No alias receives duplicate byte/function credit.
+
+Thirty-five added roots were observed on controlled live routes. Eleven more
+packet roots completed 216 constructed calls each, including numeric/dimension,
+flag and GTE boundaries. The model roots at 0x8004532C and 0x8004A46C additionally
+completed 648 constructed calls each across primitive types/flags, empty/one-record
+models, extreme vertices and GTE/projection states. Captured continuation inputs
+also receive isolated GTE-state comparisons. Device time is frozen for these
+CPU/RAM/scratchpad/GTE checks; matching-frame sessions test the sampled route's
+visual behavior separately.
+
+The original 75-root candidate was reduced: 0x8004EB48 showed a native-return
+versus interpreter-exception mismatch on a constructed input and is entirely
+unselected. Another 28 roots lack adequate qualification. Their callers continue
+through the existing backend; no pinned framework changes or exception bypass
+are introduced. Native scene rendering, independent gameplay audio, BIOS/card
+services and later-level campaign qualification remain separate work.
+
+The final reduced build passed 10,316 segment comparisons and 17 matching-frame
+checks. The normal production build reproduces the qualified source/range hashes;
+its movie/controller/shutdown fixture and Windows/Linux CI passed. See
+VALIDATION.md for the counts and limits. Windows player acceptance for 0.0.14 is pending the
+focused TESTING.md route. All game instructions, emitted bodies/guards, snapshots,
+comparison helpers and captures remain outside Git and release packages.

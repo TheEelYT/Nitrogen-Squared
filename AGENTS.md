@@ -39,6 +39,14 @@
   The user subsequently reports no issues noticed in the focused Windows
   0.0.13 playtest. Record that route as accepted without implying exhaustive
   branch coverage or a new level-9 campaign playthrough.
+- Version 0.0.14 selects 46 further model/packet and game/menu presentation
+  roots, adding 75,948 bytes. Reduced diagnostic coverage verifies 148,948 /
+  845,824 = 17.6098% linked, with 82.3902% outside. N2O has 125 roots and 4,189
+  aliases. One constructed exception/return mismatch and 28 unqualified roots
+  remain unselected. The final reduced selection passed 10,316 private segment comparisons
+  and 17 matching-frame checks, the normal production/controller fixture and
+  Windows/Linux CI. Windows 0.0.14 acceptance is pending TESTING.md's focused route;
+  do not infer it from the accepted 0.0.13 playtest or earlier level-9 report.
 - The user requests substantial coherent conversion batches. Continue through
   preparation and qualification to an actual conversion when viable; do not
   use test-only preparation as the default stopping point.
