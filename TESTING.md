@@ -2,15 +2,18 @@
 
 ## Current acceptance and update checks
 
-**0.0.14 development candidate — qualification pending:** 75 additional roots
-are being evaluated for model/object primitive preparation and game/menu
-presentation control. Candidate input bands total 92,308 bytes; this is not yet
-verified production coverage. Private generation, live comparisons, affected-route
-visual checks, final normal build and platform checks must complete before
-promotion. No player rebuild or test is requested at this checkpoint.
+**0.0.14 selected batch — final build checks pending:** 46 additional roots
+cover model/object primitive preparation and game/menu presentation control.
+The selection adds 75,948 bytes and targets 148,948 / 845,824 = 17.6098%
+linked coverage, with 82.3902% outside. Final reduced-selection comparisons,
+normal production measurement and final checkpoint CI remain pending.
 
-The accepted 0.0.13 baseline remains 8.6306% linked / 91.3694% outside ranges.
-
+The larger 75-root candidate passed two controlled visual routes (27 matching
+frames). One packet root failed a constructed exception/return comparison and
+is excluded; 28 others lack adequate qualification and remain unselected.
+The selected roots have live or constructed-input comparison evidence. These
+bounded checks do not prove every branch or later-level scenario. No player
+rebuild is requested at this checkpoint.
 
 **0.0.13 — focused Windows playtest accepted:** the user reports no issues
 noticed. This accepts the tested menu/first-level route without implying a new

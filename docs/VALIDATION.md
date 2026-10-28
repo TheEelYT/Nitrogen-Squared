@@ -1004,3 +1004,45 @@ comparison helpers remain private. Live CPU/RAM/scratchpad/GTE comparisons,
 matching-frame checks, normal production build and Windows/Linux checks are
 pending. The accepted baseline is 73,000 / 845,824 = 8.6306%, with 91.3694%
 outside its linked ranges. No player rebuild is requested for this checkpoint.
+
+### Candidate comparisons and reduced selection
+
+The larger diagnostic candidate linked 154 N2O roots, 4,917 aliases and
+165,308 combined bytes (19.5440%). This inventory was provisional. The first
+prompt-disabled route completed through frame 4,503, matching 1,248 isolated
+segments across 172 PCs with zero mismatches. Its ten scanouts matched the
+accepted 0.0.13 build exactly. An extended route with pause/resume, movement and
+firing completed through frame 6,308 and matched 437 segments; its 17 scanouts
+also matched the separately preserved baseline through frame 6,305.
+
+Private constructed model tests completed 648 calls each for 0x8004532C and
+0x8004A46C: 1,173 and 873 compared segments, respectively. They vary primitive
+types/flags, empty/one-record models, extreme vertices, depth and GTE state.
+Captured-PC replays matched 25 input/GTE variants at each of 172 PCs (4,300
+segments). These larger-candidate counts include a subsequently excluded owner
+and are not the final selected-inventory totals.
+
+Eleven additional packet roots passed 216 constructed complete calls each,
+including distance/dimension/flag boundaries and GTE edge contexts. Ten matched
+216 segments each; 0x8004FB68 matched 612, totaling 2,772 successful segments.
+A twelfth packet root, 0x8004EB48, reached the interpreter exception vector
+while its native translation returned in a constructed case. It is excluded
+entirely, including its continuation aliases. No claim is made that this case
+represents valid gameplay input, and no framework fix is included. Twenty-eight
+other unobserved roots lack adequate qualification and remain unselected.
+
+The reduced binding adds 46 roots, 75,948 bytes: 35 observed live and 11 covered
+by the complete constructed packet calls. Its expected N2O inventory is 125
+roots, 4,189 aliases and 131,040 bytes; expected combined coverage is
+148,948 / 845,824 = 17.6098%, with 696,876 bytes (82.3902%) outside. Aliases add
+no byte/function credit. The reduced-selection diagnostic recheck, measured
+normal production build and final checkpoint CI are pending.
+
+Initial source CI passed in run 40783530871. Runtime run 40783530816 linked on
+Linux but its combined SDL/GL smoke fixture exceeded the old 15-second budget,
+cancelling the Windows matrix peer. The fixture now has a bounded 60-second
+budget on both profiles, unbuffered progress receipts and timeout output
+preservation. This changes CI only. Both source jobs passed in run 40784546820
+and both runtime jobs passed in run 40784546819 at checkpoint
+a801d3a5fa14117adf4ad090ef1916c1289c33c0. Final binding checkpoint CI will be
+recorded separately. No game data or generated translation is published.
