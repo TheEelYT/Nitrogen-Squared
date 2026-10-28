@@ -52,7 +52,7 @@ pre-0.0.7 receipt by rebuilding first.
 | Controller input | Host SDL input; analog gameplay verified by the user in 0.0.6 |
 | Gameplay angle-table lookups | Two native leaf translations in N2O.EXE; private comparisons passed and user verified first-level gameplay in 0.0.10 |
 | Drawing packet preparation | 25 additional native entry ranges, with guarded internal resumes; user verified 0.0.11 gameplay through level 9 |
-| Geometry/object presentation and text | 32 additional native entry ranges in 0.0.13; private comparisons, first-level visuals, normal build and Windows/Linux CI passed; Windows player acceptance pending |
+| Geometry/object presentation and text | 32 additional native entry ranges in 0.0.13; private comparisons, first-level visuals, normal build and Windows/Linux CI passed; user reports no issues in the focused Windows playtest |
 | Card-control/event polling | 20 additional native entry ranges; BIOS/serial protocol and file publication retain compatibility services; user reports no Windows saving/loading slowdowns in 0.0.12 |
 | Music and effects | Emulated SPU/CD path; no independent cue-driven player yet |
 | Opening movies | Native STR/XA service for three opening routes; user verified Windows playback and skipping |
@@ -137,5 +137,6 @@ linked slices have 79 N2O roots and 1,523 continuation aliases, with no alias
 byte/function credit. All 32 roots have private comparison evidence, including
 constructed geometry and text inputs for entries absent from the live route.
 The count measures emitted ranges, not coverage of every branch or game scenario.
-The normal build and final Windows/Linux CI passed; Windows player acceptance
-remains pending.
+The normal build and final Windows/Linux CI passed. The user subsequently
+reports no issues noticed in the focused Windows playtest; no new level-9
+campaign acceptance or exhaustive branch coverage is inferred.

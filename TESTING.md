@@ -2,7 +2,10 @@
 
 ## Current acceptance and update checks
 
-**0.0.13 — local and platform checks passed; Windows player acceptance pending:** 32 additional geometry, object/drawing, angle and
+**0.0.13 — focused Windows playtest accepted:** the user reports no issues
+noticed. This accepts the tested menu/first-level route without implying a new
+level-9 campaign playthrough or exhaustive coverage. No repeat test is needed
+for this acceptance note. 32 additional geometry, object/drawing, angle and
 text-formatting entry ranges now execute natively. Whole-owner residency guards,
 internal resumes and interpreter fallback remain in use. Saves retain their
 existing card format and BIOS/serial services.
@@ -19,7 +22,7 @@ and Windows/Linux runtime/source CI for the final code checkpoint. The normal
 diagnostics-disabled build and private movie/controller/shutdown fixture passed. Prior level-9 gameplay
 and 0.0.12 save/load acceptance remain history, not acceptance of this replacement.
 
-Pull main, rebuild with the usual commands below, and check:
+The completed focused player checks were:
 
 1. Navigate the title/menu, ship and level selection; check labels and animation.
 2. Play a short first-level session with analog movement and firing. Check the

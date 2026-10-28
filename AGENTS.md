@@ -36,8 +36,9 @@
   N2O has 79 roots and 1,523 aliases. Private qualification passed 17,475
   segment comparisons across all new roots and 20 matching-frame comparisons
   across two first-level routes. The normal build and Windows/Linux CI passed.
-  Windows 0.0.13 player acceptance is pending the focused menu/first-level checks
-  in TESTING.md; do not infer it from earlier level-9/save-load acceptance.
+  The user subsequently reports no issues noticed in the focused Windows
+  0.0.13 playtest. Record that route as accepted without implying exhaustive
+  branch coverage or a new level-9 campaign playthrough.
 - The user requests substantial coherent conversion batches. Continue through
   preparation and qualification to an actual conversion when viable; do not
   use test-only preparation as the default stopping point.

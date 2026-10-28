@@ -979,3 +979,11 @@ check. The pinned framework remains unchanged. This reporting commit skips
 redundant CI; it changes documentation/instructions only. Windows 0.0.13 player
 acceptance remains pending the focused TESTING.md route. No later-level campaign
 progression, new user files or deliberate save overwrite is requested.
+
+### 0.0.13 Windows player acceptance
+
+The user reports no issues noticed in the focused Windows playtest and
+authorizes the next substantial native batch. This accepts the tested route;
+it does not establish a new level-9 playthrough or exhaustive branch coverage.
+Coverage remains 8.6306% linked / 91.3694% outside. This acceptance note needs
+no rebuild or repeated player test.
