@@ -115,7 +115,9 @@ def main():
     subprocess.run(["cmake", "--build", str(work / "build"), "--config", "Release",
                     "--target", "nitrogen-runtime", "--parallel", "2"], check=True)
     result = subprocess.run([str(find_binary(work / "build", "NitrogenSquared-input-test"))],
-                            check=True, timeout=15, capture_output=True, text=True)
+                            cwd=work, timeout=15, capture_output=True, text=True)
+    if result.returncode:
+        raise RuntimeError(f"Runtime input fixture exited with {result.returncode}:\n" + result.stdout + result.stderr)
     if ("Runtime input smoke passed:" not in result.stdout or
             "Runtime media smoke passed:" not in result.stdout or
             "Runtime native slice smoke passed:" not in result.stdout or
@@ -140,7 +142,7 @@ def main():
                 enhanced["identity"] == reference["identity"] or
                 not any(x["name"] == "n2o-textured-batching" for x in reference["implementations"])):
             raise RuntimeError("Renderer profiles did not select distinct implementation identities")
-        subprocess.run([str(reference_binary)], check=True, timeout=15)
+        subprocess.run([str(reference_binary)], cwd=work, check=True, timeout=15)
 
 
 if __name__ == "__main__":

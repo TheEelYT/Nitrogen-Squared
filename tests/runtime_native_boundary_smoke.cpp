@@ -41,6 +41,9 @@ void require(bool ok, const char *message) {
 }
 template<size_t N> void load(uint32_t pc, const uint32_t (&words)[N]) {
     for (size_t i = 0; i < N; ++i) psx_write_word(pc + uint32_t(i * 4), words[i]);
+    // Match the loader's publication of executable RAM. Ordinary data stores
+    // outside the kernel window do not by themselves declare executable pages.
+    dirty_ram_mark_executable_range(pc & 0x1FFFFFFFu, uint32_t(N * 4));
 }
 CPUState fixture(uint32_t value, uint32_t target) {
     CPUState cpu{};
@@ -105,6 +108,8 @@ void nitrogen_native_boundary_smoke() {
     for (uint32_t root : {0x8001B600u, 0x8001BFE8u}) {
         require(psx_overlay_static_can_dispatch(root) && psx_overlay_static_can_dispatch(root + 24),
                 "caller root and continuation are resident");
+        uint8_t saved_caller[sizeof caller];
+        std::memcpy(saved_caller, g_psx_ram + (root & 0x1FFFFFFFu), sizeof saved_caller);
         for (uint32_t segment : {0u, 0x80000000u, 0xA0000000u}) {
             const uint32_t entry = (root & 0x1FFFFFFFu) | segment;
             require(bool(psx_overlay_static_can_dispatch(entry)) == (segment == 0x80000000u),
@@ -145,7 +150,7 @@ void nitrogen_native_boundary_smoke() {
         require(native_hits() > native_before && g_dirty_ram_insns_run > interp_before,
                 "native caller returns through the authoritative changed-code fallback");
         // Bulk restore bypasses guest-store hooks, as savestate RAM does.
-        std::memcpy(g_psx_ram + (root & 0x1FFFFFFFu), caller, sizeof caller);
+        std::memcpy(g_psx_ram + (root & 0x1FFFFFFFu), saved_caller, sizeof saved_caller);
         overlay_watch_invalidate_after_ram_restore();
         require(psx_overlay_static_can_dispatch(root) && psx_overlay_static_can_dispatch(root + 24),
                 "RAM restore revalidates both code pages");
@@ -153,7 +158,7 @@ void nitrogen_native_boundary_smoke() {
         overlay_watch_invalidate_after_ram_restore();
         require(!psx_overlay_static_can_dispatch(root) && !psx_overlay_static_can_dispatch(root + 24),
                 "bulk restore of changed code invalidates a warm native match");
-        std::memcpy(g_psx_ram + (root & 0x1FFFFFFFu), caller, sizeof caller);
+        std::memcpy(g_psx_ram + (root & 0x1FFFFFFFu), saved_caller, sizeof saved_caller);
         overlay_watch_invalidate_after_ram_restore();
         ++cases;
     }
