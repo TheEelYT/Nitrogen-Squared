@@ -3,10 +3,10 @@
 A Windows-first recompilation project for **N2O: Nitrous Oxide (PlayStation)**,
 with a planned PS Vita port and optional remaster presentation.
 
-**Current status: 0.0.13 candidate, private runtime with expanded native presentation code.**
+**Current status: 0.0.13, private runtime with expanded native presentation code.**
 Thirty-two additional entry ranges cover geometry transformation, object/drawing
 preparation, angle calculation and text formatting. Private caller comparisons
-and two first-level visual routes passed. The final normal build is in progress;
+and two first-level visual routes passed. Normal and diagnostic builds passed;
 Windows player acceptance remains pending. This retains PS1 graphics/audio and
 BIOS compatibility services, including the existing save format.
 The user verified 0.0.11 gameplay through level 9 and reports no saving/loading
@@ -20,7 +20,7 @@ There is no public game executable or Vita VPK. The current hybrid runtime uses
 native boot/BIOS code and interpreter fallback for much of the loaded game code.
 A repeatable private build command is included.
 
-## Native progress — 0.0.13 candidate
+## Native progress — 0.0.13
 
 | Selected executable payloads | Bytes | Share |
 | --- | ---: | ---: |
@@ -46,8 +46,8 @@ Private qualification passed 17,475 native/interpreter segment comparisons acros
 live and constructed inputs, covering all 32 new roots. Twenty matching-frame
 comparisons across two menu/first-level routes were pixel-identical to 0.0.12.
 The original 122 mixed-backend boundary cases passed Windows/Linux CI. These are
-bounded checks, not full campaign or every-input qualification. Final normal-build
-checks and Windows player acceptance remain pending. See the
+bounded checks, not full campaign or every-input qualification. Normal-build checks and final Windows/Linux CI passed.
+Windows player acceptance remains pending. See the
 [native slices](docs/NATIVE_GAME_SLICES.md), [metric](docs/NATIVE_PROGRESS.md) and
 [focused testing instructions](TESTING.md).
 

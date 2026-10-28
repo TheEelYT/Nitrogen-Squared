@@ -165,8 +165,8 @@ routes were pixel-identical to 0.0.12. These are bounded corpora, not all possib
 inputs, every branch or later campaign acceptance. Raw inputs, witnesses, private
 checker code and captures remain outside Git and packages.
 
-Candidate linked coverage is 73,000 / 845,824 = **8.6306%**, with **91.3694%**
+The normal build verifies 73,000 / 845,824 = **8.6306%**, with **91.3694%**
 outside linked ranges. GTE/PS1 packet rendering, guest SPU/CD and card compatibility
 services remain in use. This is native execution of more game code; it does not
 replace the scene renderer or audio engine. The normal build and final platform
-checkpoint checks remain pending; Windows player acceptance is separate.
+checkpoint checks passed; Windows player acceptance remains pending.

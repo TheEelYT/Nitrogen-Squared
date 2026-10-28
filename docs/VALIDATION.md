@@ -936,3 +936,46 @@ source labels now distinguish the angle/text helpers from geometry routines; no
 selection or generated instruction body changed. The diagnostics-disabled normal
 build, its execution receipt, normal playback/controller/shutdown check and final
 checkpoint CI remain pending. Windows 0.0.13 acceptance remains pending.
+
+
+### Final 0.0.13 normal build and platform results — passed
+
+The diagnostics-disabled production build succeeded through the normal wrapper
+and reproduced 73,000 / 845,824 = 8.6306%, with 91.3694% outside linked ranges.
+Its selected generated source/range hashes and slice inventory match the privately
+qualified diagnostic candidate exactly. Its ENHANCED execution identity is
+`bc8acff3d9585817b63727543d5e107ef2b14237a0044ba07a788fd41d5fe083`.
+The production link contains no private comparison/replay hooks or fixture code.
+
+A separate private SDL controller fixture reused the production objects, completed
+all three native opening clips, navigated into the first level, supplied firing,
+stick and Start input, and closed through SDL_QUIT at frame 4,500. Two runs returned
+successfully. Private captures at frames 3,000 and 4,000 confirm first-level
+gameplay, firing/enemies and HUD updates. Both normal runs logged 1,652,887 native
+dispatches and zero residency rejections. The render worker was bounded to one
+frame and joined on shutdown. Existing CI separately verifies analog axis routing;
+the normal fixture's first stick logger sampled the right-stick lanes and does
+not establish numeric left-stick values. The private logger was corrected.
+
+Dummy-device audio snapshots reported 61,692 then 53,460 underflow samples and
+43,278 then 42,854 overflow frames. These are bounded transport observations,
+not physical audio-quality or starvation-free-playback claims. No Windows FPS
+benchmark or new user campaign acceptance is inferred. Existing save compatibility
+services/formats are unchanged; no valued save was used for these routes.
+
+Both final Windows/Linux source jobs passed in
+[run 40777916358](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/40777916358),
+and both final runtime jobs passed in
+[run 40777916390](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/40777916390).
+The tested code checkpoint is `903ce3f1ef78587cee24136c6880640757be4683`. Logs
+confirm the 122 mixed-backend cases and existing input/native/media/title checks
+on both hosts. Linux also passed the reference profile, 331 renderer checks at 1x,
+340 at 4x, 8,843 queue checks and worker equivalence at both scales. Neither
+workflow publishes private game data or binaries.
+
+All 40 local source tests passed for the final code checkpoint. The final
+reporting-only changes pass the 71-file source-package audit and whitespace
+check. The pinned framework remains unchanged. This reporting commit skips
+redundant CI; it changes documentation/instructions only. Windows 0.0.13 player
+acceptance remains pending the focused TESTING.md route. No later-level campaign
+progression, new user files or deliberate save overwrite is requested.

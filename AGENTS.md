@@ -31,6 +31,16 @@
   Coverage remains 4.2642% / 95.7358%. The original user disc upload was recovered
   and privately reimported after the prior scratch workspace disappeared; reuse
   that existing saved input rather than requesting another upload unnecessarily.
+- Version 0.0.13 adds 32 qualified geometry/object-presentation, angle and text
+  roots: 36,932 new bytes, 73,000 / 845,824 = 8.6306% linked, 91.3694% outside.
+  N2O has 79 roots and 1,523 aliases. Private qualification passed 17,475
+  segment comparisons across all new roots and 20 matching-frame comparisons
+  across two first-level routes. The normal build and Windows/Linux CI passed.
+  Windows 0.0.13 player acceptance is pending the focused menu/first-level checks
+  in TESTING.md; do not infer it from earlier level-9/save-load acceptance.
+- The user requests substantial coherent conversion batches. Continue through
+  preparation and qualification to an actual conversion when viable; do not
+  use test-only preparation as the default stopping point.
 - Every runtime update must update `TESTING.md` with the version, concrete changes,
   focused player checks and pending/verified status. Prior acceptance is history,
   not automatic verification of a replacement. Avoid requesting unrelated full

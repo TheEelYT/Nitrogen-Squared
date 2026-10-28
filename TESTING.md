@@ -2,8 +2,7 @@
 
 ## Current acceptance and update checks
 
-**0.0.13 — local native qualification passed; final normal build and Windows
-player acceptance pending:** 32 additional geometry, object/drawing, angle and
+**0.0.13 — local and platform checks passed; Windows player acceptance pending:** 32 additional geometry, object/drawing, angle and
 text-formatting entry ranges now execute natively. Whole-owner residency guards,
 internal resumes and interpreter fallback remain in use. Saves retain their
 existing card format and BIOS/serial services.
@@ -16,11 +15,11 @@ audio or unlocked framerate.
 Completed: 17,475 private CPU/RAM/scratchpad/GTE segment comparisons across live
 and constructed inputs, with all 32 new roots covered; 20 pixel-identical frame
 comparisons across two controlled menu/first-level routes; 40 local source tests;
-and Windows/Linux runtime/source CI for the initial candidate. The final normal
-build and final checkpoint's platform checks are pending. Prior level-9 gameplay
+and Windows/Linux runtime/source CI for the final code checkpoint. The normal
+diagnostics-disabled build and private movie/controller/shutdown fixture passed. Prior level-9 gameplay
 and 0.0.12 save/load acceptance remain history, not acceptance of this replacement.
 
-Once this candidate is promoted, rebuild with the usual commands below and check:
+Pull main, rebuild with the usual commands below, and check:
 
 1. Navigate the title/menu, ship and level selection; check labels and animation.
 2. Play a short first-level session with analog movement and firing. Check the
@@ -28,10 +27,11 @@ Once this candidate is promoted, rebuild with the usual commands below and check
 3. Pause/resume, return to the menu and quit normally. Check existing high scores
    and save-slot labels are still readable; no deliberate save overwrite is needed.
 
-No later-level progression, reimport or new files are required. Final local build
-results will be recorded in docs/VALIDATION.md before promotion.
+No later-level progression, reimport or new files are required. Completed local
+and platform results are recorded in docs/VALIDATION.md.
 
-**Native-call qualification — passed; no player rebuild:** new
+**Historical 0.0.12 native-call qualification — passed; no rebuild for that
+test-only update:** new
 original synthetic programs test the real runtime dispatcher across indirect
 calls, interpreted callees, native callbacks, tail transfers, segment aliases,
 two-page code guards and code changed while a native caller is suspended. All 122
@@ -331,7 +331,7 @@ python tools/native_progress.py
 The report counts only native ranges linked into the build, excluding generated
 analysis-only translations and host/BIOS code. Its payload denominator includes
 embedded data, so it is not an estimate of overall project completion.
-The default 0.0.12 ENHANCED build should report **4.2642%** linked and **95.7358%**
+The default 0.0.13 ENHANCED build should report **8.6306%** linked and **91.3694%**
 outside linked ranges. Its normal clean-shutdown log also prints
 `nitrogen: native game slice: dispatches=... residency_rejections=...`.
 After first-level gameplay the dispatch count should be positive. This is an

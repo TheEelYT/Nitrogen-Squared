@@ -1,6 +1,6 @@
 # Native translation progress
 
-The 0.0.13 candidate has **8.6306% linked native translation coverage** against the
+The 0.0.13 build has **8.6306% linked native translation coverage** against the
 combined payload sizes of the three selected USA game executables:
 
 The complementary **91.3694% (772,824 bytes)** is outside those linked translation
@@ -52,7 +52,7 @@ pre-0.0.7 receipt by rebuilding first.
 | Controller input | Host SDL input; analog gameplay verified by the user in 0.0.6 |
 | Gameplay angle-table lookups | Two native leaf translations in N2O.EXE; private comparisons passed and user verified first-level gameplay in 0.0.10 |
 | Drawing packet preparation | 25 additional native entry ranges, with guarded internal resumes; user verified 0.0.11 gameplay through level 9 |
-| Geometry/object presentation and text | 32 additional native entry ranges in 0.0.13; private comparisons and controlled first-level visuals passed; final normal build and Windows acceptance pending |
+| Geometry/object presentation and text | 32 additional native entry ranges in 0.0.13; private comparisons, first-level visuals, normal build and Windows/Linux CI passed; Windows player acceptance pending |
 | Card-control/event polling | 20 additional native entry ranges; BIOS/serial protocol and file publication retain compatibility services; user reports no Windows saving/loading slowdowns in 0.0.12 |
 | Music and effects | Emulated SPU/CD path; no independent cue-driven player yet |
 | Opening movies | Native STR/XA service for three opening routes; user verified Windows playback and skipping |
@@ -137,4 +137,5 @@ linked slices have 79 N2O roots and 1,523 continuation aliases, with no alias
 byte/function credit. All 32 roots have private comparison evidence, including
 constructed geometry and text inputs for entries absent from the live route.
 The count measures emitted ranges, not coverage of every branch or game scenario.
-Final normal-build and Windows player acceptance remain pending at this checkpoint.
+The normal build and final Windows/Linux CI passed; Windows player acceptance
+remains pending.
