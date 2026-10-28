@@ -79,6 +79,16 @@ def main():
     callee = [0x2484FFFF, 0x03E00008, 0x00801021]
     records.extend(("SYNTHETIC", capture(struct.pack("<" + "I" * len(words), *words), pc, [pc]))
                    for pc, words in [(0x8001B400, caller), (0x8001B500, callee)])
+    # Original indirect caller, also placed across a code-page boundary, and
+    # callback. Other callees are installed only by the runtime test so they
+    # necessarily execute on fallback. No live backend-selection switch.
+    indirect = [0x27BDFFE8, 0xAFBF0014, 0xAFB00010, 0x00808025,
+                0x0320F809, 0x24A50001, 0xAE020000, 0x8FB00010, 0x8FBF0014,
+                0x27BD0018, 0x03E00008, 0x24630001]
+    callback = [0x8C880004, 0x24C60003, 0x01051021, 0x03E00008, 0x00461021]
+    records.extend(("SYNTHETIC", capture(struct.pack("<" + "I" * len(words), *words), pc, [pc]))
+                   for pc, words in [(0x8001B600, indirect), (0x8001BFE8, indirect),
+                                     (0x8001B700, callback)])
     native = emit(records, framework, game, config, work / "native-slices")
     configure = ["cmake", "-S", str(ROOT), "-B", str(work / "build"),
                     f"-DPSXRECOMP_ROOT={framework}", f"-DNITROGEN_GENERATED_DIR={generated}",
@@ -109,6 +119,7 @@ def main():
     if ("Runtime input smoke passed:" not in result.stdout or
             "Runtime media smoke passed:" not in result.stdout or
             "Runtime native slice smoke passed:" not in result.stdout or
+            "Runtime native boundary smoke passed:" not in result.stdout or
             "Runtime status/title smoke passed:" not in result.stdout):
         raise RuntimeError("Virtual input test exited without its success receipt: " + result.stdout + result.stderr)
     print(result.stdout, end="", flush=True)

@@ -44,6 +44,7 @@
   "native/str_decode.cpp",
   "tests/runtime_input_smoke.cpp",
   "tests/runtime_native_smoke.cpp",
+  "tests/runtime_native_boundary_smoke.cpp",
   "tests/runtime_media_smoke.cpp",
   "tests/runtime_menu_smoke.cpp",
   "tests/test_cmake.py",

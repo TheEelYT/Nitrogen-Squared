@@ -108,8 +108,27 @@ segment with interpreted execution up to the next outgoing call or return.
 Device time is frozen for comparison; the live call then executes normally.
 Full save/load tests and exact frame comparisons remain separate requirements.
 
-The 0.0.11 baseline is accepted through level 9. This candidate has not yet been
-accepted on Windows; focused card-read/write checks will replace an unrelated
-campaign replay. The selected new ranges total 2,072 bytes. The production report verifies
+The 0.0.11 baseline is accepted through level 9. The user subsequently reports no
+saving/loading slowdowns on Windows in 0.0.12, passing that focused performance
+check without implying a new campaign playthrough. The selected new ranges total
+2,072 bytes. The production report verifies
 36,068 / 845,824 = **4.2642%**, with **95.7358%** outside linked ranges. N2O has
 47 roots and 531 continuation aliases; aliases receive no additional byte credit.
+
+## Mixed-backend qualification for later batches
+
+The original boundary fixture uses `psx_dispatch_call` from the linked OpenBIOS
+backend rather than a test loop that selects a backend or repairs CPU return
+state. Indirect native callers reach untranslated callees, interpreted callees
+call or tail-transfer into a compiled callback, and the dispatcher resumes the
+caller. KUSEG/KSEG1 callers retain their segment and use fallback. Register,
+stack, delay-slot and neighboring-data checks detect a duplicated continuation.
+
+A second caller placement spans two code pages. Byte/halfword writes through a
+different data segment must invalidate/revalidate both its root and continuation.
+An interpreted guest callee changes the suspended caller's return-delay
+instruction; the whole-owner guard must decline its old native continuation,
+and fallback must execute the changed result exactly once. Bulk RAM restoration
+also invalidates warm cached matches. These are original synthetic programs, not
+qualification of additional N2O functions, device timing or full-session gameplay.
+Platform results are pending; linked coverage and player behavior are unchanged.

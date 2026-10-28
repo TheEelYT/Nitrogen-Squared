@@ -49,6 +49,12 @@ working fallback. See the [native slices](docs/NATIVE_GAME_SLICES.md),
 Every runtime update will refresh this section and [TESTING.md](TESTING.md),
 including an explicit unchanged percentage when no new native ranges are linked.
 
+Development qualification now exercises the production dispatcher with original
+synthetic native/interpreted calls, callbacks, tail transfers and suspended-code
+replacement. Platform checks are pending for this test-only change. It does not
+change the player runtime, add linked game ranges or require a player rebuild;
+coverage remains **4.2642% / 95.7358%**.
+
 ## Bring your own game
 
 The repository and release packages must contain **no game files**. Players

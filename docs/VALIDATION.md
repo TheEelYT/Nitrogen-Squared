@@ -829,3 +829,30 @@ test was run for this note. The remotely edited files are the existing six
 reviewed Markdown paths only; their text was checked for whitespace errors and
 the repository tree is checked to retain the same tracked path set. The prior
 runtime CI and local validation above remain the evidence for the compiled build.
+
+## Mixed native/fallback boundary qualification — in progress
+
+The source checkout and pinned framework were restored in a fresh execution
+workspace after the prior workspace became unavailable. The previous private
+disc, translated game bodies, saved cards and live comparison fixtures are not
+present here. No additional game ranges are enabled without those comparisons.
+The Windows 0.0.12 save/load acceptance remains recorded; this work needs no
+new user files or player replay.
+
+New original synthetic programs exercise the production OpenBIOS dispatch-call
+trampoline, rather than selecting backends in a test-owned loop. The matrix
+covers native/interpreted indirect callees, interpreted calls and tails into a
+native callback, KUSEG/KSEG0/KSEG1 callers, unsigned edge inputs, a caller crossing
+two code pages, byte/halfword alias writes, guest modification of a suspended
+native caller and bulk-RAM restore invalidation. Checks include all GPRs, HI/LO,
+COP0/GTE state, SP/RA restoration, result publication, data canaries and actual
+native/interpreter execution counters. Device timing and game-session equivalence
+are outside this synthetic fixture's scope.
+
+All 40 source tests passed locally with CMake available and no skips. The source
+package audit passed with 71 reviewed text files; the only added path is the
+original boundary fixture. Local runtime and Windows/Linux CI checks remain
+pending at this checkpoint. VERSION and the normal selected source lists remain
+unchanged at 0.0.12; the new file is linked only with NITROGEN_INPUT_SMOKE and
+NITROGEN_NATIVE_SMOKE. Coverage stays 36,068 / 845,824 = 4.2642%, with 95.7358%
+outside linked ranges. No private game data or generated bodies enter Git.
