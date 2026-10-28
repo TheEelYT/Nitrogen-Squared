@@ -413,5 +413,293 @@
       "0x80071DAC"
     ],
     "purpose": "BIOS service call trampoline"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x8005670C",
+    "size": 160,
+    "entries": [
+      "0x8005670C"
+    ],
+    "purpose": "Geometry transformation and drawing preparation"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x800567AC",
+    "size": 48,
+    "entries": [
+      "0x800567AC"
+    ],
+    "purpose": "Geometry transformation and drawing preparation"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x800567DC",
+    "size": 1200,
+    "entries": [
+      "0x800567DC"
+    ],
+    "purpose": "Geometry transformation and drawing preparation"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x80056CAC",
+    "size": 64,
+    "entries": [
+      "0x80056CAC"
+    ],
+    "purpose": "Geometry transformation and drawing preparation"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x80056CEC",
+    "size": 4516,
+    "entries": [
+      "0x80056CEC"
+    ],
+    "purpose": "Geometry transformation and drawing preparation"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x80057E90",
+    "size": 2184,
+    "entries": [
+      "0x80057E90"
+    ],
+    "purpose": "Geometry transformation and drawing preparation"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x80058718",
+    "size": 1028,
+    "entries": [
+      "0x80058718"
+    ],
+    "purpose": "Geometry transformation and drawing preparation"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x80058B1C",
+    "size": 1580,
+    "entries": [
+      "0x80058B1C"
+    ],
+    "purpose": "Geometry transformation and drawing preparation"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x80059148",
+    "size": 76,
+    "entries": [
+      "0x80059148"
+    ],
+    "purpose": "Geometry transformation and drawing preparation"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x80059194",
+    "size": 2740,
+    "entries": [
+      "0x80059194"
+    ],
+    "purpose": "Geometry transformation and drawing preparation"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x80059C48",
+    "size": 92,
+    "entries": [
+      "0x80059C48"
+    ],
+    "purpose": "Geometry transformation and drawing preparation"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x80059CA4",
+    "size": 40,
+    "entries": [
+      "0x80059CA4"
+    ],
+    "purpose": "Geometry transformation and drawing preparation"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x80059CCC",
+    "size": 240,
+    "entries": [
+      "0x80059CCC"
+    ],
+    "purpose": "Geometry transformation and drawing preparation"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x80059DBC",
+    "size": 356,
+    "entries": [
+      "0x80059DBC"
+    ],
+    "purpose": "Geometry transformation and drawing preparation"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x80059F20",
+    "size": 368,
+    "entries": [
+      "0x80059F20"
+    ],
+    "purpose": "Geometry transformation and drawing preparation"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x8005A090",
+    "size": 484,
+    "entries": [
+      "0x8005A090"
+    ],
+    "purpose": "Geometry transformation and drawing preparation"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x8005A274",
+    "size": 248,
+    "entries": [
+      "0x8005A274"
+    ],
+    "purpose": "Geometry transformation and drawing preparation"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x8005A36C",
+    "size": 152,
+    "entries": [
+      "0x8005A36C"
+    ],
+    "purpose": "Geometry transformation and drawing preparation"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x8005A404",
+    "size": 316,
+    "entries": [
+      "0x8005A404"
+    ],
+    "purpose": "Geometry transformation and drawing preparation"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x8005A540",
+    "size": 308,
+    "entries": [
+      "0x8005A540"
+    ],
+    "purpose": "Geometry transformation and drawing preparation"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x8005A674",
+    "size": 276,
+    "entries": [
+      "0x8005A674"
+    ],
+    "purpose": "Geometry transformation and drawing preparation"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x8005A788",
+    "size": 228,
+    "entries": [
+      "0x8005A788"
+    ],
+    "purpose": "Geometry transformation and drawing preparation"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x8005A86C",
+    "size": 56,
+    "entries": [
+      "0x8005A86C"
+    ],
+    "purpose": "Geometry transformation and drawing preparation"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x8005A8A4",
+    "size": 260,
+    "entries": [
+      "0x8005A8A4"
+    ],
+    "purpose": "Geometry transformation and drawing preparation"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x8005A9A8",
+    "size": 376,
+    "entries": [
+      "0x8005A9A8"
+    ],
+    "purpose": "Geometry transformation and drawing preparation"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x8005AB20",
+    "size": 524,
+    "entries": [
+      "0x8005AB20"
+    ],
+    "purpose": "Geometry transformation and drawing preparation"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x8005AD2C",
+    "size": 60,
+    "entries": [
+      "0x8005AD2C"
+    ],
+    "purpose": "Geometry transformation and drawing preparation"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x8005AD68",
+    "size": 320,
+    "entries": [
+      "0x8005AD68"
+    ],
+    "purpose": "Geometry transformation and drawing preparation"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x8005AEA8",
+    "size": 224,
+    "entries": [
+      "0x8005AEA8"
+    ],
+    "purpose": "Geometry transformation and drawing preparation"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x8005AF88",
+    "size": 16756,
+    "entries": [
+      "0x8005AF88"
+    ],
+    "purpose": "Geometry transformation and drawing preparation"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x8005F0FC",
+    "size": 1256,
+    "entries": [
+      "0x8005F0FC"
+    ],
+    "purpose": "Geometry transformation and drawing preparation"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x8005F5E4",
+    "size": 396,
+    "entries": [
+      "0x8005F5E4"
+    ],
+    "purpose": "Geometry transformation and drawing preparation"
   }
 ]

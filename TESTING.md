@@ -1,6 +1,14 @@
-# Windows development test — 0.0.12
+# Windows development test — 0.0.13 candidate
 
 ## Current acceptance and update checks
+
+**0.0.13 development candidate — not yet qualified:** the work branch selects
+32 additional geometry/drawing-preparation entries for private comparison.
+Main remains at the Windows-verified 0.0.12 baseline. Private live/reference,
+visual, normal-runtime and platform checks are pending. Do not treat this
+branch checkpoint as a player release or as acceptance of the new ranges.
+The previous verified coverage is **4.2642% / 95.7358%**; final linked coverage
+will be measured after qualification. No player testing is requested yet.
 
 **Native-call qualification — passed; no player rebuild:** new
 original synthetic programs test the real runtime dispatcher across indirect

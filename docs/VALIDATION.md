@@ -879,3 +879,16 @@ VERSION and the normal selected source lists remain
 unchanged at 0.0.12; the new file is linked only with NITROGEN_INPUT_SMOKE and
 NITROGEN_NATIVE_SMOKE. Coverage stays 36,068 / 845,824 = 4.2642%, with 95.7358%
 outside linked ranges. No private game data or generated bodies enter Git.
+
+
+## 0.0.13 geometry/drawing candidate — qualification pending
+
+The fresh workspace restored and reverified the existing original disc upload.
+The candidate selects 32 additional geometry/drawing-preparation roots, including
+GTE operations, memory-writing loops and mixed-call continuations. Input bands
+total 36,932 bytes; this is a candidate input inventory, not a verified linked
+coverage result. Private generation completed with the pinned emitter, producing
+79 total N2O roots and 1,523 aliases. No generated bodies, guards, captures or
+private comparison sources enter Git. Main remains at the accepted 0.0.12 code.
+Live interpreter comparisons, affected-route visual checks, final normal build
+and Windows/Linux runtime checks are pending at this checkpoint.

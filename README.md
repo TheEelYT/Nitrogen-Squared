@@ -21,6 +21,11 @@ There is no public game executable or Vita VPK. The current hybrid runtime uses
 native boot/BIOS code and interpreter fallback for much of the loaded game code.
 A repeatable private build command is included.
 
+Development branch: a 0.0.13 geometry/drawing-preparation candidate is under
+qualification. It selects 32 additional entries; reference comparisons and
+platform checks are pending. The figures below remain the verified 0.0.12
+baseline until the candidate is built and qualified.
+
 ## Native progress — 0.0.12
 
 | Selected executable payloads | Bytes | Share |
