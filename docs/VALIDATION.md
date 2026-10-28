@@ -892,3 +892,21 @@ coverage result. Private generation completed with the pinned emitter, producing
 private comparison sources enter Git. Main remains at the accepted 0.0.12 code.
 Live interpreter comparisons, affected-route visual checks, final normal build
 and Windows/Linux runtime checks are pending at this checkpoint.
+
+
+The first diagnostic candidate linked successfully and measured 73,000 /
+845,824 = 8.6306%, with 91.3694% outside linked ranges. This is the candidate's
+linked inventory, not promotion or qualification of every new entry. The initial
+controlled route completed through guest frame 4,500 with 212 successful private
+segment comparisons across 71 entry/continuation PCs and zero mismatches in
+GPRs, HI/LO, return PC, COP0, GTE data/control, all main RAM and scratchpad. Both
+passes used frozen device time; full-session timing remains a separate check.
+Ten matching scanout frames at 800, 1,500, 1,900, 2,100, 2,300, 2,500, 2,700,
+3,000, 3,500 and 4,000 were pixel-identical to the preserved 0.0.12 baseline.
+The screenshots verify the route reaches title, menus and first-level gameplay.
+Some tutorial prompts hold later gameplay; an extended prompt-disabled route
+and adapted GTE edge contexts are in progress. New entries without adequate
+private evidence will be excluded before promotion. All 40 local source tests
+and the 71-file source audit passed, and both remote source jobs passed in
+run 40775474342. Windows/Linux runtime checks in run 40775474347 remain pending.
+The normal diagnostics-disabled build and final selected inventory are pending.
