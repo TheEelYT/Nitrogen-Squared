@@ -18,6 +18,23 @@ from n2o_disc import ROOT
 from prepare_native import capture, emit
 
 
+def run_smoke(binary: Path, work: Path):
+    # The combined SDL/GL, audio and dispatcher fixture can cold-start slowly
+    # on shared runners. Keep a bounded timeout and preserve phase receipts.
+    try:
+        result = subprocess.run([str(binary)], cwd=work, timeout=60,
+                                capture_output=True, text=True)
+    except subprocess.TimeoutExpired as exc:
+        def decoded(value):
+            return value.decode(errors="replace") if isinstance(value, bytes) else value or ""
+        raise RuntimeError("Runtime fixture exceeded 60 seconds:\n" +
+                           decoded(exc.stdout) + decoded(exc.stderr)) from exc
+    if result.returncode:
+        raise RuntimeError(f"Runtime input fixture exited with {result.returncode}:\n" +
+                           result.stdout + result.stderr)
+    return result
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--framework", type=Path, default=ROOT / ".local/psxrecomp")
@@ -114,10 +131,7 @@ def main():
                     "-DNITROGEN_INPUT_SMOKE=ON"], check=True)
     subprocess.run(["cmake", "--build", str(work / "build"), "--config", "Release",
                     "--target", "nitrogen-runtime", "--parallel", "2"], check=True)
-    result = subprocess.run([str(find_binary(work / "build", "NitrogenSquared-input-test"))],
-                            cwd=work, timeout=15, capture_output=True, text=True)
-    if result.returncode:
-        raise RuntimeError(f"Runtime input fixture exited with {result.returncode}:\n" + result.stdout + result.stderr)
+    result = run_smoke(find_binary(work / "build", "NitrogenSquared-input-test"), work)
     if ("Runtime input smoke passed:" not in result.stdout or
             "Runtime media smoke passed:" not in result.stdout or
             "Runtime native slice smoke passed:" not in result.stdout or
@@ -142,7 +156,8 @@ def main():
                 enhanced["identity"] == reference["identity"] or
                 not any(x["name"] == "n2o-textured-batching" for x in reference["implementations"])):
             raise RuntimeError("Renderer profiles did not select distinct implementation identities")
-        subprocess.run([str(reference_binary)], cwd=work, check=True, timeout=15)
+        result = run_smoke(reference_binary, work)
+        print(result.stdout, end="", flush=True)
 
 
 if __name__ == "__main__":

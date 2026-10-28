@@ -74,6 +74,7 @@ static void runtime_status_and_title_smoke()
 
 int main()
 {
+    std::setvbuf(stdout, nullptr, _IONBF, 0);
     SDL_SetHint(SDL_HINT_JOYSTICK_ALLOW_BACKGROUND_EVENTS, "1");
     require_input(psx_sdl_init(SDL_INIT_GAMEPAD | SDL_INIT_EVENTS) == 0, "initialize SDL input");
     SDL_VirtualJoystickDesc desc;
