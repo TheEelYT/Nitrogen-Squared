@@ -16,6 +16,12 @@ saving/loading slowdowns on Windows in 0.0.12, passing that focused performance
 check. Exact FPS and a new campaign playthrough were not separately reported. See
 [native progress](NATIVE_PROGRESS.md) for the metric and separate native services.
 
+The 0.0.13 candidate adds 32 geometry/object-presentation, angle and text roots.
+Private caller and two first-level visual comparisons passed; candidate linked
+coverage is 8.6306%, with 91.3694% outside linked ranges. Final normal-build and
+platform checkpoint checks remain pending, followed by focused Windows acceptance.
+This does not replace the PS1 graphics/GTE or sound services.
+
 ## 1. Loaded-code identity and native game slices — underway
 
 The [first slice](NATIVE_GAME_SLICES.md) uses per-entry resident code identity and

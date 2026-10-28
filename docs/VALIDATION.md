@@ -910,3 +910,29 @@ private evidence will be excluded before promotion. All 40 local source tests
 and the 71-file source audit passed, and both remote source jobs passed in
 run 40775474342. Windows/Linux runtime checks in run 40775474347 remain pending.
 The normal diagnostics-disabled build and final selected inventory are pending.
+
+
+### Full 32-root candidate qualification
+
+The prompt-disabled route completed through frame 4,500 and matched another
+548 segments across 73 PCs, including 24 GTE data/control edge contexts at each
+observed root. Its ten matching frames were pixel-identical to a separately run
+prompt-disabled 0.0.12 baseline. Combined with the first route, that is 20 frame
+comparisons across two routes. Fifteen new roots were observed live.
+
+A private, bounded constructed-input replay then exercised the remaining 17
+roots and additional numeric/formatting cases in three already-seen roots.
+The expanded corpus completed 216 calls per root (4,320 calls across 20 roots)
+and matched 16,715 native/interpreter segments with zero mismatches. It covers
+primitive type/flag variation, empty/one-record models, animation phase edges,
+formatting options, signed arithmetic, extreme vertices and GTE/projection
+contexts. The initial 612-call corpus is superseded by this expanded corpus and
+is not counted twice. All 32 candidate roots now have bounded comparison evidence.
+Total current-corpus segment comparisons: 212 + 548 + 16,715 = 17,475.
+
+Both Windows/Linux runtime jobs passed in run 40775474347, including the 122
+original mixed-backend cases. Both source jobs passed in run 40775474342. Final
+source labels now distinguish the angle/text helpers from geometry routines; no
+selection or generated instruction body changed. The diagnostics-disabled normal
+build, its execution receipt, normal playback/controller/shutdown check and final
+checkpoint CI remain pending. Windows 0.0.13 acceptance remains pending.

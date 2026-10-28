@@ -136,3 +136,37 @@ linked coverage and player behavior are unchanged. The fixture publishes its
 original instructions as executable RAM, as the loader does, and needs no live
 backend-selection switch. CI keeps failure output and writes fixture reports
 under its private work directory.
+
+
+## 0.0.13 — geometry, object presentation and text
+
+Thirty-two further roots add 36,932 bytes from verified local N2O.EXE inputs.
+The group includes geometry/packet preparation, object transforms and animation,
+angle calculation and the text-formatting pair used by game presentation. The
+existing pinned emitter, build-selected reference path and whole-owner residency
+gates are unchanged. All 79 N2O roots and 1,523 aliases remain private generated
+inputs; public bindings contain addresses/sizes, never instructions or guards.
+
+Two controlled routes completed through guest frame 4,500. Live input replay
+matched 212 segments across 71 PCs; the prompt-disabled route and adapted GTE
+states matched another 548 segments across 73 PCs. Fifteen new roots were seen
+live. A separate bounded corpus covered the other 17 roots and additionally
+checked angle/text inputs: 4,320 complete calls across 20 roots produced 16,715
+matching segments. Cases include primitive types/flags, empty/one-record models,
+animation boundaries, signed numeric inputs, formatting options, extreme vertex
+coordinates and projection/GTE edge states. Compatibility callees keep their
+existing backend; their outputs feed the next checked native caller segment.
+
+Across these corpora all 32 new roots have comparison evidence and all 17,475
+segments matched GPRs, HI/LO, PC, COP0, GTE data/control, 2 MiB RAM and scratchpad.
+Device time is frozen for isolated comparisons; this does not prove every cycle
+or device interaction. Twenty matching-frame comparisons across the two live
+routes were pixel-identical to 0.0.12. These are bounded corpora, not all possible
+inputs, every branch or later campaign acceptance. Raw inputs, witnesses, private
+checker code and captures remain outside Git and packages.
+
+Candidate linked coverage is 73,000 / 845,824 = **8.6306%**, with **91.3694%**
+outside linked ranges. GTE/PS1 packet rendering, guest SPU/CD and card compatibility
+services remain in use. This is native execution of more game code; it does not
+replace the scene renderer or audio engine. The normal build and final platform
+checkpoint checks remain pending; Windows player acceptance is separate.

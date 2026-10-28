@@ -1,23 +1,23 @@
 # Native translation progress
 
-The 0.0.12 build has **4.2642% linked native translation coverage** against the
+The 0.0.13 candidate has **8.6306% linked native translation coverage** against the
 combined payload sizes of the three selected USA game executables:
 
-The complementary **95.7358% (809,756 bytes)** is outside those linked translation
+The complementary **91.3694% (772,824 bytes)** is outside those linked translation
 ranges. It is not a measured interpreter-execution percentage: payload data and
 separately tracked native service replacements prevent that interpretation.
 
 | Executable | Linked native range bytes | Payload bytes | Coverage |
 | --- | ---: | ---: | ---: |
 | SLUS_006.37 (boot loader) | 17,908 | 53,248 | 33.63% |
-| N2O.EXE | 18,160 | 458,752 | 3.9586% |
+| N2O.EXE | 55,092 | 458,752 | 12.0091% |
 | NEW.EXE | 0 | 333,824 | 0.00% |
-| Combined | 36,068 | 845,824 | 4.2642% |
+| Combined | 73,000 | 845,824 | 8.6306% |
 
 This deliberately conservative metric counts the union of emitted native code
 ranges for executables actually linked into the private runtime. The boot loader
-has 86 linked generated functions. Forty-seven selected entries in
-N2O.EXE add 18,160 bytes; the full analysis C for N2O.EXE and NEW.EXE does not count.
+has 86 linked generated functions. Seventy-nine selected entries in
+N2O.EXE add 55,092 bytes; the full analysis C for N2O.EXE and NEW.EXE does not count.
 BIOS, interpreter, renderer, audio backend and desktop menu do not
 count as native game code.
 
@@ -52,6 +52,7 @@ pre-0.0.7 receipt by rebuilding first.
 | Controller input | Host SDL input; analog gameplay verified by the user in 0.0.6 |
 | Gameplay angle-table lookups | Two native leaf translations in N2O.EXE; private comparisons passed and user verified first-level gameplay in 0.0.10 |
 | Drawing packet preparation | 25 additional native entry ranges, with guarded internal resumes; user verified 0.0.11 gameplay through level 9 |
+| Geometry/object presentation and text | 32 additional native entry ranges in 0.0.13; private comparisons and controlled first-level visuals passed; final normal build and Windows acceptance pending |
 | Card-control/event polling | 20 additional native entry ranges; BIOS/serial protocol and file publication retain compatibility services; user reports no Windows saving/loading slowdowns in 0.0.12 |
 | Music and effects | Emulated SPU/CD path; no independent cue-driven player yet |
 | Opening movies | Native STR/XA service for three opening routes; user verified Windows playback and skipping |
@@ -129,3 +130,11 @@ suspended caller whose instructions change. All 122 cases passed locally and in
 Windows/Linux CI. No new game ranges or services are selected:
 **4.2642% linked / 95.7358% outside** remains
 unchanged, and no player rebuild is needed.
+
+
+Version 0.0.13 selects 32 further roots totaling 36,932 bytes. Together the
+linked slices have 79 N2O roots and 1,523 continuation aliases, with no alias
+byte/function credit. All 32 roots have private comparison evidence, including
+constructed geometry and text inputs for entries absent from the live route.
+The count measures emitted ranges, not coverage of every branch or game scenario.
+Final normal-build and Windows player acceptance remain pending at this checkpoint.

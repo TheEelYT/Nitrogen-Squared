@@ -1,14 +1,35 @@
-# Windows development test — 0.0.13 candidate
+# Windows development test — 0.0.13
 
 ## Current acceptance and update checks
 
-**0.0.13 development candidate — not yet qualified:** the work branch selects
-32 additional geometry/drawing-preparation entries for private comparison.
-Main remains at the Windows-verified 0.0.12 baseline. Private live/reference,
-visual, normal-runtime and platform checks are pending. Do not treat this
-branch checkpoint as a player release or as acceptance of the new ranges.
-The previous verified coverage is **4.2642% / 95.7358%**; final linked coverage
-will be measured after qualification. No player testing is requested yet.
+**0.0.13 — local native qualification passed; final normal build and Windows
+player acceptance pending:** 32 additional geometry, object/drawing, angle and
+text-formatting entry ranges now execute natively. Whole-owner residency guards,
+internal resumes and interpreter fallback remain in use. Saves retain their
+existing card format and BIOS/serial services.
+
+Linked coverage is **8.6306% / 91.3694%** (73,000 / 845,824 bytes, +36,932 bytes
+from 0.0.12). This is executable-range coverage, not total completion or native
+CPU time. The update does not enable a native scene engine, independent gameplay
+audio or unlocked framerate.
+
+Completed: 17,475 private CPU/RAM/scratchpad/GTE segment comparisons across live
+and constructed inputs, with all 32 new roots covered; 20 pixel-identical frame
+comparisons across two controlled menu/first-level routes; 40 local source tests;
+and Windows/Linux runtime/source CI for the initial candidate. The final normal
+build and final checkpoint's platform checks are pending. Prior level-9 gameplay
+and 0.0.12 save/load acceptance remain history, not acceptance of this replacement.
+
+Once this candidate is promoted, rebuild with the usual commands below and check:
+
+1. Navigate the title/menu, ship and level selection; check labels and animation.
+2. Play a short first-level session with analog movement and firing. Check the
+   tunnel, enemies, shots, explosions, HUD and score text.
+3. Pause/resume, return to the menu and quit normally. Check existing high scores
+   and save-slot labels are still readable; no deliberate save overwrite is needed.
+
+No later-level progression, reimport or new files are required. Final local build
+results will be recorded in docs/VALIDATION.md before promotion.
 
 **Native-call qualification — passed; no player rebuild:** new
 original synthetic programs test the real runtime dispatcher across indirect

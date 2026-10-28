@@ -421,7 +421,7 @@
     "entries": [
       "0x8005670C"
     ],
-    "purpose": "Geometry transformation and drawing preparation"
+    "purpose": "Angle calculation from live table data"
   },
   {
     "executable": "N2O.EXE",
@@ -430,7 +430,7 @@
     "entries": [
       "0x800567AC"
     ],
-    "purpose": "Geometry transformation and drawing preparation"
+    "purpose": "Text formatting for game presentation"
   },
   {
     "executable": "N2O.EXE",
@@ -439,7 +439,7 @@
     "entries": [
       "0x800567DC"
     ],
-    "purpose": "Geometry transformation and drawing preparation"
+    "purpose": "Text formatting for game presentation"
   },
   {
     "executable": "N2O.EXE",
