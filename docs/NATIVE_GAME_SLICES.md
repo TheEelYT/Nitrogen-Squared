@@ -131,4 +131,8 @@ instruction; the whole-owner guard must decline its old native continuation,
 and fallback must execute the changed result exactly once. Bulk RAM restoration
 also invalidates warm cached matches. These are original synthetic programs, not
 qualification of additional N2O functions, device timing or full-session gameplay.
-Platform results are pending; linked coverage and player behavior are unchanged.
+All 122 local production-dispatch cases passed. Windows/Linux CI is pending;
+linked coverage and player behavior are unchanged. The fixture publishes its
+original instructions as executable RAM, as the loader does, and needs no live
+backend-selection switch. CI keeps failure output and writes fixture reports
+under its private work directory.

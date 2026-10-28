@@ -830,14 +830,17 @@ reviewed Markdown paths only; their text was checked for whitespace errors and
 the repository tree is checked to retain the same tracked path set. The prior
 runtime CI and local validation above remain the evidence for the compiled build.
 
-## Mixed native/fallback boundary qualification — in progress
+## Mixed native/fallback boundary qualification — local pass, CI pending
 
 The source checkout and pinned framework were restored in a fresh execution
 workspace after the prior workspace became unavailable. The previous private
 disc, translated game bodies, saved cards and live comparison fixtures are not
-present here. No additional game ranges are enabled without those comparisons.
-The Windows 0.0.12 save/load acceptance remains recorded; this work needs no
-new user files or player replay.
+initially present here. The user's existing original disc ZIP was then recovered
+from saved files, restored privately and accepted by the importer after its
+complete image/executable identity checks. No new upload was needed. Previous
+private call witnesses and card comparisons have not been recovered; no new
+game ranges are enabled without fresh comparisons. The Windows 0.0.12 save/load
+acceptance remains recorded; this work needs no player replay.
 
 New original synthetic programs exercise the production OpenBIOS dispatch-call
 trampoline, rather than selecting backends in a test-owned loop. The matrix
@@ -851,8 +854,16 @@ are outside this synthetic fixture's scope.
 
 All 40 source tests passed locally with CMake available and no skips. The source
 package audit passed with 71 reviewed text files; the only added path is the
-original boundary fixture. Local runtime and Windows/Linux CI checks remain
-pending at this checkpoint. VERSION and the normal selected source lists remain
+original boundary fixture. All 122 boundary cases passed through the production
+dispatcher, alongside the existing original native/input/movie/menu/title fixtures.
+The test explicitly marks installed instructions as executable RAM, matching
+loader publication; ordinary data stores alone do not declare those pages
+executable. CI now retains fixture failure stdout/stderr and runs fixtures from
+its private work directory. Local renderer equivalence passed 331 checks at 1x
+and 340 at 4x, the queue passed 8,843 checks, and the render-worker fixture passed
+at both scales. The REFERENCE fixture also built and ran, linked no native game
+slices and reported a distinct execution identity. Windows/Linux CI is pending.
+VERSION and the normal selected source lists remain
 unchanged at 0.0.12; the new file is linked only with NITROGEN_INPUT_SMOKE and
 NITROGEN_NATIVE_SMOKE. Coverage stays 36,068 / 845,824 = 4.2642%, with 95.7358%
 outside linked ranges. No private game data or generated bodies enter Git.

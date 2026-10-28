@@ -23,6 +23,14 @@ retains the interpreter on a mismatch. Private comparisons qualify its two leaf
 routines. Continue with measured candidates and their caller boundaries below;
 the general load/transition and nested-call problem is not yet fully qualified.
 
+Original synthetic tests now cover mixed native/interpreted indirect calls,
+callbacks, tail transfers and code replaced while a compiled caller is suspended.
+All 122 local cases pass; Windows/Linux CI is pending. This qualifies those
+runtime mechanisms on the tested original programs, not additional game callers.
+The next game group still needs fresh private caller/result comparisons before
+selection. The user's original disc input has been restored and reverified;
+there is no new-file or repeated campaign-test requirement for this test chunk.
+
 `N2O.EXE` and `NEW.EXE` have overlapping addresses. Simply linking all analysis
 output could dispatch a function belonging to the wrong executable. The next
 runtime milestone is therefore a small, guarded native slice of loaded game code:

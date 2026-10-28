@@ -22,6 +22,14 @@
   check as passed. Exact FPS, startup-only timing and a new campaign playthrough
   were not separately reported. Keep the 0.0.11 level-9 report as prior gameplay
   acceptance; no repeated playthrough is required for this acceptance note.
+- The next test-only chunk adds 122 original synthetic mixed native/interpreter
+  call cases through the production dispatcher, including callbacks, tail flow,
+  PC segments, two-page guards, mid-call code changes and RAM restore. Local
+  enhanced/reference and renderer checks pass; Windows/Linux CI is pending.
+  It enables no additional game ranges and needs no player rebuild or replay.
+  Coverage remains 4.2642% / 95.7358%. The original user disc upload was recovered
+  and privately reimported after the prior scratch workspace disappeared; reuse
+  that existing saved input rather than requesting another upload unnecessarily.
 - Every runtime update must update `TESTING.md` with the version, concrete changes,
   focused player checks and pending/verified status. Prior acceptance is history,
   not automatic verification of a replacement. Avoid requesting unrelated full
