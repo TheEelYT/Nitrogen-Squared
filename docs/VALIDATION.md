@@ -830,16 +830,18 @@ reviewed Markdown paths only; their text was checked for whitespace errors and
 the repository tree is checked to retain the same tracked path set. The prior
 runtime CI and local validation above remain the evidence for the compiled build.
 
-## Mixed native/fallback boundary qualification — local pass, CI pending
+## Mixed native/fallback boundary qualification — passed
 
 The source checkout and pinned framework were restored in a fresh execution
 workspace after the prior workspace became unavailable. The previous private
 disc, translated game bodies, saved cards and live comparison fixtures are not
 initially present here. The user's existing original disc ZIP was then recovered
 from saved files, restored privately and accepted by the importer after its
-complete image/executable identity checks. No new upload was needed. Previous
-private call witnesses and card comparisons have not been recovered; no new
-game ranges are enabled without fresh comparisons. The Windows 0.0.12 save/load
+complete image/executable identity checks. Separate private analysis output and
+the existing 47 selected N2O roots with 531 continuations were regenerated from
+those verified inputs. Generation alone adds no linked coverage. No new upload
+was needed. Previous private call witnesses and card comparisons have not been
+recovered; no new game ranges are enabled without fresh comparisons. The Windows 0.0.12 save/load
 acceptance remains recorded; this work needs no player replay.
 
 New original synthetic programs exercise the production OpenBIOS dispatch-call
@@ -862,7 +864,17 @@ executable. CI now retains fixture failure stdout/stderr and runs fixtures from
 its private work directory. Local renderer equivalence passed 331 checks at 1x
 and 340 at 4x, the queue passed 8,843 checks, and the render-worker fixture passed
 at both scales. The REFERENCE fixture also built and ran, linked no native game
-slices and reported a distinct execution identity. Windows/Linux CI is pending.
+slices and reported a distinct execution identity.
+
+Both Windows/Linux source jobs passed in
+[run 40617501399](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/40617501399),
+and both runtime jobs passed in
+[run 40617501657](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/40617501657).
+Their logs confirm all 122 new production-dispatch cases on both hosts. Linux
+also passed the reference profile, menu, renderer and worker checks. The tested
+code is commit f4270551c86d74c166947badc57e013d93722b1a; later reporting commits
+change documents only. Neither workflow publishes a binary or private input.
+
 VERSION and the normal selected source lists remain
 unchanged at 0.0.12; the new file is linked only with NITROGEN_INPUT_SMOKE and
 NITROGEN_NATIVE_SMOKE. Coverage stays 36,068 / 845,824 = 4.2642%, with 95.7358%

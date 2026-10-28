@@ -2,13 +2,13 @@
 
 ## Current acceptance and update checks
 
-**Next development chunk — mixed native/fallback boundary qualification:** new
+**Native-call qualification — passed; no player rebuild:** new
 original synthetic programs test the real runtime dispatcher across indirect
 calls, interpreted callees, native callbacks, tail transfers, segment aliases,
 two-page code guards and code changed while a native caller is suspended. All 122
-local production-dispatch cases passed with the existing host/native fixtures;
-Windows/Linux CI is pending. This changes test-only builds,
-not the normal player runtime or selected game ranges. VERSION stays 0.0.12;
+local production-dispatch cases passed with the existing host/native fixtures,
+as did both Windows/Linux runtime and source CI matrices. This changes test-only
+builds, not the normal player runtime or selected game ranges. VERSION stays 0.0.12;
 coverage stays **4.2642% / 95.7358%**. No rebuild, new files or player playthrough
 is requested for this qualification chunk. The accepted save/load result below
 remains the Windows baseline.

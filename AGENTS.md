@@ -25,7 +25,8 @@
 - The next test-only chunk adds 122 original synthetic mixed native/interpreter
   call cases through the production dispatcher, including callbacks, tail flow,
   PC segments, two-page guards, mid-call code changes and RAM restore. Local
-  enhanced/reference and renderer checks pass; Windows/Linux CI is pending.
+  enhanced/reference and renderer checks pass, as do Windows/Linux runtime and
+  source CI. Keep the fixture in future native batch qualification.
   It enables no additional game ranges and needs no player rebuild or replay.
   Coverage remains 4.2642% / 95.7358%. The original user disc upload was recovered
   and privately reimported after the prior scratch workspace disappeared; reuse

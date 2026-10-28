@@ -125,7 +125,7 @@ independent gameplay audio and unlocked presentation remain separate work.
 The following development chunk adds original mixed-backend qualification to the
 synthetic runtime fixture only. It exercises production dispatch across native
 and interpreted calls, callbacks, tail transfers, code-page boundaries and a
-suspended caller whose instructions change. All 122 local cases passed;
-Windows/Linux CI is pending. No new
-game ranges or services are selected: **4.2642% linked / 95.7358% outside** remains
+suspended caller whose instructions change. All 122 cases passed locally and in
+Windows/Linux CI. No new game ranges or services are selected:
+**4.2642% linked / 95.7358% outside** remains
 unchanged, and no player rebuild is needed.

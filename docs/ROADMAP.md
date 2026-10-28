@@ -25,7 +25,7 @@ the general load/transition and nested-call problem is not yet fully qualified.
 
 Original synthetic tests now cover mixed native/interpreted indirect calls,
 callbacks, tail transfers and code replaced while a compiled caller is suspended.
-All 122 local cases pass; Windows/Linux CI is pending. This qualifies those
+All 122 cases pass locally and in Windows/Linux CI. This qualifies those
 runtime mechanisms on the tested original programs, not additional game callers.
 The next game group still needs fresh private caller/result comparisons before
 selection. The user's original disc input has been restored and reverified;

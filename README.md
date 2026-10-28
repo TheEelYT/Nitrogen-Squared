@@ -51,10 +51,10 @@ including an explicit unchanged percentage when no new native ranges are linked.
 
 Development qualification now exercises the production dispatcher with original
 synthetic native/interpreted calls, callbacks, tail transfers and suspended-code
-replacement. All 122 local boundary cases passed; Windows/Linux CI is pending.
-This test-only change does not
-change the player runtime, add linked game ranges or require a player rebuild;
-coverage remains **4.2642% / 95.7358%**.
+replacement. All 122 cases passed locally and in Windows/Linux CI. These checks
+prepare larger conversion batches. The player runtime and linked game ranges
+remain unchanged; no player rebuild is needed. Coverage remains
+**4.2642% / 95.7358%**.
 
 ## Bring your own game
 
