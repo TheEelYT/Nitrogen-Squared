@@ -1,6 +1,16 @@
-# Windows development test — 0.0.13
+# Windows development test — 0.0.14
 
 ## Current acceptance and update checks
+
+**0.0.14 development candidate — qualification pending:** 75 additional roots
+are being evaluated for model/object primitive preparation and game/menu
+presentation control. Candidate input bands total 92,308 bytes; this is not yet
+verified production coverage. Private generation, live comparisons, affected-route
+visual checks, final normal build and platform checks must complete before
+promotion. No player rebuild or test is requested at this checkpoint.
+
+The accepted 0.0.13 baseline remains 8.6306% linked / 91.3694% outside ranges.
+
 
 **0.0.13 — focused Windows playtest accepted:** the user reports no issues
 noticed. This accepts the tested menu/first-level route without implying a new

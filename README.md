@@ -7,7 +7,7 @@ with a planned PS Vita port and optional remaster presentation.
 Thirty-two additional entry ranges cover geometry transformation, object/drawing
 preparation, angle calculation and text formatting. Private caller comparisons
 and two first-level visual routes passed. Normal and diagnostic builds passed;
-Windows player acceptance remains pending. This retains PS1 graphics/audio and
+The user reports no issues in the focused Windows playtest. This retains PS1 graphics/audio and
 BIOS compatibility services, including the existing save format.
 The user verified 0.0.11 gameplay through level 9 and reports no saving/loading
 slowdowns in 0.0.12. Levels beyond 9 remain unverified.
@@ -20,7 +20,11 @@ There is no public game executable or Vita VPK. The current hybrid runtime uses
 native boot/BIOS code and interpreter fallback for much of the loaded game code.
 A repeatable private build command is included.
 
-## Native progress — 0.0.13
+A 0.0.14 development branch is evaluating a larger model/object and menu
+presentation batch. Qualification and production measurements are pending;
+the accepted baseline figures below do not count candidate inputs.
+
+## Accepted native progress — 0.0.13
 
 | Selected executable payloads | Bytes | Share |
 | --- | ---: | ---: |

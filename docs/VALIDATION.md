@@ -987,3 +987,20 @@ authorizes the next substantial native batch. This accepts the tested route;
 it does not establish a new level-9 playthrough or exhaustive branch coverage.
 Coverage remains 8.6306% linked / 91.3694% outside. This acceptance note needs
 no rebuild or repeated player test.
+
+## 0.0.14 model/object and menu presentation candidate — pending
+
+The accepted 0.0.13 build has been preserved privately and its controlled
+prompt-disabled title/menu/first-level route completed through frame 4,507,
+with ten reference scanouts saved privately. The candidate adds 75 roots in
+three bands: 0x8004532C..0x8004BAFC, 0x8004DF74..0x80050180 and
+0x8005F770..0x8006D628. Their input bands total 92,308 bytes. This is a
+candidate inventory, not qualified linked coverage. Any root without adequate
+comparison evidence will be excluded or receive constructed-input qualification.
+
+The pinned emitter, complete-owner residency checks and guarded continuation
+aliases remain in use. Game instructions, emitted bodies/guards, snapshots and
+comparison helpers remain private. Live CPU/RAM/scratchpad/GTE comparisons,
+matching-frame checks, normal production build and Windows/Linux checks are
+pending. The accepted baseline is 73,000 / 845,824 = 8.6306%, with 91.3694%
+outside its linked ranges. No player rebuild is requested for this checkpoint.

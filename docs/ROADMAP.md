@@ -19,7 +19,7 @@ check. Exact FPS and a new campaign playthrough were not separately reported. Se
 Version 0.0.13 adds 32 geometry/object-presentation, angle and text roots.
 Private caller and two first-level visual comparisons passed; normal-build linked
 coverage is 8.6306%, with 91.3694% outside linked ranges. The normal build and
-final Windows/Linux CI passed; focused Windows player acceptance remains pending.
+final Windows/Linux CI passed; the user reports no issues in the focused Windows playtest.
 This does not replace the PS1 graphics/GTE or sound services.
 
 ## 1. Loaded-code identity and native game slices — underway
