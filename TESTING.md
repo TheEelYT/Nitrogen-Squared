@@ -2,7 +2,11 @@
 
 ## Current acceptance and update checks
 
-**0.0.16 — automated checks passed; focused Windows player check pending.**
+**0.0.16 — automated checks passed; reported Windows player route accepted.**
+The user reports no issues noticed and that everything looks the same as before
+when launched through Python. Direct EXE launch stutters during intro videos;
+that separate launch-path issue is open. This report accepts the tested route,
+without implying exhaustive coverage or a new campaign playthrough.
 348 additional game/library entry roots add 75,672 emitted bytes. Combined
 normal-build coverage is **34.9538% linked / 65.0462% outside** (295,648 /
 845,824 bytes). This is executable-range coverage, not overall completion or
@@ -17,7 +21,7 @@ All 45 source tests, the 83-file source audit and both Windows/Linux CI matrices
 passed. Failed/unobserved candidates and NEW movie-control callers remain on
 fallback. These bounded checks do not establish every input or later-level behavior.
 
-Build this update using the existing import, then perform the focused checks:
+The focused player-check scope for this update is:
 
 1. Navigate title/menu, ship and level selection; check labels, models and animation.
 2. Play a short first-level session with analog movement and firing. Check enemies,
@@ -26,8 +30,17 @@ Build this update using the existing import, then perform the focused checks:
 3. Pause/resume, continue playing briefly and quit normally.
 
 No repeated campaign, new files, reimport or deliberate save overwrite is required.
-Preserve existing saves. The accepted 0.0.15 playtest below remains history for
-that version; it does not automatically accept 0.0.16.
+Preserve existing saves. No rebuild or repeat playtest is required for this
+acceptance note. Prior reports retain their tested version scope.
+
+Direct-launch diagnosis: tools/run_runtime.py supplies NITROGEN_NATIVE_DISC_BIN
+from the verified import. native/media_entry.cpp declines native movie playback
+when this variable is absent and keeps the original guest playback path. The
+launcher also explicitly selects OpenGL, enables the bounded render worker and
+disables full-VRAM history. This provides a likely explanation for the observed
+launch difference; the user's direct-launch log has not been inspected and no
+fix is claimed. Continue using tools/run_runtime.py for the qualified launch path.
+Making direct EXE launch initialize the same settings remains follow-up work.
 
 **0.0.15 — focused Windows playtest accepted:** the user reports no issues
 noticed. This accepts the reported route without implying exhaustive coverage

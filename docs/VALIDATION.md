@@ -1566,3 +1566,33 @@ GTE rendering, guest SPU/CD audio and BIOS/card services remain in use.
 Focused Windows 0.0.16 player acceptance is pending, using the short TESTING.md
 route. No new files, reimport, later campaign or deliberate save overwrite is
 required. Historical 0.0.15, level-9 and save/load reports retain their version scope.
+
+## 0.0.16 Windows report and direct-launch movie difference
+
+The user reports no issues noticed on the Windows route launched through Python,
+with everything looking the same as before. Record that reported route as
+accepted, superseding its pending status above. This is not a new level-9 campaign
+report or proof of every checklist action, branch or input. They separately report
+intro-video stutter when launching the EXE directly. That launch-path issue stays
+open; it is not included in the clean Python-launched route acceptance.
+
+Source inspection at 7197e97f863a37169cbaf9df01f57e1689145ba1 shows that
+run_runtime.py passes NITROGEN_NATIVE_DISC_BIN from the verified imported disc.
+The movie hook in native/media_entry.cpp returns unhandled if that setting is
+absent or empty, retaining the original guest playback. The launcher also selects
+OpenGL, requests a bounded render worker, disables full-VRAM display history and
+sets private capture paths and the working directory. A direct EXE launch does
+not automatically receive the child environment constructed by the Python script.
+Missing native-movie setup is therefore a likely explanation for the difference;
+no direct Windows log was supplied or inspected, so the actual playback path and
+relative contribution of other launch settings are not confirmed on that machine.
+Native playback displays [Native video] in the window title and logs native movie
+start/completion, which can distinguish the routes if further diagnosis is needed.
+
+No runtime code or defaults have changed in this note. Direct EXE initialization
+of the verified disc and equivalent launch settings remains follow-up work. Use
+tools/run_runtime.py for the qualified path. Coverage remains 295,648 / 845,824 =
+34.9538% linked and 65.0462% outside; source inventory remains 83 original text
+files. Documentation changes were checked for expected replacements and the
+unchanged 128 KiB text-file bound. No new runtime tests, rebuild, repeat player
+test, reimport or new game files are needed for this acceptance record.

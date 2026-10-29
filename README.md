@@ -8,7 +8,9 @@ with a planned PS Vita port and optional remaster presentation.
 passed 18,633 private segment comparisons (1,458 live and 17,175 isolated replay) and 21 pixel-identical frames through
 first-level completion and bonus/shop screens. The normal player/controller
 fixture, 45 source tests, 83-file source audit and Windows/Linux CI passed.
-The focused Windows 0.0.16 player check is pending; see [TESTING.md](TESTING.md).
+The user reports no issues noticed on the Windows 0.0.16 route launched through
+Python. Direct EXE launch has a separately reported intro-stutter issue; see
+[TESTING.md](TESTING.md).
 The user reported no issues with 0.0.15. Earlier 0.0.11 level-9 gameplay and
 0.0.12 save/load acceptance retain their tested version scope.
 

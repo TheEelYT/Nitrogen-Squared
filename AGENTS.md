@@ -136,3 +136,15 @@
   spans excluded from fragment discovery. NEW movie-control callers stay on
   fallback; preserve pinned dispatch semantics. Production has no qualification
   hooks. Both Release flag sets are -O3 -DNDEBUG. Reuse the existing private upload.
+
+- The user reports no issues noticed in Windows 0.0.16 when launched through
+  Python, with everything looking the same as before. Accept that reported route
+  without implying exhaustive coverage, every checklist action or a new campaign.
+  They separately report intro-video stutter when launching the EXE directly.
+  Source inspection finds tools/run_runtime.py supplies NITROGEN_NATIVE_DISC_BIN;
+  native/media_entry.cpp refuses native playback without it and retains guest
+  playback. The launcher also sets OpenGL/worker/history options. This is a likely
+  launch-path explanation, not a reproduced Windows diagnosis or implemented fix.
+  Keep the direct-launch issue open and use the Python launcher as the qualified
+  route. No runtime change, VERSION bump, rebuild or repeat playtest is needed
+  for this documentation-only acceptance note. Coverage stays 34.9538% / 65.0462%.

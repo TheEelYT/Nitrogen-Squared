@@ -44,7 +44,9 @@ outside; N2O alone is 59.9016%. This does not double the combined share or estab
 21 exact-frame checks through first-level completion and bonus/shop. The normal
 player/controller fixture, source audit and Windows/Linux CI passed. Failed or
 unobserved owners and NEW movie-control callers stay on fallback. The focused
-Windows 0.0.16 check is pending; prior player reports retain their version scope.
+Windows 0.0.16 reported route is accepted with no issues noticed through the
+Python launcher. Direct-launch intro stutter remains open; prior player reports
+retain their version scope.
 
 ## 1. Loaded-code identity and native game slices — underway
 

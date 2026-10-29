@@ -59,7 +59,7 @@ pre-0.0.7 receipt by rebuilding first.
 | Geometry/object presentation and text | 32 additional native entry ranges in 0.0.13; private comparisons, first-level visuals, normal build and Windows/Linux CI passed; user reports no issues in the focused Windows playtest |
 | Model primitives and game/menu control | 46 additional roots in 0.0.14; 10,316 private comparisons, 17 exact-frame checks, normal production/controller fixture and Windows/Linux CI passed; user reports no issues in the focused Windows playtest |
 | Game/object updates and resource control | 117 additional native roots in 0.0.15; final diagnostic/replay, 17 exact-frame checks, normal/controller fixture and Windows/Linux CI passed; user reports no issues in the focused Windows playtest |
-| Game/library and indirect entries | 348 additional entry roots in 0.0.16; strict O3 comparison/replay, 21 exact frames, normal controller and Windows/Linux CI passed; focused Windows player check pending |
+| Game/library and indirect entries | 348 additional entry roots in 0.0.16; strict O3 comparison/replay, 21 exact frames, normal controller and Windows/Linux CI passed; user reports no issues on the Python-launched Windows route; direct-launch intro stutter remains open |
 | Card-control/event polling | 20 additional native entry ranges; BIOS/serial protocol and file publication retain compatibility services; user reports no Windows saving/loading slowdowns in 0.0.12 |
 | Music and effects | Emulated SPU/CD path; no independent cue-driven player yet |
 | Opening movies | Native STR/XA service for three opening routes; user verified Windows playback and skipping |
@@ -192,8 +192,9 @@ Final O3 qualification passed 18,633 private segment comparisons (1,458 live and
 pairs, with 21 pixel-identical frames through first-level completion and bonus/shop.
 Both C and C++ Release flags are -O3 -DNDEBUG. Normal-production source/range hashes
 and coverage match; its three native openings, analog/fire and clean-quit fixture
-passed, as did source audits and Windows/Linux CI. Focused Windows 0.0.16 player
-acceptance remains pending. Earlier failed owners and their complete input spans
+passed, as did source audits and Windows/Linux CI. The user reports no issues
+noticed on the Python-launched Windows 0.0.16 route; that reported route is
+accepted. Direct-launch intro stutter remains a separate open issue. Earlier failed owners and their complete input spans
 remain excluded. NEW additions are conservative CPU/RAM leaf paths; CPS movie
 control callers remain interpreted to preserve the existing native movie override.
 The pinned framework and production dispatch semantics are unchanged.

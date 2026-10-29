@@ -239,8 +239,9 @@ Final O3 qualification passed 18,633 private segment comparisons (1,458 live and
 pairs, with 21 pixel-identical frames through first-level completion and bonus/shop.
 Both C and C++ Release flags are -O3 -DNDEBUG. Normal-production source/range hashes
 and coverage match; its three native openings, analog/fire and clean-quit fixture
-passed, as did source audits and Windows/Linux CI. Focused Windows 0.0.16 player
-acceptance remains pending. Earlier failed owners and their complete input spans
+passed, as did source audits and Windows/Linux CI. The user reports no issues
+noticed on the Python-launched Windows 0.0.16 route; that reported route is
+accepted. Direct-launch intro stutter remains a separate open issue. Earlier failed owners and their complete input spans
 remain excluded. NEW additions are conservative CPU/RAM leaf paths; CPS movie
 control callers remain interpreted to preserve the existing native movie override.
 The pinned framework and production dispatch semantics are unchanged.
