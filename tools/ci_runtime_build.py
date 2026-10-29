@@ -143,6 +143,17 @@ def main():
     if enhanced["profile"] != "ENHANCED":
         raise RuntimeError("Input fixture execution manifest has the wrong profile")
     if os.name != "nt":
+        # These original developer tools embed no guest instructions. Catch
+        # pinned-header ABI drift without loading private captures or game data.
+        qualification = ROOT / "tools/qualification"
+        runtime_include = "-I" + str(framework / "runtime/include")
+        subprocess.run(["c++", "-std=c++17", "-fsyntax-only", runtime_include,
+                        str(qualification / "compare.cpp"),
+                        str(qualification / "replay.cpp")], check=True)
+        subprocess.run(["c++", "-std=c++17", "-fsyntax-only", "-DPSX_SDL3=1",
+                        runtime_include, "-I" + str(work / "build/_deps/sdl3-src/include"),
+                        str(qualification / "normal_controller.cpp")], check=True)
+        print("Original qualification helper syntax checks passed", flush=True)
         subprocess.run(["python", str(ROOT / "tools/check_renderer.py"),
                         "--framework", str(framework), "--runtime-build", str(work / "build"),
                         "--output", str(work / "renderer-check")], check=True)

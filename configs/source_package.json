@@ -69,5 +69,13 @@
   "tools/prepare_media.py",
   "tools/prepare_native.py",
   "tools/probe_runtime.py",
-  "tools/run_runtime.py"
+  "tools/run_runtime.py",
+  "tools/qualification/README.md",
+  "tools/qualification/compare.cpp",
+  "tools/qualification/inject.cmake",
+  "tools/qualification/normal.py",
+  "tools/qualification/normal_controller.cpp",
+  "tools/qualification/replay.cpp",
+  "tools/qualification/replay.py",
+  "tools/qualification/route.py"
 ]
