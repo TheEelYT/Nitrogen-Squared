@@ -2,6 +2,9 @@
 
 - The user authorizes repository updates. Keep the current working Windows
   baseline usable while advancing native execution in small qualified steps.
+- The user gives standing approval to promote updates to `main` whenever the
+  agent judges them ready. This covers 0.0.14 and future updates; do not request
+  separate promotion approval unless the user changes this instruction.
 - The accepted 0.0.9 player baseline reaches level 4 with no issues reported and
   working saves/high scores. Do not require later-level progression before the
   next native milestone. Add focused checks for behavior affected by each change.
