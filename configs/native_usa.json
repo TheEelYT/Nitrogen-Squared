@@ -5088,11 +5088,11 @@
   {
     "executable": "N2O.EXE",
     "start": "0x800752F8",
-    "size": 24,
+    "size": 316,
     "entries": [
       "0x800752F8"
     ],
-    "purpose": "Observed indirect or continuation boundary"
+    "purpose": "Expanded observed owner"
   },
   {
     "executable": "N2O.EXE",
@@ -5300,5 +5300,779 @@
       "0x80029CA8"
     ],
     "purpose": "Observed indirect or continuation boundary"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x80027C04",
+    "size": 128,
+    "entries": [
+      "0x80027C04"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x80038334",
+    "size": 88,
+    "entries": [
+      "0x80038334"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x8003C7A0",
+    "size": 48,
+    "entries": [
+      "0x8003C7A0"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x8003C7D0",
+    "size": 20,
+    "entries": [
+      "0x8003C7D0"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x8003C7E4",
+    "size": 28,
+    "entries": [
+      "0x8003C7E4"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x8004C5F8",
+    "size": 52,
+    "entries": [
+      "0x8004C5F8"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x8004C62C",
+    "size": 12,
+    "entries": [
+      "0x8004C62C"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x8004C638",
+    "size": 80,
+    "entries": [
+      "0x8004C638"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x8004C688",
+    "size": 12,
+    "entries": [
+      "0x8004C688"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x8004C694",
+    "size": 24,
+    "entries": [
+      "0x8004C694"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x800727D4",
+    "size": 72,
+    "entries": [
+      "0x800727D4"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x8007281C",
+    "size": 36,
+    "entries": [
+      "0x8007281C"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x800764D0",
+    "size": 24,
+    "entries": [
+      "0x800764D0"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x80076520",
+    "size": 24,
+    "entries": [
+      "0x80076520"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x800783A8",
+    "size": 8,
+    "entries": [
+      "0x800783A8"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x80078E3C",
+    "size": 156,
+    "entries": [
+      "0x80078E3C"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x80024030",
+    "size": 16,
+    "entries": [
+      "0x80024030"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x800249C0",
+    "size": 28,
+    "entries": [
+      "0x800249C0"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x80024EFC",
+    "size": 32,
+    "entries": [
+      "0x80024EFC"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x80025314",
+    "size": 40,
+    "entries": [
+      "0x80025314"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x8002533C",
+    "size": 56,
+    "entries": [
+      "0x8002533C"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x80025374",
+    "size": 20,
+    "entries": [
+      "0x80025374"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x80025388",
+    "size": 24,
+    "entries": [
+      "0x80025388"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x800253A0",
+    "size": 12,
+    "entries": [
+      "0x800253A0"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x800253AC",
+    "size": 472,
+    "entries": [
+      "0x800253AC"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x80026814",
+    "size": 36,
+    "entries": [
+      "0x80026814"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x80027204",
+    "size": 24,
+    "entries": [
+      "0x80027204"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x800272BC",
+    "size": 16,
+    "entries": [
+      "0x800272BC"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x800272F0",
+    "size": 16,
+    "entries": [
+      "0x800272F0"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x8002794C",
+    "size": 48,
+    "entries": [
+      "0x8002794C"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x80027A6C",
+    "size": 24,
+    "entries": [
+      "0x80027A6C"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x80027DCC",
+    "size": 88,
+    "entries": [
+      "0x80027DCC"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x80027EBC",
+    "size": 92,
+    "entries": [
+      "0x80027EBC"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x80027F18",
+    "size": 408,
+    "entries": [
+      "0x80027F18"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x800280B0",
+    "size": 8,
+    "entries": [
+      "0x800280B0"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x800280B8",
+    "size": 8,
+    "entries": [
+      "0x800280B8"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x800280C0",
+    "size": 8,
+    "entries": [
+      "0x800280C0"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x800280C8",
+    "size": 24,
+    "entries": [
+      "0x800280C8"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x800280E0",
+    "size": 8,
+    "entries": [
+      "0x800280E0"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x800280E8",
+    "size": 8,
+    "entries": [
+      "0x800280E8"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x800280F0",
+    "size": 8,
+    "entries": [
+      "0x800280F0"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x800280F8",
+    "size": 68,
+    "entries": [
+      "0x800280F8"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x80029990",
+    "size": 56,
+    "entries": [
+      "0x80029990"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x80029B58",
+    "size": 92,
+    "entries": [
+      "0x80029B58"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x80029BEC",
+    "size": 12,
+    "entries": [
+      "0x80029BEC"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x80029BF8",
+    "size": 12,
+    "entries": [
+      "0x80029BF8"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x80029C04",
+    "size": 8,
+    "entries": [
+      "0x80029C04"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x80029C0C",
+    "size": 52,
+    "entries": [
+      "0x80029C0C"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x80029C58",
+    "size": 16,
+    "entries": [
+      "0x80029C58"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x80029D44",
+    "size": 32,
+    "entries": [
+      "0x80029D44"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x80029D64",
+    "size": 16,
+    "entries": [
+      "0x80029D64"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x80029D74",
+    "size": 16,
+    "entries": [
+      "0x80029D74"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x8002A224",
+    "size": 16,
+    "entries": [
+      "0x8002A224"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x8002A234",
+    "size": 16,
+    "entries": [
+      "0x8002A234"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x8002BE84",
+    "size": 16,
+    "entries": [
+      "0x8002BE84"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x8002BE94",
+    "size": 16,
+    "entries": [
+      "0x8002BE94"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x8002C060",
+    "size": 264,
+    "entries": [
+      "0x8002C060"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x8002C168",
+    "size": 92,
+    "entries": [
+      "0x8002C168"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x8002C1C4",
+    "size": 72,
+    "entries": [
+      "0x8002C1C4"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x8002C38C",
+    "size": 284,
+    "entries": [
+      "0x8002C38C"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x8002C4A8",
+    "size": 36,
+    "entries": [
+      "0x8002C4A8"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x8002C780",
+    "size": 12,
+    "entries": [
+      "0x8002C780"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x8002C7E8",
+    "size": 20,
+    "entries": [
+      "0x8002C7E8"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x8002C8C8",
+    "size": 32,
+    "entries": [
+      "0x8002C8C8"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x8002C8E8",
+    "size": 8,
+    "entries": [
+      "0x8002C8E8"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x8002CA34",
+    "size": 8,
+    "entries": [
+      "0x8002CA34"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x8002CA3C",
+    "size": 24,
+    "entries": [
+      "0x8002CA3C"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x8002CB4C",
+    "size": 136,
+    "entries": [
+      "0x8002CB4C"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x8002CBD4",
+    "size": 12,
+    "entries": [
+      "0x8002CBD4"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x8002CDFC",
+    "size": 56,
+    "entries": [
+      "0x8002CDFC"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x8002CE34",
+    "size": 40,
+    "entries": [
+      "0x8002CE34"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x8002CFCC",
+    "size": 40,
+    "entries": [
+      "0x8002CFCC"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x8002CFF4",
+    "size": 92,
+    "entries": [
+      "0x8002CFF4"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x8002DD34",
+    "size": 56,
+    "entries": [
+      "0x8002DD34"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x8002DD6C",
+    "size": 16,
+    "entries": [
+      "0x8002DD6C"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x8002DD7C",
+    "size": 16,
+    "entries": [
+      "0x8002DD7C"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x8002DD8C",
+    "size": 28,
+    "entries": [
+      "0x8002DD8C"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x8002ED54",
+    "size": 56,
+    "entries": [
+      "0x8002ED54"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x8002ED8C",
+    "size": 20,
+    "entries": [
+      "0x8002ED8C"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x8002EDA0",
+    "size": 44,
+    "entries": [
+      "0x8002EDA0"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x8002EDCC",
+    "size": 16,
+    "entries": [
+      "0x8002EDCC"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x8002EDDC",
+    "size": 8,
+    "entries": [
+      "0x8002EDDC"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x8002EDE4",
+    "size": 8,
+    "entries": [
+      "0x8002EDE4"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x8002EDEC",
+    "size": 16,
+    "entries": [
+      "0x8002EDEC"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x8002EF5C",
+    "size": 16,
+    "entries": [
+      "0x8002EF5C"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x8002EF6C",
+    "size": 16,
+    "entries": [
+      "0x8002EF6C"
+    ],
+    "purpose": "Observed code or CPU-closed library entry"
   }
 ]

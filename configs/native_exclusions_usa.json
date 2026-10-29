@@ -262,5 +262,11 @@
     "start": "0x80027184",
     "size": 52,
     "reason": "Unqualified bounded comparison context in 0.0.17; exclude the whole input band"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x80027058",
+    "size": 112,
+    "reason": "Unqualified bounded comparison context in 0.0.17; exclude the whole input band"
   }
 ]
