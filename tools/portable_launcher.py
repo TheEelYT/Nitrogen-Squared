@@ -50,18 +50,7 @@ class Backend:
             raise RuntimeError("Stopped. Existing saves and completed preparation files were kept.")
         if self.log:
             self.log.write(text+"\n");self.log.flush()
-        if text.startswith("Game running."):
-            self.notify("playing",text)
-        elif text.startswith("Downloaded ") or text.startswith("Verifying the complete disc") or text.startswith("Existing saves") or text.startswith("The folder moved"):
-            self.notify("progress",text)
-        elif text.startswith("Preparing "):
-            self.notify("progress","Preparing your game and its local tools…")
-        elif text.startswith("["):
-            import re
-            stage=re.match(r"\[\s*(\d+)%\]",text)
-            step=re.match(r"\[(\d+)/(\d+)\]",text)
-            if stage:self.notify("progress",f"Compiling a preparation stage ({stage[1]}%).")
-            elif step:self.notify("progress",f"Compiling a preparation stage (step {step[1]} of {step[2]}).")
+        self.notify("progress",text)
 
     def set_process(self,process):
         self.process=process
@@ -291,11 +280,21 @@ class Application:
         try:
             while True:
                 kind,text=self.events.get_nowait()
-                if kind=="progress":self.detail.set(text[-400:])
-                elif kind=="playing":
-                    self.status.set("Game running")
-                    self.detail.set("Close the game window to return to the launcher.")
-                    self.stop_button.configure(state="disabled")
+                if kind=="progress":
+                    if text.startswith("Game running."):
+                        self.status.set("Game running")
+                        self.detail.set("Close the game window to return to the launcher.")
+                        self.stop_button.configure(state="disabled")
+                    elif text.startswith(("Downloaded ","Verifying the complete disc","Existing saves","The folder moved")):
+                        self.detail.set(text[-400:])
+                    elif text.startswith("Preparing "):
+                        self.detail.set("Preparing your game and its local tools…")
+                    elif text.startswith("["):
+                        import re
+                        stage=re.match(r"\[\s*(\d+)%\]",text)
+                        step=re.match(r"\[(\d+)/(\d+)\]",text)
+                        if stage:self.detail.set(f"Compiling a preparation stage ({stage[1]}%).")
+                        elif step:self.detail.set(f"Compiling a preparation stage (step {step[1]} of {step[2]}).")
                 elif kind in ("done","error"):
                     self.activity(False);self.status.set(text)
                     if kind=="error":messagebox.showerror("Nitrogen Squared",text+"\n\nDetails: .local/setup.log",parent=self.window)

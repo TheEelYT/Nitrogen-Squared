@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 concurrency:
   group: portable-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 permissions:
   contents: read
 jobs:
@@ -78,22 +78,59 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      actions: read
     steps:
       - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
         with:
           name: portable-windows-x64
           path: dist
-      - name: Publish a new version without overwriting an existing release
+      - name: Require the source and cross-platform runtime checks
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          ready=0
+          for attempt in $(seq 1 90); do
+            gh api -X GET "repos/$GH_REPO/actions/runs?head_sha=$GITHUB_SHA&event=push&per_page=30" > "$RUNNER_TEMP/checks.json"
+            if python - "$RUNNER_TEMP/checks.json" <<'PY_GATE'
+          import json,sys
+          required={'Source checks','Runtime and renderer checks'}
+          runs=json.load(open(sys.argv[1]))['workflow_runs']
+          states={}
+          for run in runs:
+              if run['name'] in required and run['name'] not in states: states[run['name']]=run
+          if any(r['status']=='completed' and r['conclusion']!='success' for r in states.values()):
+              print('A required check failed; release publication is blocked.');sys.exit(1)
+          if set(states)==required and all(r['status']=='completed' and r['conclusion']=='success' for r in states.values()):
+              print('Required source and Windows/Linux runtime workflows passed.');sys.exit(0)
+          sys.exit(3)
+          PY_GATE
+            then ready=1; break
+            else status=$?; if [ "$status" -ne 3 ]; then exit "$status"; fi
+            fi
+            sleep 20
+          done
+          if [ "$ready" -ne 1 ]; then echo 'Required checks did not finish in time.'; exit 1; fi
+      - name: Publish a complete draft without overwriting a published release
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
         run: |
           set -euo pipefail
           version="$(tr -d '\r\n' < VERSION)"
-          if gh release view "v$version" >/dev/null 2>&1; then
-            echo "Release v$version already exists; preserving its immutable assets."
-            exit 0
+          existing=0
+          if gh release view "v$version" --json isDraft,targetCommitish > "$RUNNER_TEMP/existing-release.json" 2>/dev/null; then
+            existing=1
+            if [ "$(python -c "import json;print(json.load(open('$RUNNER_TEMP/existing-release.json'))['isDraft'])")" != True ]; then
+              echo "Release v$version is already public; preserving its immutable assets."
+              exit 0
+            fi
+            if [ "$(python -c "import json;print(json.load(open('$RUNNER_TEMP/existing-release.json'))['targetCommitish'])")" != "$GITHUB_SHA" ]; then
+              echo 'An unpublished draft belongs to another commit; preserving it for review.'
+              exit 1
+            fi
           fi
           cat > "$RUNNER_TEMP/release-notes.md" <<'NOTES'
           Extract the complete **Nitrogen-Squared** folder and run **launcher.exe**.
@@ -105,4 +142,9 @@ jobs:
 
           **Windows 10/11 x64. Internet is required for first preparation and updates.** First compilation may take several minutes. This release contains no commercial game data, generated game code, or prepared game executable.
           NOTES
-          gh release create "v$version" --target "$GITHUB_SHA" --title "Nitrogen Squared $version — Windows launcher" --notes-file "$RUNNER_TEMP/release-notes.md" dist/Nitrogen-Squared-Windows-x64.zip dist/Nitrogen-Squared-Windows-x64.zip.sha256 dist/Nitrogen-Squared-source.zip
+          if [ "$existing" -eq 0 ]; then
+            gh release create "v$version" --draft --target "$GITHUB_SHA" --title "Nitrogen Squared $version — Windows launcher" --notes-file "$RUNNER_TEMP/release-notes.md" dist/Nitrogen-Squared-Windows-x64.zip dist/Nitrogen-Squared-Windows-x64.zip.sha256 dist/Nitrogen-Squared-source.zip
+          else
+            gh release upload "v$version" --clobber dist/Nitrogen-Squared-Windows-x64.zip dist/Nitrogen-Squared-Windows-x64.zip.sha256 dist/Nitrogen-Squared-source.zip
+          fi
+          gh release edit "v$version" --draft=false --latest

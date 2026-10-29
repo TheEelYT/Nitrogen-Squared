@@ -172,7 +172,7 @@ class Layout:
         else:
             env["PATH"]=os.pathsep.join(map(str,bins))+os.pathsep+env.get("PATH", "")
         for key in list(env):
-            if key.upper() in ("LIB","LIBPATH","INCLUDE","CL","_CL_","CFLAGS","LDFLAGS","CMAKE_PREFIX_PATH","CMAKE_TOOLCHAIN_FILE"):
+            if key.upper() in ("LIB","LIBPATH","INCLUDE","CL","_CL_","CFLAGS","LDFLAGS","CMAKE_PREFIX_PATH","CMAKE_TOOLCHAIN_FILE","CMAKE_GENERATOR_INSTANCE","CMAKE_GENERATOR_PLATFORM","CMAKE_GENERATOR_TOOLSET","CPATH","C_INCLUDE_PATH","CPLUS_INCLUDE_PATH","LIBRARY_PATH","COMPILER_PATH","GCC_EXEC_PREFIX","SDKROOT","AR","AS","LD"):
                 env.pop(key)
         env.update(CC="x86_64-w64-mingw32-clang.exe",
                    CXX="x86_64-w64-mingw32-clang++.exe",
@@ -183,7 +183,7 @@ class Layout:
                    PYTHONNOUSERSITE="1", PYTHONDONTWRITEBYTECODE="1", PYTHONUTF8="1")
         temp = beneath(self.root, ".local/tmp")
         temp.mkdir(parents=True, exist_ok=True)
-        env.update(TEMP=str(temp), TMP=str(temp))
+        env.update(TEMP=str(temp), TMP=str(temp), TMPDIR=str(temp))
         env.pop("PYTHONHOME", None); env.pop("PYTHONPATH", None)
         return env
 
