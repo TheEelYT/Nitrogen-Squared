@@ -42,7 +42,7 @@ int WINAPI wWinMain(HINSTANCE instance, HINSTANCE previous, PWSTR args, int show
     size_t used = 0;
     command[0] = 0;
     if (!quote(command,32768,&used,python)) goto failed;
-    if (FAILED(StringCchCatW(command,32768,L" -I -B "))) goto failed;
+    if (FAILED(StringCchCatW(command,32768,L" -I -X utf8 -B "))) goto failed;
     used = wcslen(command);
     if (!quote(command,32768,&used,script)) goto failed;
     if (FAILED(StringCchCatW(command,32768,L" --root "))) goto failed;

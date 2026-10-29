@@ -50,7 +50,18 @@ class Backend:
             raise RuntimeError("Stopped. Existing saves and completed preparation files were kept.")
         if self.log:
             self.log.write(text+"\n");self.log.flush()
-        self.notify("progress",text)
+        if text.startswith("Game running."):
+            self.notify("playing",text)
+        elif text.startswith("Downloaded ") or text.startswith("Verifying the complete disc") or text.startswith("Existing saves") or text.startswith("The folder moved"):
+            self.notify("progress",text)
+        elif text.startswith("Preparing "):
+            self.notify("progress","Preparing your game and its local tools…")
+        elif text.startswith("["):
+            import re
+            stage=re.match(r"\[\s*(\d+)%\]",text)
+            step=re.match(r"\[(\d+)/(\d+)\]",text)
+            if stage:self.notify("progress",f"Compiling a preparation stage ({stage[1]}%).")
+            elif step:self.notify("progress",f"Compiling a preparation stage (step {step[1]} of {step[2]}).")
 
     def set_process(self,process):
         self.process=process
@@ -281,6 +292,10 @@ class Application:
             while True:
                 kind,text=self.events.get_nowait()
                 if kind=="progress":self.detail.set(text[-400:])
+                elif kind=="playing":
+                    self.status.set("Game running")
+                    self.detail.set("Close the game window to return to the launcher.")
+                    self.stop_button.configure(state="disabled")
                 elif kind in ("done","error"):
                     self.activity(False);self.status.set(text)
                     if kind=="error":messagebox.showerror("Nitrogen Squared",text+"\n\nDetails: .local/setup.log",parent=self.window)
@@ -293,7 +308,10 @@ class Application:
                     elif messagebox.askyesno("Update available","Install Nitrogen Squared "+text["version"]+"? The launcher will restart. Your local game files and saves will be kept.",parent=self.window):
                         self.activity(True);self.status.set("Downloading update…")
                         def stage(release=text):
-                            try:self.events.put(("staged",stage_release(self.layout,release,self.backend)))
+                            try:
+                                staged=stage_release(self.layout,release,self.backend)
+                                if self.backend.cancel.is_set():raise RuntimeError("Update stopped. Downloaded files were kept.")
+                                self.events.put(("staged",staged))
                             except Exception as e:self.events.put(("error",str(e)))
                         self.backend.cancel.clear()
                         threading.Thread(target=stage,daemon=False).start()
@@ -323,6 +341,9 @@ def instance_lock(layout):
 
 
 def main():
+    for stream in (sys.stdout,sys.stderr):
+        if stream is not None and hasattr(stream,"reconfigure"):
+            stream.reconfigure(encoding="utf-8",errors="replace")
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument("--root",type=Path,required=True)
     p.add_argument("--launcher-pid",type=int,default=0)

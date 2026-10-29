@@ -39,7 +39,7 @@ def main():
     # This parent releases the old interpreter before the copied runner installs.
     script='import sys; sys.path.insert(0,'+repr(str(layout.app/'tools'))+'); from pathlib import Path; from portable_support import Layout; from portable_update import start_updater; start_updater(Layout(Path('+repr(str(layout.root))+')),Path('+repr(str(stage))+'),0,restart_report=Path('+repr(str(report))+'))'
     env=os.environ.copy();env.pop('PYTHONPATH',None);env.pop('PYTHONHOME',None)
-    command=[str(layout.python),'-E','-s','-B','-c',script]
+    command=[str(layout.python),'-X','utf8','-E','-s','-B','-c',script]
     subprocess.run(command,env=env,cwd=layout.root,check=True,timeout=60)
     deadline=time.monotonic()+120
     while time.monotonic()<deadline and not report.exists():time.sleep(.25)

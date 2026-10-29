@@ -197,7 +197,7 @@ def start_updater(layout: Layout, staged: Path | None, launcher_pid: int, *, res
     scripts.mkdir()
     for name in ("portable_update.py","portable_support.py"):
         shutil.copy2(Path(__file__).with_name(name),scripts/name)
-    command=[str(runner/"python/python.exe"),"-E","-s","-B",str(scripts/"portable_update.py"),"--root",str(layout.root),"--wait-pid",str(os.getpid())]
+    command=[str(runner/"python/python.exe"),"-X","utf8","-E","-s","-B",str(scripts/"portable_update.py"),"--root",str(layout.root),"--wait-pid",str(os.getpid())]
     if launcher_pid:
         command += ["--wait-pid",str(launcher_pid)]
     command += ["--stage",str(staged)] if staged else ["--rollback"]

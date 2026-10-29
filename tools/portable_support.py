@@ -188,7 +188,7 @@ class Layout:
         return env
 
     def command(self, script: str, *args):
-        return [str(self.python), "-E", "-s", "-B", str(self.app/"tools"/script), *map(str,args)]
+        return [str(self.python), "-X", "utf8", "-E", "-s", "-B", str(self.app/"tools"/script), *map(str,args)]
 
 
 def run(command, cwd: Path, env: dict, progress=print):

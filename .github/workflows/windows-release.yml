@@ -51,7 +51,7 @@ jobs:
         shell: pwsh
         run: |
           $app = $env:NITROGEN_PORTABLE_SMOKE_ROOT
-          & "$app/support/python/python.exe" -E -s -B "$app/app/tools/portable_launcher.py" --root "$app" --runtime-fixture
+          & "$app/support/python/python.exe" -X utf8 -E -s -B "$app/app/tools/portable_launcher.py" --root "$app" --runtime-fixture
           if ($LASTEXITCODE -ne 0) { throw 'Portable compiler/runtime fixture failed' }
           # The tested ZIP was built before any private fixture output existed.
           $expected = (Get-Content dist/Nitrogen-Squared-Windows-x64.zip.sha256).Split(' ')[0]
