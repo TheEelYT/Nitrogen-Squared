@@ -77,5 +77,9 @@
   "tools/qualification/normal_controller.cpp",
   "tools/qualification/replay.cpp",
   "tools/qualification/replay.py",
-  "tools/qualification/route.py"
+  "tools/qualification/route.py",
+  "tools/qualification/selection.py",
+  "tests/test_qualification.py",
+  "tests/qualification_compare_smoke.cpp",
+  "tools/qualification/check.py"
 ]

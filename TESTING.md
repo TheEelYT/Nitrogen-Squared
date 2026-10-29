@@ -2,6 +2,10 @@
 
 ## Current acceptance and update checks
 
+The next development branch is preparing a frontend/CPU-RAM-library batch.
+Its original qualification-tool changes need no player rebuild. Main remains the
+accepted 0.0.15 runtime below; candidate counts are not qualified progress.
+
 **0.0.15 — focused Windows playtest accepted:** the user reports no issues
 noticed. This accepts the reported route without implying exhaustive coverage
 or a new level-9 campaign playthrough. No repeat test is needed for this note.

@@ -91,3 +91,12 @@
   new candidates so unchanged generated units keep their identities. When
   reducing a private exploratory pool, regenerate in a fresh source directory
   and check for stale parts before building. Game-derived files remain private.
+
+- The next frontend/library batch is on native-frontend-library-batch. A fresh
+  0.0.15-selection reference route passed 17 captures after another workspace
+  reset. The original upload remains available; no new user input is needed.
+  New diagnostic selectors distinguish exact guarded code identities across
+  overlapping images; optional failure collection still exits unsuccessfully
+  and is exploratory only. Keep failed/unobserved owners out of final binding,
+  then repeat strict reduced-selection and normal-production qualification.
+  Main remains accepted 0.0.15 at 26.0073%; new candidate coverage is unqualified.

@@ -7,6 +7,7 @@ instructions or generated bodies belong in this repository or a source package.
 from __future__ import annotations
 import argparse
 import base64
+import hashlib
 import importlib
 import json
 from pathlib import Path
@@ -115,9 +116,19 @@ def emit(records: list[tuple[str, dict]], framework: Path, recompiler: Path,
         manifest = output / f"slice-{index}.ranges"
         write_text(manifest, text)
         manifests.append(manifest)
+        # Metadata only: distinguish overlapping executable occupants during
+        # private qualification without publishing instruction bytes.
+        source_bytes = base64.b64decode(record["bytes_b64"], validate=True)
+        identities = []
+        for v in part["variants"]:
+            covered = b"".join(source_bytes[lo-base:lo-base+length]
+                               for lo, length in v["ranges"])
+            identities.append(dict(owner=v["addr"], crc=v["crc"],
+                                   code_sha256=hashlib.sha256(covered).hexdigest(),
+                                   ranges=[list(r) for r in v["ranges"]]))
         resumes = add_resumes(compiler, part)
         inventories.append(dict(executable=executable, ranges=manifest.name, entries=sorted(entries),
-                                resume_entries=resumes))
+                                resume_entries=resumes, identities=identities))
         parts.append(part)
         variants.extend(part["variants"])
     files = compiler.write_static_outputs(str(main), parts, variants,

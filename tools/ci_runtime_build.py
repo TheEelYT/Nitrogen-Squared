@@ -147,6 +147,8 @@ def main():
         # pinned-header ABI drift without loading private captures or game data.
         qualification = ROOT / "tools/qualification"
         runtime_include = "-I" + str(framework / "runtime/include")
+        subprocess.run(["python", str(qualification / "check.py"), "--framework", str(framework),
+                        "--output", str(work / "qualification-controller")], check=True)
         subprocess.run(["c++", "-std=c++17", "-fsyntax-only", runtime_include,
                         str(qualification / "compare.cpp"),
                         str(qualification / "replay.cpp")], check=True)

@@ -1327,3 +1327,56 @@ Coverage remains 26.0073% linked / 73.9927% outside. This acceptance note change
 documentation only: no VERSION bump, rebuild, new files or repeated player test
 is required. Existing saves and prior version-specific acceptance retain their
 scope. Standing authorization to promote qualified updates to main continues.
+
+## 0.0.16 frontend/library batch — preparation checkpoint
+
+The user accepted the focused Windows 0.0.15 playtest and authorized the next
+substantial batch, with doubling conditional on useful qualification. The
+accepted baseline remains 219,976 / 845,824 = 26.0073% linked / 73.9927% outside.
+The temporary workspace was empty; main and the existing original upload were
+restored without requesting new files. The pinned framework is unchanged. A
+fresh 0.0.15-selection diagnostic build reproduced the accepted byte inventory
+and completed all 17 reference captures through frame 6305.
+
+A direct-JAL discovery pass yields 398 additional N2O candidates and 225 NEW
+candidates, totaling 570,592 input bytes before generation/hardware filtering.
+These are entry hypotheses, not confirmed functions or linked progress. The
+existing selection and known N2O mismatch intervals are excluded from this pool.
+Generation and instruction-boundary filtering remain in progress.
+
+The original qualification helpers now distinguish code identities and exact
+owner/resume PCs, since both main images occupy overlapping RAM. Private
+metadata includes guarded ranges/CRC and a SHA-256 of covered bytes; generated
+files are hash-checked before selector construction. Distinct identities at the
+same PC have separate samples and witness filenames. Identical guarded code is
+explicitly shared, while ambiguous CRC occupants with differing code hashes
+are rejected. Production CRC residency semantics are unchanged.
+
+Optional diagnostic collection restores the saved CPU/RAM/scratchpad/load-delay
+and cache state after a comparison mismatch, disables that identity's entry and
+resume paths, and returns to interpreter fallback. It continues exploring other
+identities but exits unsuccessfully (91) if any failed. A cycle-neutrality budget
+exhaustion stops the run rather than collecting further evidence. This mechanism
+does not establish equivalence for hardware side effects or host globals. Final
+selection still requires fresh generation and strict live/replay/visual and
+normal-production checks with these hooks absent.
+
+All 45 source tests pass locally. Ten original synthetic controller checks
+verify overlapping identities, separate witnesses, restoration/fallback of a
+failed owner and its alias, another occupant remaining enabled, nonzero final
+status for collected failures, default fail-fast behavior, cycle-budget failure,
+legacy selectors, wrong-identity replay refusal and malformed/truncated metadata.
+These use stub backends and authored metadata, not game instructions; they test
+the qualification controller, not additional game behavior. Runtime CI invokes
+them on Linux alongside the existing real-runtime synthetic boundary fixtures.
+The reviewed source allowlist is 83 original text files. No new game coverage
+or player rebuild is claimed for this helper-only checkpoint.
+
+The completed preflight retains 395 N2O and 200 NEW entry candidates after
+generation, guarded-continuation and direct hardware/exception-boundary checks.
+Their union contains 136,888 and 40,028 newly emitted bytes respectively before
+combining with the baseline; this remains an unqualified exploratory inventory.
+Optional missed-dispatch tracing records private PC/prefix-hash metadata to
+identify additional observed indirect boundaries. Those hashes are discovery
+hints only, not occupant identity or qualification evidence. A synthetic trace
+case verifies repeated misses produce a single discovery record.

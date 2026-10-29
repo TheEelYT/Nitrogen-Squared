@@ -63,3 +63,39 @@ physical audio quality or a Windows FPS benchmark. Record final-only comparison
 counts, frame parity, production/source checks and pending player acceptance in
 the project validation/testing documents. Count only linked emitted ranges using
 `tools/native_progress.py`; these tools add no native game coverage themselves.
+
+## Overlapping executable occupants
+
+Current receipts include per-owner guarded ranges, CRC and a SHA-256 of the
+covered instruction bytes as private metadata. `selection.py --manifest ...
+--roots ... --output .local/.../selection.tsv` verifies the generated-file hashes
+and produces a v2 selector plus a JSON image/owner map. The root file is the
+address/size configuration subset being evaluated, not game instructions.
+
+The v2 selector names exact entry/continuation PCs and their full guarded code
+identity. Samples, counters and witnesses are keyed by identity plus PC. Distinct
+occupants at the same address cannot consume each other's sample budget or
+overwrite witnesses. Identical guarded code and PCs can be explicitly shared
+across images; different code with an ambiguous CRC is rejected by the selector
+generator. The existing production residency gate remains the authority at
+runtime. The extra SHA/token metadata is not a new runtime authentication claim.
+Legacy two-column selectors remain available for existing single-image checks.
+
+For exploratory pools only, `N2O_COLLECT_FAILURES=1` requires a v2 selector. A
+failed CPU/RAM comparison restores the input, disables that identity's native
+entry/resume paths in the diagnostic interposer and returns control to the
+interpreter fallback. It records blocked IDs and continues collecting evidence
+for other candidates. The process still exits unsuccessfully (91) if any failed.
+This does not qualify the failed owner, hardware side effects or the final build.
+Prune failed/unobserved owners, regenerate into a fresh private source directory,
+and repeat final live/replay/visual checks without collection before production
+testing. These hooks are diagnostic-only and never enter normal player builds.
+
+The native/reference uncharged windows are bounded to 16,777,216 cycles each,
+in addition to the reference basic-block limit. Budget exhaustion leaves the
+segment unqualified and stops collection to avoid reusing a device-advanced
+state. `check.py --output .local/...` exercises the controller logic with original
+stub backends; Linux runtime CI runs it automatically. `N2O_TRACE_MISSES=1` adds
+private PC/prefix-hash discovery hints for untranslated dispatches. Those hints
+must be checked against the original verified image and fully qualified before
+any coverage credit.
