@@ -1473,3 +1473,27 @@ Helper checkpoint 934174807daf401269858be6c3ab2abbd59be3f7 passed source CI
 checkpoint dd2d75efe9995e691ea9a119cba42cb4f09a8a6e passed source CI 40920346042
 and runtime/renderer CI 40920346014 on both platforms. Final binding CI remains
 pending. Main remains accepted 0.0.15 until final qualification completes.
+
+### Final strict O3 checkpoint — comparison and replay passed
+
+Both C and C++ Release flags are restored to -O3 -DNDEBUG. The fresh strict run
+uses the reduced 348-root selection without collection, preblocked identities or
+miss tracing. It passed 1,458 live comparisons at 687 identity/PC pairs with zero
+failures; the final comparison was at frame 12120. All 348 identities were
+observed (347 direct owner entries and one continuation-only entry). All 21
+decoded RGB captures through first-level completion and bonus/shop match the
+extended 0.0.15-selection reference exactly. An earlier interrupted process did
+not complete and contributes no counts to this result.
+
+Fresh final witnesses passed 25 isolated variants at each of the 687 pairs:
+17,175 comparisons, zero failures. Replay ran fail-fast without --keep-going.
+The final O3 total is 18,633 passing comparisons. The diagnostic measurement
+remains 295,648 / 845,824 = 34.9538%, with 65.0462% outside. These are bounded
+checks and linked range measurements, not exhaustive behavior or CPU-time shares.
+
+Final code ce5f02634eef041cfa17484766f77376a6653014 passes source CI 40925465652
+and runtime/renderer CI 40925465655 on both Windows and Linux. The local normal
+player is rebuilding with diagnostics disabled and its qualification include
+cleared; normal source/range parity and movie/controller/quit checks are still
+pending. Main remains 0.0.15 at this checkpoint. All original source-package
+files match the saved code checkpoint; game code, guards and witnesses stay private.
