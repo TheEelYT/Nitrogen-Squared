@@ -24,8 +24,12 @@ def main():
     p.add_argument("--game", type=Path, default=ROOT / ".local/runtime-dev/game.toml")
     p.add_argument("--disc", required=True, type=Path)
     p.add_argument("--port", type=int, default=4370)
+    p.add_argument("--timeout", type=float, default=600,
+                   help="Bounded wall-clock budget for the frame-based route, in seconds")
     p.add_argument("--help-prompts", action="store_true")
     args = p.parse_args()
+    if not 0 < args.timeout <= 1800:
+        raise ValueError("Route timeout must be between 0 and 1800 seconds")
     out = args.output
     out.mkdir(parents=True, exist_ok=True)
     env = os.environ.copy()
@@ -78,7 +82,7 @@ def main():
             print(request("input_route_start", at_frame=1800), flush=True)
             frames = [800,1500,1900,2100,2300,2500,2700,3000,3500,4000,4200,4300,4500,4700,5000,5500,6000]
             done = set()
-            deadline = time.monotonic() + 300
+            deadline = time.monotonic() + args.timeout
             while time.monotonic() < deadline:
                 if proc.poll() is not None:
                     raise RuntimeError(f"Runtime exit: {proc.returncode}")

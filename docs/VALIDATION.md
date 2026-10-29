@@ -1139,3 +1139,32 @@ it does not establish a new level-9 playthrough or exhaustive branch coverage.
 Coverage remains 17.6098% linked / 82.3902% outside. This documentation-only
 acceptance note requires no rebuild or repeated player test. Standing permission
 to promote qualified updates to main remains in effect.
+
+## 0.0.15 gameplay/object candidate — qualification pending
+
+The previous transient checkout expired. The source was restored from main at
+b783c4a57e4d8af2673d386affe566dccd964662, and the user's existing disc upload
+was restored and fully reverified without requesting new files. The pinned
+framework is unchanged. A fresh diagnostic 0.0.14 baseline build reproduces
+148,948 / 845,824 = 17.6098% linked / 82.3902% outside. Its controlled reference
+route is being captured before candidate execution.
+
+The candidate adds 260 roots totaling 171,952 input bytes from game update,
+object/presentation, model dispatch and service/resource-control bands. Previous
+exception-mismatch exclusions remain unselected. Input inventory is not qualified
+linked coverage; any failed or inadequately exercised root must be excluded or
+receive useful constructed-input qualification before promotion.
+
+Eight reusable original qualification source/documentation files now preserve
+the diagnostic process across scratch resets. They contain no game instruction
+words, generated game bodies/guards or witnesses. The selection is supplied as
+private address/size metadata; captures and reports require private `.local`
+output paths. The normal fixture links a separate executable from production
+objects and checks the qualified source/range hashes. These helpers are not
+linked into normal player builds and add no native coverage themselves.
+
+The expanded source audit passes 79 reviewed text files. The original helper
+sources pass local pinned-header syntax checks, and all 40 local source tests
+pass. CI also checks the Linux helper/header interfaces without importing or
+publishing game-derived data. Candidate generation, comparisons, final reduced
+selection, normal production checks and final checkpoint CI remain pending.

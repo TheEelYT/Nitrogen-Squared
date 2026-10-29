@@ -22,6 +22,10 @@ There is no public game executable or Vita VPK. The hybrid runtime uses native
 boot/BIOS code, selected native game routines and interpreter fallback. Players
 build privately from their verified local game input.
 
+The 0.0.15 development branch is evaluating a larger gameplay/object and
+resource-control batch. Its candidate input inventory is not qualified linked
+coverage; the accepted measurements below remain the 0.0.14 baseline.
+
 ## Native progress — 0.0.14
 
 | Selected executable payloads | Bytes | Share |
