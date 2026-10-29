@@ -8,7 +8,7 @@ Forty-six additional roots cover model/object primitive preparation and game/men
 presentation control. The final selection passed 10,316 private segment comparisons and 17 exact-frame
 visual checks. The normal build, movie/controller/shutdown fixture and
 Windows/Linux CI passed.
-Windows 0.0.14 player acceptance is pending the focused checks in TESTING.md.
+The user reports no issues in the focused Windows 0.0.14 playtest.
 The user reports no issues in the 0.0.13 focused Windows playtest; earlier
 0.0.11 gameplay reached level 9 and 0.0.12 resolved the reported save/load slowdown.
 Those reports remain history for their tested versions.

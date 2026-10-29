@@ -48,8 +48,9 @@
   aliases. One constructed exception/return mismatch and 28 unqualified roots
   remain unselected. The final reduced selection passed 10,316 private segment comparisons
   and 17 matching-frame checks, the normal production/controller fixture and
-  Windows/Linux CI. Windows 0.0.14 acceptance is pending TESTING.md's focused route;
-  do not infer it from the accepted 0.0.13 playtest or earlier level-9 report.
+  Windows/Linux CI. The user reports no issues noticed in the focused Windows
+  0.0.14 playtest and authorizes the next substantial batch. Record that route
+  as accepted without implying a new level-9 playthrough or exhaustive coverage.
 - The user requests substantial coherent conversion batches. Continue through
   preparation and qualification to an actual conversion when viable; do not
   use test-only preparation as the default stopping point.

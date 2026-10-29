@@ -2,7 +2,9 @@
 
 ## Current acceptance and update checks
 
-**0.0.14 — local and platform checks passed; Windows player acceptance pending:** 46 additional roots now cover model/object primitive
+**0.0.14 — focused Windows playtest accepted:** the user reports no issues
+noticed. This accepts the tested route without implying a new level-9 campaign
+playthrough or exhaustive coverage. No repeat test is needed for this note. 46 additional roots now cover model/object primitive
 preparation and game/menu presentation control. Residency guards, continuation
 aliases and interpreter fallback remain in use. The previous 0.0.13 focused
 Windows playtest was accepted; it does not automatically accept this update.
@@ -22,7 +24,7 @@ passed, and its selected source/range hashes match the qualified build. One cand
 evidence remain unselected. These bounded checks do not prove every branch,
 input or later-level scenario. Details are in docs/VALIDATION.md.
 
-After pulling 0.0.14 and rebuilding with the usual commands below, check:
+The completed focused player checks were:
 
 1. Navigate title/menu, ship and level selection. Check labels, models and animation;
    confirm existing score/save-slot labels remain readable.
@@ -31,8 +33,8 @@ After pulling 0.0.14 and rebuilding with the usual commands below, check:
 3. Pause/resume, continue moving/firing, return to the menu and quit normally.
 
 No later-level progression, reimport, new files or deliberate save overwrite is
-required. Preserve existing saves. Windows 0.0.14 player acceptance remains pending
-this focused route; no repeated campaign playthrough is requested.
+required. Preserve existing saves. The focused Windows 0.0.14 route is accepted;
+no repeated campaign playthrough is requested.
 
 **0.0.13 — focused Windows playtest accepted:** the user reports no issues
 noticed. This accepts the tested menu/first-level route without implying a new

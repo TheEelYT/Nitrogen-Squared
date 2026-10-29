@@ -27,7 +27,7 @@ adding 75,948 bytes. Normal-build coverage is 17.6098% linked / 82.3902%
 outside, about 2.04 times 0.0.13. One exception/return mismatch and 28 unqualified
 candidates remain unselected. The final selection passed 10,316 segment comparisons and 17 exact-frame
 checks. The normal production/controller fixture and Windows/Linux CI passed;
-focused Windows 0.0.14 player acceptance is pending.
+the user reports no issues in the focused Windows 0.0.14 playtest.
 
 ## 1. Loaded-code identity and native game slices — underway
 

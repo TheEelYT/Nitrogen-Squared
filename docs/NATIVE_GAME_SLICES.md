@@ -200,6 +200,5 @@ services and later-level campaign qualification remain separate work.
 The final reduced build passed 10,316 segment comparisons and 17 matching-frame
 checks. The normal production build reproduces the qualified source/range hashes;
 its movie/controller/shutdown fixture and Windows/Linux CI passed. See
-VALIDATION.md for the counts and limits. Windows player acceptance for 0.0.14 is pending the
-focused TESTING.md route. All game instructions, emitted bodies/guards, snapshots,
+VALIDATION.md for the counts and limits. The user reports no issues in the focused Windows 0.0.14 playtest. All game instructions, emitted bodies/guards, snapshots,
 comparison helpers and captures remain outside Git and release packages.

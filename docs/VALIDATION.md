@@ -1130,3 +1130,12 @@ and skip redundant CI. The pinned framework checkout remains unchanged. Windows
 0.0.14 player acceptance remains pending TESTING.md's focused route; the prior
 0.0.13 player acceptance and older level-9/save-load reports retain their own
 version scope. No later-level replay, new files or reimport is required.
+
+### 0.0.14 Windows player acceptance
+
+The user reports no issues noticed in the focused Windows playtest and
+authorizes the next substantial native batch. This accepts the tested route;
+it does not establish a new level-9 playthrough or exhaustive branch coverage.
+Coverage remains 17.6098% linked / 82.3902% outside. This documentation-only
+acceptance note requires no rebuild or repeated player test. Standing permission
+to promote qualified updates to main remains in effect.

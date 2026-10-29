@@ -54,7 +54,7 @@ pre-0.0.7 receipt by rebuilding first.
 | Gameplay angle-table lookups | Two native leaf translations in N2O.EXE; private comparisons passed and user verified first-level gameplay in 0.0.10 |
 | Drawing packet preparation | 25 additional native entry ranges, with guarded internal resumes; user verified 0.0.11 gameplay through level 9 |
 | Geometry/object presentation and text | 32 additional native entry ranges in 0.0.13; private comparisons, first-level visuals, normal build and Windows/Linux CI passed; user reports no issues in the focused Windows playtest |
-| Model primitives and game/menu control | 46 additional roots in 0.0.14; 10,316 private comparisons, 17 exact-frame checks, normal production/controller fixture and Windows/Linux CI passed; Windows player acceptance pending |
+| Model primitives and game/menu control | 46 additional roots in 0.0.14; 10,316 private comparisons, 17 exact-frame checks, normal production/controller fixture and Windows/Linux CI passed; user reports no issues in the focused Windows playtest |
 | Card-control/event polling | 20 additional native entry ranges; BIOS/serial protocol and file publication retain compatibility services; user reports no Windows saving/loading slowdowns in 0.0.12 |
 | Music and effects | Emulated SPU/CD path; no independent cue-driven player yet |
 | Opening movies | Native STR/XA service for three opening routes; user verified Windows playback and skipping |
@@ -155,5 +155,5 @@ complete-call comparisons. The two large model roots have additional constructed
 primitive/geometry cases. A candidate with an exception/return mismatch and 28
 without adequate evidence remain on fallback. This is the selected emitted-range
 inventory, not proof of every branch or an execution-time share. The final selection passed 10,316 private comparisons and 17 exact-frame
-checks. The normal production build/controller fixture and Windows/Linux CI passed. Windows 0.0.14 player
-acceptance remains pending its focused menu/first-level checks.
+checks. The normal production build/controller fixture and Windows/Linux CI passed. The user reports no issues in the focused Windows 0.0.14 playtest; no new
+level-9 campaign playthrough or exhaustive coverage is inferred.
