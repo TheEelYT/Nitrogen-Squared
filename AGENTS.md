@@ -148,3 +148,16 @@
   Keep the direct-launch issue open and use the Python launcher as the qualified
   route. No runtime change, VERSION bump, rebuild or repeat playtest is needed
   for this documentation-only acceptance note. Coverage stays 34.9538% / 65.0462%.
+
+- The user authorizes the next substantial native batch, with incremental code/data
+  mapping and no change to the existing linked-range metric. They prefer to defer
+  logic/render clock separation. For 0.0.17 they also explicitly request a Windows
+  repository release: extract a Nitrogen-Squared folder, launch launcher.exe,
+  select the user's CUE/BIN, automatically verify/import/generate/compile/play,
+  and handle updates. Every generated/extracted file and save must stay inside
+  that folder. Original disc inputs may remain at the user's selected location.
+  Bundle only the original bootstrap, reviewed source and permitted portable
+  Python. Download pinned preparation tools into .local on first setup; never
+  require a separate Python or Visual Studio installation. Updates must preserve
+  .local, verify package hashes/inventory and recover interrupted replacement.
+  No game-derived runtime or user disc files may enter the release.

@@ -36,6 +36,7 @@ def runtime_environment(work: Path, display_ring: bool = False, show_fps: bool =
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--work-dir", type=Path, default=ROOT / ".local/runtime-dev")
+    p.add_argument("--save-dir", type=Path, help="Private save folder (default: work-dir/saves)")
     p.add_argument("--renderer", choices=["software", "opengl"], default="opengl")
     p.add_argument("--render-worker", choices=["on", "off"],
                    help="OpenGL render worker (default: on; environment override honored)")
@@ -57,7 +58,7 @@ def main():
             raise ValueError("Use a debug port from 1024 through 65535")
         command = [record["executable"], "--game", record["config"], "--no-launcher",
                    "--renderer", args.renderer, "--debug-port", str(args.debug_port),
-                   "--memcard-dir", str(work / "saves")]
+                   "--memcard-dir", str(args.save_dir.resolve() if args.save_dir else work / "saves")]
         if args.headless:
             command.append("--headless")
         if args.display_ring and record.get("diagnostics_enabled") is False:

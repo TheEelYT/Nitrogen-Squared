@@ -1596,3 +1596,29 @@ tools/run_runtime.py for the qualified path. Coverage remains 295,648 / 845,824 
 files. Documentation changes were checked for expected replacements and the
 unchanged 128 KiB text-file bound. No new runtime tests, rebuild, repeat player
 test, reimport or new game files are needed for this acceptance record.
+
+## 0.0.17 portable-launcher and native-batch checkpoint — pending
+
+The existing saved disc upload was restored and fully reverified after the scratch
+workspace reset. No new user files were requested. A freshly rebuilt 0.0.16
+selection completes the 21-frame extended reference route through frame 12304.
+Private missed-dispatch metadata is retained for the next candidate discovery.
+The exploratory reference build uses O1; final diagnostic and production builds
+must restore and verify both Release flag sets as -O3 -DNDEBUG.
+
+The user additionally requests a portable Windows release with first-run disc
+selection, local preparation/play and updates. Original implementation now stages
+only an original Win32 bootstrap, the reviewed source allowlist and a clean portable
+CPython runtime. Preparation tools have pinned official download URLs and SHA-256
+checksums and are installed privately on first setup. Generated inputs, game builds
+and saves stay under the extracted folder's .local directory. Updates validate
+inventory and hashes, preserve private/unknown files, back up owned files and use
+a separate copied Python process for replacement and recovery after exit.
+
+All 62 local Python tests pass, including seventeen new original portable setup,
+ZIP/download, import and update cases. Failure injection verifies rollback restores
+the prior package and preserves private data. The source audit passes with 91
+original text files and the unchanged 128 KiB bound. No public game runtime is
+packaged. Windows extraction, GUI, bundled-toolchain/runtime CI and actual release
+publication remain pending. Native coverage remains the accepted 34.9538% at this
+checkpoint; preparation and mapping tools earn no native coverage credit.

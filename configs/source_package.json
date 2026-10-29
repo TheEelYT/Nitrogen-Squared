@@ -81,5 +81,13 @@
   "tools/qualification/selection.py",
   "tests/test_qualification.py",
   "tests/qualification_compare_smoke.cpp",
-  "tools/qualification/check.py"
+  "tools/qualification/check.py",
+  "configs/portable_tools.json",
+  "launcher/launcher_win.c",
+  "tools/portable_support.py",
+  "tools/portable_update.py",
+  "tools/portable_launcher.py",
+  "tools/package_windows.py",
+  "tests/test_portable.py",
+  ".github/workflows/windows-release.yml"
 ]
