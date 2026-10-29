@@ -313,7 +313,7 @@ def main():
             run(layout.command("ci_runtime_build.py","--framework",layout.framework,
                                "--work-dir",layout.local/"portable-runtime-fixture"),layout.root,env,backend)
         lock.close();return
-    for key,pattern in (("TCL_LIBRARY","tcl8*"),("TK_LIBRARY","tk8*")):
+    for key,pattern in (("TCL_LIBRARY","tcl8.*"),("TK_LIBRARY","tk8.*")):
         candidates=sorted((layout.python.parent/"tcl").glob(pattern))
         if len(candidates)!=1:raise RuntimeError("The bundled Tcl/Tk runtime is incomplete")
         os.environ[key]=str(candidates[0])
@@ -334,8 +334,16 @@ def main():
 if __name__=="__main__":
     try:main()
     except Exception as e:
-        if os.name=="nt":
+        if os.name=="nt" and not any(flag in sys.argv for flag in ("--self-test","--runtime-fixture","--bootstrap-tools")):
             import ctypes
             ctypes.windll.user32.MessageBoxW(None,str(e),"Nitrogen Squared",0x10)
-        else:print(str(e),file=sys.stderr)
+        else:
+            if "--root" in sys.argv:
+                try:
+                    root=Path(sys.argv[sys.argv.index("--root")+1]).resolve()
+                    error=beneath(root,".local/launcher-error.log")
+                    error.parent.mkdir(parents=True,exist_ok=True)
+                    error.write_text(str(e)+"\n",encoding="utf-8")
+                except Exception:pass
+            print(str(e),file=sys.stderr)
         raise SystemExit(1)
