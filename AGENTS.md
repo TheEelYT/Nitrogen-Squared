@@ -74,10 +74,12 @@
 - Documentation-only changes need no runtime VERSION bump, rebuild or player
   retest. Explain what was published and what testing, if any, is still needed.
 
-- The 0.0.15 branch contains a 260-root unqualified candidate (385 N2O roots,
-  provisional 35.8902% combined emitted bytes). A connection loss reset the
-  private workspace during qualification. Original helpers/configuration are
-  durable; regenerate private bodies and witnesses from the existing saved
-  input, then repeat live/replay/visual and normal-production qualification.
-  Do not promote or count candidate coverage as accepted solely from its build.
-  See the connection-loss checkpoint in docs/VALIDATION.md for observed limits.
+- The 0.0.15 branch has been narrowed from 260 candidates to 117 new roots
+  for final qualification (242 N2O roots expected). The restored private pool
+  route passed 1,104 comparisons and 17 pixel-identical captures. Owner
+  0x80039E50 has a reproducible register comparison mismatch; 0x80040D44 and
+  0x800440DC fail constructed GTE replay and remain unselected. Another 140
+  candidates lack sufficient evidence. Final reduced-selection live/replay,
+  normal-production and platform checks are still required before promotion.
+  The source checkpoint and original private upload survived the connection
+  loss; temporary captures and generated bodies had to be regenerated.

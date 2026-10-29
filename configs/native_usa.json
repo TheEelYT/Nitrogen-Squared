@@ -1262,78 +1262,6 @@
   },
   {
     "executable": "N2O.EXE",
-    "start": "0x80023948",
-    "size": 13032,
-    "entries": [
-      "0x80023948"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80026C30",
-    "size": 284,
-    "entries": [
-      "0x80026C30"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80026D4C",
-    "size": 248,
-    "entries": [
-      "0x80026D4C"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80026E44",
-    "size": 284,
-    "entries": [
-      "0x80026E44"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80026F60",
-    "size": 248,
-    "entries": [
-      "0x80026F60"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80027058",
-    "size": 284,
-    "entries": [
-      "0x80027058"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80027174",
-    "size": 248,
-    "entries": [
-      "0x80027174"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8002726C",
-    "size": 1740,
-    "entries": [
-      "0x8002726C"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
     "start": "0x80027938",
     "size": 536,
     "entries": [
@@ -1347,15 +1275,6 @@
     "size": 180,
     "entries": [
       "0x80027B50"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80027C04",
-    "size": 128,
-    "entries": [
-      "0x80027C04"
     ],
     "purpose": "Game update, object and presentation control"
   },
@@ -1379,28 +1298,10 @@
   },
   {
     "executable": "N2O.EXE",
-    "start": "0x80027E90",
-    "size": 80,
-    "entries": [
-      "0x80027E90"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
     "start": "0x80027EE0",
     "size": 448,
     "entries": [
       "0x80027EE0"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x800280A0",
-    "size": 76,
-    "entries": [
-      "0x800280A0"
     ],
     "purpose": "Game update, object and presentation control"
   },
@@ -1424,64 +1325,10 @@
   },
   {
     "executable": "N2O.EXE",
-    "start": "0x8002888C",
-    "size": 88,
-    "entries": [
-      "0x8002888C"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x800288E4",
-    "size": 228,
-    "entries": [
-      "0x800288E4"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x800289C8",
-    "size": 176,
-    "entries": [
-      "0x800289C8"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80028A78",
-    "size": 376,
-    "entries": [
-      "0x80028A78"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80028BF0",
-    "size": 1780,
-    "entries": [
-      "0x80028BF0"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
     "start": "0x800292E4",
     "size": 944,
     "entries": [
       "0x800292E4"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80029694",
-    "size": 176,
-    "entries": [
-      "0x80029694"
     ],
     "purpose": "Game update, object and presentation control"
   },
@@ -1505,15 +1352,6 @@
   },
   {
     "executable": "N2O.EXE",
-    "start": "0x8002A7C4",
-    "size": 656,
-    "entries": [
-      "0x8002A7C4"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
     "start": "0x8002AA54",
     "size": 1148,
     "entries": [
@@ -1527,15 +1365,6 @@
     "size": 1668,
     "entries": [
       "0x8002AED0"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8002B554",
-    "size": 600,
-    "entries": [
-      "0x8002B554"
     ],
     "purpose": "Game update, object and presentation control"
   },
@@ -1604,114 +1433,6 @@
   },
   {
     "executable": "N2O.EXE",
-    "start": "0x8002D568",
-    "size": 428,
-    "entries": [
-      "0x8002D568"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8002D714",
-    "size": 140,
-    "entries": [
-      "0x8002D714"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8002D7A0",
-    "size": 100,
-    "entries": [
-      "0x8002D7A0"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8002D804",
-    "size": 764,
-    "entries": [
-      "0x8002D804"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8002DB00",
-    "size": 336,
-    "entries": [
-      "0x8002DB00"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8002DC50",
-    "size": 300,
-    "entries": [
-      "0x8002DC50"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8002DD7C",
-    "size": 400,
-    "entries": [
-      "0x8002DD7C"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8002DF0C",
-    "size": 256,
-    "entries": [
-      "0x8002DF0C"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8002E00C",
-    "size": 420,
-    "entries": [
-      "0x8002E00C"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8002E1B0",
-    "size": 356,
-    "entries": [
-      "0x8002E1B0"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8002E314",
-    "size": 588,
-    "entries": [
-      "0x8002E314"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8002E560",
-    "size": 260,
-    "entries": [
-      "0x8002E560"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
     "start": "0x8002E664",
     "size": 56,
     "entries": [
@@ -1721,100 +1442,10 @@
   },
   {
     "executable": "N2O.EXE",
-    "start": "0x8002E69C",
-    "size": 432,
-    "entries": [
-      "0x8002E69C"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8002E84C",
-    "size": 772,
-    "entries": [
-      "0x8002E84C"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8002EB50",
-    "size": 308,
-    "entries": [
-      "0x8002EB50"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8002EC84",
-    "size": 528,
-    "entries": [
-      "0x8002EC84"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8002EE94",
-    "size": 260,
-    "entries": [
-      "0x8002EE94"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
     "start": "0x8002EF98",
     "size": 292,
     "entries": [
       "0x8002EF98"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8002F0BC",
-    "size": 488,
-    "entries": [
-      "0x8002F0BC"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8002F2A4",
-    "size": 596,
-    "entries": [
-      "0x8002F2A4"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8002F4F8",
-    "size": 384,
-    "entries": [
-      "0x8002F4F8"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8002F678",
-    "size": 392,
-    "entries": [
-      "0x8002F678"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8002F800",
-    "size": 68,
-    "entries": [
-      "0x8002F800"
     ],
     "purpose": "Game update, object and presentation control"
   },
@@ -1838,46 +1469,10 @@
   },
   {
     "executable": "N2O.EXE",
-    "start": "0x8002F9F4",
-    "size": 140,
-    "entries": [
-      "0x8002F9F4"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8002FA80",
-    "size": 1368,
-    "entries": [
-      "0x8002FA80"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8002FFD8",
-    "size": 304,
-    "entries": [
-      "0x8002FFD8"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
     "start": "0x80030108",
     "size": 3064,
     "entries": [
       "0x80030108"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80030D00",
-    "size": 32,
-    "entries": [
-      "0x80030D00"
     ],
     "purpose": "Game update, object and presentation control"
   },
@@ -1928,24 +1523,6 @@
   },
   {
     "executable": "N2O.EXE",
-    "start": "0x80030FB0",
-    "size": 360,
-    "entries": [
-      "0x80030FB0"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80031118",
-    "size": 204,
-    "entries": [
-      "0x80031118"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
     "start": "0x800311E4",
     "size": 296,
     "entries": [
@@ -1955,127 +1532,10 @@
   },
   {
     "executable": "N2O.EXE",
-    "start": "0x8003130C",
-    "size": 336,
-    "entries": [
-      "0x8003130C"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8003145C",
-    "size": 744,
-    "entries": [
-      "0x8003145C"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80031744",
-    "size": 396,
-    "entries": [
-      "0x80031744"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x800318D0",
-    "size": 308,
-    "entries": [
-      "0x800318D0"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80031A04",
-    "size": 308,
-    "entries": [
-      "0x80031A04"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80031B38",
-    "size": 24,
-    "entries": [
-      "0x80031B38"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80031B50",
-    "size": 168,
-    "entries": [
-      "0x80031B50"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80031BF8",
-    "size": 848,
-    "entries": [
-      "0x80031BF8"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80031F48",
-    "size": 96,
-    "entries": [
-      "0x80031F48"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80031FA8",
-    "size": 400,
-    "entries": [
-      "0x80031FA8"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80032138",
-    "size": 92,
-    "entries": [
-      "0x80032138"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80032194",
-    "size": 92,
-    "entries": [
-      "0x80032194"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
     "start": "0x800321F0",
     "size": 2052,
     "entries": [
       "0x800321F0"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x800329F4",
-    "size": 180,
-    "entries": [
-      "0x800329F4"
     ],
     "purpose": "Game update, object and presentation control"
   },
@@ -2108,46 +1568,10 @@
   },
   {
     "executable": "N2O.EXE",
-    "start": "0x80033144",
-    "size": 276,
-    "entries": [
-      "0x80033144"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80033258",
-    "size": 396,
-    "entries": [
-      "0x80033258"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
     "start": "0x800333E4",
     "size": 308,
     "entries": [
       "0x800333E4"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80033518",
-    "size": 104,
-    "entries": [
-      "0x80033518"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80033580",
-    "size": 136,
-    "entries": [
-      "0x80033580"
     ],
     "purpose": "Game update, object and presentation control"
   },
@@ -2207,64 +1631,10 @@
   },
   {
     "executable": "N2O.EXE",
-    "start": "0x80035050",
-    "size": 360,
-    "entries": [
-      "0x80035050"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x800351B8",
-    "size": 248,
-    "entries": [
-      "0x800351B8"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x800352B0",
-    "size": 244,
-    "entries": [
-      "0x800352B0"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
     "start": "0x800353A4",
     "size": 340,
     "entries": [
       "0x800353A4"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x800354F8",
-    "size": 180,
-    "entries": [
-      "0x800354F8"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x800355AC",
-    "size": 68,
-    "entries": [
-      "0x800355AC"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x800355F0",
-    "size": 332,
-    "entries": [
-      "0x800355F0"
     ],
     "purpose": "Game update, object and presentation control"
   },
@@ -2306,15 +1676,6 @@
   },
   {
     "executable": "N2O.EXE",
-    "start": "0x80036204",
-    "size": 9048,
-    "entries": [
-      "0x80036204"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
     "start": "0x8003855C",
     "size": 356,
     "entries": [
@@ -2337,51 +1698,6 @@
     "size": 404,
     "entries": [
       "0x80038EF8"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8003908C",
-    "size": 196,
-    "entries": [
-      "0x8003908C"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80039150",
-    "size": 264,
-    "entries": [
-      "0x80039150"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80039258",
-    "size": 432,
-    "entries": [
-      "0x80039258"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80039408",
-    "size": 416,
-    "entries": [
-      "0x80039408"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x800395A8",
-    "size": 580,
-    "entries": [
-      "0x800395A8"
     ],
     "purpose": "Game update, object and presentation control"
   },
@@ -2414,55 +1730,10 @@
   },
   {
     "executable": "N2O.EXE",
-    "start": "0x80039D94",
-    "size": 188,
-    "entries": [
-      "0x80039D94"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80039E50",
-    "size": 1752,
-    "entries": [
-      "0x80039E50"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8003A528",
-    "size": 3304,
-    "entries": [
-      "0x8003A528"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
     "start": "0x8003B210",
     "size": 1396,
     "entries": [
       "0x8003B210"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8003B784",
-    "size": 312,
-    "entries": [
-      "0x8003B784"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8003B8BC",
-    "size": 328,
-    "entries": [
-      "0x8003B8BC"
     ],
     "purpose": "Game update, object and presentation control"
   },
@@ -2513,15 +1784,6 @@
   },
   {
     "executable": "N2O.EXE",
-    "start": "0x8003BF18",
-    "size": 64,
-    "entries": [
-      "0x8003BF18"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
     "start": "0x8003BF58",
     "size": 1080,
     "entries": [
@@ -2540,91 +1802,10 @@
   },
   {
     "executable": "N2O.EXE",
-    "start": "0x8003C4D0",
-    "size": 116,
-    "entries": [
-      "0x8003C4D0"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
     "start": "0x8003C544",
     "size": 116,
     "entries": [
       "0x8003C544"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8003C5B8",
-    "size": 24,
-    "entries": [
-      "0x8003C5B8"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8003C5D0",
-    "size": 464,
-    "entries": [
-      "0x8003C5D0"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8003C7A0",
-    "size": 96,
-    "entries": [
-      "0x8003C7A0"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8003C800",
-    "size": 184,
-    "entries": [
-      "0x8003C800"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8003C8B8",
-    "size": 1092,
-    "entries": [
-      "0x8003C8B8"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8003CCFC",
-    "size": 260,
-    "entries": [
-      "0x8003CCFC"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8003CE00",
-    "size": 136,
-    "entries": [
-      "0x8003CE00"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8003CE88",
-    "size": 244,
-    "entries": [
-      "0x8003CE88"
     ],
     "purpose": "Game update, object and presentation control"
   },
@@ -2675,33 +1856,6 @@
   },
   {
     "executable": "N2O.EXE",
-    "start": "0x8003F498",
-    "size": 516,
-    "entries": [
-      "0x8003F498"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8003F69C",
-    "size": 80,
-    "entries": [
-      "0x8003F69C"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8003F6EC",
-    "size": 108,
-    "entries": [
-      "0x8003F6EC"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
     "start": "0x8003F758",
     "size": 292,
     "entries": [
@@ -2738,87 +1892,6 @@
   },
   {
     "executable": "N2O.EXE",
-    "start": "0x80040CA0",
-    "size": 164,
-    "entries": [
-      "0x80040CA0"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80040D44",
-    "size": 4756,
-    "entries": [
-      "0x80040D44"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80041FD8",
-    "size": 276,
-    "entries": [
-      "0x80041FD8"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x800420EC",
-    "size": 240,
-    "entries": [
-      "0x800420EC"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x800421DC",
-    "size": 1292,
-    "entries": [
-      "0x800421DC"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x800426E8",
-    "size": 2264,
-    "entries": [
-      "0x800426E8"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80042FC0",
-    "size": 4380,
-    "entries": [
-      "0x80042FC0"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x800440DC",
-    "size": 3640,
-    "entries": [
-      "0x800440DC"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80044F14",
-    "size": 576,
-    "entries": [
-      "0x80044F14"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
     "start": "0x80045154",
     "size": 192,
     "entries": [
@@ -2837,28 +1910,10 @@
   },
   {
     "executable": "N2O.EXE",
-    "start": "0x8004BB10",
-    "size": 212,
-    "entries": [
-      "0x8004BB10"
-    ],
-    "purpose": "Game service and resource control"
-  },
-  {
-    "executable": "N2O.EXE",
     "start": "0x8004BBE4",
     "size": 164,
     "entries": [
       "0x8004BBE4"
-    ],
-    "purpose": "Game service and resource control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8004BC88",
-    "size": 92,
-    "entries": [
-      "0x8004BC88"
     ],
     "purpose": "Game service and resource control"
   },
@@ -2900,33 +1955,6 @@
   },
   {
     "executable": "N2O.EXE",
-    "start": "0x8004C308",
-    "size": 212,
-    "entries": [
-      "0x8004C308"
-    ],
-    "purpose": "Game service and resource control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8004C3DC",
-    "size": 36,
-    "entries": [
-      "0x8004C3DC"
-    ],
-    "purpose": "Game service and resource control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8004C400",
-    "size": 36,
-    "entries": [
-      "0x8004C400"
-    ],
-    "purpose": "Game service and resource control"
-  },
-  {
-    "executable": "N2O.EXE",
     "start": "0x8004C424",
     "size": 188,
     "entries": [
@@ -2954,28 +1982,10 @@
   },
   {
     "executable": "N2O.EXE",
-    "start": "0x8004C528",
-    "size": 108,
-    "entries": [
-      "0x8004C528"
-    ],
-    "purpose": "Game service and resource control"
-  },
-  {
-    "executable": "N2O.EXE",
     "start": "0x8004C594",
     "size": 100,
     "entries": [
       "0x8004C594"
-    ],
-    "purpose": "Game service and resource control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8004C5F8",
-    "size": 180,
-    "entries": [
-      "0x8004C5F8"
     ],
     "purpose": "Game service and resource control"
   },
@@ -3012,33 +2022,6 @@
     "size": 48,
     "entries": [
       "0x8004C9A0"
-    ],
-    "purpose": "Game service and resource control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8004C9D0",
-    "size": 60,
-    "entries": [
-      "0x8004C9D0"
-    ],
-    "purpose": "Game service and resource control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8004CA0C",
-    "size": 248,
-    "entries": [
-      "0x8004CA0C"
-    ],
-    "purpose": "Game service and resource control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8004CB04",
-    "size": 112,
-    "entries": [
-      "0x8004CB04"
     ],
     "purpose": "Game service and resource control"
   },
@@ -3152,28 +2135,10 @@
   },
   {
     "executable": "N2O.EXE",
-    "start": "0x8004D328",
-    "size": 92,
-    "entries": [
-      "0x8004D328"
-    ],
-    "purpose": "Game service and resource control"
-  },
-  {
-    "executable": "N2O.EXE",
     "start": "0x8004D384",
     "size": 936,
     "entries": [
       "0x8004D384"
-    ],
-    "purpose": "Game service and resource control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8004D72C",
-    "size": 676,
-    "entries": [
-      "0x8004D72C"
     ],
     "purpose": "Game service and resource control"
   },
@@ -3203,257 +2168,5 @@
       "0x8004DE38"
     ],
     "purpose": "Game service and resource control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x800600E4",
-    "size": 56,
-    "entries": [
-      "0x800600E4"
-    ],
-    "purpose": "Object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x800618BC",
-    "size": 252,
-    "entries": [
-      "0x800618BC"
-    ],
-    "purpose": "Object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x800619B8",
-    "size": 664,
-    "entries": [
-      "0x800619B8"
-    ],
-    "purpose": "Object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x800624FC",
-    "size": 1324,
-    "entries": [
-      "0x800624FC"
-    ],
-    "purpose": "Object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80062D48",
-    "size": 308,
-    "entries": [
-      "0x80062D48"
-    ],
-    "purpose": "Object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80062E7C",
-    "size": 432,
-    "entries": [
-      "0x80062E7C"
-    ],
-    "purpose": "Object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8006302C",
-    "size": 120,
-    "entries": [
-      "0x8006302C"
-    ],
-    "purpose": "Object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x800630A4",
-    "size": 112,
-    "entries": [
-      "0x800630A4"
-    ],
-    "purpose": "Object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80063188",
-    "size": 60,
-    "entries": [
-      "0x80063188"
-    ],
-    "purpose": "Object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x800631C4",
-    "size": 84,
-    "entries": [
-      "0x800631C4"
-    ],
-    "purpose": "Object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80063218",
-    "size": 2556,
-    "entries": [
-      "0x80063218"
-    ],
-    "purpose": "Object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80063C98",
-    "size": 64,
-    "entries": [
-      "0x80063C98"
-    ],
-    "purpose": "Object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80063D58",
-    "size": 160,
-    "entries": [
-      "0x80063D58"
-    ],
-    "purpose": "Object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80063DF8",
-    "size": 96,
-    "entries": [
-      "0x80063DF8"
-    ],
-    "purpose": "Object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80063E58",
-    "size": 1744,
-    "entries": [
-      "0x80063E58"
-    ],
-    "purpose": "Object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80064528",
-    "size": 104,
-    "entries": [
-      "0x80064528"
-    ],
-    "purpose": "Object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80064590",
-    "size": 188,
-    "entries": [
-      "0x80064590"
-    ],
-    "purpose": "Object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8006464C",
-    "size": 196,
-    "entries": [
-      "0x8006464C"
-    ],
-    "purpose": "Object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80064710",
-    "size": 216,
-    "entries": [
-      "0x80064710"
-    ],
-    "purpose": "Object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x800647E8",
-    "size": 148,
-    "entries": [
-      "0x800647E8"
-    ],
-    "purpose": "Object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80064A50",
-    "size": 1600,
-    "entries": [
-      "0x80064A50"
-    ],
-    "purpose": "Object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80065090",
-    "size": 772,
-    "entries": [
-      "0x80065090"
-    ],
-    "purpose": "Object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80066520",
-    "size": 316,
-    "entries": [
-      "0x80066520"
-    ],
-    "purpose": "Object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x800666C8",
-    "size": 280,
-    "entries": [
-      "0x800666C8"
-    ],
-    "purpose": "Object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x800667E0",
-    "size": 888,
-    "entries": [
-      "0x800667E0"
-    ],
-    "purpose": "Object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80066B58",
-    "size": 2420,
-    "entries": [
-      "0x80066B58"
-    ],
-    "purpose": "Object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x800674CC",
-    "size": 168,
-    "entries": [
-      "0x800674CC"
-    ],
-    "purpose": "Object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8006D4E8",
-    "size": 320,
-    "entries": [
-      "0x8006D4E8"
-    ],
-    "purpose": "Object and menu presentation control"
   }
 ]

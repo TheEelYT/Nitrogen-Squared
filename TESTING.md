@@ -2,16 +2,17 @@
 
 ## Current acceptance and update checks
 
-**0.0.15 development candidate — qualification pending:** 260 additional roots
-are being evaluated for game updates, object/presentation control, model dispatch
-and resource/service control. Input bands total 171,952 bytes; they are not yet
-qualified linked coverage. Candidate generation/build, CPU/RAM/GTE comparisons,
-matching-frame checks and final normal/platform checks must complete before
-promotion. No player rebuild or test is requested at this checkpoint.
+**0.0.15 final selection — qualification pending:** 117 additional roots are
+selected for game updates, object/presentation control, model dispatch and
+resource/service control. They total 78,396 input bytes. Initial live comparisons
+and exact-frame checks passed for a larger pool, then GTE replay narrowed it.
+The rebuilt 117-root selection still requires final diagnostic/replay, normal
+production and platform checks. No player rebuild or test is requested yet.
 
-The new reusable qualification tools are original source with no game payloads.
-Their captures and generated bodies remain private. These tools alone do not
-change the accepted baseline's 17.6098% linked / 82.3902% outside coverage.
+Three mismatch owners and 140 other candidates without sufficient evidence
+remain unselected. The reusable tools contain original source only; all game
+bodies, guards, witnesses and captures remain private. The accepted main runtime
+is still 0.0.14 at 17.6098% linked / 82.3902% outside.
 
 **0.0.14 — focused Windows playtest accepted:** the user reports no issues
 noticed. This accepts the tested route without implying a new level-9 campaign

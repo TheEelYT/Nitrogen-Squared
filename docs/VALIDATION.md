@@ -1205,3 +1205,45 @@ Source/runtime CI passed at c69f65774753d0992156aa4efa493b64c2db4421 and
 badc5d4c0e4959ef110c27991da50204edfeb47d before the latest comparator budget,
 parser and controller-output-path fixes. Those fixes require renewed checks.
 All generated bodies, witnesses, captures and disc bytes remain private.
+
+### Restored candidate route and reduced 117-root selection
+
+Restoration reverified the saved private upload and pinned framework. All 40
+source tests and the 79-file source-package audit pass. The new 0.0.14-selection
+reference route completed all 17 captures through frame 6303; the images were
+inspected for movies, menus, first-level gameplay, firing/movement and pause.
+The restored Linux build uses the same SDL release-3.4.10 source checkout after
+the pinned release-asset transfer returned HTTP 503. Framework tracked files
+remain unchanged. Source CI 40823404948 and runtime CI 40823404926 both passed
+Windows/Linux matrices at 90710bac76745be1bafda8c666f34cd9d1557933.
+
+The restored 260-root pool stopped at frame 1679 after 227 comparisons with
+one failure. Entry 0x8003A30C belongs to owner 0x80039E50. Native/reference
+PCs agreed at 0x8003A4E8 and RAM/scratchpad agreed, but registers differed.
+Exact captured-input replay reproduced the mismatch. The owner is excluded;
+no emitter-versus-checker root cause is claimed. A stale extra private generated
+translation unit caused one reduced rebuild to fail with duplicate symbols.
+Removing that extra unit, reconfiguring and repeating the normal build wrapper
+produced a valid receipt. The final reduction regenerates into a fresh private
+source directory to avoid stale parts. No generated files are published.
+
+The remaining 259-root pool completed through frame 6304 with 1,104 comparisons,
+zero failures and 445 observed PCs. All 17 decoded scanouts were pixel-identical
+to the new reference. Direct entries of 119 new owners were observed. The other
+140 unseen owners and the first mismatch owner are not credited as qualified.
+
+The complete isolated pool replay evaluated all 445 witnesses. Nine PCs in two
+additional owners (0x80040D44 and 0x800440DC) failed the zero-GTE-data variant:
+GTE data register 31 differed (native zero, reference 32), with matching PC,
+RAM and scratchpad. These constructed states are not claimed to be exhaustive
+or necessarily reachable gameplay states; the owners are conservatively excluded.
+The other 436 witness inputs passed all 25 variants in that pool; these are
+exploration counts, not final reduced-selection qualification. The replay helper
+now has an optional --keep-going mode to collect isolated failures, while still
+exiting unsuccessfully if any fail.
+
+The final candidate retains 117 new owners: 86 game/object/presentation-control
+roots, two model-dispatch roots and 29 resource/service-control roots, totaling
+78,396 input bytes. All have direct live-root evidence, subject to final binding
+revalidation. The accepted main runtime remains 0.0.14. Final 0.0.15 reduced
+coverage, comparisons, replay, normal-production and checkpoint CI are pending.

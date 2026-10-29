@@ -42,7 +42,9 @@ inspect the input and control flow before changing the bound or selection.
 Each first observed selected PC writes a private same-build raw CPU/RAM/scratchpad
 witness. Never commit these files. They are intentionally not portable across
 framework/ABI/platform changes. `replay.py` repeats each selected witness with
-25 original input/GTE variants. A mismatch stops qualification; do not count an
+25 original input/GTE variants. `--keep-going` collects isolated failures across
+the pool but still exits unsuccessfully if any fail. A mismatch stops
+qualification for the affected owner; do not count an
 unobserved or failed owner merely because generation succeeded. Constructed
 complete-call cases may supplement live evidence but must document their inputs
 and limits separately.
