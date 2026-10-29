@@ -22,8 +22,11 @@ jobs:
       - name: Package original launcher and portable Python only
         run: |
           python -m unittest discover -s tests -p test_portable.py -v
+          if ($LASTEXITCODE -ne 0) { throw 'Portable unit tests failed' }
           python tools/package_source.py --check-tracked --output dist/Nitrogen-Squared-source.zip
+          if ($LASTEXITCODE -ne 0) { throw 'Source package audit failed' }
           python tools/package_windows.py
+          if ($LASTEXITCODE -ne 0) { throw 'Windows package construction failed' }
       - name: Test extracted launcher and first-run interface
         shell: pwsh
         run: |
@@ -54,6 +57,12 @@ jobs:
           $expected = (Get-Content dist/Nitrogen-Squared-Windows-x64.zip.sha256).Split(' ')[0]
           $actual = (Get-FileHash dist/Nitrogen-Squared-Windows-x64.zip -Algorithm SHA256).Hash.ToLowerInvariant()
           if ($actual -ne $expected) { throw 'Release archive changed during testing' }
+      - name: Exercise an actual copied-process update and restart
+        shell: pwsh
+        run: |
+          $app = $env:NITROGEN_PORTABLE_SMOKE_ROOT
+          & python tools/test_portable_update_windows.py --root "$app"
+          if ($LASTEXITCODE -ne 0) { throw 'Portable updater integration failed' }
       - uses: actions/upload-artifact@v4
         with:
           name: portable-windows-x64

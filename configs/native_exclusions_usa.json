@@ -1,0 +1,140 @@
+[
+  {
+    "executable": "N2O.EXE",
+    "start": "0x80042FC0",
+    "size": 4380,
+    "reason": "Unqualified owner after bounded live or captured-state comparison in 0.0.16; exclude its whole input band"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x80072168",
+    "size": 240,
+    "reason": "Unqualified owner after bounded live or captured-state comparison in 0.0.16; exclude its whole input band"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x80072258",
+    "size": 1072,
+    "reason": "Unqualified owner after bounded live or captured-state comparison in 0.0.16; exclude its whole input band"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x80075C8C",
+    "size": 32,
+    "reason": "Unqualified owner after bounded live or captured-state comparison in 0.0.16; exclude its whole input band"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x80075CAC",
+    "size": 32,
+    "reason": "Unqualified owner after bounded live or captured-state comparison in 0.0.16; exclude its whole input band"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x80075CCC",
+    "size": 32,
+    "reason": "Unqualified owner after bounded live or captured-state comparison in 0.0.16; exclude its whole input band"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x80076CEC",
+    "size": 1372,
+    "reason": "Unqualified owner after bounded live or captured-state comparison in 0.0.16; exclude its whole input band"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x8007817C",
+    "size": 256,
+    "reason": "Unqualified owner after bounded live or captured-state comparison in 0.0.16; exclude its whole input band"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x80079C3C",
+    "size": 804,
+    "reason": "Unqualified owner after bounded live or captured-state comparison in 0.0.16; exclude its whole input band"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x8007CDF4",
+    "size": 1976,
+    "reason": "Unqualified owner after bounded live or captured-state comparison in 0.0.16; exclude its whole input band"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x8007DE2C",
+    "size": 128,
+    "reason": "Unqualified owner after bounded live or captured-state comparison in 0.0.16; exclude its whole input band"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x800273B8",
+    "size": 240,
+    "reason": "Unqualified owner after bounded live or captured-state comparison in 0.0.16; exclude its whole input band"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x800274A8",
+    "size": 1072,
+    "reason": "Unqualified owner after bounded live or captured-state comparison in 0.0.16; exclude its whole input band"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x8002813C",
+    "size": 804,
+    "reason": "Unqualified owner after bounded live or captured-state comparison in 0.0.16; exclude its whole input band"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x800293D8",
+    "size": 148,
+    "reason": "Unqualified owner after bounded live or captured-state comparison in 0.0.16; exclude its whole input band"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x8002A44C",
+    "size": 1372,
+    "reason": "Unqualified owner after bounded live or captured-state comparison in 0.0.16; exclude its whole input band"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x8002B8DC",
+    "size": 256,
+    "reason": "Unqualified owner after bounded live or captured-state comparison in 0.0.16; exclude its whole input band"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x8002DDE4",
+    "size": 3900,
+    "reason": "Unqualified owner after bounded live or captured-state comparison in 0.0.16; exclude its whole input band"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x8002EE1C",
+    "size": 128,
+    "reason": "Unqualified owner after bounded live or captured-state comparison in 0.0.16; exclude its whole input band"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x80039E50",
+    "size": 1752,
+    "reason": "Unqualified owner after live or constructed-state mismatch in 0.0.15"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x80040D44",
+    "size": 4756,
+    "reason": "Unqualified owner after live or constructed-state mismatch in 0.0.15"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x800440DC",
+    "size": 3640,
+    "reason": "Unqualified owner after live or constructed-state mismatch in 0.0.15"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x8004EB48",
+    "size": 712,
+    "reason": "Constructed exception/return mismatch in 0.0.14"
+  }
+]

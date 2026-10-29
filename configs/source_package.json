@@ -89,5 +89,9 @@
   "tools/portable_launcher.py",
   "tools/package_windows.py",
   "tests/test_portable.py",
-  ".github/workflows/windows-release.yml"
+  ".github/workflows/windows-release.yml",
+  "tools/test_portable_update_windows.py",
+  "tools/code_inventory.py",
+  "tests/test_code_inventory.py",
+  "configs/native_exclusions_usa.json"
 ]

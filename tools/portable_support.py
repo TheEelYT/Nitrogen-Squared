@@ -68,7 +68,7 @@ def extract_zip(archive: Path, destination: Path, *, strip_root: bool = False):
     with zipfile.ZipFile(archive) as z:
         members, seen, roots, total = [], set(), set(), 0
         for info in z.infolist():
-            name = info.filename.rstrip("/") if info.is_dir() else info.filename
+            name = info.orig_filename.rstrip("/") if info.is_dir() else info.orig_filename
             name = relative_path(name)
             if stat.S_IFMT(info.external_attr >> 16) not in (0, stat.S_IFREG, stat.S_IFDIR):
                 raise ValueError("Archive contains a link or special file")
@@ -167,7 +167,7 @@ class Layout:
         env.update(CC="x86_64-w64-mingw32-clang.exe",
                    CXX="x86_64-w64-mingw32-clang++.exe",
                    CMAKE_GENERATOR="Ninja", CMAKE_BUILD_PARALLEL_LEVEL="2",
-                   CXXFLAGS="-include cstdlib",
+                   CXXFLAGS="-include cstdlib -include exception",
                    PSX_SDL3_SOURCE_DIR=str(self.local/"SDL3-source"),
                    PYTHONNOUSERSITE="1", PYTHONDONTWRITEBYTECODE="1")
         temp = beneath(self.root, ".local/tmp")

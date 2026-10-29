@@ -1622,3 +1622,22 @@ original text files and the unchanged 128 KiB bound. No public game runtime is
 packaged. Windows extraction, GUI, bundled-toolchain/runtime CI and actual release
 publication remain pending. Native coverage remains the accepted 34.9538% at this
 checkpoint; preparation and mapping tools earn no native coverage credit.
+
+The next checkpoint adds an evidence-labelled private code/data inventory and
+whole-owner exclusions recovered from the prior public address/size metadata.
+Static code and printable-data hints remain tentative, conflicts stay explicit,
+and unclassified bytes remain unknown. No code-only percentage is introduced.
+Six original inventory tests raise the local total to 68 passing source tests.
+The source allowlist now has 95 original text files. A 259-identity private O1
+candidate pool (including one expanded existing owner) is under live qualification;
+no added native coverage is accepted yet.
+
+Windows CI successfully stages the original bootstrap/portable Python, extracts
+it to a path containing spaces and starts the actual first-run Tk interface.
+Portable-tool testing then exposes missing standard-header declarations in
+upstream vendored C++ under the pinned LLVM/MinGW compiler. The portable build
+supplies cstdlib/exception through compiler flags; the framework checkout remains
+unmodified. Windows tests also normalize 8.3 path aliases and validate original
+ZIP member names before Python's platform-specific normalization. Package workflow
+steps explicitly stop on native-command failure. Real bundled-runtime compilation,
+copied-process updater integration and final release publication remain pending.

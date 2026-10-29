@@ -27,6 +27,8 @@ def main():
     p.add_argument("--timeout", type=float, default=600,
                    help="Bounded wall-clock budget for the frame-based route, in seconds")
     p.add_argument("--help-prompts", action="store_true")
+    p.add_argument("--alternate-ship", action="store_true", help="Select another ship with ordinary D-pad input")
+    p.add_argument("--alternate-difficulty", action="store_true", help="Change difficulty with ordinary D-pad input")
     p.add_argument("--extended", action="store_true", help="Extend ordinary controller play and scanouts through frame 12300")
     args = p.parse_args()
     if not 0 < args.timeout <= 1800:
@@ -75,7 +77,12 @@ def main():
             request("input_route_clear")
             for n in range(6):
                 request("input_route_append", buttons=0xEFFF if n == 4 and not args.help_prompts else 0xBFFF, frames=20)
-                request("input_route_append", buttons=0xFFFF, frames=180)
+                if (n == 1 and args.alternate_ship) or (n == 2 and args.alternate_difficulty):
+                    request("input_route_append", buttons=0xFFFF, frames=40)
+                    request("input_route_append", buttons=0xFFDF, frames=20)
+                    request("input_route_append", buttons=0xFFFF, frames=120)
+                else:
+                    request("input_route_append", buttons=0xFFFF, frames=180)
             for buttons, frames in [(0xBFFF,240),(0xBFDF,180),(0xBF7F,180),(0xBFFF,400),
                                     (0xBFFF,200),(0xFFF7,20),(0xFFFF,180),(0xFFF7,20),(0xFFFF,180),
                                     (0xBFDF,400),(0xBF7F,500),(0xBFFF,600)]:

@@ -107,8 +107,11 @@ def stage_release(layout: Layout, release, progress=print):
     download(release["url"],archive,digest,progress)
     staging=beneath(layout.root,".local/updates/package-"+release["version"]+"-"+digest[:16])
     if staging.exists():
-        verified=verify_package(staging/"Nitrogen-Squared")
-    else:
+        try:
+            verified=verify_package(staging/"Nitrogen-Squared")
+        except (OSError,ValueError):
+            os.replace(staging,staging.with_name(staging.name+".incomplete-"+str(time.time_ns())))
+    if not staging.exists():
         extract_zip(archive,staging)
         if {p.name for p in staging.iterdir()}!={"Nitrogen-Squared"}:
             raise ValueError("Expected a Nitrogen-Squared package folder")
@@ -187,7 +190,7 @@ def apply_update(layout: Layout, staged: Path):
         raise
 
 
-def start_updater(layout: Layout, staged: Path | None, launcher_pid: int):
+def start_updater(layout: Layout, staged: Path | None, launcher_pid: int, *, restart_report: Path | None = None):
     runner=beneath(layout.root,".local/updates/runner-"+str(time.time_ns()))
     shutil.copytree(layout.python.parent,runner/"python")
     scripts=runner/"scripts"
@@ -198,6 +201,9 @@ def start_updater(layout: Layout, staged: Path | None, launcher_pid: int):
     if launcher_pid:
         command += ["--wait-pid",str(launcher_pid)]
     command += ["--stage",str(staged)] if staged else ["--rollback"]
+    if restart_report:
+        restart_report.resolve().relative_to(layout.local.resolve())
+        command += ["--restart-report",str(restart_report)]
     with (layout.local/"update.log").open("w",encoding="utf-8") as log:
         subprocess.Popen(command,cwd=runner,stdout=log,stderr=subprocess.STDOUT,
                          creationflags=subprocess.CREATE_NO_WINDOW if os.name=="nt" else 0)
@@ -231,6 +237,7 @@ def main():
     p.add_argument("--stage",type=Path)
     p.add_argument("--rollback",action="store_true")
     p.add_argument("--wait-pid",type=int,action="append",default=[])
+    p.add_argument("--restart-report",type=Path)
     args=p.parse_args()
     wait_for_processes(args.wait_pid)
     layout=Layout(args.root)
@@ -240,7 +247,11 @@ def main():
         apply_update(layout,args.stage)
     else:
         raise ValueError("No update action selected")
-    subprocess.Popen([str(layout.root/"launcher.exe")],cwd=layout.root)
+    command=[str(layout.root/"launcher.exe")]
+    if args.restart_report:
+        args.restart_report.resolve().relative_to(layout.local.resolve())
+        command += ["--self-test","--report",str(args.restart_report)]
+    subprocess.Popen(command,cwd=layout.root)
 
 
 if __name__=="__main__":

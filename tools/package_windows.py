@@ -69,7 +69,7 @@ def stage(output: Path):
         audit_staging(app,set(files))
         copy_python(Path(sys.base_prefix),root/"support/python")
         # Only this original bootstrap is compiled into the public launcher.
-        subprocess.run(["cl","/nologo","/O2","/MT","/W4","/DUNICODE","/D_UNICODE",
+        subprocess.run(["cl","/nologo","/O2","/MT","/W4",
                         str(ROOT/"launcher/launcher_win.c"),"/Fe:"+str(root/"launcher.exe"),
                         "/Fo:"+str(Path(temporary)/"launcher.obj"),"/link","/SUBSYSTEM:WINDOWS",
                         "/MANIFEST:EMBED","user32.lib"],check=True,cwd=temporary)
