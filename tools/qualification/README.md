@@ -111,3 +111,17 @@ options so captured-input replay cannot inherit a pool's forced fallbacks.
 captures 21 frames, including later first-level and post-level UI when reached
 by the deterministic route. Pair it with an identically driven preserved
 reference binary. It does not require personal saves or a new campaign report.
+
+
+The optional --alternate-ship and --alternate-difficulty flags add ordinary D-pad
+input to the initial route while keeping its frame schedule. Preserve a reference
+with the exact same options. A flag is an input choice, not proof that every menu
+selection took effect; inspect the captures. Distinguish identities reached live
+in the final reduced binding from entries qualified only with retained private
+captured inputs. Replay those inputs again with the final O3 binary, no keep-going,
+collection, preblocks or miss tracing, and report the two evidence sets separately.
+
+Use tools/code_inventory.py with source-hash-labelled private analyzer JSON and
+optional miss traces to keep code/data hints alongside each batch. Its candidate
+metadata is not qualification evidence. Retain whole failed input bands from
+configs/native_exclusions_usa.json and keep all generated code and captures private.

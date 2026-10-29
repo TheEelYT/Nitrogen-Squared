@@ -2,54 +2,79 @@
 
 This is an explicit project requirement, including derived game code.
 
-Allowed in source: original tools/runtime code, original documentation, disc
-identity hashes, track metadata, addresses, configuration and original test fixtures.
+Allowed in source: original tools/runtime code, documentation, identity hashes,
+track metadata, addresses, configuration and original synthetic test fixtures.
+The Windows release additionally contains an original Win32 launcher executable
+and a clean CPython distribution with its upstream licenses.
 
-Excluded: disc images/CUE sheets, extracted executables, asset/audio files, generated
-game C/disassembly, generated game native modules, captured RAM/overlay bytes, save
-files, and Sony BIOS data. Never package a developer's private installation/cache.
-No assets from the uploaded disc may be used for repository branding or setup art.
+Excluded: disc images/CUE sheets, extracted executables, asset/audio files,
+generated game C/disassembly/guards, compiled game modules, captured RAM/overlay
+bytes, saves and Sony BIOS data. Never package a developer's private installation,
+build or cache. No uploaded-disc assets may be used for branding or setup art.
 
-## Player flow
+## Windows player flow — 0.0.17
 
-1. Launch a package containing only original runtime/setup code and permitted
-   third-party tools. There is no prepared game data or game-specific native module.
-2. Select a complete, supported local CUE/BIN image.
-3. Verify disc layout, full image hash, boot identity and executable hashes.
-4. Prepare required inputs and generate/compile game code into a separate private
-   user-data directory. Read original assets/music from the player's disc.
-5. Reuse the private cache on later launches; invalidate it when disc identity,
-   translation configuration, target architecture or runtime ABI changes.
+1. Extract the complete Nitrogen-Squared folder and run launcher.exe.
+2. Select the supported local CUE/BIN. CUE is preferred because it identifies the
+   data and audio tracks; a BIN selection requires its unique matching CUE beside it.
+3. Verify the layout, full image hash, boot identity and extracted executable hashes.
+4. Download pinned preparation tools privately, fetch the pinned framework and
+   dependencies, generate and compile the player's game, then start play.
+5. Reuse that build on later launches. Rebuild after a version/tool change or a
+   folder move; preserve the previous incompatible build cache and existing saves.
 
-Steps 2–3 and local input extraction are implemented in this first milestone.
-Generation currently exists as a separate developer command. Automated native
-module compilation, ABI integration and gameplay startup remain to be implemented.
+No separate Python or Visual Studio installation is required. First preparation
+and updates need internet access. All downloaded/extracted/generated files,
+builds, logs, update backups and saves stay beneath the extracted folder's .local
+directory. The original selected CUE/BIN stays at its selected path and remains
+needed for original assets/audio and verification. The launcher does not write to
+that disc input or use the legacy developer import's user-data directory.
 
-## Windows and Vita implications
+The launcher calls the existing verified Python build/play paths with explicit
+private directories, compiler, Python, save path and launch environment. This
+provides native-movie disc access even though the player starts launcher.exe.
+Running the generated game executable alone is still a separate developer path.
+The runtime remains dependent on the pinned framework and compatibility services.
 
-Windows needs bundled, licensed preparation/compiler tools or a download/install
-path that is explicit to the player. The end product should not require the player
-to install Visual Studio. The investigation build still requires developer tools.
+## Updates and recovery
 
-For Vita, investigate desktop preparation/cross-compilation of the player's private
-game modules and transfer to the console. The distributed VPK must remain free of
-those modules. Loading target-specific modules, code signing/package constraints,
-and compatibility are open engineering work; do not assume a Windows DLL can be
-copied to Vita. On-device preparation is not promised.
+The launcher checks this repository's latest stable release, verifies the ZIP
+checksum and exact file manifest, and stages it under .local. Package ownership
+is restricted to launcher.exe, reviewed app source, portable Python and package
+metadata. Private .local data and unknown files are preserved. A collision with
+an unknown file is refused instead of overwriting it.
 
-The game runtime must not treat the presence of an import manifest as proof it can
-play. `runtime_ready` stays false until a validated runtime is actually integrated.
+A copied Python updater waits for the old launcher/Python to exit before replacing
+owned files. It backs up the previous package, journals replacement, rolls back
+on failure and restarts the launcher. Interrupted replacement offers restoration
+on the next launch. The private game is rebuilt if required; saves live separately
+at .local/saves. Tests cover failure rollback and a real Windows copied-process
+replacement/restart with save/cache sentinels. The first real newer public release
+will provide an additional player-side update check.
 
-## Enforcement
+## Package enforcement
 
-`.gitignore` is a convenience; `tools/package_source.py` is the source release gate.
-It reads an explicit allowlist, validates every file, rejects binary/game-format
-extensions and recognizable renamed executable/emitter content, and can reject
-unknown files in a staging directory. CI also rejects tracked files outside that
-allowlist. This is a guard against accidental inclusion, not a proof about arbitrary
-obfuscated content. Review every allowlist change.
+The source gate, tools/package_source.py, uses a reviewed 95-file text allowlist
+and an unchanged 128 KiB per-file limit. CI rejects tracked files outside it and
+recognizable binary/game/emitter content. This guards against accidental inclusion;
+it is not a claim about arbitrary obfuscation. Review every allowlist change.
 
-Future binary packaging needs its own exact manifest. It must distinguish original
-runtime/tool executables from user-derived game code and reject the latter even
-when embedded into an otherwise original executable. Do not use the upstream
-default of committing generated game C or shipping developer-built overlay caches.
+The Windows packager compiles only launcher/launcher_win.c into the public EXE,
+copies reviewed source and a clean CPython runtime, writes a size/SHA-256 manifest,
+and reextracts/audits the finished ZIP. It never traverses a private .local tree
+or links any game/runtime output into the public launcher. Package CI tests an
+extracted copy with synthetic inputs after the release ZIP has been finalized,
+then checks that its checksum has not changed. Private fixture output is not repacked.
+
+Main-branch publication waits for package integration and source plus Windows/Linux
+runtime workflows to pass. It uploads all three assets into an unpublished draft
+before publishing, and preserves already public version assets. Release assets
+are the Windows ZIP, its SHA-256 file and the source ZIP. Source and third-party
+notices remain available in the extracted app directory.
+
+## Vita
+
+Vita preparation, target modules, signing/package constraints and runtime portability
+remain open engineering work. The future VPK must remain free of game-derived
+modules and assets. A Windows executable cannot simply be copied to Vita, and
+on-device compilation is not promised. See ROADMAP.md.

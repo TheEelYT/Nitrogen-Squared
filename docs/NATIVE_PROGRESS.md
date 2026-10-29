@@ -1,38 +1,40 @@
 # Native translation progress
 
-The 0.0.16 normal build verifies **34.9538% linked native translation coverage**
-against the combined payload sizes of the three selected USA game executables.
-Its counts and selected source/range hashes match the qualified O3 diagnostic build.
-
-The complementary **65.0462% (550,176 bytes)** is outside those linked ranges.
-This is not a measured interpreter-execution percentage: payload data and
-separately tracked native services prevent that interpretation.
+The 0.0.17 normal build verifies **35.4660% linked native translation coverage**
+against the combined payloads of the three selected USA game executables.
+The complementary **64.5340% (545,844 bytes)** is outside linked ranges.
+Payload data and separate native services make this different from interpreter
+execution time or overall project completion.
 
 | Executable | Linked native range bytes | Payload bytes | Coverage |
 | --- | ---: | ---: | ---: |
 | SLUS_006.37 (boot loader) | 17,908 | 53,248 | 33.6313% |
-| N2O.EXE | 274,800 | 458,752 | 59.9016% |
-| NEW.EXE | 2,940 | 333,824 | 0.8807% |
-| Combined | 295,648 | 845,824 | 34.9538% |
+| N2O.EXE | 275,620 | 458,752 | 60.0804% |
+| NEW.EXE | 6,452 | 333,824 | 1.9328% |
+| Combined | 299,980 | 845,824 | 35.4660% |
 
-This metric counts the union of emitted native code ranges actually linked into
-the private runtime. The boot loader has 86 linked generated functions. The game
-inventory has 546 N2O roots with 10,144 aliases and 44 NEW roots with 87 aliases;
-aliases receive no extra byte/function credit. The 348 additions contribute
-75,672 emitted bytes from 119,332 input bytes over 0.0.15, about 1.34 times its
-combined linked share. They include 236 call-target roots and 112 observed
-indirect/continuation boundaries, not 348 newly identified complete functions.
-Full analysis C, BIOS, interpreter, renderer, audio backend and desktop menu do
-not count.
+This counts the union of emitted native ranges actually linked into the private
+runtime. Boot retains 86 linked generated functions. The selected game inventory
+has 562 N2O roots with 10,183 continuation aliases and 114 NEW roots with 156
+aliases. Aliases earn no extra byte/function credit. The 0.0.17 batch adds 86 roots
+and expands one existing owner, contributing 4,332 new emitted bytes over 0.0.16.
+These small library/indirect fragments are not 86 newly identified complete
+functions. BIOS, host services and analysis-only C do not count.
 
-The denominator includes embedded data, which has not yet been fully separated
-from instructions. Therefore this is **not a project-completion percentage**, a
-confirmed-function conversion percentage, or a scene-weighted native instruction
-percentage. The two main executable translations are not linked wholesale;
-current playability relies heavily on the interpreter. A future instruction/data map and
-execution measurements will refine the metric rather than silently change its
-meaning. Overlapping addresses in the two main executables remain separate
-identities, never deduplicated by RAM address alone.
+The denominator includes embedded data. Current playability still relies on the
+interpreter and compatibility services; two main executable translations are not
+linked wholesale. Overlapping images retain separate code identities.
+
+The new tools/code_inventory.py incrementally maps verified private inputs into
+linked translations, tentative static-code hints, data hints, conflicting hints
+and unclassified bytes. Analyzer input must name the verified source SHA-256;
+short observed prefixes remain discovery hints, not code identity or proof.
+Unknown bytes remain unknown. Exclusions preserve failed owners' whole input
+spans, and new fragments must not evade them. Mapping does not create a code-only
+denominator, qualify an entry or change the existing range metric. Inventory
+output contains addresses/sizes/hashes, not instruction words or recovered strings,
+and stays private under .local. Further code/data separation continues alongside
+qualification batches.
 
 Reproduce after a successful build:
 
@@ -60,6 +62,8 @@ pre-0.0.7 receipt by rebuilding first.
 | Model primitives and game/menu control | 46 additional roots in 0.0.14; 10,316 private comparisons, 17 exact-frame checks, normal production/controller fixture and Windows/Linux CI passed; user reports no issues in the focused Windows playtest |
 | Game/object updates and resource control | 117 additional native roots in 0.0.15; final diagnostic/replay, 17 exact-frame checks, normal/controller fixture and Windows/Linux CI passed; user reports no issues in the focused Windows playtest |
 | Game/library and indirect entries | 348 additional entry roots in 0.0.16; strict O3 comparison/replay, 21 exact frames, normal controller and Windows/Linux CI passed; user reports no issues on the Python-launched Windows route; direct-launch intro stutter remains open |
+| Library/indirect fragments | 86 new roots and one expanded owner in 0.0.17; bounded final O3 comparisons/replays and matching-frame checks; see VALIDATION.md for scope |
+| Portable preparation and updates | Original host launcher; disc selection, local compilation/play and package updates; no native game-byte credit |
 | Card-control/event polling | 20 additional native entry ranges; BIOS/serial protocol and file publication retain compatibility services; user reports no Windows saving/loading slowdowns in 0.0.12 |
 | Music and effects | Emulated SPU/CD path; no independent cue-driven player yet |
 | Opening movies | Native STR/XA service for three opening routes; user verified Windows playback and skipping |
@@ -205,3 +209,14 @@ collection. Final qualification runs without collection, preblocks or miss traci
 No diagnostic interposition remains in the normal player. Private generated code,
 full guards, instruction words, witnesses, snapshots, captures and media stay out
 of Git and releases. Bounded comparisons do not prove every branch or campaign.
+
+
+## 0.0.17 portable release and incremental inventory
+
+Linked coverage rises from 295,648 to 299,980 / 845,824 bytes (34.9538% to
+35.4660%). N2O adds 820 emitted bytes and NEW 3,512; boot is unchanged. The
+Windows launcher and code/data tooling receive no game-translation credit.
+Strict final evidence, replay-only entries, normal production parity and pending
+Windows real-disc/player acceptance are recorded in VALIDATION.md and TESTING.md.
+PS1 packets/GTE, guest SPU/CD audio and BIOS/card services remain in use. Clock
+separation is deferred; no unlocked-framerate or measured CPU-share claim is made.

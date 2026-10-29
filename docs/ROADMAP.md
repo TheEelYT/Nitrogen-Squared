@@ -48,6 +48,25 @@ Windows 0.0.16 reported route is accepted with no issues noticed through the
 Python launcher. Direct-launch intro stutter remains open; prior player reports
 retain their version scope.
 
+## 0.0.17 portable release and code/data mapping
+
+The Windows release now supplies an original launcher, portable Python and reviewed
+supporting source. Players select a CUE/BIN; pinned tools prepare and compile the
+private game inside the extracted folder. Updates preserve private files and saves.
+A Windows CI fixture exercises actual package startup, bundled compiler/runtime
+integration on synthetic inputs, and a copied-process update/restart. The first
+real-disc Windows preparation/player check is tracked separately in TESTING.md.
+
+The next native increment adds 86 entry roots and expands one existing owner:
+4,332 new linked bytes, 299,980 / 845,824 = 35.4660%, with 64.5340% outside.
+This is a smaller native increment alongside the release work, not a doubling.
+Code/data mapping now preserves linked, tentative static/data, conflicting and
+unknown ranges separately. Continue that mapping during each conversion batch,
+without retroactively treating unknown bytes as data or changing the denominator.
+The pinned framework is still required. Logic/render clock separation remains
+later work at the user's preference; nominal 100% linkage alone would not replace
+compatibility services or separate data from code.
+
 ## 1. Loaded-code identity and native game slices — underway
 
 The [first slice](NATIVE_GAME_SLICES.md) uses per-entry resident code identity and

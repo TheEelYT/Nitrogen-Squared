@@ -161,3 +161,40 @@
   require a separate Python or Visual Studio installation. Updates must preserve
   .local, verify package hashes/inventory and recover interrupted replacement.
   No game-derived runtime or user disc files may enter the release.
+
+- Version 0.0.17 selects 86 new entry roots and expands one existing owner,
+  adding 4,332 emitted bytes. Final O3 diagnostic and normal reports agree on
+  299,980 / 845,824 = 35.4660% linked, 64.5340% outside. N2O has 562 roots and
+  10,183 aliases; NEW has 114 roots and 156 aliases. All 87 changed guarded
+  identities were observed (86 direct, one continuation-only); final strict
+  qualification passed 462 live plus 4,700 fail-fast replay comparisons and
+  42 exact frames across two routes. Normal production hashes match, hooks are
+  absent, both Release flags are -O3 -DNDEBUG, and the three-movie/analog/fire/
+  pause/quit fixture passed. Sixty-nine source tests and the 95-file audit pass.
+  These fragments are not 86 newly identified complete functions. Preserve the
+  45 whole-owner exclusions; new boot and NEW movie-control callers stay fallback.
+- Incremental code/data inventory now labels linked, static/data hints, conflicts
+  and unknown bytes separately against verified source identities. Continue it
+  with each batch. Hints cannot qualify entries or change the coverage denominator.
+  Preserve source record order, qualified identities and the reference path.
+  Logic/render clock separation remains deferred at the user's preference.
+- The user explicitly authorizes a 0.0.17 repository release and standing main
+  promotion. Public ZIP: Nitrogen-Squared/launcher.exe, reviewed app source and
+  clean portable Python only. Pinned tools/framework download privately; CUE
+  selection verifies/imports/generates/compiles/plays automatically. Every tool,
+  extracted/generated file, cache, build, log, update backup and save stays under
+  that folder's .local; original disc remains at its selected path. Portable saves
+  use .local/saves, separate from the legacy developer .local/runtime-dev/saves.
+  Updates validate manifests/checksums, preserve private/unknown files, back up and
+  roll back owned replacements, and restart via a copied updater after old
+  processes exit. Actual Windows startup, isolated bundled compiler/runtime and
+  copied-update/restart preservation tests pass. Real-disc Windows first setup
+  and the short 0.0.17 player route remain pending; no new upload, repeat campaign
+  or deliberate save overwrite is requested. The public launcher supplies the
+  verified-disc environment; raw private game EXE launch is still a separate path.
+
+- Final 0.0.17 code at 5ace72d09c51d72f43de5f1eb6e2a6b4b1d45427 passes source
+  workflow 40960407083, Windows/Linux runtime/renderer workflow 40960407040 and
+  portable package/update workflow 40960406995. Final documentation records
+  these receipts. Main publication repeats the complete gated workflow set;
+  preserve public version assets and verify the published ZIP/source inventory.

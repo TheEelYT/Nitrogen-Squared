@@ -3,58 +3,73 @@
 A Windows-first recompilation project for **N2O: Nitrous Oxide (PlayStation)**,
 with a planned PS Vita port and optional remaster presentation.
 
-**Current status: 0.0.16, expanded game/library native entries.**
-348 additional entry roots add 75,672 linked native bytes. The final O3 selection
-passed 18,633 private segment comparisons (1,458 live and 17,175 isolated replay) and 21 pixel-identical frames through
-first-level completion and bonus/shop screens. The normal player/controller
-fixture, 45 source tests, 83-file source audit and Windows/Linux CI passed.
-The user reports no issues noticed on the Windows 0.0.16 route launched through
-Python. Direct EXE launch has a separately reported intro-stutter issue; see
-[TESTING.md](TESTING.md).
-The user reported no issues with 0.0.15. Earlier 0.0.11 level-9 gameplay and
-0.0.12 save/load acceptance retain their tested version scope.
+**Current status: 0.0.17 — portable Windows launcher and further native entries.**
+The Windows release includes `launcher.exe`, the supporting source and portable
+Python. First launch selects your CUE sheet and automatically verifies, extracts,
+generates, compiles and starts your private game. The launcher also checks for
+updates. No separate Python or Visual Studio installation is needed.
 
-Normal launch requests the OpenGL render worker with one closed frame of lookahead.
-System/Debug and analog input remain available. Native cutscene audio runs
-independently of rendering. Gameplay sound production follows the guest clock;
-native sound cues and unlocked presentation remain future work.
+## Play on Windows
 
-There is no public game executable or Vita VPK. The hybrid runtime uses native
-boot/BIOS code, selected native game routines and interpreter fallback. Players
-build privately from their verified local game input.
+1. Download [Nitrogen-Squared-Windows-x64.zip](https://github.com/TheEelYT/Nitrogen-Squared/releases/download/v0.0.17/Nitrogen-Squared-Windows-x64.zip)
+   from the [0.0.17 release](https://github.com/TheEelYT/Nitrogen-Squared/releases/tag/v0.0.17).
+2. Extract the complete **Nitrogen-Squared** folder somewhere you can write to,
+   then run **launcher.exe**. Windows 10/11 x64 is supported.
+3. Select your supported USA **CUE** sheet, keeping its matching BIN beside it.
+   A BIN selection works only when its matching CUE can be found beside it.
+4. Let first preparation finish. Internet access is needed to download pinned
+   tools and dependencies; compilation can take several minutes. Later launches
+   reuse the prepared game. Keep your original disc files available.
 
-## Native progress — 0.0.16
+Everything downloaded, extracted or generated, including saves, stays under
+`Nitrogen-Squared/.local`. The original selected disc stays at its existing path.
+Use **Check for updates** in the launcher; updates preserve `.local` and rebuild
+the private game when needed. Keep the whole folder together. Moving it causes a
+fresh build cache to be prepared while retaining saves. Do not delete `.local` to
+update. Portable saves are in `.local/saves`; developer-build saves remain in their
+existing location unless copied deliberately.
+
+The public executable is the original launcher. The game executable is generated
+privately from the player's verified input and must not be redistributed. No Vita
+VPK is available. The runtime retains native boot/BIOS, selected native game
+routines and interpreter fallback, with the pinned PSXRecomp framework still in use.
+
+## Native progress — 0.0.17
 
 | Selected executable payloads | Bytes | Share |
 | --- | ---: | ---: |
-| Covered by linked native translations | 295,648 | **34.9538%** |
-| Outside linked native translation ranges | 550,176 | **65.0462%** |
+| Covered by linked native translations | 299,980 | **35.4660%** |
+| Outside linked native translation ranges | 545,844 | **64.5340%** |
 | Total | 845,824 | 100.00% |
 
+This batch adds 86 entry roots and expands one existing owner, adding 4,332 linked
+bytes over 0.0.16. These include library fragments and indirect entries, not 86
+newly identified complete functions. N2O.EXE contributes 275,620 bytes (60.0804%)
+and NEW.EXE 6,452 bytes (1.9328%); boot is unchanged. The selected game inventory
+has 562 N2O roots, 114 NEW roots and 10,339 continuation aliases. Aliases receive
+no extra byte credit. Failed or insufficiently observed candidates remain on
+fallback. Results and bounded qualification scope are in [validation](docs/VALIDATION.md)
+and the [focused testing instructions](TESTING.md).
+
+Final O3 qualification passed 5,162 comparisons with zero mismatches and 42
+matching captures. Normal-production hashes/coverage and the movie/controller/
+pause/quit fixture passed, along with 69 source tests, the 95-file source audit,
+Windows/Linux CI and Windows package/update integration.
+
 These are executable-range measurements, not overall completion or native CPU
-time. Payloads include embedded data. The update raises combined coverage from
-26.0073% to 34.9538%, about 1.34 times the previous share. N2O.EXE contributes
-274,800 bytes (59.9016%) and NEW.EXE 2,940 bytes (0.8807%); boot is unchanged.
-The selected game inventory has 546 N2O roots and 44 NEW roots, with 10,231
-continuation aliases. Aliases and analysis-only outputs receive no extra credit.
-Normal-production counts and selected source/range hashes match qualification.
+time. Payloads include embedded data. A new private code/data inventory records
+linked translations, tentative static-code/data hints, conflicts and unknown
+ranges separately; it does not invent a code-only denominator or change this
+metric. The launcher and mapping tools add no native byte credit.
 
-Native services are tracked separately: desktop presentation and controller
-input use host implementations, and **3 of 3 opening movie routes** use native
-playback. Game routines still submit PS1 drawing packets and use GTE, guest
-SPU/CD audio and BIOS/card compatibility services.
-
-The additions comprise 236 call-target roots and 112 observed indirect or
-continuation boundaries; they are not 348 newly identified complete functions.
-All 348 guarded code identities were observed, 347 directly and one through a
-continuation. Final checks cover 687 captured identity/PC pairs and 25 replay
-variants at each. Failed or insufficiently observed candidates remain on fallback,
-including NEW movie-control callers that bypass the call-site movie override.
-These bounded checks do not establish every branch, input or later campaign behavior.
-All emitted bodies, instruction guards, witnesses and captures remain private.
-Results and player status are recorded in the [native slices](docs/NATIVE_GAME_SLICES.md),
-[metric](docs/NATIVE_PROGRESS.md), [validation](docs/VALIDATION.md) and
-[focused testing instructions](TESTING.md).
+Desktop presentation and controller input use host implementations, and **3 of 3
+opening movie routes** use native playback. The launcher supplies the verified disc
+and the same runtime settings as the Python launch path. Game routines still use
+PS1 drawing packets/GTE, guest SPU/CD audio and BIOS/card compatibility services.
+Normal launch requests the bounded OpenGL render worker. Native movie audio has
+its own timeline; gameplay audio and simulation/render clock separation remain
+future work. The user's 0.0.16 Python-launched route was accepted; the new Windows
+first-disc preparation/player check is tracked separately in TESTING.md.
 
 ## Bring your own game
 
@@ -68,7 +83,7 @@ The current verifier accepts one verified merged BIN/CUE layout, with one data
 track and ten audio tracks. A different dump layout is rejected until separately
 verified; that does not mean the user's disc is bad. Extract ZIPs before import.
 
-## Try the importer
+## Developer importer
 
 Requires Python 3.10 or later. It uses the standard library; no pip dependencies.
 On Windows, the Python installer includes Tk for the initial setup interface.
@@ -125,8 +140,7 @@ source dependencies on the first build. Keep the original CUE/BIN in place.
 
 **Do not upload or redistribute that executable:** it contains game code generated
 from your own disc. The public source package still contains no game inputs,
-generated game C, compiled game modules, captures, or assets. A toolchain-free
-first-run compilation package remains future work.
+generated game C, compiled game modules, captures, or assets. The portable release above automates this private build using downloaded tools.
 
 See [Windows testing steps](TESTING.md). The current baseline uses original 4:3
 presentation; remaster features follow gameplay validation. Vita remains planned.

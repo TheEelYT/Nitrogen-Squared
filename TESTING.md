@@ -1,6 +1,50 @@
-# Windows development test — 0.0.16
+# Windows release and development test — 0.0.17
 
 ## Current acceptance and update checks
+
+**0.0.17 — portable launcher and native fragment batch; focused Windows player check pending.**
+The public Windows ZIP now contains a Nitrogen-Squared folder with launcher.exe,
+portable Python and reviewed supporting source. CUE selection verifies the user's
+complete disc, then privately downloads tools, extracts/generates/compiles and
+launches the game. No separate Python or Visual Studio installation is needed.
+Updates use a copied process, verify package hashes/inventory, back up owned files
+and preserve .local, including saves and the private game cache.
+
+The native batch adds 86 entry roots and expands one existing owner: +4,332 linked
+bytes, **35.4660% linked / 64.5340% outside** (299,980 / 845,824). This measures
+executable ranges, not project completion or native CPU time. The incremental
+code/data inventory labels hints and unknowns without changing that denominator.
+Final O3 qualification passed 5,162 comparisons with zero mismatches and 42
+matching captures; normal production coverage/hashes and the movie/controller/
+pause/quit fixture passed. All 69 source tests, the 95-file audit, Windows/Linux CI and Windows package/update
+integration pass.
+Automated results and limits are recorded in docs/VALIDATION.md.
+
+Focused Windows release checks:
+
+1. Extract the complete release folder to a writable location. Run launcher.exe,
+   choose the supported USA CUE with its matching BIN beside it and let preparation
+   finish. Check that all preparation files are inside the extracted folder.
+2. Let the opening movies play; confirm **[Native video]**, normal audio/video
+   playback and return to the title. The launcher supplies the verified-disc
+   environment that direct execution of the private game EXE lacked.
+3. Navigate menus/ship selection, play a short first-level session with analog
+   movement and firing, then pause/resume and quit normally.
+4. Reopen the launcher and use Check for updates. An unchanged release should
+   report that it is current. A real newer-release update will be checked when
+   one exists; CI separately tests replacement, restart and save preservation.
+
+This first Windows real-disc preparation check is pending. Windows CI has tested
+actual launcher startup, bundled-toolchain/runtime compilation on original
+synthetic inputs, and copied-process update/restart. That does not substitute for
+the pending real-disc Windows check or establish physical audio quality.
+No repeated campaign, new upload or deliberate save overwrite is requested.
+Preserve existing saves; the release uses .local/saves. To bring developer saves
+across, close both versions and copy valued files from .local/runtime-dev/saves
+into the release's .local/saves without overwriting another valued save.
+
+The developer instructions below remain available for source builds; the release
+launcher does not require them. Prior acceptance retains its tested version scope.
 
 **0.0.16 — automated checks passed; reported Windows player route accepted.**
 The user reports no issues noticed and that everything looks the same as before
@@ -438,7 +482,7 @@ python tools/native_progress.py
 The report counts only native ranges linked into the build, excluding generated
 analysis-only translations and host/BIOS code. Its payload denominator includes
 embedded data, so it is not an estimate of overall project completion.
-The default 0.0.13 ENHANCED build should report **8.6306%** linked and **91.3694%**
+The default 0.0.17 ENHANCED build should report **35.4660%** linked and **64.5340%**
 outside linked ranges. Its normal clean-shutdown log also prints
 `nitrogen: native game slice: dispatches=... residency_rejections=...`.
 After first-level gameplay the dispatch count should be positive. This is an

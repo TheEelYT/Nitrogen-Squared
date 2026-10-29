@@ -252,3 +252,28 @@ collection. Final qualification runs without collection, preblocks or miss traci
 No diagnostic interposition remains in the normal player. Private generated code,
 full guards, instruction words, witnesses, snapshots, captures and media stay out
 of Git and releases. Bounded comparisons do not prove every branch or campaign.
+
+## 0.0.17 library fragments and incremental code/data inventory
+
+The final selection adds 16 N2O and 70 NEW roots and expands N2O 0x800752F8,
+retaining all earlier bindings. There are now 562 N2O roots with 10,183 aliases
+and 114 NEW roots with 156 aliases. The emitted union adds 820 N2O and 3,512 NEW
+bytes: 299,980 / 845,824 = **35.4660% linked**, **64.5340% outside**. Boot is
+unchanged. These are entry fragments, not 86 newly identified complete functions.
+
+Strict final O3 default/alternate routes pass 462 live comparisons and 42 exact
+frames against identically driven preserved references through frame 12300.
+All 87 changed identities were observed, 86 at owner entry and one through a
+continuation. Final fail-fast replay passes 4,700 comparisons from 188 captured
+inputs at 99 distinct identity/PC pairs: 5,162 total, zero mismatches. Failed,
+unobserved and new boot hypotheses remain excluded; NEW movie-control callers
+retain fallback. This bounded evidence does not establish every input or branch.
+
+The new private inventory separates linked translations, tentative static/data
+hints, conflicts and unclassified bytes while preserving source identities and
+whole failed input bands. No code-only denominator or extra translation credit
+is inferred from hints. Future batches continue this work incrementally. The
+portable release supplies original setup/play/update code; generated native C,
+guards, game executables, captures, saves and media remain private under .local.
+See VALIDATION.md for normal-build and platform receipts and TESTING.md for the
+pending focused Windows real-disc/player check.

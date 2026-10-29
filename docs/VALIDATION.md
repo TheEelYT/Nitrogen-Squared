@@ -1641,3 +1641,135 @@ unmodified. Windows tests also normalize 8.3 path aliases and validate original
 ZIP member names before Python's platform-specific normalization. Package workflow
 steps explicitly stop on native-command failure. Real bundled-runtime compilation,
 copied-process updater integration and final release publication remain pending.
+
+## 0.0.17 final native selection and portable release
+
+The final reduced selection supersedes the exploratory checkpoints above. It adds
+86 entry roots (16 N2O, 70 NEW) and expands the existing N2O 0x800752F8 input band
+to 316 bytes. These are qualified library/indirect fragments, not 86 newly
+identified complete functions. The selection contains 675 input bands and 676
+roots: 562 N2O and 114 NEW. Boot remains unchanged. Whole-input exclusions now
+record 45 previously failed/unqualified owners, including N2O 0x80027058/112,
+0x80078374/52 and NEW 0x80027184/52, 0x800271F4/16. No instruction bytes are in
+those public address/size records. NEW movie-control callers stay on fallback.
+New boot candidates are held pending their own comparison contract; budgets and
+pinned dispatch semantics were not changed to admit them.
+
+Fresh strict final O3 qualification runs with no exploratory collection, preblocks
+or miss tracing. Both C and C++ Release flag sets are -O3 -DNDEBUG. Two extended
+ordinary-input routes use preserved 0.0.16-selection references driven identically:
+
+| Final route | Live comparisons | Captured identity/PC inputs | Exact frames |
+| --- | ---: | ---: | ---: |
+| Default | 226 | 89 | 21 |
+| Alternate controller choices | 236 | 99 | 21 |
+| Total | 462 | 188 | 42 |
+
+All 87 changed guarded identities were observed: 86 directly at owner entry and
+NEW 0x80027204 through its selected continuation. The routes reach frame 12301
+and 12302. Each decoded RGB capture is pixel-identical to its preserved reference,
+including later first-level and post-level screens. Alternate ship selection is
+visible in the reference captures; a difficulty-input flag is not evidence that
+the difficulty selection actually changed.
+
+Fresh fail-fast isolated replay uses the final O3 binary, with no --keep-going:
+89 default and 99 alternate captured inputs, 25 original GTE boundary variants
+each, yielding 2,225 + 2,475 = 4,700 passing comparisons. Across both corpora there
+are 99 distinct guarded identity/PC pairs; 188 is the number of captured route
+inputs, not unique PCs. Final live plus replay evidence totals **5,162 comparisons,
+zero mismatches**. The earlier larger-pool failures and exploratory replays receive
+no final comparison credit. Register, RAM, scratchpad and GTE checks remain
+bounded cycle-neutral comparisons, not exhaustive host/device-effect or campaign
+proof. All witnesses, guard words, derived C and captures remain private.
+
+The resulting linked emitted union is **299,980 / 845,824 = 35.4660%**, with
+**545,844 bytes / 64.5340%** outside linked ranges; +4,332 bytes over 0.0.16.
+N2O: 275,620 / 458,752 = 60.0804%, 562 roots, 10,183 continuation aliases.
+NEW: 6,452 / 333,824 = 1.9328%, 114 roots, 156 continuation aliases.
+Boot: unchanged 17,908 / 53,248 = 33.6313%, 86 generated functions.
+Aliases earn no extra byte credit. Payload data remains in the denominator;
+these numbers are neither CPU shares nor overall completion percentages.
+
+The incremental private code/data inventory verifies original executable hashes
+and linked receipts, then records linked translations, static-code hints, data
+hints, conflicts and unclassified bytes separately. Static hypotheses and printable
+strings are not proof; unknown bytes stay unknown. Optional short execution-prefix
+matches are discovery hints and cannot substitute for guarded identity or caller
+qualification. No code-only denominator is introduced. Six synthetic inventory
+tests cover partitioning, overlapping image identities and whole-owner exclusions.
+
+Portable Windows automation is separately verified. Portable-package workflow
+40957324816 at 8cfda434b3e9439202e1b5ec27b7d548368f91c1 successfully extracted
+the finalized public ZIP into a path containing spaces, started the actual Win32
+launcher and first-run Tk window, then used only its bundled Python and privately
+downloaded pinned tools to compile/exercise the actual runtime on original synthetic
+inputs. Inherited developer SDK/compiler/Python paths were removed. Upstream
+vendored missing C++ declarations were handled with portable compiler include
+flags, leaving the framework checkout unmodified. Windows integration also copied
+the updater, replaced a staged test version, restarted the actual Win32 launcher,
+read its new-version report and verified private save/cache sentinels unchanged.
+The finalized ZIP hash was unchanged after testing; fixture output was never
+repacked. That preliminary artifact is not the final public release asset.
+
+The source package contains 95 reviewed original text files with the unchanged
+128 KiB bound; all 69 local Python tests pass. The public launcher is compiled
+only from original launcher/launcher_win.c and includes no game/runtime objects.
+Its ZIP bundles reviewed source plus clean CPython/Tcl/Tk and retained licenses.
+Tools/framework/dependencies are fetched privately on first setup. All downloaded,
+extracted and generated files, logs, builds, backups and saves stay inside .local;
+the original selected disc remains at its existing location. Update manifests and
+checksums are verified; unknown/private files are preserved, replacement is
+journalled/backed up and rollback/recovery is tested. A copied updater waits for
+old launcher/Python processes to exit before replacing them. Publication is gated
+on package, source and Windows/Linux runtime checks, stages complete draft assets,
+and preserves an already public version's assets.
+
+The launcher invokes the verified Python play path with the native-disc environment,
+OpenGL and bounded render-worker settings. This addresses missing setup when the
+player starts the public launcher.exe. Running the generated private game EXE alone
+remains a separate path. A real-disc first-preparation/player check on Windows is
+pending, distinct from the successful synthetic Windows toolchain/package tests
+and private Linux game qualification. The focused TESTING.md route requires no new
+upload, repeated campaign or deliberate save overwrite. Physical audio quality and
+sustained Windows FPS are not established by dummy/offscreen fixtures. Existing
+0.0.16 acceptance and earlier campaign/save reports retain their version scope.
+
+The final normal receipt produces this disjoint, evidence-labelled inventory:
+
+| Payload | Linked | Static-code hint | Data hint | Conflict | Unclassified |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| N2O.EXE | 275,620 | 93,836 | 15,679 | 0 | 73,617 |
+| NEW.EXE | 6,452 | 37,368 | 184,128 | 0 | 105,876 |
+| Boot | 17,908 | 0 | 677 | 0 | 34,663 |
+
+Each row sums to that image's payload. Zero conflicts only describes these
+particular hints; it is not evidence of a complete or unambiguous map. Boot has
+no static analyzer input here. Printable-string hints do not establish all data,
+and static-code hints do not establish all instructions. None is added to linked
+coverage or used to remove data from the existing denominator.
+
+Normal production coverage and all selected generated-file/source/range hashes
+match the final qualified manifest exactly. The cache has diagnostics OFF, an
+empty qualification include and both Release flag sets -O3 -DNDEBUG; the player
+link contains no qualification objects or --wrap interposition. Its execution
+identity is c972fa0ff77c20dbd01b1b33cff695f68f6111209eaefd11d3ee10efc447da2e.
+
+The separate original controller fixture links production objects without changing
+the player executable. All three native openings completed, analog/fire samples
+were type=1/buttons=BFFF with left-X=217 and 38 at frames 3300/3500, Start pause/
+resume input completed, and SDL_QUIT exited cleanly at frame 4500. The two private
+PPM captures at frames 3000/4000 were inspected: gameplay, ship, tunnel, enemies,
+HUD and score progression are visible. NORMAL_SMOKE_PASS was recorded. Shutdown
+reported 3,391,306 dispatches and 298,815 residency rejections. Rejections count
+declined variant probes and do not imply that each whole dispatch fell back.
+These counters are not CPU/instruction shares, and dummy audio is not an audio-
+quality or sustained-FPS measurement.
+
+Final-code portable workflow 40960406995 at
+5ace72d09c51d72f43de5f1eb6e2a6b4b1d45427 passed again, including extracted Win32/Tk
+startup, the isolated bundled compiler/runtime fixture and PORTABLE_SELF_UPDATE_PASS
+with actual restart/new-version loading and preserved private cache/saves. Source
+workflow 40960407083 and runtime/renderer workflow 40960407040 passed both
+Windows and Linux at that same final-code commit. The final publication changes
+documentation only; main publication independently repeats and gates on the
+complete workflow set before making the release public.

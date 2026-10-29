@@ -8,10 +8,10 @@ That is a material condition for any future runtime distribution/commercial use;
 the project's original MIT-licensed tools do not remove it. The foundation remains
 under evaluation, including its suitability for the eventual release model.
 
-The source package does not vendor or redistribute that checkout. The optional
-developer bootstrap downloads it separately into `.local/`. Its upstream license
+The source package does not vendor or redistribute that checkout. The developer bootstrap and portable launcher download it separately into `.local/`. Its upstream license
 and dependency notices govern that code; this project's MIT license does not
-relicense it. A binary release must first audit and include the applicable notices.
+relicense it. The public launcher does not include framework objects or a generated game runtime.
+Privately fetched code retains its upstream license and notices.
 
 The upstream framework supports PCSX-Redux OpenBIOS, an independently written
 BIOS implementation. A Sony BIOS is not required by the current analysis tools.
@@ -42,5 +42,26 @@ The sector assembler, bit reader, XA decoder and player are original integration
 code. The isolated MDEC DSP includes the pinned framework implementation privately
 at build time, under its separate terms. No FFmpeg executable or library is needed
 at runtime. Future binary distribution must satisfy applicable LGPL notice,
-source/relinking requirements and the framework license. This project currently
-distributes source only.
+source/relinking requirements and the framework license. The public portable package includes these preferred modifiable sources under
+app/, with the full LGPL license. Its launcher executable does not link this decoder
+or the game runtime; those are compiled privately after disc verification.
+
+
+## Portable Windows Python and preparation tools
+
+The Windows ZIP includes official 64-bit CPython 3.13, its standard library and
+Tcl/Tk support. CPython is distributed under its PSF license and included component
+terms; see support/python/LICENSE.txt and the retained upstream Tcl/Tk notices.
+The package includes no pip packages. The original launcher uses Windows system
+APIs and statically linked MSVC runtime support; it does not embed game code.
+
+First preparation downloads these tools into .local/tools rather than shipping
+them in the release ZIP: LLVM-MinGW, MinGit, CMake and Ninja. Exact official release
+URLs, sizes and SHA-256 pins are in configs/portable_tools.json. Their upstream
+license/notice files are retained in the extracted private distributions. LLVM-MinGW
+includes LLVM/Clang, mingw-w64 and runtime libraries with their respective terms;
+MinGit includes Git and its bundled dependencies; CMake and Ninja retain their
+upstream licenses. This project's MIT license does not relicense any component.
+SDL3, Dear ImGui and the pinned PSXRecomp checkout are likewise fetched privately
+for the build, with their source notices retained. No Sony BIOS or prepared game
+module is distributed in the public ZIP.
