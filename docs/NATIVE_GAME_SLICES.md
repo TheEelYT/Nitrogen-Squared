@@ -223,3 +223,31 @@ The normal production build/controller fixture and Windows/Linux CI passed;
 the user reports no issues in the focused Windows 0.0.15 playtest.
 PS1 rendering/GTE, guest sound and BIOS/card compatibility services
 remain separate from this native-game range inventory.
+
+## 0.0.16 game/library and observed indirect entries
+
+The reduced binding adds 348 entry roots: 236 original call-target roots and 112
+observed indirect/continuation boundaries. These are not 348 newly identified
+complete functions. All 348 guarded code identities were observed: 347 direct
+owner entries and one continuation-only entry. The final game inventory contains
+546 N2O roots and 44 NEW roots with 10,231 continuation aliases. Input bands total
+119,332 bytes; the emitted union adds 75,672 bytes. Combined normal coverage is
+295,648 / 845,824 = **34.9538%**, with **65.0462%** outside. N2O itself reaches
+59.9016%; this must not be presented as combined coverage or overall completion.
+
+Final O3 qualification passed 18,633 private segment comparisons (1,458 live and 17,175 isolated replay) at 687 identity/PC
+pairs, with 21 pixel-identical frames through first-level completion and bonus/shop.
+Both C and C++ Release flags are -O3 -DNDEBUG. Normal-production source/range hashes
+and coverage match; its three native openings, analog/fire and clean-quit fixture
+passed, as did source audits and Windows/Linux CI. Focused Windows 0.0.16 player
+acceptance remains pending. Earlier failed owners and their complete input spans
+remain excluded. NEW additions are conservative CPU/RAM leaf paths; CPS movie
+control callers remain interpreted to preserve the existing native movie override.
+The pinned framework and production dispatch semantics are unchanged.
+
+The original diagnostic selector now distinguishes guarded code identities at
+shared PCs, records identity/PC witnesses and supports bounded exploratory failure
+collection. Final qualification runs without collection, preblocks or miss tracing.
+No diagnostic interposition remains in the normal player. Private generated code,
+full guards, instruction words, witnesses, snapshots, captures and media stay out
+of Git and releases. Bounded comparisons do not prove every branch or campaign.

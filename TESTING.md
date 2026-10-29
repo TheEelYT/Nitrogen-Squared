@@ -1,17 +1,33 @@
-# Windows development test — 0.0.16 candidate
+# Windows development test — 0.0.16
 
 ## Current acceptance and update checks
 
-**0.0.16 reduced candidate — final qualification pending:** 348 additional
-entry roots cover game/library code and observed indirect or continuation
-boundaries. Preliminary linked coverage is 34.9538% / 65.0462% outside, adding
-75,672 emitted bytes over 0.0.15. The extended O1 pool passed 1,458 live and
-17,175 isolated replay comparisons, with 21 pixel-identical frames through
-first-level completion and bonus/shop screens. Final checks explicitly rebuild
-both C and C++ Release configurations with -O3 -DNDEBUG, then repeat strict
-comparisons without collection or forced fallback before normal/player checks.
-No player rebuild or test is requested at this checkpoint. Main remains the
-accepted 0.0.15 runtime below.
+**0.0.16 — automated checks passed; focused Windows player check pending.**
+348 additional game/library entry roots add 75,672 emitted bytes. Combined
+normal-build coverage is **34.9538% linked / 65.0462% outside** (295,648 /
+845,824 bytes). This is executable-range coverage, not overall completion or
+native CPU time. The additions include 236 call-target roots and 112 observed
+indirect/continuation boundaries, not 348 newly identified complete functions.
+
+Final O3 qualification passed 18,633 private segment comparisons (1,458 live and 17,175 isolated replay) at 687 identity/PC
+pairs and 21 pixel-identical frames through first-level completion and bonus/shop.
+All 348 identities were observed. The normal diagnostics-disabled player and
+movie/controller/quit fixture passed with matching selected source/range hashes.
+All 45 source tests, the 83-file source audit and both Windows/Linux CI matrices
+passed. Failed/unobserved candidates and NEW movie-control callers remain on
+fallback. These bounded checks do not establish every input or later-level behavior.
+
+Build this update using the existing import, then perform the focused checks:
+
+1. Navigate title/menu, ship and level selection; check labels, models and animation.
+2. Play a short first-level session with analog movement and firing. Check enemies,
+   shots, explosions, HUD, score/life counters and transitions. If bonus/shop screens
+   arise naturally, check their labels and controls; reaching them is not required.
+3. Pause/resume, continue playing briefly and quit normally.
+
+No repeated campaign, new files, reimport or deliberate save overwrite is required.
+Preserve existing saves. The accepted 0.0.15 playtest below remains history for
+that version; it does not automatically accept 0.0.16.
 
 **0.0.15 — focused Windows playtest accepted:** the user reports no issues
 noticed. This accepts the reported route without implying exhaustive coverage

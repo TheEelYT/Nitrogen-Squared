@@ -37,6 +37,15 @@ remain on fallback. The normal production/controller fixture and Windows/Linux
 CI passed. The user reports no issues in the focused Windows 0.0.15 playtest;
 earlier reports retain their tested version scope.
 
+Version 0.0.16 adds 348 qualified game/library and indirect entry roots, with
+75,672 new emitted bytes. Combined normal coverage is 34.9538% linked / 65.0462%
+outside; N2O alone is 59.9016%. This does not double the combined share or establish
+50% project completion. Strict O3 qualification passed 18,633 comparisons and
+21 exact-frame checks through first-level completion and bonus/shop. The normal
+player/controller fixture, source audit and Windows/Linux CI passed. Failed or
+unobserved owners and NEW movie-control callers stay on fallback. The focused
+Windows 0.0.16 check is pending; prior player reports retain their version scope.
+
 ## 1. Loaded-code identity and native game slices — underway
 
 The [first slice](NATIVE_GAME_SLICES.md) uses per-entry resident code identity and

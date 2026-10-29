@@ -120,3 +120,19 @@
   N2O has 546 roots and NEW 44. This is pending final strict O3 diagnostic,
   normal-production and final platform checks. All earlier failed owners and
   their whole input intervals stay excluded, including new fragment discovery.
+
+- Version 0.0.16 final O3 diagnostic and normal-production checks supersede the
+  preliminary pool status above. The reduced binding adds 348 entry roots
+  (236 call targets, 112 observed indirect/continuation boundaries), not 348
+  newly identified complete functions. All identities were observed, 347 direct
+  and one through a continuation. Final evidence: 1,458 live + 17,175 replay =
+  18,633 passing comparisons at 687 identity/PC pairs; 21 exact frames through
+  first-level completion and bonus/shop. Normal coverage is 295,648 / 845,824 =
+  34.9538%, with 65.0462% outside; +75,672 bytes over 0.0.15. N2O has 546 roots
+  and 10,144 aliases; NEW has 44 roots and 87 aliases. The normal movie/controller/
+  quit fixture, 45 source tests, 83-file source audit and final Windows/Linux CI
+  passed. Focused Windows 0.0.16 player acceptance is pending; no repeat campaign,
+  new input or deliberate save overwrite is requested. Keep failed-owner input
+  spans excluded from fragment discovery. NEW movie-control callers stay on
+  fallback; preserve pinned dispatch semantics. Production has no qualification
+  hooks. Both Release flag sets are -O3 -DNDEBUG. Reuse the existing private upload.

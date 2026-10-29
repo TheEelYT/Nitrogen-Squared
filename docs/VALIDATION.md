@@ -1497,3 +1497,72 @@ player is rebuilding with diagnostics disabled and its qualification include
 cleared; normal source/range parity and movie/controller/quit checks are still
 pending. Main remains 0.0.15 at this checkpoint. All original source-package
 files match the saved code checkpoint; game code, guards and witnesses stay private.
+
+## 0.0.16 final strict O3 and normal-production qualification — passed
+
+This final record supersedes the pending preliminary O1 status above. Both C and
+C++ Release flags were explicitly restored and cache-checked as -O3 -DNDEBUG.
+The reduced source config is final code checkpoint
+ce5f02634eef041cfa17484766f77376a6653014. The final route ran without failure
+collection, forced identity blocks or missed-PC tracing. An earlier interrupted
+strict process stopped after frame 939 without a completed result; none of its
+counts is included here. The fresh complete strict run captured all 21 frames
+through first-level completion and bonus/shop; each decoded RGB image is identical
+to the extended 0.0.15-selection reference. Final summary: 1,458 comparisons,
+zero failures, 687 identity/PC pairs, last compared frame 12120.
+
+All 348 added guarded code identities have evidence: 347 direct owner entries
+and one continuation-only identity. Fresh final witnesses passed all 25 isolated
+GTE-boundary variants at each of 687 pairs: 17,175 comparisons, zero failures.
+Replay was fail-fast, without --keep-going or exploratory options. The combined
+final count is 18,633. The additions comprise 236 call-target roots and 112
+observed indirect/continuation boundaries; they are not 348 newly identified
+complete functions. Inputs cover 119,332 bytes and add 75,672 emitted bytes.
+
+Final diagnostic and diagnostics-disabled normal reports match exactly:
+295,648 / 845,824 = **34.9538% linked**, with 550,176 bytes (**65.0462%**) outside.
+N2O: 274,800 / 458,752 = 59.9016%, 546 roots, 10,144 aliases.
+NEW: 2,940 / 333,824 = 0.8807%, 44 roots, 87 aliases.
+Boot: unchanged 17,908 / 53,248 = 33.6313%, 86 generated functions.
+Aliases, payload data, analysis-only code and host services receive no extra credit.
+These are linked range measurements, not CPU-time or overall completion claims.
+
+Normal selected source/range hashes match the strict qualified manifest. The
+production link has no qualification objects or --wrap interposition; its CMake
+qualification include is empty. Normal execution identity:
+`c05a7a1d0391d6150e14fe54ab40876b1e4147d19c7ab949266c4e7a56f0316a`.
+A separate original SDL-event fixture links the production objects without altering
+the player binary. All three native opening movies completed; analog movement and
+firing reached the guest, two private gameplay PPM captures were inspected,
+and SDL_QUIT shut down cleanly at frame 4500. Observed fixture counters:
+
+```text
+NORMAL_SMOKE sampled pad type=1 buttons=BFFF lx=217 ly=128 frame=3300
+NORMAL_SMOKE sampled pad type=1 buttons=BFFF lx=38 ly=128 frame=3500
+NORMAL_SMOKE requested SDL_QUIT at frame=4500
+nitrogen: native game slice: dispatches=3353867 residency_rejections=299108
+```
+
+The historical residency_rejections counter counts declined guarded variant probes;
+with multiple occupants it does not establish that the entire dispatch fell back.
+Dispatch/probe counts are not instruction shares or CPU time. Dummy/offscreen
+transport checks do not establish physical audio quality or sustained user FPS.
+
+All 45 Python source tests and eleven original standalone controller cases passed.
+The latter use synthetic metadata/backends, not game code, and preserve expected
+nonzero exits for deliberate failure cases. The reviewed source-package audit
+passes with 83 original text files and the unchanged 128 KiB bound. No game bytes,
+generated code/guards, modules, witnesses, captures, saves or media are published.
+Source CI 40925465652 and runtime/renderer CI 40925465655 both pass their Windows
+and Linux jobs at ce5f02634eef041cfa17484766f77376a6653014. The final publication
+adds documentation only; its skip-CI commit does not change the qualified code.
+
+Known failed/unobserved owners remain excluded as whole input spans. NEW CPS
+movie-control callers remain interpreted, preserving all three native opening
+routes without editing the pinned framework or override ordering. Strict register,
+RAM, scratchpad and GTE comparisons use bounded cycle-neutral windows; host/device
+effects and every possible branch/input are not exhaustively qualified. PS1 packet/
+GTE rendering, guest SPU/CD audio and BIOS/card services remain in use.
+Focused Windows 0.0.16 player acceptance is pending, using the short TESTING.md
+route. No new files, reimport, later campaign or deliberate save overwrite is
+required. Historical 0.0.15, level-9 and save/load reports retain their version scope.

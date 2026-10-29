@@ -1,26 +1,29 @@
 # Native translation progress
 
-The 0.0.15 normal build verifies **26.0073% linked native translation coverage**
+The 0.0.16 normal build verifies **34.9538% linked native translation coverage**
 against the combined payload sizes of the three selected USA game executables.
-Its counts and selected source/range hashes match the qualified diagnostic build.
+Its counts and selected source/range hashes match the qualified O3 diagnostic build.
 
-The complementary **73.9927% (625,848 bytes)** is outside those linked ranges.
+The complementary **65.0462% (550,176 bytes)** is outside those linked ranges.
 This is not a measured interpreter-execution percentage: payload data and
 separately tracked native services prevent that interpretation.
 
 | Executable | Linked native range bytes | Payload bytes | Coverage |
 | --- | ---: | ---: | ---: |
 | SLUS_006.37 (boot loader) | 17,908 | 53,248 | 33.6313% |
-| N2O.EXE | 202,068 | 458,752 | 44.0473% |
-| NEW.EXE | 0 | 333,824 | 0.0000% |
-| Combined | 219,976 | 845,824 | 26.0073% |
+| N2O.EXE | 274,800 | 458,752 | 59.9016% |
+| NEW.EXE | 2,940 | 333,824 | 0.8807% |
+| Combined | 295,648 | 845,824 | 34.9538% |
 
 This metric counts the union of emitted native code ranges actually linked into
-the private runtime. The boot loader has 86 linked generated functions. N2O.EXE
-has 242 selected roots and 7,440 continuation aliases, with no extra credit for
-aliases. The 117 added roots contribute 71,028 emitted bytes over 0.0.14, about
-1.48 times its combined linked share. Full analysis C for N2O.EXE and NEW.EXE,
-BIOS, interpreter, renderer, audio backend and desktop menu do not count.
+the private runtime. The boot loader has 86 linked generated functions. The game
+inventory has 546 N2O roots with 10,144 aliases and 44 NEW roots with 87 aliases;
+aliases receive no extra byte/function credit. The 348 additions contribute
+75,672 emitted bytes from 119,332 input bytes over 0.0.15, about 1.34 times its
+combined linked share. They include 236 call-target roots and 112 observed
+indirect/continuation boundaries, not 348 newly identified complete functions.
+Full analysis C, BIOS, interpreter, renderer, audio backend and desktop menu do
+not count.
 
 The denominator includes embedded data, which has not yet been fully separated
 from instructions. Therefore this is **not a project-completion percentage**, a
@@ -56,6 +59,7 @@ pre-0.0.7 receipt by rebuilding first.
 | Geometry/object presentation and text | 32 additional native entry ranges in 0.0.13; private comparisons, first-level visuals, normal build and Windows/Linux CI passed; user reports no issues in the focused Windows playtest |
 | Model primitives and game/menu control | 46 additional roots in 0.0.14; 10,316 private comparisons, 17 exact-frame checks, normal production/controller fixture and Windows/Linux CI passed; user reports no issues in the focused Windows playtest |
 | Game/object updates and resource control | 117 additional native roots in 0.0.15; final diagnostic/replay, 17 exact-frame checks, normal/controller fixture and Windows/Linux CI passed; user reports no issues in the focused Windows playtest |
+| Game/library and indirect entries | 348 additional entry roots in 0.0.16; strict O3 comparison/replay, 21 exact frames, normal controller and Windows/Linux CI passed; focused Windows player check pending |
 | Card-control/event polling | 20 additional native entry ranges; BIOS/serial protocol and file publication retain compatibility services; user reports no Windows saving/loading slowdowns in 0.0.12 |
 | Music and effects | Emulated SPU/CD path; no independent cue-driven player yet |
 | Opening movies | Native STR/XA service for three opening routes; user verified Windows playback and skipping |
@@ -172,3 +176,31 @@ candidates without adequate evidence stay unselected. Native service counts and
 compatibility services are unchanged. Normal-production/controller checks and
 Windows/Linux CI passed. The user reports no issues in the focused Windows
 0.0.15 playtest. See VALIDATION.md for the bounded inputs and limits.
+
+## 0.0.16 final selection
+
+The reduced binding adds 348 entry roots: 236 original call-target roots and 112
+observed indirect/continuation boundaries. These are not 348 newly identified
+complete functions. All 348 guarded code identities were observed: 347 direct
+owner entries and one continuation-only entry. The final game inventory contains
+546 N2O roots and 44 NEW roots with 10,231 continuation aliases. Input bands total
+119,332 bytes; the emitted union adds 75,672 bytes. Combined normal coverage is
+295,648 / 845,824 = **34.9538%**, with **65.0462%** outside. N2O itself reaches
+59.9016%; this must not be presented as combined coverage or overall completion.
+
+Final O3 qualification passed 18,633 private segment comparisons (1,458 live and 17,175 isolated replay) at 687 identity/PC
+pairs, with 21 pixel-identical frames through first-level completion and bonus/shop.
+Both C and C++ Release flags are -O3 -DNDEBUG. Normal-production source/range hashes
+and coverage match; its three native openings, analog/fire and clean-quit fixture
+passed, as did source audits and Windows/Linux CI. Focused Windows 0.0.16 player
+acceptance remains pending. Earlier failed owners and their complete input spans
+remain excluded. NEW additions are conservative CPU/RAM leaf paths; CPS movie
+control callers remain interpreted to preserve the existing native movie override.
+The pinned framework and production dispatch semantics are unchanged.
+
+The original diagnostic selector now distinguishes guarded code identities at
+shared PCs, records identity/PC witnesses and supports bounded exploratory failure
+collection. Final qualification runs without collection, preblocks or miss tracing.
+No diagnostic interposition remains in the normal player. Private generated code,
+full guards, instruction words, witnesses, snapshots, captures and media stay out
+of Git and releases. Bounded comparisons do not prove every branch or campaign.
