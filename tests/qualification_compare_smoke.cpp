@@ -39,16 +39,18 @@ int main(int argc,char**argv){
     assert(argc==2);const char*mode=argv[1];CPUState cpu{};cpu.pc=0x80020000;
     if(!std::strcmp(mode,"wrong-id")){assert(!n2o_replay_segment(&cpu,cpu.pc));assert(native_calls==0);std::puts("TOOLS_SMOKE_PASS");return 0;}
     const bool collect=!std::strcmp(mode,"collect");
+    const bool preblocked=!std::strcmp(mode,"preblocked");
     inject_failure=collect || !std::strcmp(mode,"failfast");
     exhaust_budget=!std::strcmp(mode,"budget");
     const int handled=__wrap_psx_overlay_dispatch(&cpu,0x80020000);
-    if(collect){
-        assert(!handled && native_calls==1 && cpu.pc==0x80020000 && cpu.gpr[2]==0);
+    if(collect || preblocked){
+        const unsigned expected_calls=collect?1:0;
+        assert(!handled && native_calls==expected_calls && cpu.pc==0x80020000 && cpu.gpr[2]==0);
         assert(!ram_image[17] && !scratch_image[7] && !g_psx_icache_tv[0] && !delay.val && !g_psx_call_bail && !g_debug_last_store_pc);
-        assert(!__wrap_psx_overlay_dispatch(&cpu,0x80020004) && native_calls==1);
+        assert(!__wrap_psx_overlay_dispatch(&cpu,0x80020004) && native_calls==expected_calls);
     }else assert(handled);
     if(std::strcmp(mode,"legacy")){
-        if(!collect){cpu={};assert(__wrap_psx_overlay_dispatch(&cpu,0x80020004));}
+        if(!collect && !preblocked){cpu={};assert(__wrap_psx_overlay_dispatch(&cpu,0x80020004));}
         resident_image=2;cpu={};assert(__wrap_psx_overlay_dispatch(&cpu,0x80020000));
         cpu={};assert(__wrap_psx_overlay_dispatch(&cpu,0x80020004));
         assert(cpu.gpr[2]==22);

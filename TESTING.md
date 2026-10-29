@@ -1,10 +1,15 @@
-# Windows development test — 0.0.15
+# Windows development test — 0.0.16 candidate
 
 ## Current acceptance and update checks
 
-The next development branch is preparing a frontend/CPU-RAM-library batch.
-Its original qualification-tool changes need no player rebuild. Main remains the
-accepted 0.0.15 runtime below; candidate counts are not qualified progress.
+**0.0.16 development candidate — qualification pending:** the initial pool adds
+595 entry roots across N2O and NEW, reaching a provisional 46.9237% linked /
+53.0763% outside. The exploratory binary uses O1 to reduce generation/compile
+iteration cost; final diagnostic and normal production checks must use O3.
+Known comparison failures and NEW movie-control callers are held on fallback
+during exploration, then must be removed from the final source binding.
+No player rebuild or test is requested at this checkpoint. Main remains the
+accepted 0.0.15 runtime below. The original helper-only checks add no coverage.
 
 **0.0.15 — focused Windows playtest accepted:** the user reports no issues
 noticed. This accepts the reported route without implying exhaustive coverage

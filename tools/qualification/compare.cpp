@@ -102,6 +102,13 @@ const std::vector<Range>& ranges() {
             result.push_back(std::move(r));
         }
         if (!f.eof() || result.empty() || (std::getenv("N2O_COLLECT_FAILURES") && !v2)) std::exit(92);
+        if(const char*disabled=std::getenv("N2O_BLOCKED_IDS")) {
+            if(!v2)std::exit(92);
+            std::ifstream input(disabled);if(!input)std::exit(92);
+            std::string word;
+            while(input>>word){uint64_t id;if(!hexword(word,id) || !ids.count(id) || !blocked.insert(id).second)std::exit(92);}
+            if(!input.eof())std::exit(92);
+        }
         if(std::getenv("N2O_COLLECT_FAILURES"))std::atexit(fail_at_exit);
         return result;
     }();
@@ -162,6 +169,7 @@ void restore(const CPUState&before,CPUState*cpu,const DirtyRamLoadDelay&ld,int b
 }
 extern "C" int __wrap_psx_overlay_dispatch(CPUState*cpu,uint32_t addr) {
     if(!std::getenv("N2O_COMPARE"))return __real_psx_overlay_dispatch(cpu,addr);
+    (void)ranges(); // Load explicit exclusions before the first native dispatch.
     if(!blocked.empty() && selected(addr,true))return 0;
     if(busy)return __real_psx_overlay_dispatch(cpu,addr);
     const Range*selection=selected(addr);

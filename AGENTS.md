@@ -100,3 +100,14 @@
   and is exploratory only. Keep failed/unobserved owners out of final binding,
   then repeat strict reduced-selection and normal-production qualification.
   Main remains accepted 0.0.15 at 26.0073%; new candidate coverage is unqualified.
+
+- The 0.0.16 exploratory pool adds 595 candidates (395 N2O, 200 NEW), with
+  provisional 46.9237% linked / 53.0763% outside; none is final qualified progress.
+  The pool uses private O1 flags. Restore both C and C++ Release flags to
+  -O3 -DNDEBUG for final diagnostic and normal builds, then verify the cache.
+  NEW's CPS movie-control callers bypass the existing call-site native movie
+  hooks: keep that control path on fallback rather than changing override
+  dispatch semantics for this batch. Additional startup owners fail comparisons
+  or exceed the checker budgets. N2O_BLOCKED_IDS is an exploratory, v2-only
+  exclusion file, verified before the first dispatch; final builds must remove
+  these owners and contain no diagnostic interposition. Main remains 0.0.15.

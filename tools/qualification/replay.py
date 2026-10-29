@@ -22,6 +22,8 @@ def main():
     selection = read_selection(args.selection)
     args.output.mkdir(parents=True, exist_ok=True)
     env = os.environ.copy()
+    for option in ("N2O_COLLECT_FAILURES", "N2O_BLOCKED_IDS", "N2O_TRACE_MISSES"):
+        env.pop(option, None)
     env.update(N2O_COMPARE="1", N2O_REPLAY="1", N2O_SELECTION=str(args.selection.resolve()))
     results = []
     failures = []

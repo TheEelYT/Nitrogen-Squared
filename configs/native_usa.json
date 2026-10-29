@@ -1,2172 +1,838 @@
 [
-  {
-    "executable": "N2O.EXE",
-    "purpose": "Two leaf routines reading the paired 12-bit angle lookup table",
-    "start": "0x800566D4",
-    "size": 56,
-    "entries": [
-      "0x800566D4",
-      "0x800566F0"
-    ]
-  },
-  {
-    "start": "0x80050180",
-    "size": 844,
-    "entries": [
-      "0x80050180"
-    ],
-    "executable": "N2O.EXE",
-    "purpose": "Drawing packet construction"
-  },
-  {
-    "start": "0x80050538",
-    "size": 896,
-    "entries": [
-      "0x80050538"
-    ],
-    "executable": "N2O.EXE",
-    "purpose": "Drawing packet construction"
-  },
-  {
-    "start": "0x800508B8",
-    "size": 496,
-    "entries": [
-      "0x800508B8"
-    ],
-    "executable": "N2O.EXE",
-    "purpose": "Drawing packet construction"
-  },
-  {
-    "start": "0x80050AA8",
-    "size": 528,
-    "entries": [
-      "0x80050AA8"
-    ],
-    "executable": "N2O.EXE",
-    "purpose": "Drawing packet construction"
-  },
-  {
-    "start": "0x80050CB8",
-    "size": 608,
-    "entries": [
-      "0x80050CB8"
-    ],
-    "executable": "N2O.EXE",
-    "purpose": "Drawing packet construction"
-  },
-  {
-    "start": "0x80050F18",
-    "size": 284,
-    "entries": [
-      "0x80050F18"
-    ],
-    "executable": "N2O.EXE",
-    "purpose": "Drawing packet construction"
-  },
-  {
-    "start": "0x80051034",
-    "size": 360,
-    "entries": [
-      "0x80051034"
-    ],
-    "executable": "N2O.EXE",
-    "purpose": "Drawing packet construction"
-  },
-  {
-    "start": "0x8005119C",
-    "size": 660,
-    "entries": [
-      "0x8005119C"
-    ],
-    "executable": "N2O.EXE",
-    "purpose": "Drawing packet construction"
-  },
-  {
-    "start": "0x80051430",
-    "size": 1236,
-    "entries": [
-      "0x80051430"
-    ],
-    "executable": "N2O.EXE",
-    "purpose": "Drawing packet construction"
-  },
-  {
-    "start": "0x80051904",
-    "size": 1080,
-    "entries": [
-      "0x80051904"
-    ],
-    "executable": "N2O.EXE",
-    "purpose": "Drawing packet construction"
-  },
-  {
-    "start": "0x80051D3C",
-    "size": 76,
-    "entries": [
-      "0x80051D3C"
-    ],
-    "executable": "N2O.EXE",
-    "purpose": "Drawing packet construction"
-  },
-  {
-    "start": "0x80052434",
-    "size": 896,
-    "entries": [
-      "0x80052434"
-    ],
-    "executable": "N2O.EXE",
-    "purpose": "Drawing packet construction"
-  },
-  {
-    "start": "0x800527B4",
-    "size": 1204,
-    "entries": [
-      "0x800527B4"
-    ],
-    "executable": "N2O.EXE",
-    "purpose": "Drawing packet construction"
-  },
-  {
-    "start": "0x80052DB4",
-    "size": 388,
-    "entries": [
-      "0x80052DB4"
-    ],
-    "executable": "N2O.EXE",
-    "purpose": "Drawing packet construction"
-  },
-  {
-    "start": "0x80052F38",
-    "size": 1244,
-    "entries": [
-      "0x80052F38"
-    ],
-    "executable": "N2O.EXE",
-    "purpose": "Drawing packet construction"
-  },
-  {
-    "start": "0x80053414",
-    "size": 292,
-    "entries": [
-      "0x80053414"
-    ],
-    "executable": "N2O.EXE",
-    "purpose": "Drawing packet construction"
-  },
-  {
-    "start": "0x80053538",
-    "size": 528,
-    "entries": [
-      "0x80053538"
-    ],
-    "executable": "N2O.EXE",
-    "purpose": "Drawing packet construction"
-  },
-  {
-    "start": "0x80053748",
-    "size": 608,
-    "entries": [
-      "0x80053748"
-    ],
-    "executable": "N2O.EXE",
-    "purpose": "Drawing packet construction"
-  },
-  {
-    "start": "0x800539A8",
-    "size": 456,
-    "entries": [
-      "0x800539A8"
-    ],
-    "executable": "N2O.EXE",
-    "purpose": "Drawing packet construction"
-  },
-  {
-    "start": "0x80053B70",
-    "size": 456,
-    "entries": [
-      "0x80053B70"
-    ],
-    "executable": "N2O.EXE",
-    "purpose": "Drawing packet construction"
-  },
-  {
-    "start": "0x80053D38",
-    "size": 704,
-    "entries": [
-      "0x80053D38"
-    ],
-    "executable": "N2O.EXE",
-    "purpose": "Drawing packet construction"
-  },
-  {
-    "start": "0x80053FF8",
-    "size": 360,
-    "entries": [
-      "0x80053FF8"
-    ],
-    "executable": "N2O.EXE",
-    "purpose": "Drawing packet construction"
-  },
-  {
-    "start": "0x80054B70",
-    "size": 784,
-    "entries": [
-      "0x80054B70"
-    ],
-    "executable": "N2O.EXE",
-    "purpose": "Drawing packet construction"
-  },
-  {
-    "start": "0x80054E80",
-    "size": 784,
-    "entries": [
-      "0x80054E80"
-    ],
-    "executable": "N2O.EXE",
-    "purpose": "Drawing packet construction"
-  },
-  {
-    "start": "0x80055190",
-    "size": 260,
-    "entries": [
-      "0x80055190"
-    ],
-    "executable": "N2O.EXE",
-    "purpose": "Drawing packet construction"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8006D628",
-    "size": 164,
-    "entries": [
-      "0x8006D628"
-    ],
-    "purpose": "Memory card control and event polling"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8006D6CC",
-    "size": 72,
-    "entries": [
-      "0x8006D6CC"
-    ],
-    "purpose": "Memory card control and event polling"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8006D714",
-    "size": 152,
-    "entries": [
-      "0x8006D714"
-    ],
-    "purpose": "Memory card control and event polling"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8006D7AC",
-    "size": 88,
-    "entries": [
-      "0x8006D7AC"
-    ],
-    "purpose": "Memory card control and event polling"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8006D804",
-    "size": 236,
-    "entries": [
-      "0x8006D804"
-    ],
-    "purpose": "Memory card control and event polling"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8006D8F0",
-    "size": 84,
-    "entries": [
-      "0x8006D8F0"
-    ],
-    "purpose": "Memory card control and event polling"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8006D944",
-    "size": 72,
-    "entries": [
-      "0x8006D944"
-    ],
-    "purpose": "Memory card control and event polling"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8006D98C",
-    "size": 48,
-    "entries": [
-      "0x8006D98C"
-    ],
-    "purpose": "Memory card control and event polling"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8006D9BC",
-    "size": 376,
-    "entries": [
-      "0x8006D9BC"
-    ],
-    "purpose": "Memory card control and event polling"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8006DB34",
-    "size": 256,
-    "entries": [
-      "0x8006DB34"
-    ],
-    "purpose": "Memory card control and event polling"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8006DC34",
-    "size": 76,
-    "entries": [
-      "0x8006DC34"
-    ],
-    "purpose": "Memory card control and event polling"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8006DC80",
-    "size": 352,
-    "entries": [
-      "0x8006DC80"
-    ],
-    "purpose": "Memory card control and event polling"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80071CDC",
-    "size": 12,
-    "entries": [
-      "0x80071CDC"
-    ],
-    "purpose": "BIOS service call trampoline"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80071CEC",
-    "size": 12,
-    "entries": [
-      "0x80071CEC"
-    ],
-    "purpose": "BIOS service call trampoline"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80071CFC",
-    "size": 12,
-    "entries": [
-      "0x80071CFC"
-    ],
-    "purpose": "BIOS service call trampoline"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80071D0C",
-    "size": 12,
-    "entries": [
-      "0x80071D0C"
-    ],
-    "purpose": "BIOS service call trampoline"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80071D1C",
-    "size": 12,
-    "entries": [
-      "0x80071D1C"
-    ],
-    "purpose": "BIOS service call trampoline"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80071D2C",
-    "size": 12,
-    "entries": [
-      "0x80071D2C"
-    ],
-    "purpose": "BIOS service call trampoline"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80071D9C",
-    "size": 12,
-    "entries": [
-      "0x80071D9C"
-    ],
-    "purpose": "BIOS service call trampoline"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80071DAC",
-    "size": 12,
-    "entries": [
-      "0x80071DAC"
-    ],
-    "purpose": "BIOS service call trampoline"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8005670C",
-    "size": 160,
-    "entries": [
-      "0x8005670C"
-    ],
-    "purpose": "Angle calculation from live table data"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x800567AC",
-    "size": 48,
-    "entries": [
-      "0x800567AC"
-    ],
-    "purpose": "Text formatting for game presentation"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x800567DC",
-    "size": 1200,
-    "entries": [
-      "0x800567DC"
-    ],
-    "purpose": "Text formatting for game presentation"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80056CAC",
-    "size": 64,
-    "entries": [
-      "0x80056CAC"
-    ],
-    "purpose": "Geometry transformation and drawing preparation"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80056CEC",
-    "size": 4516,
-    "entries": [
-      "0x80056CEC"
-    ],
-    "purpose": "Geometry transformation and drawing preparation"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80057E90",
-    "size": 2184,
-    "entries": [
-      "0x80057E90"
-    ],
-    "purpose": "Geometry transformation and drawing preparation"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80058718",
-    "size": 1028,
-    "entries": [
-      "0x80058718"
-    ],
-    "purpose": "Geometry transformation and drawing preparation"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80058B1C",
-    "size": 1580,
-    "entries": [
-      "0x80058B1C"
-    ],
-    "purpose": "Geometry transformation and drawing preparation"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80059148",
-    "size": 76,
-    "entries": [
-      "0x80059148"
-    ],
-    "purpose": "Geometry transformation and drawing preparation"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80059194",
-    "size": 2740,
-    "entries": [
-      "0x80059194"
-    ],
-    "purpose": "Geometry transformation and drawing preparation"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80059C48",
-    "size": 92,
-    "entries": [
-      "0x80059C48"
-    ],
-    "purpose": "Geometry transformation and drawing preparation"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80059CA4",
-    "size": 40,
-    "entries": [
-      "0x80059CA4"
-    ],
-    "purpose": "Geometry transformation and drawing preparation"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80059CCC",
-    "size": 240,
-    "entries": [
-      "0x80059CCC"
-    ],
-    "purpose": "Geometry transformation and drawing preparation"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80059DBC",
-    "size": 356,
-    "entries": [
-      "0x80059DBC"
-    ],
-    "purpose": "Geometry transformation and drawing preparation"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80059F20",
-    "size": 368,
-    "entries": [
-      "0x80059F20"
-    ],
-    "purpose": "Geometry transformation and drawing preparation"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8005A090",
-    "size": 484,
-    "entries": [
-      "0x8005A090"
-    ],
-    "purpose": "Geometry transformation and drawing preparation"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8005A274",
-    "size": 248,
-    "entries": [
-      "0x8005A274"
-    ],
-    "purpose": "Geometry transformation and drawing preparation"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8005A36C",
-    "size": 152,
-    "entries": [
-      "0x8005A36C"
-    ],
-    "purpose": "Geometry transformation and drawing preparation"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8005A404",
-    "size": 316,
-    "entries": [
-      "0x8005A404"
-    ],
-    "purpose": "Geometry transformation and drawing preparation"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8005A540",
-    "size": 308,
-    "entries": [
-      "0x8005A540"
-    ],
-    "purpose": "Geometry transformation and drawing preparation"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8005A674",
-    "size": 276,
-    "entries": [
-      "0x8005A674"
-    ],
-    "purpose": "Geometry transformation and drawing preparation"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8005A788",
-    "size": 228,
-    "entries": [
-      "0x8005A788"
-    ],
-    "purpose": "Geometry transformation and drawing preparation"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8005A86C",
-    "size": 56,
-    "entries": [
-      "0x8005A86C"
-    ],
-    "purpose": "Geometry transformation and drawing preparation"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8005A8A4",
-    "size": 260,
-    "entries": [
-      "0x8005A8A4"
-    ],
-    "purpose": "Geometry transformation and drawing preparation"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8005A9A8",
-    "size": 376,
-    "entries": [
-      "0x8005A9A8"
-    ],
-    "purpose": "Geometry transformation and drawing preparation"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8005AB20",
-    "size": 524,
-    "entries": [
-      "0x8005AB20"
-    ],
-    "purpose": "Geometry transformation and drawing preparation"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8005AD2C",
-    "size": 60,
-    "entries": [
-      "0x8005AD2C"
-    ],
-    "purpose": "Geometry transformation and drawing preparation"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8005AD68",
-    "size": 320,
-    "entries": [
-      "0x8005AD68"
-    ],
-    "purpose": "Geometry transformation and drawing preparation"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8005AEA8",
-    "size": 224,
-    "entries": [
-      "0x8005AEA8"
-    ],
-    "purpose": "Geometry transformation and drawing preparation"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8005AF88",
-    "size": 16756,
-    "entries": [
-      "0x8005AF88"
-    ],
-    "purpose": "Geometry transformation and drawing preparation"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8005F0FC",
-    "size": 1256,
-    "entries": [
-      "0x8005F0FC"
-    ],
-    "purpose": "Geometry transformation and drawing preparation"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8005F5E4",
-    "size": 396,
-    "entries": [
-      "0x8005F5E4"
-    ],
-    "purpose": "Geometry transformation and drawing preparation"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8004532C",
-    "size": 20800,
-    "entries": [
-      "0x8004532C"
-    ],
-    "purpose": "Model primitive transformation and packet preparation"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8004A46C",
-    "size": 5776,
-    "entries": [
-      "0x8004A46C"
-    ],
-    "purpose": "Model primitive transformation and packet preparation"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8004DF74",
-    "size": 556,
-    "entries": [
-      "0x8004DF74"
-    ],
-    "purpose": "Object primitive packet preparation"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8004E1A0",
-    "size": 1768,
-    "entries": [
-      "0x8004E1A0"
-    ],
-    "purpose": "Object primitive packet preparation"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8004E888",
-    "size": 704,
-    "entries": [
-      "0x8004E888"
-    ],
-    "purpose": "Object primitive packet preparation"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8004EE10",
-    "size": 744,
-    "entries": [
-      "0x8004EE10"
-    ],
-    "purpose": "Object primitive packet preparation"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8004F0F8",
-    "size": 296,
-    "entries": [
-      "0x8004F0F8"
-    ],
-    "purpose": "Object primitive packet preparation"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8004F220",
-    "size": 364,
-    "entries": [
-      "0x8004F220"
-    ],
-    "purpose": "Object primitive packet preparation"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8004F38C",
-    "size": 544,
-    "entries": [
-      "0x8004F38C"
-    ],
-    "purpose": "Object primitive packet preparation"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8004F5AC",
-    "size": 948,
-    "entries": [
-      "0x8004F5AC"
-    ],
-    "purpose": "Object primitive packet preparation"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8004F960",
-    "size": 520,
-    "entries": [
-      "0x8004F960"
-    ],
-    "purpose": "Object primitive packet preparation"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8004FB68",
-    "size": 532,
-    "entries": [
-      "0x8004FB68"
-    ],
-    "purpose": "Object primitive packet preparation"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8004FD7C",
-    "size": 1028,
-    "entries": [
-      "0x8004FD7C"
-    ],
-    "purpose": "Object primitive packet preparation"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8005F770",
-    "size": 660,
-    "entries": [
-      "0x8005F770"
-    ],
-    "purpose": "Game object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8005FA04",
-    "size": 1760,
-    "entries": [
-      "0x8005FA04"
-    ],
-    "purpose": "Game object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8006011C",
-    "size": 236,
-    "entries": [
-      "0x8006011C"
-    ],
-    "purpose": "Game object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80060208",
-    "size": 432,
-    "entries": [
-      "0x80060208"
-    ],
-    "purpose": "Game object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x800603B8",
-    "size": 204,
-    "entries": [
-      "0x800603B8"
-    ],
-    "purpose": "Game object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80060484",
-    "size": 832,
-    "entries": [
-      "0x80060484"
-    ],
-    "purpose": "Game object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x800607C4",
-    "size": 272,
-    "entries": [
-      "0x800607C4"
-    ],
-    "purpose": "Game object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x800608D4",
-    "size": 32,
-    "entries": [
-      "0x800608D4"
-    ],
-    "purpose": "Game object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x800608F4",
-    "size": 60,
-    "entries": [
-      "0x800608F4"
-    ],
-    "purpose": "Game object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80060930",
-    "size": 1568,
-    "entries": [
-      "0x80060930"
-    ],
-    "purpose": "Game object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80060F50",
-    "size": 1180,
-    "entries": [
-      "0x80060F50"
-    ],
-    "purpose": "Game object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x800613EC",
-    "size": 1232,
-    "entries": [
-      "0x800613EC"
-    ],
-    "purpose": "Game object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80061C50",
-    "size": 484,
-    "entries": [
-      "0x80061C50"
-    ],
-    "purpose": "Game object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80061E34",
-    "size": 140,
-    "entries": [
-      "0x80061E34"
-    ],
-    "purpose": "Game object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80061EC0",
-    "size": 1596,
-    "entries": [
-      "0x80061EC0"
-    ],
-    "purpose": "Game object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80062A28",
-    "size": 800,
-    "entries": [
-      "0x80062A28"
-    ],
-    "purpose": "Game object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80063114",
-    "size": 116,
-    "entries": [
-      "0x80063114"
-    ],
-    "purpose": "Game object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80063C14",
-    "size": 132,
-    "entries": [
-      "0x80063C14"
-    ],
-    "purpose": "Game object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80063CD8",
-    "size": 128,
-    "entries": [
-      "0x80063CD8"
-    ],
-    "purpose": "Game object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8006487C",
-    "size": 468,
-    "entries": [
-      "0x8006487C"
-    ],
-    "purpose": "Game object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80065394",
-    "size": 4492,
-    "entries": [
-      "0x80065394"
-    ],
-    "purpose": "Game object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8006665C",
-    "size": 108,
-    "entries": [
-      "0x8006665C"
-    ],
-    "purpose": "Game object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80067574",
-    "size": 168,
-    "entries": [
-      "0x80067574"
-    ],
-    "purpose": "Game object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8006761C",
-    "size": 19696,
-    "entries": [
-      "0x8006761C"
-    ],
-    "purpose": "Game object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8006C30C",
-    "size": 452,
-    "entries": [
-      "0x8006C30C"
-    ],
-    "purpose": "Game object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8006C4D0",
-    "size": 568,
-    "entries": [
-      "0x8006C4D0"
-    ],
-    "purpose": "Game object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8006C708",
-    "size": 500,
-    "entries": [
-      "0x8006C708"
-    ],
-    "purpose": "Game object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8006C8FC",
-    "size": 436,
-    "entries": [
-      "0x8006C8FC"
-    ],
-    "purpose": "Game object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8006CAB0",
-    "size": 1180,
-    "entries": [
-      "0x8006CAB0"
-    ],
-    "purpose": "Game object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8006CF4C",
-    "size": 1136,
-    "entries": [
-      "0x8006CF4C"
-    ],
-    "purpose": "Game object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8006D3BC",
-    "size": 204,
-    "entries": [
-      "0x8006D3BC"
-    ],
-    "purpose": "Game object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8006D488",
-    "size": 40,
-    "entries": [
-      "0x8006D488"
-    ],
-    "purpose": "Game object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8006D4B0",
-    "size": 56,
-    "entries": [
-      "0x8006D4B0"
-    ],
-    "purpose": "Game object and menu presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80021500",
-    "size": 52,
-    "entries": [
-      "0x80021500"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80021534",
-    "size": 8,
-    "entries": [
-      "0x80021534"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8002153C",
-    "size": 560,
-    "entries": [
-      "0x8002153C"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8002176C",
-    "size": 64,
-    "entries": [
-      "0x8002176C"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x800217AC",
-    "size": 348,
-    "entries": [
-      "0x800217AC"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80021908",
-    "size": 44,
-    "entries": [
-      "0x80021908"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80021934",
-    "size": 76,
-    "entries": [
-      "0x80021934"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80021980",
-    "size": 624,
-    "entries": [
-      "0x80021980"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80021BF0",
-    "size": 172,
-    "entries": [
-      "0x80021BF0"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80021C9C",
-    "size": 4556,
-    "entries": [
-      "0x80021C9C"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80022E68",
-    "size": 1664,
-    "entries": [
-      "0x80022E68"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x800234E8",
-    "size": 400,
-    "entries": [
-      "0x800234E8"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80023678",
-    "size": 12,
-    "entries": [
-      "0x80023678"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80023684",
-    "size": 164,
-    "entries": [
-      "0x80023684"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80023728",
-    "size": 100,
-    "entries": [
-      "0x80023728"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8002378C",
-    "size": 444,
-    "entries": [
-      "0x8002378C"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80027938",
-    "size": 536,
-    "entries": [
-      "0x80027938"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80027B50",
-    "size": 180,
-    "entries": [
-      "0x80027B50"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80027C84",
-    "size": 368,
-    "entries": [
-      "0x80027C84"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80027DF4",
-    "size": 156,
-    "entries": [
-      "0x80027DF4"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80027EE0",
-    "size": 448,
-    "entries": [
-      "0x80027EE0"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x800280EC",
-    "size": 508,
-    "entries": [
-      "0x800280EC"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x800282E8",
-    "size": 1444,
-    "entries": [
-      "0x800282E8"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x800292E4",
-    "size": 944,
-    "entries": [
-      "0x800292E4"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80029744",
-    "size": 1932,
-    "entries": [
-      "0x80029744"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80029ED0",
-    "size": 2292,
-    "entries": [
-      "0x80029ED0"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8002AA54",
-    "size": 1148,
-    "entries": [
-      "0x8002AA54"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8002AED0",
-    "size": 1668,
-    "entries": [
-      "0x8002AED0"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8002B7AC",
-    "size": 80,
-    "entries": [
-      "0x8002B7AC"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8002B7FC",
-    "size": 136,
-    "entries": [
-      "0x8002B7FC"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8002B884",
-    "size": 3824,
-    "entries": [
-      "0x8002B884"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8002C774",
-    "size": 656,
-    "entries": [
-      "0x8002C774"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8002CA04",
-    "size": 2796,
-    "entries": [
-      "0x8002CA04"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8002D4F0",
-    "size": 68,
-    "entries": [
-      "0x8002D4F0"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8002D534",
-    "size": 52,
-    "entries": [
-      "0x8002D534"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8002E664",
-    "size": 56,
-    "entries": [
-      "0x8002E664"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8002EF98",
-    "size": 292,
-    "entries": [
-      "0x8002EF98"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8002F844",
-    "size": 292,
-    "entries": [
-      "0x8002F844"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8002F968",
-    "size": 140,
-    "entries": [
-      "0x8002F968"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80030108",
-    "size": 3064,
-    "entries": [
-      "0x80030108"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80030D20",
-    "size": 32,
-    "entries": [
-      "0x80030D20"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80030D40",
-    "size": 36,
-    "entries": [
-      "0x80030D40"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80030D64",
-    "size": 212,
-    "entries": [
-      "0x80030D64"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80030E38",
-    "size": 92,
-    "entries": [
-      "0x80030E38"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80030E94",
-    "size": 284,
-    "entries": [
-      "0x80030E94"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x800311E4",
-    "size": 296,
-    "entries": [
-      "0x800311E4"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x800321F0",
-    "size": 2052,
-    "entries": [
-      "0x800321F0"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80032AA8",
-    "size": 684,
-    "entries": [
-      "0x80032AA8"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80032D54",
-    "size": 648,
-    "entries": [
-      "0x80032D54"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80032FDC",
-    "size": 360,
-    "entries": [
-      "0x80032FDC"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x800333E4",
-    "size": 308,
-    "entries": [
-      "0x800333E4"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80033608",
-    "size": 136,
-    "entries": [
-      "0x80033608"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80033690",
-    "size": 5956,
-    "entries": [
-      "0x80033690"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80034DD4",
-    "size": 156,
-    "entries": [
-      "0x80034DD4"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80034E70",
-    "size": 152,
-    "entries": [
-      "0x80034E70"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80034F08",
-    "size": 188,
-    "entries": [
-      "0x80034F08"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80034FC4",
-    "size": 140,
-    "entries": [
-      "0x80034FC4"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x800353A4",
-    "size": 340,
-    "entries": [
-      "0x800353A4"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8003573C",
-    "size": 168,
-    "entries": [
-      "0x8003573C"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x800357E4",
-    "size": 140,
-    "entries": [
-      "0x800357E4"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80035870",
-    "size": 264,
-    "entries": [
-      "0x80035870"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80035978",
-    "size": 2188,
-    "entries": [
-      "0x80035978"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8003855C",
-    "size": 356,
-    "entries": [
-      "0x8003855C"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x800386C0",
-    "size": 2104,
-    "entries": [
-      "0x800386C0"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80038EF8",
-    "size": 404,
-    "entries": [
-      "0x80038EF8"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x800397EC",
-    "size": 384,
-    "entries": [
-      "0x800397EC"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8003996C",
-    "size": 596,
-    "entries": [
-      "0x8003996C"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80039BC0",
-    "size": 468,
-    "entries": [
-      "0x80039BC0"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8003B210",
-    "size": 1396,
-    "entries": [
-      "0x8003B210"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8003BA04",
-    "size": 328,
-    "entries": [
-      "0x8003BA04"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8003BB4C",
-    "size": 128,
-    "entries": [
-      "0x8003BB4C"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8003BBCC",
-    "size": 68,
-    "entries": [
-      "0x8003BBCC"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8003BC10",
-    "size": 276,
-    "entries": [
-      "0x8003BC10"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8003BD24",
-    "size": 500,
-    "entries": [
-      "0x8003BD24"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8003BF58",
-    "size": 1080,
-    "entries": [
-      "0x8003BF58"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8003C390",
-    "size": 320,
-    "entries": [
-      "0x8003C390"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8003C544",
-    "size": 116,
-    "entries": [
-      "0x8003C544"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8003CF7C",
-    "size": 5504,
-    "entries": [
-      "0x8003CF7C"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8003E4FC",
-    "size": 1212,
-    "entries": [
-      "0x8003E4FC"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8003E9B8",
-    "size": 2052,
-    "entries": [
-      "0x8003E9B8"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8003F1BC",
-    "size": 484,
-    "entries": [
-      "0x8003F1BC"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8003F3A0",
-    "size": 248,
-    "entries": [
-      "0x8003F3A0"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8003F758",
-    "size": 292,
-    "entries": [
-      "0x8003F758"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8003F87C",
-    "size": 3948,
-    "entries": [
-      "0x8003F87C"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x800407E8",
-    "size": 772,
-    "entries": [
-      "0x800407E8"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80040AEC",
-    "size": 436,
-    "entries": [
-      "0x80040AEC"
-    ],
-    "purpose": "Game update, object and presentation control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80045154",
-    "size": 192,
-    "entries": [
-      "0x80045154"
-    ],
-    "purpose": "Model drawing dispatch and setup"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x80045214",
-    "size": 280,
-    "entries": [
-      "0x80045214"
-    ],
-    "purpose": "Model drawing dispatch and setup"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8004BBE4",
-    "size": 164,
-    "entries": [
-      "0x8004BBE4"
-    ],
-    "purpose": "Game service and resource control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8004BCE4",
-    "size": 752,
-    "entries": [
-      "0x8004BCE4"
-    ],
-    "purpose": "Game service and resource control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8004BFD4",
-    "size": 316,
-    "entries": [
-      "0x8004BFD4"
-    ],
-    "purpose": "Game service and resource control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8004C110",
-    "size": 168,
-    "entries": [
-      "0x8004C110"
-    ],
-    "purpose": "Game service and resource control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8004C1B8",
-    "size": 336,
-    "entries": [
-      "0x8004C1B8"
-    ],
-    "purpose": "Game service and resource control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8004C424",
-    "size": 188,
-    "entries": [
-      "0x8004C424"
-    ],
-    "purpose": "Game service and resource control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8004C4E0",
-    "size": 36,
-    "entries": [
-      "0x8004C4E0"
-    ],
-    "purpose": "Game service and resource control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8004C504",
-    "size": 36,
-    "entries": [
-      "0x8004C504"
-    ],
-    "purpose": "Game service and resource control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8004C594",
-    "size": 100,
-    "entries": [
-      "0x8004C594"
-    ],
-    "purpose": "Game service and resource control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8004C6AC",
-    "size": 520,
-    "entries": [
-      "0x8004C6AC"
-    ],
-    "purpose": "Game service and resource control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8004C8B4",
-    "size": 96,
-    "entries": [
-      "0x8004C8B4"
-    ],
-    "purpose": "Game service and resource control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8004C914",
-    "size": 140,
-    "entries": [
-      "0x8004C914"
-    ],
-    "purpose": "Game service and resource control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8004C9A0",
-    "size": 48,
-    "entries": [
-      "0x8004C9A0"
-    ],
-    "purpose": "Game service and resource control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8004CB74",
-    "size": 192,
-    "entries": [
-      "0x8004CB74"
-    ],
-    "purpose": "Game service and resource control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8004CC34",
-    "size": 592,
-    "entries": [
-      "0x8004CC34"
-    ],
-    "purpose": "Game service and resource control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8004CE84",
-    "size": 88,
-    "entries": [
-      "0x8004CE84"
-    ],
-    "purpose": "Game service and resource control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8004CEDC",
-    "size": 308,
-    "entries": [
-      "0x8004CEDC"
-    ],
-    "purpose": "Game service and resource control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8004D010",
-    "size": 40,
-    "entries": [
-      "0x8004D010"
-    ],
-    "purpose": "Game service and resource control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8004D038",
-    "size": 120,
-    "entries": [
-      "0x8004D038"
-    ],
-    "purpose": "Game service and resource control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8004D0B0",
-    "size": 32,
-    "entries": [
-      "0x8004D0B0"
-    ],
-    "purpose": "Game service and resource control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8004D0D0",
-    "size": 92,
-    "entries": [
-      "0x8004D0D0"
-    ],
-    "purpose": "Game service and resource control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8004D12C",
-    "size": 148,
-    "entries": [
-      "0x8004D12C"
-    ],
-    "purpose": "Game service and resource control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8004D1C0",
-    "size": 232,
-    "entries": [
-      "0x8004D1C0"
-    ],
-    "purpose": "Game service and resource control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8004D2A8",
-    "size": 68,
-    "entries": [
-      "0x8004D2A8"
-    ],
-    "purpose": "Game service and resource control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8004D2EC",
-    "size": 60,
-    "entries": [
-      "0x8004D2EC"
-    ],
-    "purpose": "Game service and resource control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8004D384",
-    "size": 936,
-    "entries": [
-      "0x8004D384"
-    ],
-    "purpose": "Game service and resource control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8004D9D0",
-    "size": 392,
-    "entries": [
-      "0x8004D9D0"
-    ],
-    "purpose": "Game service and resource control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8004DB58",
-    "size": 736,
-    "entries": [
-      "0x8004DB58"
-    ],
-    "purpose": "Game service and resource control"
-  },
-  {
-    "executable": "N2O.EXE",
-    "start": "0x8004DE38",
-    "size": 316,
-    "entries": [
-      "0x8004DE38"
-    ],
-    "purpose": "Game service and resource control"
-  }
+  {"executable":"N2O.EXE","purpose":"Two leaf routines reading the paired 12-bit angle lookup table","start":"0x800566D4","size":56,"entries":["0x800566D4","0x800566F0"]},
+  {"start":"0x80050180","size":844,"entries":["0x80050180"],"executable":"N2O.EXE","purpose":"Drawing packet construction"},
+  {"start":"0x80050538","size":896,"entries":["0x80050538"],"executable":"N2O.EXE","purpose":"Drawing packet construction"},
+  {"start":"0x800508B8","size":496,"entries":["0x800508B8"],"executable":"N2O.EXE","purpose":"Drawing packet construction"},
+  {"start":"0x80050AA8","size":528,"entries":["0x80050AA8"],"executable":"N2O.EXE","purpose":"Drawing packet construction"},
+  {"start":"0x80050CB8","size":608,"entries":["0x80050CB8"],"executable":"N2O.EXE","purpose":"Drawing packet construction"},
+  {"start":"0x80050F18","size":284,"entries":["0x80050F18"],"executable":"N2O.EXE","purpose":"Drawing packet construction"},
+  {"start":"0x80051034","size":360,"entries":["0x80051034"],"executable":"N2O.EXE","purpose":"Drawing packet construction"},
+  {"start":"0x8005119C","size":660,"entries":["0x8005119C"],"executable":"N2O.EXE","purpose":"Drawing packet construction"},
+  {"start":"0x80051430","size":1236,"entries":["0x80051430"],"executable":"N2O.EXE","purpose":"Drawing packet construction"},
+  {"start":"0x80051904","size":1080,"entries":["0x80051904"],"executable":"N2O.EXE","purpose":"Drawing packet construction"},
+  {"start":"0x80051D3C","size":76,"entries":["0x80051D3C"],"executable":"N2O.EXE","purpose":"Drawing packet construction"},
+  {"start":"0x80052434","size":896,"entries":["0x80052434"],"executable":"N2O.EXE","purpose":"Drawing packet construction"},
+  {"start":"0x800527B4","size":1204,"entries":["0x800527B4"],"executable":"N2O.EXE","purpose":"Drawing packet construction"},
+  {"start":"0x80052DB4","size":388,"entries":["0x80052DB4"],"executable":"N2O.EXE","purpose":"Drawing packet construction"},
+  {"start":"0x80052F38","size":1244,"entries":["0x80052F38"],"executable":"N2O.EXE","purpose":"Drawing packet construction"},
+  {"start":"0x80053414","size":292,"entries":["0x80053414"],"executable":"N2O.EXE","purpose":"Drawing packet construction"},
+  {"start":"0x80053538","size":528,"entries":["0x80053538"],"executable":"N2O.EXE","purpose":"Drawing packet construction"},
+  {"start":"0x80053748","size":608,"entries":["0x80053748"],"executable":"N2O.EXE","purpose":"Drawing packet construction"},
+  {"start":"0x800539A8","size":456,"entries":["0x800539A8"],"executable":"N2O.EXE","purpose":"Drawing packet construction"},
+  {"start":"0x80053B70","size":456,"entries":["0x80053B70"],"executable":"N2O.EXE","purpose":"Drawing packet construction"},
+  {"start":"0x80053D38","size":704,"entries":["0x80053D38"],"executable":"N2O.EXE","purpose":"Drawing packet construction"},
+  {"start":"0x80053FF8","size":360,"entries":["0x80053FF8"],"executable":"N2O.EXE","purpose":"Drawing packet construction"},
+  {"start":"0x80054B70","size":784,"entries":["0x80054B70"],"executable":"N2O.EXE","purpose":"Drawing packet construction"},
+  {"start":"0x80054E80","size":784,"entries":["0x80054E80"],"executable":"N2O.EXE","purpose":"Drawing packet construction"},
+  {"start":"0x80055190","size":260,"entries":["0x80055190"],"executable":"N2O.EXE","purpose":"Drawing packet construction"},
+  {"executable":"N2O.EXE","start":"0x8006D628","size":164,"entries":["0x8006D628"],"purpose":"Memory card control and event polling"},
+  {"executable":"N2O.EXE","start":"0x8006D6CC","size":72,"entries":["0x8006D6CC"],"purpose":"Memory card control and event polling"},
+  {"executable":"N2O.EXE","start":"0x8006D714","size":152,"entries":["0x8006D714"],"purpose":"Memory card control and event polling"},
+  {"executable":"N2O.EXE","start":"0x8006D7AC","size":88,"entries":["0x8006D7AC"],"purpose":"Memory card control and event polling"},
+  {"executable":"N2O.EXE","start":"0x8006D804","size":236,"entries":["0x8006D804"],"purpose":"Memory card control and event polling"},
+  {"executable":"N2O.EXE","start":"0x8006D8F0","size":84,"entries":["0x8006D8F0"],"purpose":"Memory card control and event polling"},
+  {"executable":"N2O.EXE","start":"0x8006D944","size":72,"entries":["0x8006D944"],"purpose":"Memory card control and event polling"},
+  {"executable":"N2O.EXE","start":"0x8006D98C","size":48,"entries":["0x8006D98C"],"purpose":"Memory card control and event polling"},
+  {"executable":"N2O.EXE","start":"0x8006D9BC","size":376,"entries":["0x8006D9BC"],"purpose":"Memory card control and event polling"},
+  {"executable":"N2O.EXE","start":"0x8006DB34","size":256,"entries":["0x8006DB34"],"purpose":"Memory card control and event polling"},
+  {"executable":"N2O.EXE","start":"0x8006DC34","size":76,"entries":["0x8006DC34"],"purpose":"Memory card control and event polling"},
+  {"executable":"N2O.EXE","start":"0x8006DC80","size":352,"entries":["0x8006DC80"],"purpose":"Memory card control and event polling"},
+  {"executable":"N2O.EXE","start":"0x80071CDC","size":12,"entries":["0x80071CDC"],"purpose":"BIOS service call trampoline"},
+  {"executable":"N2O.EXE","start":"0x80071CEC","size":12,"entries":["0x80071CEC"],"purpose":"BIOS service call trampoline"},
+  {"executable":"N2O.EXE","start":"0x80071CFC","size":12,"entries":["0x80071CFC"],"purpose":"BIOS service call trampoline"},
+  {"executable":"N2O.EXE","start":"0x80071D0C","size":12,"entries":["0x80071D0C"],"purpose":"BIOS service call trampoline"},
+  {"executable":"N2O.EXE","start":"0x80071D1C","size":12,"entries":["0x80071D1C"],"purpose":"BIOS service call trampoline"},
+  {"executable":"N2O.EXE","start":"0x80071D2C","size":12,"entries":["0x80071D2C"],"purpose":"BIOS service call trampoline"},
+  {"executable":"N2O.EXE","start":"0x80071D9C","size":12,"entries":["0x80071D9C"],"purpose":"BIOS service call trampoline"},
+  {"executable":"N2O.EXE","start":"0x80071DAC","size":12,"entries":["0x80071DAC"],"purpose":"BIOS service call trampoline"},
+  {"executable":"N2O.EXE","start":"0x8005670C","size":160,"entries":["0x8005670C"],"purpose":"Angle calculation from live table data"},
+  {"executable":"N2O.EXE","start":"0x800567AC","size":48,"entries":["0x800567AC"],"purpose":"Text formatting for game presentation"},
+  {"executable":"N2O.EXE","start":"0x800567DC","size":1200,"entries":["0x800567DC"],"purpose":"Text formatting for game presentation"},
+  {"executable":"N2O.EXE","start":"0x80056CAC","size":64,"entries":["0x80056CAC"],"purpose":"Geometry transformation and drawing preparation"},
+  {"executable":"N2O.EXE","start":"0x80056CEC","size":4516,"entries":["0x80056CEC"],"purpose":"Geometry transformation and drawing preparation"},
+  {"executable":"N2O.EXE","start":"0x80057E90","size":2184,"entries":["0x80057E90"],"purpose":"Geometry transformation and drawing preparation"},
+  {"executable":"N2O.EXE","start":"0x80058718","size":1028,"entries":["0x80058718"],"purpose":"Geometry transformation and drawing preparation"},
+  {"executable":"N2O.EXE","start":"0x80058B1C","size":1580,"entries":["0x80058B1C"],"purpose":"Geometry transformation and drawing preparation"},
+  {"executable":"N2O.EXE","start":"0x80059148","size":76,"entries":["0x80059148"],"purpose":"Geometry transformation and drawing preparation"},
+  {"executable":"N2O.EXE","start":"0x80059194","size":2740,"entries":["0x80059194"],"purpose":"Geometry transformation and drawing preparation"},
+  {"executable":"N2O.EXE","start":"0x80059C48","size":92,"entries":["0x80059C48"],"purpose":"Geometry transformation and drawing preparation"},
+  {"executable":"N2O.EXE","start":"0x80059CA4","size":40,"entries":["0x80059CA4"],"purpose":"Geometry transformation and drawing preparation"},
+  {"executable":"N2O.EXE","start":"0x80059CCC","size":240,"entries":["0x80059CCC"],"purpose":"Geometry transformation and drawing preparation"},
+  {"executable":"N2O.EXE","start":"0x80059DBC","size":356,"entries":["0x80059DBC"],"purpose":"Geometry transformation and drawing preparation"},
+  {"executable":"N2O.EXE","start":"0x80059F20","size":368,"entries":["0x80059F20"],"purpose":"Geometry transformation and drawing preparation"},
+  {"executable":"N2O.EXE","start":"0x8005A090","size":484,"entries":["0x8005A090"],"purpose":"Geometry transformation and drawing preparation"},
+  {"executable":"N2O.EXE","start":"0x8005A274","size":248,"entries":["0x8005A274"],"purpose":"Geometry transformation and drawing preparation"},
+  {"executable":"N2O.EXE","start":"0x8005A36C","size":152,"entries":["0x8005A36C"],"purpose":"Geometry transformation and drawing preparation"},
+  {"executable":"N2O.EXE","start":"0x8005A404","size":316,"entries":["0x8005A404"],"purpose":"Geometry transformation and drawing preparation"},
+  {"executable":"N2O.EXE","start":"0x8005A540","size":308,"entries":["0x8005A540"],"purpose":"Geometry transformation and drawing preparation"},
+  {"executable":"N2O.EXE","start":"0x8005A674","size":276,"entries":["0x8005A674"],"purpose":"Geometry transformation and drawing preparation"},
+  {"executable":"N2O.EXE","start":"0x8005A788","size":228,"entries":["0x8005A788"],"purpose":"Geometry transformation and drawing preparation"},
+  {"executable":"N2O.EXE","start":"0x8005A86C","size":56,"entries":["0x8005A86C"],"purpose":"Geometry transformation and drawing preparation"},
+  {"executable":"N2O.EXE","start":"0x8005A8A4","size":260,"entries":["0x8005A8A4"],"purpose":"Geometry transformation and drawing preparation"},
+  {"executable":"N2O.EXE","start":"0x8005A9A8","size":376,"entries":["0x8005A9A8"],"purpose":"Geometry transformation and drawing preparation"},
+  {"executable":"N2O.EXE","start":"0x8005AB20","size":524,"entries":["0x8005AB20"],"purpose":"Geometry transformation and drawing preparation"},
+  {"executable":"N2O.EXE","start":"0x8005AD2C","size":60,"entries":["0x8005AD2C"],"purpose":"Geometry transformation and drawing preparation"},
+  {"executable":"N2O.EXE","start":"0x8005AD68","size":320,"entries":["0x8005AD68"],"purpose":"Geometry transformation and drawing preparation"},
+  {"executable":"N2O.EXE","start":"0x8005AEA8","size":224,"entries":["0x8005AEA8"],"purpose":"Geometry transformation and drawing preparation"},
+  {"executable":"N2O.EXE","start":"0x8005AF88","size":16756,"entries":["0x8005AF88"],"purpose":"Geometry transformation and drawing preparation"},
+  {"executable":"N2O.EXE","start":"0x8005F0FC","size":1256,"entries":["0x8005F0FC"],"purpose":"Geometry transformation and drawing preparation"},
+  {"executable":"N2O.EXE","start":"0x8005F5E4","size":396,"entries":["0x8005F5E4"],"purpose":"Geometry transformation and drawing preparation"},
+  {"executable":"N2O.EXE","start":"0x8004532C","size":20800,"entries":["0x8004532C"],"purpose":"Model primitive transformation and packet preparation"},
+  {"executable":"N2O.EXE","start":"0x8004A46C","size":5776,"entries":["0x8004A46C"],"purpose":"Model primitive transformation and packet preparation"},
+  {"executable":"N2O.EXE","start":"0x8004DF74","size":556,"entries":["0x8004DF74"],"purpose":"Object primitive packet preparation"},
+  {"executable":"N2O.EXE","start":"0x8004E1A0","size":1768,"entries":["0x8004E1A0"],"purpose":"Object primitive packet preparation"},
+  {"executable":"N2O.EXE","start":"0x8004E888","size":704,"entries":["0x8004E888"],"purpose":"Object primitive packet preparation"},
+  {"executable":"N2O.EXE","start":"0x8004EE10","size":744,"entries":["0x8004EE10"],"purpose":"Object primitive packet preparation"},
+  {"executable":"N2O.EXE","start":"0x8004F0F8","size":296,"entries":["0x8004F0F8"],"purpose":"Object primitive packet preparation"},
+  {"executable":"N2O.EXE","start":"0x8004F220","size":364,"entries":["0x8004F220"],"purpose":"Object primitive packet preparation"},
+  {"executable":"N2O.EXE","start":"0x8004F38C","size":544,"entries":["0x8004F38C"],"purpose":"Object primitive packet preparation"},
+  {"executable":"N2O.EXE","start":"0x8004F5AC","size":948,"entries":["0x8004F5AC"],"purpose":"Object primitive packet preparation"},
+  {"executable":"N2O.EXE","start":"0x8004F960","size":520,"entries":["0x8004F960"],"purpose":"Object primitive packet preparation"},
+  {"executable":"N2O.EXE","start":"0x8004FB68","size":532,"entries":["0x8004FB68"],"purpose":"Object primitive packet preparation"},
+  {"executable":"N2O.EXE","start":"0x8004FD7C","size":1028,"entries":["0x8004FD7C"],"purpose":"Object primitive packet preparation"},
+  {"executable":"N2O.EXE","start":"0x8005F770","size":660,"entries":["0x8005F770"],"purpose":"Game object and menu presentation control"},
+  {"executable":"N2O.EXE","start":"0x8005FA04","size":1760,"entries":["0x8005FA04"],"purpose":"Game object and menu presentation control"},
+  {"executable":"N2O.EXE","start":"0x8006011C","size":236,"entries":["0x8006011C"],"purpose":"Game object and menu presentation control"},
+  {"executable":"N2O.EXE","start":"0x80060208","size":432,"entries":["0x80060208"],"purpose":"Game object and menu presentation control"},
+  {"executable":"N2O.EXE","start":"0x800603B8","size":204,"entries":["0x800603B8"],"purpose":"Game object and menu presentation control"},
+  {"executable":"N2O.EXE","start":"0x80060484","size":832,"entries":["0x80060484"],"purpose":"Game object and menu presentation control"},
+  {"executable":"N2O.EXE","start":"0x800607C4","size":272,"entries":["0x800607C4"],"purpose":"Game object and menu presentation control"},
+  {"executable":"N2O.EXE","start":"0x800608D4","size":32,"entries":["0x800608D4"],"purpose":"Game object and menu presentation control"},
+  {"executable":"N2O.EXE","start":"0x800608F4","size":60,"entries":["0x800608F4"],"purpose":"Game object and menu presentation control"},
+  {"executable":"N2O.EXE","start":"0x80060930","size":1568,"entries":["0x80060930"],"purpose":"Game object and menu presentation control"},
+  {"executable":"N2O.EXE","start":"0x80060F50","size":1180,"entries":["0x80060F50"],"purpose":"Game object and menu presentation control"},
+  {"executable":"N2O.EXE","start":"0x800613EC","size":1232,"entries":["0x800613EC"],"purpose":"Game object and menu presentation control"},
+  {"executable":"N2O.EXE","start":"0x80061C50","size":484,"entries":["0x80061C50"],"purpose":"Game object and menu presentation control"},
+  {"executable":"N2O.EXE","start":"0x80061E34","size":140,"entries":["0x80061E34"],"purpose":"Game object and menu presentation control"},
+  {"executable":"N2O.EXE","start":"0x80061EC0","size":1596,"entries":["0x80061EC0"],"purpose":"Game object and menu presentation control"},
+  {"executable":"N2O.EXE","start":"0x80062A28","size":800,"entries":["0x80062A28"],"purpose":"Game object and menu presentation control"},
+  {"executable":"N2O.EXE","start":"0x80063114","size":116,"entries":["0x80063114"],"purpose":"Game object and menu presentation control"},
+  {"executable":"N2O.EXE","start":"0x80063C14","size":132,"entries":["0x80063C14"],"purpose":"Game object and menu presentation control"},
+  {"executable":"N2O.EXE","start":"0x80063CD8","size":128,"entries":["0x80063CD8"],"purpose":"Game object and menu presentation control"},
+  {"executable":"N2O.EXE","start":"0x8006487C","size":468,"entries":["0x8006487C"],"purpose":"Game object and menu presentation control"},
+  {"executable":"N2O.EXE","start":"0x80065394","size":4492,"entries":["0x80065394"],"purpose":"Game object and menu presentation control"},
+  {"executable":"N2O.EXE","start":"0x8006665C","size":108,"entries":["0x8006665C"],"purpose":"Game object and menu presentation control"},
+  {"executable":"N2O.EXE","start":"0x80067574","size":168,"entries":["0x80067574"],"purpose":"Game object and menu presentation control"},
+  {"executable":"N2O.EXE","start":"0x8006761C","size":19696,"entries":["0x8006761C"],"purpose":"Game object and menu presentation control"},
+  {"executable":"N2O.EXE","start":"0x8006C30C","size":452,"entries":["0x8006C30C"],"purpose":"Game object and menu presentation control"},
+  {"executable":"N2O.EXE","start":"0x8006C4D0","size":568,"entries":["0x8006C4D0"],"purpose":"Game object and menu presentation control"},
+  {"executable":"N2O.EXE","start":"0x8006C708","size":500,"entries":["0x8006C708"],"purpose":"Game object and menu presentation control"},
+  {"executable":"N2O.EXE","start":"0x8006C8FC","size":436,"entries":["0x8006C8FC"],"purpose":"Game object and menu presentation control"},
+  {"executable":"N2O.EXE","start":"0x8006CAB0","size":1180,"entries":["0x8006CAB0"],"purpose":"Game object and menu presentation control"},
+  {"executable":"N2O.EXE","start":"0x8006CF4C","size":1136,"entries":["0x8006CF4C"],"purpose":"Game object and menu presentation control"},
+  {"executable":"N2O.EXE","start":"0x8006D3BC","size":204,"entries":["0x8006D3BC"],"purpose":"Game object and menu presentation control"},
+  {"executable":"N2O.EXE","start":"0x8006D488","size":40,"entries":["0x8006D488"],"purpose":"Game object and menu presentation control"},
+  {"executable":"N2O.EXE","start":"0x8006D4B0","size":56,"entries":["0x8006D4B0"],"purpose":"Game object and menu presentation control"},
+  {"executable":"N2O.EXE","start":"0x80021500","size":52,"entries":["0x80021500"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x80021534","size":8,"entries":["0x80021534"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x8002153C","size":560,"entries":["0x8002153C"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x8002176C","size":64,"entries":["0x8002176C"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x800217AC","size":348,"entries":["0x800217AC"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x80021908","size":44,"entries":["0x80021908"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x80021934","size":76,"entries":["0x80021934"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x80021980","size":624,"entries":["0x80021980"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x80021BF0","size":172,"entries":["0x80021BF0"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x80021C9C","size":4556,"entries":["0x80021C9C"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x80022E68","size":1664,"entries":["0x80022E68"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x800234E8","size":400,"entries":["0x800234E8"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x80023678","size":12,"entries":["0x80023678"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x80023684","size":164,"entries":["0x80023684"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x80023728","size":100,"entries":["0x80023728"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x8002378C","size":444,"entries":["0x8002378C"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x80027938","size":536,"entries":["0x80027938"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x80027B50","size":180,"entries":["0x80027B50"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x80027C84","size":368,"entries":["0x80027C84"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x80027DF4","size":156,"entries":["0x80027DF4"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x80027EE0","size":448,"entries":["0x80027EE0"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x800280EC","size":508,"entries":["0x800280EC"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x800282E8","size":1444,"entries":["0x800282E8"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x800292E4","size":944,"entries":["0x800292E4"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x80029744","size":1932,"entries":["0x80029744"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x80029ED0","size":2292,"entries":["0x80029ED0"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x8002AA54","size":1148,"entries":["0x8002AA54"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x8002AED0","size":1668,"entries":["0x8002AED0"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x8002B7AC","size":80,"entries":["0x8002B7AC"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x8002B7FC","size":136,"entries":["0x8002B7FC"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x8002B884","size":3824,"entries":["0x8002B884"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x8002C774","size":656,"entries":["0x8002C774"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x8002CA04","size":2796,"entries":["0x8002CA04"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x8002D4F0","size":68,"entries":["0x8002D4F0"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x8002D534","size":52,"entries":["0x8002D534"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x8002E664","size":56,"entries":["0x8002E664"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x8002EF98","size":292,"entries":["0x8002EF98"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x8002F844","size":292,"entries":["0x8002F844"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x8002F968","size":140,"entries":["0x8002F968"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x80030108","size":3064,"entries":["0x80030108"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x80030D20","size":32,"entries":["0x80030D20"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x80030D40","size":36,"entries":["0x80030D40"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x80030D64","size":212,"entries":["0x80030D64"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x80030E38","size":92,"entries":["0x80030E38"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x80030E94","size":284,"entries":["0x80030E94"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x800311E4","size":296,"entries":["0x800311E4"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x800321F0","size":2052,"entries":["0x800321F0"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x80032AA8","size":684,"entries":["0x80032AA8"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x80032D54","size":648,"entries":["0x80032D54"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x80032FDC","size":360,"entries":["0x80032FDC"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x800333E4","size":308,"entries":["0x800333E4"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x80033608","size":136,"entries":["0x80033608"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x80033690","size":5956,"entries":["0x80033690"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x80034DD4","size":156,"entries":["0x80034DD4"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x80034E70","size":152,"entries":["0x80034E70"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x80034F08","size":188,"entries":["0x80034F08"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x80034FC4","size":140,"entries":["0x80034FC4"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x800353A4","size":340,"entries":["0x800353A4"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x8003573C","size":168,"entries":["0x8003573C"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x800357E4","size":140,"entries":["0x800357E4"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x80035870","size":264,"entries":["0x80035870"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x80035978","size":2188,"entries":["0x80035978"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x8003855C","size":356,"entries":["0x8003855C"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x800386C0","size":2104,"entries":["0x800386C0"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x80038EF8","size":404,"entries":["0x80038EF8"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x800397EC","size":384,"entries":["0x800397EC"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x8003996C","size":596,"entries":["0x8003996C"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x80039BC0","size":468,"entries":["0x80039BC0"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x8003B210","size":1396,"entries":["0x8003B210"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x8003BA04","size":328,"entries":["0x8003BA04"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x8003BB4C","size":128,"entries":["0x8003BB4C"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x8003BBCC","size":68,"entries":["0x8003BBCC"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x8003BC10","size":276,"entries":["0x8003BC10"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x8003BD24","size":500,"entries":["0x8003BD24"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x8003BF58","size":1080,"entries":["0x8003BF58"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x8003C390","size":320,"entries":["0x8003C390"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x8003C544","size":116,"entries":["0x8003C544"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x8003CF7C","size":5504,"entries":["0x8003CF7C"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x8003E4FC","size":1212,"entries":["0x8003E4FC"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x8003E9B8","size":2052,"entries":["0x8003E9B8"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x8003F1BC","size":484,"entries":["0x8003F1BC"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x8003F3A0","size":248,"entries":["0x8003F3A0"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x8003F758","size":292,"entries":["0x8003F758"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x8003F87C","size":3948,"entries":["0x8003F87C"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x800407E8","size":772,"entries":["0x800407E8"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x80040AEC","size":436,"entries":["0x80040AEC"],"purpose":"Game update, object and presentation control"},
+  {"executable":"N2O.EXE","start":"0x80045154","size":192,"entries":["0x80045154"],"purpose":"Model drawing dispatch and setup"},
+  {"executable":"N2O.EXE","start":"0x80045214","size":280,"entries":["0x80045214"],"purpose":"Model drawing dispatch and setup"},
+  {"executable":"N2O.EXE","start":"0x8004BBE4","size":164,"entries":["0x8004BBE4"],"purpose":"Game service and resource control"},
+  {"executable":"N2O.EXE","start":"0x8004BCE4","size":752,"entries":["0x8004BCE4"],"purpose":"Game service and resource control"},
+  {"executable":"N2O.EXE","start":"0x8004BFD4","size":316,"entries":["0x8004BFD4"],"purpose":"Game service and resource control"},
+  {"executable":"N2O.EXE","start":"0x8004C110","size":168,"entries":["0x8004C110"],"purpose":"Game service and resource control"},
+  {"executable":"N2O.EXE","start":"0x8004C1B8","size":336,"entries":["0x8004C1B8"],"purpose":"Game service and resource control"},
+  {"executable":"N2O.EXE","start":"0x8004C424","size":188,"entries":["0x8004C424"],"purpose":"Game service and resource control"},
+  {"executable":"N2O.EXE","start":"0x8004C4E0","size":36,"entries":["0x8004C4E0"],"purpose":"Game service and resource control"},
+  {"executable":"N2O.EXE","start":"0x8004C504","size":36,"entries":["0x8004C504"],"purpose":"Game service and resource control"},
+  {"executable":"N2O.EXE","start":"0x8004C594","size":100,"entries":["0x8004C594"],"purpose":"Game service and resource control"},
+  {"executable":"N2O.EXE","start":"0x8004C6AC","size":520,"entries":["0x8004C6AC"],"purpose":"Game service and resource control"},
+  {"executable":"N2O.EXE","start":"0x8004C8B4","size":96,"entries":["0x8004C8B4"],"purpose":"Game service and resource control"},
+  {"executable":"N2O.EXE","start":"0x8004C914","size":140,"entries":["0x8004C914"],"purpose":"Game service and resource control"},
+  {"executable":"N2O.EXE","start":"0x8004C9A0","size":48,"entries":["0x8004C9A0"],"purpose":"Game service and resource control"},
+  {"executable":"N2O.EXE","start":"0x8004CB74","size":192,"entries":["0x8004CB74"],"purpose":"Game service and resource control"},
+  {"executable":"N2O.EXE","start":"0x8004CC34","size":592,"entries":["0x8004CC34"],"purpose":"Game service and resource control"},
+  {"executable":"N2O.EXE","start":"0x8004CE84","size":88,"entries":["0x8004CE84"],"purpose":"Game service and resource control"},
+  {"executable":"N2O.EXE","start":"0x8004CEDC","size":308,"entries":["0x8004CEDC"],"purpose":"Game service and resource control"},
+  {"executable":"N2O.EXE","start":"0x8004D010","size":40,"entries":["0x8004D010"],"purpose":"Game service and resource control"},
+  {"executable":"N2O.EXE","start":"0x8004D038","size":120,"entries":["0x8004D038"],"purpose":"Game service and resource control"},
+  {"executable":"N2O.EXE","start":"0x8004D0B0","size":32,"entries":["0x8004D0B0"],"purpose":"Game service and resource control"},
+  {"executable":"N2O.EXE","start":"0x8004D0D0","size":92,"entries":["0x8004D0D0"],"purpose":"Game service and resource control"},
+  {"executable":"N2O.EXE","start":"0x8004D12C","size":148,"entries":["0x8004D12C"],"purpose":"Game service and resource control"},
+  {"executable":"N2O.EXE","start":"0x8004D1C0","size":232,"entries":["0x8004D1C0"],"purpose":"Game service and resource control"},
+  {"executable":"N2O.EXE","start":"0x8004D2A8","size":68,"entries":["0x8004D2A8"],"purpose":"Game service and resource control"},
+  {"executable":"N2O.EXE","start":"0x8004D2EC","size":60,"entries":["0x8004D2EC"],"purpose":"Game service and resource control"},
+  {"executable":"N2O.EXE","start":"0x8004D384","size":936,"entries":["0x8004D384"],"purpose":"Game service and resource control"},
+  {"executable":"N2O.EXE","start":"0x8004D9D0","size":392,"entries":["0x8004D9D0"],"purpose":"Game service and resource control"},
+  {"executable":"N2O.EXE","start":"0x8004DB58","size":736,"entries":["0x8004DB58"],"purpose":"Game service and resource control"},
+  {"executable":"N2O.EXE","start":"0x8004DE38","size":316,"entries":["0x8004DE38"],"purpose":"Game service and resource control"},
+  {"executable":"N2O.EXE","start":"0x80023948","size":13032,"entries":["0x80023948"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80026C30","size":284,"entries":["0x80026C30"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80026D4C","size":248,"entries":["0x80026D4C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80026E44","size":284,"entries":["0x80026E44"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80026F60","size":248,"entries":["0x80026F60"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80027058","size":284,"entries":["0x80027058"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80027174","size":248,"entries":["0x80027174"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8002726C","size":1740,"entries":["0x8002726C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80027C04","size":128,"entries":["0x80027C04"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80027E90","size":80,"entries":["0x80027E90"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x800280A0","size":76,"entries":["0x800280A0"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8002888C","size":88,"entries":["0x8002888C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x800288E4","size":228,"entries":["0x800288E4"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x800289C8","size":176,"entries":["0x800289C8"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80028A78","size":376,"entries":["0x80028A78"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80028BF0","size":1780,"entries":["0x80028BF0"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80029694","size":176,"entries":["0x80029694"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8002A7C4","size":656,"entries":["0x8002A7C4"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8002B554","size":600,"entries":["0x8002B554"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8002D568","size":428,"entries":["0x8002D568"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8002D714","size":140,"entries":["0x8002D714"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8002D7A0","size":100,"entries":["0x8002D7A0"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8002D804","size":764,"entries":["0x8002D804"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8002DB00","size":336,"entries":["0x8002DB00"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8002DC50","size":300,"entries":["0x8002DC50"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8002DD7C","size":400,"entries":["0x8002DD7C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8002DF0C","size":256,"entries":["0x8002DF0C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8002E00C","size":420,"entries":["0x8002E00C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8002E1B0","size":356,"entries":["0x8002E1B0"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8002E314","size":588,"entries":["0x8002E314"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8002E560","size":260,"entries":["0x8002E560"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8002E69C","size":432,"entries":["0x8002E69C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8002E84C","size":772,"entries":["0x8002E84C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8002EB50","size":308,"entries":["0x8002EB50"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8002EC84","size":528,"entries":["0x8002EC84"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8002EE94","size":260,"entries":["0x8002EE94"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8002F0BC","size":488,"entries":["0x8002F0BC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8002F2A4","size":596,"entries":["0x8002F2A4"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8002F4F8","size":384,"entries":["0x8002F4F8"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8002F678","size":392,"entries":["0x8002F678"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8002F800","size":68,"entries":["0x8002F800"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8002F9F4","size":140,"entries":["0x8002F9F4"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8002FA80","size":1368,"entries":["0x8002FA80"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8002FFD8","size":304,"entries":["0x8002FFD8"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80030D00","size":32,"entries":["0x80030D00"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80030FB0","size":360,"entries":["0x80030FB0"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80031118","size":204,"entries":["0x80031118"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8003130C","size":336,"entries":["0x8003130C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8003145C","size":744,"entries":["0x8003145C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80031744","size":396,"entries":["0x80031744"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x800318D0","size":308,"entries":["0x800318D0"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80031A04","size":308,"entries":["0x80031A04"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80031B38","size":24,"entries":["0x80031B38"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80031B50","size":168,"entries":["0x80031B50"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80031BF8","size":848,"entries":["0x80031BF8"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80031F48","size":96,"entries":["0x80031F48"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80031FA8","size":400,"entries":["0x80031FA8"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80032138","size":92,"entries":["0x80032138"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80032194","size":92,"entries":["0x80032194"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x800329F4","size":180,"entries":["0x800329F4"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80033144","size":276,"entries":["0x80033144"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80033258","size":396,"entries":["0x80033258"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80033518","size":104,"entries":["0x80033518"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80033580","size":136,"entries":["0x80033580"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80035050","size":360,"entries":["0x80035050"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x800351B8","size":248,"entries":["0x800351B8"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x800352B0","size":244,"entries":["0x800352B0"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x800354F8","size":180,"entries":["0x800354F8"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x800355AC","size":68,"entries":["0x800355AC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x800355F0","size":332,"entries":["0x800355F0"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80036204","size":9048,"entries":["0x80036204"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8003908C","size":196,"entries":["0x8003908C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80039150","size":264,"entries":["0x80039150"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80039258","size":432,"entries":["0x80039258"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80039408","size":416,"entries":["0x80039408"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x800395A8","size":580,"entries":["0x800395A8"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80039D94","size":188,"entries":["0x80039D94"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8003A528","size":3304,"entries":["0x8003A528"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8003B784","size":312,"entries":["0x8003B784"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8003B8BC","size":328,"entries":["0x8003B8BC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8003BF18","size":64,"entries":["0x8003BF18"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8003C4D0","size":116,"entries":["0x8003C4D0"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8003C5B8","size":24,"entries":["0x8003C5B8"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8003C5D0","size":464,"entries":["0x8003C5D0"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8003C7A0","size":96,"entries":["0x8003C7A0"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8003C800","size":184,"entries":["0x8003C800"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8003C8B8","size":1092,"entries":["0x8003C8B8"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8003CCFC","size":260,"entries":["0x8003CCFC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8003CE00","size":136,"entries":["0x8003CE00"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8003CE88","size":244,"entries":["0x8003CE88"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8003F498","size":516,"entries":["0x8003F498"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8003F69C","size":80,"entries":["0x8003F69C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8003F6EC","size":108,"entries":["0x8003F6EC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80040CA0","size":164,"entries":["0x80040CA0"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80041FD8","size":276,"entries":["0x80041FD8"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x800420EC","size":240,"entries":["0x800420EC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x800421DC","size":1292,"entries":["0x800421DC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x800426E8","size":876,"entries":["0x800426E8"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80042A54","size":1388,"entries":["0x80042A54"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80042FC0","size":4380,"entries":["0x80042FC0"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80044F14","size":576,"entries":["0x80044F14"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8004BB10","size":212,"entries":["0x8004BB10"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8004BC88","size":92,"entries":["0x8004BC88"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8004C308","size":212,"entries":["0x8004C308"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8004C3DC","size":36,"entries":["0x8004C3DC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8004C400","size":36,"entries":["0x8004C400"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8004C528","size":108,"entries":["0x8004C528"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8004C5F8","size":180,"entries":["0x8004C5F8"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8004C9D0","size":60,"entries":["0x8004C9D0"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8004CA0C","size":248,"entries":["0x8004CA0C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8004CB04","size":112,"entries":["0x8004CB04"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8004D328","size":92,"entries":["0x8004D328"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8004D72C","size":676,"entries":["0x8004D72C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x800504CC","size":108,"entries":["0x800504CC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80051D88","size":1708,"entries":["0x80051D88"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80052C68","size":332,"entries":["0x80052C68"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x800546D0","size":1184,"entries":["0x800546D0"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80055294","size":252,"entries":["0x80055294"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80055390","size":96,"entries":["0x80055390"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x800553F0","size":12,"entries":["0x800553F0"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x800553FC","size":200,"entries":["0x800553FC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x800554C4","size":260,"entries":["0x800554C4"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x800555C8","size":1636,"entries":["0x800555C8"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80055C2C","size":2576,"entries":["0x80055C2C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8005663C","size":84,"entries":["0x8005663C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80056690","size":68,"entries":["0x80056690"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80056C8C","size":24,"entries":["0x80056C8C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80056CA4","size":8,"entries":["0x80056CA4"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x800600E4","size":56,"entries":["0x800600E4"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x800618BC","size":252,"entries":["0x800618BC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x800619B8","size":664,"entries":["0x800619B8"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x800624FC","size":1324,"entries":["0x800624FC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80062D48","size":308,"entries":["0x80062D48"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80062E7C","size":432,"entries":["0x80062E7C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8006302C","size":120,"entries":["0x8006302C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x800630A4","size":112,"entries":["0x800630A4"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80063188","size":60,"entries":["0x80063188"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x800631C4","size":84,"entries":["0x800631C4"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80063218","size":2556,"entries":["0x80063218"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80063C98","size":64,"entries":["0x80063C98"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80063D58","size":160,"entries":["0x80063D58"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80063DF8","size":96,"entries":["0x80063DF8"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80063E58","size":1744,"entries":["0x80063E58"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80064528","size":104,"entries":["0x80064528"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80064590","size":188,"entries":["0x80064590"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8006464C","size":196,"entries":["0x8006464C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80064710","size":216,"entries":["0x80064710"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x800647E8","size":148,"entries":["0x800647E8"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80064A50","size":1600,"entries":["0x80064A50"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80065090","size":772,"entries":["0x80065090"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80066520","size":316,"entries":["0x80066520"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x800666C8","size":280,"entries":["0x800666C8"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x800667E0","size":888,"entries":["0x800667E0"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80066B58","size":2420,"entries":["0x80066B58"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x800674CC","size":168,"entries":["0x800674CC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8006D4E8","size":320,"entries":["0x8006D4E8"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8006DDE0","size":68,"entries":["0x8006DDE0"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8006DE24","size":716,"entries":["0x8006DE24"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8006E0F0","size":620,"entries":["0x8006E0F0"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8006E35C","size":420,"entries":["0x8006E35C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8006E500","size":384,"entries":["0x8006E500"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8006E680","size":536,"entries":["0x8006E680"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8006E898","size":184,"entries":["0x8006E898"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8006E950","size":12,"entries":["0x8006E950"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8006E95C","size":508,"entries":["0x8006E95C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8006EB58","size":520,"entries":["0x8006EB58"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8006ED60","size":32,"entries":["0x8006ED60"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8006ED80","size":32,"entries":["0x8006ED80"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8006EDA0","size":136,"entries":["0x8006EDA0"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8006EE28","size":36,"entries":["0x8006EE28"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8006EE4C","size":36,"entries":["0x8006EE4C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8006EE70","size":36,"entries":["0x8006EE70"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8006EE94","size":44,"entries":["0x8006EE94"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8006EEC0","size":48,"entries":["0x8006EEC0"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8006EEF0","size":1548,"entries":["0x8006EEF0"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8006F4FC","size":12,"entries":["0x8006F4FC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8006F508","size":172,"entries":["0x8006F508"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8006F5B4","size":144,"entries":["0x8006F5B4"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8006F644","size":652,"entries":["0x8006F644"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8006F8D0","size":3592,"entries":["0x8006F8D0"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x800706D8","size":316,"entries":["0x800706D8"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80070814","size":752,"entries":["0x80070814"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80070B04","size":460,"entries":["0x80070B04"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80070CD0","size":96,"entries":["0x80070CD0"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80070D30","size":76,"entries":["0x80070D30"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80070D7C","size":1552,"entries":["0x80070D7C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007138C","size":740,"entries":["0x8007138C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80071670","size":1312,"entries":["0x80071670"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80071B90","size":108,"entries":["0x80071B90"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80071BFC","size":48,"entries":["0x80071BFC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80071C2C","size":64,"entries":["0x80071C2C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80071C6C","size":112,"entries":["0x80071C6C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80071D5C","size":16,"entries":["0x80071D5C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80071D6C","size":16,"entries":["0x80071D6C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80071D7C","size":16,"entries":["0x80071D7C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80071D8C","size":16,"entries":["0x80071D8C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80071DBC","size":376,"entries":["0x80071DBC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80071F34","size":152,"entries":["0x80071F34"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80071FCC","size":16,"entries":["0x80071FCC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80071FDC","size":16,"entries":["0x80071FDC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80071FEC","size":48,"entries":["0x80071FEC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007201C","size":48,"entries":["0x8007201C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007204C","size":48,"entries":["0x8007204C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007207C","size":100,"entries":["0x8007207C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x800720E0","size":96,"entries":["0x800720E0"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80072140","size":40,"entries":["0x80072140"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80072168","size":240,"entries":["0x80072168"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80072258","size":1072,"entries":["0x80072258"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80072688","size":36,"entries":["0x80072688"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x800726AC","size":136,"entries":["0x800726AC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80072734","size":24,"entries":["0x80072734"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007274C","size":16,"entries":["0x8007274C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007275C","size":16,"entries":["0x8007275C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007276C","size":16,"entries":["0x8007276C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007277C","size":240,"entries":["0x8007277C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007286C","size":48,"entries":["0x8007286C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007289C","size":632,"entries":["0x8007289C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80072B14","size":40,"entries":["0x80072B14"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80072B3C","size":20,"entries":["0x80072B3C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80072B50","size":28,"entries":["0x80072B50"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80072B6C","size":372,"entries":["0x80072B6C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80072CE0","size":368,"entries":["0x80072CE0"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80072E50","size":152,"entries":["0x80072E50"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80072EE8","size":104,"entries":["0x80072EE8"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80072F50","size":284,"entries":["0x80072F50"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007306C","size":296,"entries":["0x8007306C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80073194","size":576,"entries":["0x80073194"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x800733D4","size":264,"entries":["0x800733D4"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x800734DC","size":112,"entries":["0x800734DC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007354C","size":460,"entries":["0x8007354C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80073718","size":1232,"entries":["0x80073718"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80073BE8","size":860,"entries":["0x80073BE8"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80073F44","size":624,"entries":["0x80073F44"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x800741B4","size":32,"entries":["0x800741B4"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x800741D4","size":152,"entries":["0x800741D4"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007426C","size":152,"entries":["0x8007426C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80074304","size":28,"entries":["0x80074304"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80074320","size":2268,"entries":["0x80074320"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80074BFC","size":72,"entries":["0x80074BFC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80074C44","size":84,"entries":["0x80074C44"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80074C98","size":688,"entries":["0x80074C98"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80074F48","size":608,"entries":["0x80074F48"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x800751A8","size":652,"entries":["0x800751A8"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80075434","size":52,"entries":["0x80075434"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80075468","size":324,"entries":["0x80075468"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x800755AC","size":1248,"entries":["0x800755AC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80075A8C","size":48,"entries":["0x80075A8C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80075ABC","size":64,"entries":["0x80075ABC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80075AFC","size":24,"entries":["0x80075AFC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80075B14","size":136,"entries":["0x80075B14"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80075B9C","size":144,"entries":["0x80075B9C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80075C2C","size":48,"entries":["0x80075C2C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80075C5C","size":48,"entries":["0x80075C5C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80075C8C","size":32,"entries":["0x80075C8C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80075CAC","size":32,"entries":["0x80075CAC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80075CCC","size":32,"entries":["0x80075CCC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80075CEC","size":16,"entries":["0x80075CEC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80075CFC","size":512,"entries":["0x80075CFC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80075EFC","size":528,"entries":["0x80075EFC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007610C","size":224,"entries":["0x8007610C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x800761EC","size":16,"entries":["0x800761EC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x800761FC","size":36,"entries":["0x800761FC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80076220","size":556,"entries":["0x80076220"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007644C","size":256,"entries":["0x8007644C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007654C","size":16,"entries":["0x8007654C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007655C","size":16,"entries":["0x8007655C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007656C","size":32,"entries":["0x8007656C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007658C","size":12,"entries":["0x8007658C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80076598","size":108,"entries":["0x80076598"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80076604","size":156,"entries":["0x80076604"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x800766A0","size":32,"entries":["0x800766A0"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x800766C0","size":32,"entries":["0x800766C0"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x800766E0","size":20,"entries":["0x800766E0"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x800766F4","size":20,"entries":["0x800766F4"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80076708","size":316,"entries":["0x80076708"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80076844","size":308,"entries":["0x80076844"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80076978","size":332,"entries":["0x80076978"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80076AC4","size":32,"entries":["0x80076AC4"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80076AE4","size":32,"entries":["0x80076AE4"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80076B04","size":32,"entries":["0x80076B04"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80076B24","size":36,"entries":["0x80076B24"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80076B48","size":32,"entries":["0x80076B48"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80076B68","size":260,"entries":["0x80076B68"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80076C6C","size":128,"entries":["0x80076C6C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80076CEC","size":1372,"entries":["0x80076CEC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80077248","size":640,"entries":["0x80077248"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x800774C8","size":712,"entries":["0x800774C8"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80077790","size":1036,"entries":["0x80077790"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80077B9C","size":136,"entries":["0x80077B9C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80077C24","size":212,"entries":["0x80077C24"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80077CF8","size":240,"entries":["0x80077CF8"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80077DE8","size":76,"entries":["0x80077DE8"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80077E34","size":480,"entries":["0x80077E34"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80078014","size":360,"entries":["0x80078014"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007817C","size":256,"entries":["0x8007817C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007827C","size":464,"entries":["0x8007827C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007844C","size":728,"entries":["0x8007844C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80078724","size":32,"entries":["0x80078724"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80078744","size":708,"entries":["0x80078744"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80078A08","size":164,"entries":["0x80078A08"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80078AAC","size":668,"entries":["0x80078AAC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80078D48","size":116,"entries":["0x80078D48"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80078DBC","size":940,"entries":["0x80078DBC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80079168","size":644,"entries":["0x80079168"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x800793EC","size":256,"entries":["0x800793EC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x800794EC","size":200,"entries":["0x800794EC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x800795B4","size":20,"entries":["0x800795B4"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x800795C8","size":36,"entries":["0x800795C8"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x800795EC","size":624,"entries":["0x800795EC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007985C","size":232,"entries":["0x8007985C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80079944","size":120,"entries":["0x80079944"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x800799BC","size":640,"entries":["0x800799BC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80079C3C","size":804,"entries":["0x80079C3C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x80079F60","size":640,"entries":["0x80079F60"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007A1E0","size":232,"entries":["0x8007A1E0"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007A2C8","size":68,"entries":["0x8007A2C8"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007A444","size":40,"entries":["0x8007A444"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007A46C","size":40,"entries":["0x8007A46C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007A494","size":104,"entries":["0x8007A494"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007A4FC","size":48,"entries":["0x8007A4FC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007A52C","size":32,"entries":["0x8007A52C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007A54C","size":128,"entries":["0x8007A54C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007A5CC","size":96,"entries":["0x8007A5CC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007A62C","size":720,"entries":["0x8007A62C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007A8FC","size":768,"entries":["0x8007A8FC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007ABFC","size":336,"entries":["0x8007ABFC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007AD4C","size":144,"entries":["0x8007AD4C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007ADDC","size":1248,"entries":["0x8007ADDC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007B2BC","size":1232,"entries":["0x8007B2BC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007B78C","size":80,"entries":["0x8007B78C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007B7DC","size":48,"entries":["0x8007B7DC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007B80C","size":704,"entries":["0x8007B80C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007BACC","size":416,"entries":["0x8007BACC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007BC6C","size":16,"entries":["0x8007BC6C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007BC7C","size":448,"entries":["0x8007BC7C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007BE3C","size":48,"entries":["0x8007BE3C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007BE6C","size":96,"entries":["0x8007BE6C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007BECC","size":96,"entries":["0x8007BECC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007BF2C","size":48,"entries":["0x8007BF2C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007BF5C","size":176,"entries":["0x8007BF5C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007C00C","size":896,"entries":["0x8007C00C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007C38C","size":128,"entries":["0x8007C38C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007C40C","size":1676,"entries":["0x8007C40C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007CA98","size":612,"entries":["0x8007CA98"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007CCFC","size":48,"entries":["0x8007CCFC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007CD2C","size":24,"entries":["0x8007CD2C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007CD44","size":116,"entries":["0x8007CD44"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007CDB8","size":60,"entries":["0x8007CDB8"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007CDF4","size":1976,"entries":["0x8007CDF4"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007D5AC","size":1924,"entries":["0x8007D5AC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007DD30","size":52,"entries":["0x8007DD30"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007DD64","size":168,"entries":["0x8007DD64"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007DE0C","size":32,"entries":["0x8007DE0C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007DE2C","size":128,"entries":["0x8007DE2C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007DEAC","size":68,"entries":["0x8007DEAC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007DEF0","size":16,"entries":["0x8007DEF0"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007DF00","size":12,"entries":["0x8007DF00"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007DF0C","size":32,"entries":["0x8007DF0C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007DF2C","size":32,"entries":["0x8007DF2C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007DF4C","size":32,"entries":["0x8007DF4C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007DF6C","size":96,"entries":["0x8007DF6C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007DFCC","size":48,"entries":["0x8007DFCC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007DFFC","size":16,"entries":["0x8007DFFC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007E00C","size":16,"entries":["0x8007E00C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007E01C","size":16,"entries":["0x8007E01C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007E02C","size":16,"entries":["0x8007E02C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007E03C","size":16,"entries":["0x8007E03C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007E04C","size":16,"entries":["0x8007E04C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007E05C","size":16,"entries":["0x8007E05C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007E06C","size":16,"entries":["0x8007E06C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007E07C","size":16,"entries":["0x8007E07C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007E08C","size":64,"entries":["0x8007E08C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007E0CC","size":108,"entries":["0x8007E0CC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007E138","size":56,"entries":["0x8007E138"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007E170","size":56,"entries":["0x8007E170"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007E1A8","size":424,"entries":["0x8007E1A8"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007E350","size":120,"entries":["0x8007E350"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007E3C8","size":228,"entries":["0x8007E3C8"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007E4AC","size":16,"entries":["0x8007E4AC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007E4BC","size":16,"entries":["0x8007E4BC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007E4CC","size":16,"entries":["0x8007E4CC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007E4DC","size":16,"entries":["0x8007E4DC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007E4EC","size":20,"entries":["0x8007E4EC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007E500","size":20,"entries":["0x8007E500"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007E514","size":164,"entries":["0x8007E514"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007E5B8","size":164,"entries":["0x8007E5B8"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007E65C","size":112,"entries":["0x8007E65C"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007E6CC","size":16,"entries":["0x8007E6CC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007E6DC","size":16,"entries":["0x8007E6DC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007E6EC","size":168,"entries":["0x8007E6EC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007E794","size":148,"entries":["0x8007E794"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007E828","size":112,"entries":["0x8007E828"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007E898","size":52,"entries":["0x8007E898"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8007E8CC","size":61984,"entries":["0x8007E8CC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"N2O.EXE","start":"0x8008DAEC","size":14868,"entries":["0x8008DAEC"],"purpose":"Remaining game and CPU/RAM library control"},
+  {"executable":"NEW.EXE","start":"0x800215F4","size":504,"entries":["0x800215F4"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x800217EC","size":260,"entries":["0x800217EC"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x800218F0","size":412,"entries":["0x800218F0"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80021A8C","size":256,"entries":["0x80021A8C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80021B8C","size":1396,"entries":["0x80021B8C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80022100","size":24,"entries":["0x80022100"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80022118","size":8,"entries":["0x80022118"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80022120","size":108,"entries":["0x80022120"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002218C","size":32,"entries":["0x8002218C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x800221AC","size":120,"entries":["0x800221AC"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80022224","size":228,"entries":["0x80022224"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80022308","size":72,"entries":["0x80022308"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80022350","size":824,"entries":["0x80022350"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80022688","size":412,"entries":["0x80022688"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80022824","size":248,"entries":["0x80022824"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002291C","size":424,"entries":["0x8002291C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80022AC4","size":144,"entries":["0x80022AC4"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80022B54","size":84,"entries":["0x80022B54"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80022BA8","size":68,"entries":["0x80022BA8"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80022BEC","size":16,"entries":["0x80022BEC"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80022BFC","size":208,"entries":["0x80022BFC"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80022CCC","size":192,"entries":["0x80022CCC"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80022D8C","size":224,"entries":["0x80022D8C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80022E6C","size":92,"entries":["0x80022E6C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80022EC8","size":808,"entries":["0x80022EC8"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x800231F0","size":240,"entries":["0x800231F0"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x800232E0","size":268,"entries":["0x800232E0"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x800233EC","size":356,"entries":["0x800233EC"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80023550","size":52,"entries":["0x80023550"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80023584","size":8,"entries":["0x80023584"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002358C","size":16,"entries":["0x8002358C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002376C","size":180,"entries":["0x8002376C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80023820","size":60,"entries":["0x80023820"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002385C","size":60,"entries":["0x8002385C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80023898","size":1700,"entries":["0x80023898"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80023F3C","size":372,"entries":["0x80023F3C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x800240B0","size":368,"entries":["0x800240B0"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80024220","size":152,"entries":["0x80024220"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x800242B8","size":104,"entries":["0x800242B8"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80024320","size":284,"entries":["0x80024320"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002443C","size":296,"entries":["0x8002443C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80024564","size":840,"entries":["0x80024564"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x800248AC","size":112,"entries":["0x800248AC"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002491C","size":460,"entries":["0x8002491C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80024AE8","size":2092,"entries":["0x80024AE8"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80025314","size":624,"entries":["0x80025314"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80025584","size":32,"entries":["0x80025584"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x800255A4","size":152,"entries":["0x800255A4"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002563C","size":152,"entries":["0x8002563C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x800256D4","size":28,"entries":["0x800256D4"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x800256F0","size":2268,"entries":["0x800256F0"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80025FCC","size":72,"entries":["0x80025FCC"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80026014","size":84,"entries":["0x80026014"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80026068","size":688,"entries":["0x80026068"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80026318","size":608,"entries":["0x80026318"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80026578","size":652,"entries":["0x80026578"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80026804","size":52,"entries":["0x80026804"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80026838","size":324,"entries":["0x80026838"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002697C","size":1248,"entries":["0x8002697C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80026E5C","size":48,"entries":["0x80026E5C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80026E8C","size":24,"entries":["0x80026E8C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80026EA4","size":136,"entries":["0x80026EA4"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80026F2C","size":224,"entries":["0x80026F2C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002700C","size":376,"entries":["0x8002700C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80027184","size":152,"entries":["0x80027184"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002721C","size":16,"entries":["0x8002721C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002722C","size":16,"entries":["0x8002722C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002723C","size":48,"entries":["0x8002723C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002726C","size":48,"entries":["0x8002726C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002729C","size":48,"entries":["0x8002729C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x800272CC","size":100,"entries":["0x800272CC"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80027330","size":96,"entries":["0x80027330"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80027390","size":40,"entries":["0x80027390"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x800273B8","size":240,"entries":["0x800273B8"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x800274A8","size":1072,"entries":["0x800274A8"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x800278D8","size":44,"entries":["0x800278D8"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80027904","size":24,"entries":["0x80027904"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002791C","size":16,"entries":["0x8002791C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002792C","size":16,"entries":["0x8002792C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002793C","size":16,"entries":["0x8002793C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002794C","size":240,"entries":["0x8002794C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80027A3C","size":48,"entries":["0x80027A3C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80027A6C","size":632,"entries":["0x80027A6C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80027CE4","size":40,"entries":["0x80027CE4"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80027D0C","size":20,"entries":["0x80027D0C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80027D20","size":28,"entries":["0x80027D20"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80027D3C","size":232,"entries":["0x80027D3C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80027E24","size":120,"entries":["0x80027E24"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80027E9C","size":16,"entries":["0x80027E9C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80027EAC","size":16,"entries":["0x80027EAC"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80027EBC","size":640,"entries":["0x80027EBC"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002813C","size":804,"entries":["0x8002813C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80028460","size":872,"entries":["0x80028460"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x800287C8","size":380,"entries":["0x800287C8"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80028944","size":40,"entries":["0x80028944"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002896C","size":40,"entries":["0x8002896C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80028994","size":104,"entries":["0x80028994"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x800289FC","size":16,"entries":["0x800289FC"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80028A0C","size":48,"entries":["0x80028A0C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80028A3C","size":32,"entries":["0x80028A3C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80028A5C","size":896,"entries":["0x80028A5C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80028DDC","size":64,"entries":["0x80028DDC"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80028E1C","size":112,"entries":["0x80028E1C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80028E8C","size":128,"entries":["0x80028E8C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80028F0C","size":356,"entries":["0x80028F0C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80029070","size":124,"entries":["0x80029070"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x800290EC","size":188,"entries":["0x800290EC"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x800291A8","size":36,"entries":["0x800291A8"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x800291CC","size":240,"entries":["0x800291CC"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x800292BC","size":144,"entries":["0x800292BC"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002934C","size":140,"entries":["0x8002934C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x800293D8","size":148,"entries":["0x800293D8"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002946C","size":148,"entries":["0x8002946C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80029500","size":24,"entries":["0x80029500"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80029518","size":180,"entries":["0x80029518"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x800295CC","size":880,"entries":["0x800295CC"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002993C","size":48,"entries":["0x8002993C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002996C","size":36,"entries":["0x8002996C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80029990","size":556,"entries":["0x80029990"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80029BBC","size":256,"entries":["0x80029BBC"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80029CBC","size":16,"entries":["0x80029CBC"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80029CCC","size":32,"entries":["0x80029CCC"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80029CEC","size":12,"entries":["0x80029CEC"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80029CF8","size":108,"entries":["0x80029CF8"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80029D64","size":32,"entries":["0x80029D64"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80029D84","size":156,"entries":["0x80029D84"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80029E20","size":32,"entries":["0x80029E20"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80029E40","size":20,"entries":["0x80029E40"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80029E54","size":20,"entries":["0x80029E54"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80029E68","size":316,"entries":["0x80029E68"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80029FA4","size":308,"entries":["0x80029FA4"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002A0D8","size":332,"entries":["0x8002A0D8"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002A224","size":32,"entries":["0x8002A224"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002A244","size":32,"entries":["0x8002A244"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002A264","size":32,"entries":["0x8002A264"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002A284","size":36,"entries":["0x8002A284"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002A2A8","size":32,"entries":["0x8002A2A8"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002A2C8","size":260,"entries":["0x8002A2C8"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002A3CC","size":128,"entries":["0x8002A3CC"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002A44C","size":1372,"entries":["0x8002A44C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002A9A8","size":640,"entries":["0x8002A9A8"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002AC28","size":712,"entries":["0x8002AC28"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002AEF0","size":1036,"entries":["0x8002AEF0"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002B2FC","size":136,"entries":["0x8002B2FC"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002B384","size":212,"entries":["0x8002B384"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002B458","size":240,"entries":["0x8002B458"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002B548","size":76,"entries":["0x8002B548"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002B594","size":480,"entries":["0x8002B594"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002B774","size":360,"entries":["0x8002B774"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002B8DC","size":256,"entries":["0x8002B8DC"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002B9DC","size":464,"entries":["0x8002B9DC"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002BBAC","size":728,"entries":["0x8002BBAC"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002BE84","size":32,"entries":["0x8002BE84"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002BEA4","size":708,"entries":["0x8002BEA4"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002C168","size":164,"entries":["0x8002C168"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002C20C","size":668,"entries":["0x8002C20C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002C4A8","size":116,"entries":["0x8002C4A8"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002C51C","size":940,"entries":["0x8002C51C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002C8C8","size":644,"entries":["0x8002C8C8"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002CB4C","size":256,"entries":["0x8002CB4C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002CC4C","size":200,"entries":["0x8002CC4C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002CD14","size":20,"entries":["0x8002CD14"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002CD28","size":36,"entries":["0x8002CD28"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002CD4C","size":176,"entries":["0x8002CD4C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002CDFC","size":96,"entries":["0x8002CDFC"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002CE5C","size":128,"entries":["0x8002CE5C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002CEDC","size":240,"entries":["0x8002CEDC"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002CFCC","size":144,"entries":["0x8002CFCC"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002D05C","size":176,"entries":["0x8002D05C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002D10C","size":64,"entries":["0x8002D10C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002D14C","size":192,"entries":["0x8002D14C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002D20C","size":32,"entries":["0x8002D20C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002D22C","size":2332,"entries":["0x8002D22C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002DB48","size":44,"entries":["0x8002DB48"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002DD1C","size":24,"entries":["0x8002DD1C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002DD34","size":116,"entries":["0x8002DD34"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002DDA8","size":60,"entries":["0x8002DDA8"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002DDE4","size":3900,"entries":["0x8002DDE4"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002ED20","size":52,"entries":["0x8002ED20"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002ED54","size":168,"entries":["0x8002ED54"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002EDFC","size":32,"entries":["0x8002EDFC"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002EE1C","size":128,"entries":["0x8002EE1C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002EE9C","size":68,"entries":["0x8002EE9C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002EEE0","size":16,"entries":["0x8002EEE0"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002EEF0","size":12,"entries":["0x8002EEF0"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002EEFC","size":32,"entries":["0x8002EEFC"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002EF1C","size":32,"entries":["0x8002EF1C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002EF3C","size":32,"entries":["0x8002EF3C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002EF5C","size":96,"entries":["0x8002EF5C"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002EFBC","size":16,"entries":["0x8002EFBC"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002EFCC","size":16,"entries":["0x8002EFCC"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002EFDC","size":16,"entries":["0x8002EFDC"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002EFEC","size":68,"entries":["0x8002EFEC"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002F030","size":40,"entries":["0x8002F030"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8002F058","size":42868,"entries":["0x8002F058"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8003B7CC","size":16324,"entries":["0x8003B7CC"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8003F790","size":2164,"entries":["0x8003F790"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80040018","size":8,"entries":["0x80040018"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x80040020","size":4,"entries":["0x80040020"],"purpose":"Frontend initialization and presentation"},
+  {"executable":"NEW.EXE","start":"0x8006644C","size":20468,"entries":["0x8006644C"],"purpose":"Frontend initialization and presentation"}
 ]

@@ -1380,3 +1380,53 @@ Optional missed-dispatch tracing records private PC/prefix-hash metadata to
 identify additional observed indirect boundaries. Those hashes are discovery
 hints only, not occupant identity or qualification evidence. A synthetic trace
 case verifies repeated misses produce a single discovery record.
+
+### Initial 0.0.16 pool checkpoint — not qualified
+
+The exploratory O1 build links 637 N2O roots and 200 NEW roots, for a provisional
+396,892 / 845,824 = 46.9237% linked / 53.0763% outside. This is the initial
+595-new-root pool before exclusions, not final progress. Its metadata is compact
+JSON to remain within the unchanged 128 KiB reviewed-text packaging bound.
+Final diagnostic and normal builds must explicitly restore both Release
+compiler flag sets to -O3 -DNDEBUG; source/range measurements are independent of
+that exploratory optimization choice.
+
+The first pool stops at frame 2203 with 310 comparisons and six failed NEW
+identities. Five were collected onto fallback; the sixth also exhausted the
+cycle-neutrality budget and stopped collection. Some references hit BIOS vectors
+outside the isolated RAM window or exhausted the bounded interpreter pass. These
+are unsupported comparison contexts, not established emitter defects. The
+failed NEW owners are 0x800273B8, 0x800274A8, 0x8002A44C, 0x8002EE1C,
+0x8002DDE4 and 0x8002B8DC. No evidence from this stopped run is final qualification.
+
+The first pool also used original guest movie playback instead of the existing
+native movie service, and its early scanouts differed from the baseline. NEW
+control callers compiled in CPS form transfer directly to movie entry PCs; the
+registered override is call-site keyed, so that transfer can bypass its normal
+interpreter call path. The subsequent exploration holds NEW control entries
+below 0x80024000 on fallback in addition to the failed identities. No production
+override ordering or pinned framework source has been changed. Restoring all
+three native openings and reference scanout parity remains required.
+
+The original controller fixture now passes eleven cases, including explicit
+preblocked identity/alias refusal before the first native dispatch while another
+occupant at the same PC still executes. Exploratory disabled IDs are validated
+against the v2 selector. Replay clears collection, block and trace variables.
+These are developer mechanisms only; the final binding must be pruned and
+rechecked without forced fallbacks or collection.
+
+Subsequent pool runs retain interpreter fallback for NEW control callers and
+non-leaf routines. All three native opening movies then complete again. A full
+exploratory route captured all 17 frames pixel-identical to the reference. It
+recorded 977 comparisons, one newly collected failure and 470 passing identity/PC
+keys; the process correctly exited 91 instead of reporting qualification.
+The final compared segment was observed at frame 4404; captures continue through
+6000 before shutdown. Known failed library owners in either image are excluded
+as whole input intervals, including potential newly discovered fragments.
+
+Miss tracing identified 184 N2O and 32 NEW uncovered boundaries whose 32-byte
+prefix hashes match verified original images. After excluding whole failed
+owner intervals and NEW movie-control addresses, 115 N2O and 18 NEW boundaries
+remain for preflight. They are observed indirect/continuation candidates, not
+confirmed complete functions or coverage credit. New inputs are capped before
+excluded intervals and existing emitted ranges. Main remains accepted 0.0.15.

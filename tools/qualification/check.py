@@ -24,7 +24,7 @@ def main():
                           identities=[dict(owner=0x80020000,crc=crc,code_sha256=sha,ranges=[[0x80020000,8]])]))
         specs.append(dict(executable=image,start="0x80020000",size=16,entries=["0x80020000"]))
     rows=build_selection(dict(slices=items),specs);text=selection_text(rows)
-    cases=[("images",text,0),("trace",text,0),("collect",text,91),("failfast",text,91),("budget",text,91),
+    cases=[("images",text,0),("trace",text,0),("preblocked",text,0),("collect",text,91),("failfast",text,91),("budget",text,91),
            ("legacy","80020000 10\n",0),("wrong-id",text,0),
            ("tail","80020000 10\n80020000\n",92),("truncated",text.rsplit(" ",1)[0]+"\n",92),
            ("duplicate",text+text.splitlines()[1]+"\n",92)]
@@ -32,7 +32,10 @@ def main():
     for mode,selector,expected in cases:
         d=out/mode;d.mkdir(exist_ok=True);selection=d/"selection.tsv";selection.write_text(selector)
         env=os.environ.copy();env.update(N2O_COMPARE="1",N2O_SELECTION=str(selection))
-        env.pop("N2O_COLLECT_FAILURES",None);env.pop("N2O_REPLAY_ID",None)
+        env.pop("N2O_COLLECT_FAILURES",None);env.pop("N2O_REPLAY_ID",None);env.pop("N2O_BLOCKED_IDS",None)
+        if mode=="preblocked":
+            disabled=d/"disabled.txt";disabled.write_text(next(r["id"] for r in rows if r["crc"]==123)+"\n")
+            env["N2O_BLOCKED_IDS"]=str(disabled)
         env.pop("N2O_TRACE_MISSES",None)
         if mode=="trace":env["N2O_TRACE_MISSES"]="1"
         if mode=="collect":env["N2O_COLLECT_FAILURES"]="1"
@@ -48,6 +51,7 @@ def main():
             summary=(d/"qualification-summary.txt").read_text().splitlines()[0]
             assert "comparisons=3 failures=1 pcs=2" in summary
             assert (d/"blocked-identities.txt").read_text().strip()==next(r["id"] for r in rows if r["crc"]==123)
+        if mode=="preblocked":assert "comparisons=2 failures=0 pcs=2" in (d/"qualification-summary.txt").read_text().splitlines()[0]
         if mode=="wrong-id":assert "TOOLS_SMOKE_PASS" in proc.stdout and not (d/"qualification-summary.txt").exists()
         if mode=="trace":assert len((d/"untranslated-pcs.tsv").read_text().splitlines())==1
         results.append(dict(case=mode,returncode=proc.returncode))

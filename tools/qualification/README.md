@@ -99,3 +99,10 @@ stub backends; Linux runtime CI runs it automatically. `N2O_TRACE_MISSES=1` adds
 private PC/prefix-hash discovery hints for untranslated dispatches. Those hints
 must be checked against the original verified image and fully qualified before
 any coverage credit.
+
+`N2O_BLOCKED_IDS` may point to a private whitespace-separated list of known v2
+identity tokens when restarting an exploratory pool. Unknown or repeated IDs
+fail closed. Exclusions are active before the first dispatch, including resumes,
+and apply only when that exact guarded occupant is resident. They do not imply
+qualification. `replay.py` clears exploratory collection/block/trace environment
+options so captured-input replay cannot inherit a pool's forced fallbacks.
