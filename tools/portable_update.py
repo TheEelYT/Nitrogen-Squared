@@ -241,17 +241,27 @@ def main():
     args=p.parse_args()
     wait_for_processes(args.wait_pid)
     layout=Layout(args.root)
-    if args.rollback:
-        rollback(layout)
-    elif args.stage:
-        apply_update(layout,args.stage)
-    else:
-        raise ValueError("No update action selected")
+    failure=None
+    try:
+        if args.rollback:
+            rollback(layout)
+        elif args.stage:
+            apply_update(layout,args.stage)
+        else:
+            raise ValueError("No update action selected")
+        write_json(layout.local/"last-update-result.json",dict(success=True,version=read_manifest(layout.root)["version"]))
+    except Exception as e:
+        failure=e
+        write_json(layout.local/"last-update-result.json",dict(success=False,error=str(e)))
+        if (layout.local/"update-state.json").exists():
+            ctypes.windll.user32.MessageBoxW(None,"The update could not finish. Files and backups were kept. Relaunch and choose Restore previous version. Details: .local/update.log","Nitrogen Squared",0x10)
+            raise
     command=[str(layout.root/"launcher.exe")]
     if args.restart_report:
         args.restart_report.resolve().relative_to(layout.local.resolve())
         command += ["--self-test","--report",str(args.restart_report)]
     subprocess.Popen(command,cwd=layout.root)
+    if failure:raise failure
 
 
 if __name__=="__main__":

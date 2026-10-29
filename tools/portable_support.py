@@ -163,13 +163,24 @@ class Layout:
         llvm = self.tools/"llvm-mingw"
         bins = [self.python.parent, self.tools/"cmake/bin", self.tools/"ninja",
                 self.tools/"git/cmd", llvm/"bin", llvm/"x86_64-w64-mingw32/bin"]
-        env["PATH"] = os.pathsep.join(map(str,bins))+os.pathsep+env.get("PATH", "")
+        if os.name=="nt":
+            windows=Path(env.get("SystemRoot",env.get("SYSTEMROOT","C:/Windows")))
+            # A portable preparation must not silently use an installed SDK,
+            # Python or compiler from the developer machine.
+            system=[windows/"System32",windows,windows/"System32/Wbem",windows/"System32/WindowsPowerShell/v1.0"]
+            env["PATH"]=os.pathsep.join(map(str,bins+system))
+        else:
+            env["PATH"]=os.pathsep.join(map(str,bins))+os.pathsep+env.get("PATH", "")
+        for key in list(env):
+            if key.upper() in ("LIB","LIBPATH","INCLUDE","CL","_CL_","CFLAGS","LDFLAGS","CMAKE_PREFIX_PATH","CMAKE_TOOLCHAIN_FILE"):
+                env.pop(key)
         env.update(CC="x86_64-w64-mingw32-clang.exe",
                    CXX="x86_64-w64-mingw32-clang++.exe",
+                   RC="x86_64-w64-mingw32-windres.exe",
                    CMAKE_GENERATOR="Ninja", CMAKE_BUILD_PARALLEL_LEVEL="2",
                    CXXFLAGS="-include cstdlib -include exception",
                    PSX_SDL3_SOURCE_DIR=str(self.local/"SDL3-source"),
-                   PYTHONNOUSERSITE="1", PYTHONDONTWRITEBYTECODE="1")
+                   PYTHONNOUSERSITE="1", PYTHONDONTWRITEBYTECODE="1", PYTHONUTF8="1")
         temp = beneath(self.root, ".local/tmp")
         temp.mkdir(parents=True, exist_ok=True)
         env.update(TEMP=str(temp), TMP=str(temp))

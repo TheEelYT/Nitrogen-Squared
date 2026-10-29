@@ -51,7 +51,8 @@ def copy_python(source: Path, destination: Path):
         if not (source/name).is_dir():
             raise ValueError("The CPython distribution lacks "+name)
         shutil.copytree(source/name,destination/name,ignore=excluded)
-    for name in ("python.exe","pythonw.exe","LICENSE.txt","Lib/os.py","Lib/tkinter/__init__.py"):
+    shutil.copy2(destination/"python.exe",destination/"python3.exe")
+    for name in ("python.exe","python3.exe","pythonw.exe","LICENSE.txt","Lib/os.py","Lib/tkinter/__init__.py"):
         if not (destination/name).is_file():
             raise ValueError("Incomplete portable CPython runtime")
 

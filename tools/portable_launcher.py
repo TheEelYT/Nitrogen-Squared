@@ -103,22 +103,38 @@ class Backend:
         elif result.stdout.strip()!=FRAMEWORK_REV:
             raise ValueError("The preparation framework has another revision and was preserved")
 
+    def align_cache(self,state):
+        saves=self.layout.local/"saves"
+        legacy=self.layout.work/"saves"
+        if legacy.is_dir() and not saves.exists():
+            shutil.copytree(legacy,saves)
+            self("Existing saves were copied into the portable save folder.")
+        cache=self.layout.work/"build/CMakeCache.txt"
+        moved=bool(state.get("root") and state["root"]!=str(self.layout.root))
+        changed_tools=bool(state.get("prepared_tools") and state["prepared_tools"]!=sha256(self.layout.app/"configs/portable_tools.json"))
+        incompatible=False
+        if cache.is_file():
+            values=dict(line.split("=",1) for line in cache.read_text(errors="replace").splitlines() if "=" in line and not line.startswith(("#","//")))
+            source=values.get("CMAKE_HOME_DIRECTORY:INTERNAL")
+            generator=values.get("CMAKE_GENERATOR:INTERNAL")
+            incompatible=not source or Path(source).resolve()!=self.layout.app or generator!="Ninja"
+        if moved or changed_tools or incompatible:
+            backup=beneath(self.layout.root,".local/relocated/"+str(time.time_ns()))
+            backup.mkdir(parents=True)
+            for name in ("runtime-dev","build-recompiler"):
+                source=self.layout.local/name
+                if source.exists():os.replace(source,backup/name)
+            for old in (backup/"runtime-dev/build/settings.toml",backup/"runtime-dev/build/Release/settings.toml"):
+                if old.is_file():shutil.copy2(old,self.layout.local/"retained-settings.toml");break
+            self("Preparing a fresh compatible build cache; previous files and saves are preserved.")
+
     def prepare(self):
         state=self.layout.state()
         if not (self.layout.installation/"installation.json").is_file():
             raise ValueError("Choose your disc before preparing the game")
         env=bootstrap(self.layout,self)
         self.ensure_framework(env)
-        if state.get("root") and state["root"]!=str(self.layout.root):
-            # Absolute CMake paths cannot be reused after a move. Keep the old
-            # cache intact; saves have their own stable location below .local.
-            backup=beneath(self.layout.root,".local/relocated/"+str(time.time_ns()))
-            backup.mkdir(parents=True)
-            for name in ("runtime-dev","build-recompiler"):
-                source=self.layout.local/name
-                if source.exists():
-                    os.replace(source,backup/name)
-            self("The folder moved. Rebuilding its local cache; saves are preserved.")
+        self.align_cache(state)
         self("Preparing the game. First compilation can take several minutes…")
         cmake=self.layout.tools/"cmake/bin/cmake.exe"
         command=self.layout.command("build_runtime.py","--installation",self.layout.installation,
@@ -129,13 +145,19 @@ class Backend:
                                     "--cmake-arg=-DCMAKE_EXPORT_PACKAGE_REGISTRY=OFF",
                                     "--cmake-arg=-DCMAKE_FIND_USE_PACKAGE_REGISTRY=OFF")
         run(command,self.layout.root,env,self)
-        state.update(schema=1,prepared_version=self.layout.version,root=str(self.layout.root))
+        retained=self.layout.local/"retained-settings.toml"
+        if retained.is_file():
+            receipt=json.loads((self.layout.work/"runtime-build.json").read_text())
+            target=Path(receipt["executable"]).parent/"settings.toml"
+            if not target.exists():shutil.copy2(retained,target)
+        state.update(schema=1,prepared_version=self.layout.version,root=str(self.layout.root),
+                     prepared_tools=sha256(self.layout.app/"configs/portable_tools.json"))
         write_json(self.layout.state_path,state)
         return env
 
     def play(self):
         state=self.layout.state()
-        if state.get("prepared_version")!=self.layout.version or state.get("root")!=str(self.layout.root) or not (self.layout.work/"runtime-build.json").is_file():
+        if state.get("prepared_version")!=self.layout.version or state.get("root")!=str(self.layout.root) or state.get("prepared_tools")!=sha256(self.layout.app/"configs/portable_tools.json") or not (self.layout.work/"runtime-build.json").is_file():
             env=self.prepare()
         else:
             env=self.layout.environment()
@@ -173,6 +195,9 @@ class Application:
         self.backend=Backend(layout,lambda kind,text:self.events.put((kind,text)))
         self.busy=False
         self.recovery=(layout.local/"update-state.json").exists()
+        result_path=layout.local/"last-update-result.json"
+        update_result=json.loads(result_path.read_text()) if result_path.is_file() else None
+        if result_path.is_file():result_path.unlink()
         self.window=tk.Tk()
         self.window.title("Nitrogen Squared")
         self.window.geometry("650x310")
@@ -201,6 +226,9 @@ class Application:
         if self.recovery:
             self.status.set("An update was interrupted. Restore the previous version before playing.")
             self.play_button.configure(state="disabled");self.disc_button.configure(state="disabled")
+        elif update_result and not update_result.get("success"):
+            self.status.set("The update failed; the previous version was restored.")
+            self.detail.set(update_result.get("error","Details are in .local/update.log"))
         elif not testing:
             self.window.after(250,self.choose if not layout.state().get("disc") else self.check_update)
 

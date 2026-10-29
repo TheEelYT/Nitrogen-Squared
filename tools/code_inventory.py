@@ -109,6 +109,9 @@ def trace_entries(paths,images):
 def propose(images,linked,analyses,observed,exclusions):
     roots=[]
     for name,image in images.items():
+        # Boot fragments need a separate observer contract around BIOS/hardware
+        # setup. Keep recording their evidence, but do not auto-select them here.
+        if name=="SLUS_006.37":continue
         base=image["base"];end=base+len(image["payload"])
         denied=[(int(e["start"],16),int(e["start"],16)+e["size"]) for e in exclusions if e["executable"]==name]
         functions={f["addr"]:f for f in analyses.get(name,{}).get("functions",[])}

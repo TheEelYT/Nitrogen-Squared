@@ -136,5 +136,131 @@
     "start": "0x8004EB48",
     "size": 712,
     "reason": "Constructed exception/return mismatch in 0.0.14"
+  },
+  {
+    "executable": "SLUS_006.37",
+    "start": "0x80010A68",
+    "size": 12,
+    "reason": "Unqualified bounded comparison context in 0.0.17; exclude the whole input band"
+  },
+  {
+    "executable": "SLUS_006.37",
+    "start": "0x800157CC",
+    "size": 52,
+    "reason": "Unqualified bounded comparison context in 0.0.17; exclude the whole input band"
+  },
+  {
+    "executable": "SLUS_006.37",
+    "start": "0x80010B28",
+    "size": 36,
+    "reason": "Unqualified bounded comparison context in 0.0.17; exclude the whole input band"
+  },
+  {
+    "executable": "SLUS_006.37",
+    "start": "0x8001ACF8",
+    "size": 4,
+    "reason": "Unqualified bounded comparison context in 0.0.17; exclude the whole input band"
+  },
+  {
+    "executable": "SLUS_006.37",
+    "start": "0x8001ABA4",
+    "size": 20,
+    "reason": "Unqualified bounded comparison context in 0.0.17; exclude the whole input band"
+  },
+  {
+    "executable": "SLUS_006.37",
+    "start": "0x8001A860",
+    "size": 80,
+    "reason": "Unqualified bounded comparison context in 0.0.17; exclude the whole input band"
+  },
+  {
+    "executable": "SLUS_006.37",
+    "start": "0x8001AB60",
+    "size": 4,
+    "reason": "Unqualified bounded comparison context in 0.0.17; exclude the whole input band"
+  },
+  {
+    "executable": "SLUS_006.37",
+    "start": "0x8001A95C",
+    "size": 4,
+    "reason": "Unqualified bounded comparison context in 0.0.17; exclude the whole input band"
+  },
+  {
+    "executable": "SLUS_006.37",
+    "start": "0x800156A8",
+    "size": 20,
+    "reason": "Unqualified bounded comparison context in 0.0.17; exclude the whole input band"
+  },
+  {
+    "executable": "SLUS_006.37",
+    "start": "0x800109E8",
+    "size": 20,
+    "reason": "Unqualified bounded comparison context in 0.0.17; exclude the whole input band"
+  },
+  {
+    "executable": "SLUS_006.37",
+    "start": "0x8001B194",
+    "size": 4,
+    "reason": "Unqualified bounded comparison context in 0.0.17; exclude the whole input band"
+  },
+  {
+    "executable": "SLUS_006.37",
+    "start": "0x8001AAE4",
+    "size": 28,
+    "reason": "Unqualified bounded comparison context in 0.0.17; exclude the whole input band"
+  },
+  {
+    "executable": "SLUS_006.37",
+    "start": "0x80010AE4",
+    "size": 36,
+    "reason": "Unqualified bounded comparison context in 0.0.17; exclude the whole input band"
+  },
+  {
+    "executable": "SLUS_006.37",
+    "start": "0x80010A18",
+    "size": 44,
+    "reason": "Unqualified bounded comparison context in 0.0.17; exclude the whole input band"
+  },
+  {
+    "executable": "SLUS_006.37",
+    "start": "0x800193AC",
+    "size": 4,
+    "reason": "Unqualified bounded comparison context in 0.0.17; exclude the whole input band"
+  },
+  {
+    "executable": "SLUS_006.37",
+    "start": "0x80019048",
+    "size": 4,
+    "reason": "Unqualified bounded comparison context in 0.0.17; exclude the whole input band"
+  },
+  {
+    "executable": "SLUS_006.37",
+    "start": "0x8001AEEC",
+    "size": 4,
+    "reason": "Unqualified bounded comparison context in 0.0.17; exclude the whole input band"
+  },
+  {
+    "executable": "SLUS_006.37",
+    "start": "0x80019070",
+    "size": 68,
+    "reason": "Unqualified bounded comparison context in 0.0.17; exclude the whole input band"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x80078374",
+    "size": 52,
+    "reason": "Unqualified bounded comparison context in 0.0.17; exclude the whole input band"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x800271F4",
+    "size": 16,
+    "reason": "Unqualified bounded comparison context in 0.0.17; exclude the whole input band"
+  },
+  {
+    "executable": "NEW.EXE",
+    "start": "0x80027184",
+    "size": 52,
+    "reason": "Unqualified bounded comparison context in 0.0.17; exclude the whole input band"
   }
 ]

@@ -190,6 +190,20 @@ class PortableTests(unittest.TestCase):
         self.assertEqual(extracted,{p.name:p.read_bytes() for p in (self.layout.installation/"executables").iterdir()})
         self.assertEqual(json.loads((self.layout.installation/"installation.json").read_text()),manifest)
 
+    def test_existing_developer_cache_and_saves_are_preserved_during_portable_migration(self):
+        (self.layout.app/"configs").mkdir(parents=True)
+        (self.layout.app/"configs/portable_tools.json").write_text('{}')
+        (self.layout.work/"build").mkdir(parents=True)
+        (self.layout.work/"build/CMakeCache.txt").write_text('CMAKE_HOME_DIRECTORY:INTERNAL=/previous/project\nCMAKE_GENERATOR:INTERNAL=Visual Studio\n')
+        (self.layout.work/"saves").mkdir()
+        (self.layout.work/"saves/card.mcd").write_bytes(b'original preservation fixture')
+        (self.layout.work/"build/settings.toml").write_text('[video]\n')
+        Backend(self.layout).align_cache({})
+        self.assertEqual((self.layout.local/"saves/card.mcd").read_bytes(),b'original preservation fixture')
+        self.assertEqual((self.layout.local/"retained-settings.toml").read_text(),'[video]\n')
+        self.assertTrue(list((self.layout.local/"relocated").glob('*/runtime-dev/saves/card.mcd')))
+        self.assertFalse(self.layout.work.exists())
+
     def test_release_version_comparison_is_numeric(self):
         self.assertGreater(version_tuple("0.0.10"),version_tuple("0.0.9"))
         for version in ["latest","0.0.1-rc1","../1.2.3"]:
