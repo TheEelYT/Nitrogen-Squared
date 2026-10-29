@@ -4,6 +4,8 @@
 #include "gpu_gl_renderer.h"
 #include <cstdio>
 #include <cstdint>
+#include <cstdlib>
+#include <filesystem>
 extern "C" uint64_t s_frame_count;
 extern "C" bool __real_SDL_PollEvent(SDL_Event*);
 extern "C" {int sio_get_pad_analog(int);void sio_get_pad_sticks(int,uint8_t*);uint16_t sio_get_pad_buttons_slot(int);}
@@ -25,6 +27,9 @@ bool quit_sent=false;
 }
 extern "C" bool __wrap_SDL_PollEvent(SDL_Event*event) {
     if(!pad) {
+        bool private_directory=false;
+        for(const auto &part:std::filesystem::current_path())if(part==".local")private_directory=true;
+        if(!private_directory){std::fprintf(stderr,"Controller fixture output requires a private .local directory\n");std::exit(94);}
         SDL_VirtualJoystickDesc desc;SDL_INIT_INTERFACE(&desc);desc.type=SDL_JOYSTICK_TYPE_GAMEPAD;
         desc.naxes=SDL_GAMEPAD_AXIS_COUNT;desc.nbuttons=SDL_GAMEPAD_BUTTON_COUNT;
         desc.axis_mask=(1u<<SDL_GAMEPAD_AXIS_COUNT)-1;desc.button_mask=(1u<<SDL_GAMEPAD_BUTTON_COUNT)-1;

@@ -35,6 +35,10 @@ device timing and host globals are not a universal equivalence claim. Restrict
 selection to boundaries suitable for isolated CPU/RAM comparisons and retain
 full-session visual and normal-production checks.
 
+The reference pass is bounded to 1,048,576 basic blocks per segment to admit
+full-memory word scans. Exhausting that budget leaves the segment unqualified;
+inspect the input and control flow before changing the bound or selection.
+
 Each first observed selected PC writes a private same-build raw CPU/RAM/scratchpad
 witness. Never commit these files. They are intentionally not portable across
 framework/ABI/platform changes. `replay.py` repeats each selected witness with

@@ -1168,3 +1168,40 @@ sources pass local pinned-header syntax checks, and all 40 local source tests
 pass. CI also checks the Linux helper/header interfaces without importing or
 publishing game-derived data. Candidate generation, comparisons, final reduced
 selection, normal production checks and final checkpoint CI remain pending.
+
+### Connection-loss checkpoint and recovery
+
+The private 0.0.14 baseline completed 17 captures through guest frame 6300.
+Its earlier 300-second attempt reached the frame-5500 capture before its wall
+clock timeout; the route helper now defaults to a bounded 600 seconds (maximum
+1800). Fifteen overlapping captures were pixel-identical between baseline runs.
+
+The complete 260-root candidate built: N2O has 385 roots and 10,834 continuation
+aliases, with 285,660 / 458,752 = 62.2689% emitted N2O bytes. Combined linked
+coverage is provisionally 303,568 / 845,824 = 35.8902%, with 64.1098% outside.
+The added emitted bytes are 154,620 from input bands totaling 171,952 bytes.
+These figures describe the unqualified candidate, not accepted progress.
+
+The first live attempt stopped at frame 1534 after 325 comparisons, one failure
+and 32 observed PCs. Owner 0x8002176C exhausted the old 10,000 reference-block
+budget in a whole-file additive checksum: native reached 0x8002186C while the
+reference was at 0x80021790 with 99,091 words left. RAM and scratchpad matched.
+The bounded budget was raised to 1,048,576 blocks; exact captured-input replay
+then passed 25 cases with zero failures at that PC. This supports a reference
+cutoff diagnosis, not an emitter defect. The first two live candidate captures
+(frames 800 and 1500) matched the baseline pixels exactly. The malformed
+selection-tail negative check returned the expected exit status 92 after the
+parser fix.
+
+A restarted full route exited unsuccessfully, but its termination details could
+not be inspected before the execution environment became unavailable. No cause
+or further qualification result is established. The temporary workspace was
+subsequently reset; the connection recovery restores the saved source candidate
+and original private upload, and must regenerate witnesses and run qualification
+again. No final reduced-selection or normal-production result exists for 0.0.15.
+The accepted main runtime remains 0.0.14; no player rebuild is requested yet.
+
+Source/runtime CI passed at c69f65774753d0992156aa4efa493b64c2db4421 and
+badc5d4c0e4959ef110c27991da50204edfeb47d before the latest comparator budget,
+parser and controller-output-path fixes. Those fixes require renewed checks.
+All generated bodies, witnesses, captures and disc bytes remain private.

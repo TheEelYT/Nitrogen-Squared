@@ -73,3 +73,11 @@
   and builds. Retain qualified reference/fallback paths.
 - Documentation-only changes need no runtime VERSION bump, rebuild or player
   retest. Explain what was published and what testing, if any, is still needed.
+
+- The 0.0.15 branch contains a 260-root unqualified candidate (385 N2O roots,
+  provisional 35.8902% combined emitted bytes). A connection loss reset the
+  private workspace during qualification. Original helpers/configuration are
+  durable; regenerate private bodies and witnesses from the existing saved
+  input, then repeat live/replay/visual and normal-production qualification.
+  Do not promote or count candidate coverage as accepted solely from its build.
+  See the connection-loss checkpoint in docs/VALIDATION.md for observed limits.
