@@ -202,3 +202,23 @@ checks. The normal production build reproduces the qualified source/range hashes
 its movie/controller/shutdown fixture and Windows/Linux CI passed. See
 VALIDATION.md for the counts and limits. The user reports no issues in the focused Windows 0.0.14 playtest. All game instructions, emitted bodies/guards, snapshots,
 comparison helpers and captures remain outside Git and release packages.
+
+## 0.0.15 gameplay, object and resource-control roots
+
+117 additional roots extend game/object updates and presentation control (86),
+model dispatch (2) and resource/service control (29). Preparation revalidates the
+private executable hashes and uses the pinned emitter and existing residency
+gates. Complete generated bodies and instruction guards remain private.
+
+The final binding has 242 N2O roots and 7,440 continuation aliases, contributing
+202,068 N2O bytes. Combined linked coverage is 219,976 / 845,824 = 26.0073%, with
+73.9927% outside. The update adds 71,028 emitted bytes from 78,396 selected input
+bytes. Aliases, host services and analysis-only translations add no credit.
+
+All 117 new roots were observed directly. Final reduced-binding checks passed
+968 live comparisons, 9,975 isolated replays at 399 PCs and 17 pixel-identical
+frames. Three mismatch owners and 140 other candidates without adequate evidence
+remain unselected. These bounded tests do not prove all branches or later levels.
+The normal production build/controller fixture and Windows/Linux CI passed;
+focused Windows player acceptance is pending. PS1 rendering/GTE, guest sound and BIOS/card compatibility services
+remain separate from this native-game range inventory.

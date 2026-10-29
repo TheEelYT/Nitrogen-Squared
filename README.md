@@ -3,15 +3,14 @@
 A Windows-first recompilation project for **N2O: Nitrous Oxide (PlayStation)**,
 with a planned PS Vita port and optional remaster presentation.
 
-**Current status: 0.0.14, expanded native model and game/menu presentation code.**
-Forty-six additional roots cover model/object primitive preparation and game/menu
-presentation control. The final selection passed 10,316 private segment comparisons and 17 exact-frame
-visual checks. The normal build, movie/controller/shutdown fixture and
-Windows/Linux CI passed.
-The user reports no issues in the focused Windows 0.0.14 playtest.
-The user reports no issues in the 0.0.13 focused Windows playtest; earlier
-0.0.11 gameplay reached level 9 and 0.0.12 resolved the reported save/load slowdown.
-Those reports remain history for their tested versions.
+**Current status: 0.0.15, expanded native gameplay and object control.**
+117 additional roots cover game updates, object/presentation control, model
+dispatch and resource/service control. The final selection passed 10,943 private
+segment comparisons and 17 pixel-identical scanouts. The normal player build/controller fixture and Windows/Linux CI passed.
+The focused Windows 0.0.15 player check is pending.
+The user reported no issues in the focused Windows 0.0.14 playtest. Earlier
+0.0.11 gameplay reached level 9 and 0.0.12 resolved the reported save/load slowdown;
+those reports retain their tested version scope.
 
 Normal launch requests the OpenGL render worker with one closed frame of lookahead.
 System/Debug and analog input remain available. Native cutscene audio runs
@@ -22,24 +21,21 @@ There is no public game executable or Vita VPK. The hybrid runtime uses native
 boot/BIOS code, selected native game routines and interpreter fallback. Players
 build privately from their verified local game input.
 
-The 0.0.15 development branch is evaluating a larger gameplay/object and
-resource-control batch. Its candidate input inventory is not qualified linked
-coverage; the accepted measurements below remain the 0.0.14 baseline.
-
-## Native progress — 0.0.14
+## Native progress — 0.0.15
 
 | Selected executable payloads | Bytes | Share |
 | --- | ---: | ---: |
-| Covered by linked native translations | 148,948 | **17.6098%** |
-| Outside linked native translation ranges | 696,876 | **82.3902%** |
+| Covered by linked native translations | 219,976 | **26.0073%** |
+| Outside linked native translation ranges | 625,848 | **73.9927%** |
 | Total | 845,824 | 100.00% |
 
 These are executable-range measurements, not overall completion or native CPU
-time. Payloads include embedded data. Linked translations cover the boot loader
-and 125 selected roots in `N2O.EXE`; analysis-only outputs for `N2O.EXE` and
-`NEW.EXE` receive no credit. The update adds 75,948 bytes over 0.0.13, increasing
-coverage from 8.6306% to 17.6098% (about 2.04 times). The 4,189 continuation
-aliases add no byte/function credit. The normal build reproduces these figures.
+time. Payloads include embedded data. The selection adds 71,028 emitted bytes
+from 78,396 input bytes over 0.0.14, increasing coverage from 17.6098% to 26.0073%
+(about 1.48 times). N2O.EXE has 242 roots and 7,440 continuation aliases; aliases
+add no byte/function credit. Analysis-only outputs for N2O.EXE and NEW.EXE receive
+no credit. The normal player build reproduces the qualified diagnostic counts and
+selected source/range hashes.
 
 Native services are tracked separately: desktop presentation and controller
 input use host implementations, and **3 of 3 opening movie routes** use native
@@ -47,12 +43,13 @@ playback. Game routines still submit PS1 drawing packets and use GTE, guest
 SPU/CD audio and BIOS/card compatibility services. These services do not increase
 the linked-range percentage above.
 
-All 46 added roots have bounded comparison evidence: 35 were observed live and
-11 passed constructed packet calls. The two large model roots also passed 648
-constructed calls each. An exception/return mismatch excludes one candidate
-entirely; 28 others without adequate evidence remain unselected. These checks do
-not establish every branch, input or later campaign behavior. Final selection
-results and player status are recorded in the [native slices](docs/NATIVE_GAME_SLICES.md),
+All 117 new roots were entered on the controlled menu/first-level route. The
+final binding passed 968 live comparisons and 9,975 isolated replay comparisons
+at 399 captured PCs, plus 17 matching-frame checks. Three mismatch owners and
+140 other candidates without sufficient evidence remain unselected. These
+bounded checks do not establish every branch, input or later campaign behavior.
+All emitted bodies, instruction guards, witnesses and captures remain private.
+Results and player status are recorded in the [native slices](docs/NATIVE_GAME_SLICES.md),
 [metric](docs/NATIVE_PROGRESS.md), [validation](docs/VALIDATION.md) and
 [focused testing instructions](TESTING.md).
 

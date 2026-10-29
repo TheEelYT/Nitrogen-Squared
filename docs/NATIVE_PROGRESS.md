@@ -1,26 +1,26 @@
 # Native translation progress
 
-The 0.0.14 normal build verifies **17.6098% linked native translation
-coverage** against the combined payload sizes of the three selected USA game
-executables.
+The 0.0.15 normal build verifies **26.0073% linked native translation coverage**
+against the combined payload sizes of the three selected USA game executables.
+Its counts and selected source/range hashes match the qualified diagnostic build.
 
-The complementary **82.3902% (696,876 bytes)** is outside those linked ranges.
+The complementary **73.9927% (625,848 bytes)** is outside those linked ranges.
 This is not a measured interpreter-execution percentage: payload data and
 separately tracked native services prevent that interpretation.
 
 | Executable | Linked native range bytes | Payload bytes | Coverage |
 | --- | ---: | ---: | ---: |
 | SLUS_006.37 (boot loader) | 17,908 | 53,248 | 33.6313% |
-| N2O.EXE | 131,040 | 458,752 | 28.5645% |
+| N2O.EXE | 202,068 | 458,752 | 44.0473% |
 | NEW.EXE | 0 | 333,824 | 0.0000% |
-| Combined | 148,948 | 845,824 | 17.6098% |
+| Combined | 219,976 | 845,824 | 26.0073% |
 
-This deliberately conservative metric counts the union of emitted native code
-ranges for executables actually linked into the private runtime. The boot loader
-has 86 linked generated functions. The 125 selected roots in
-N2O.EXE add 131,040 bytes; the full analysis C for N2O.EXE and NEW.EXE does not count.
-BIOS, interpreter, renderer, audio backend and desktop menu do not
-count as native game code.
+This metric counts the union of emitted native code ranges actually linked into
+the private runtime. The boot loader has 86 linked generated functions. N2O.EXE
+has 242 selected roots and 7,440 continuation aliases, with no extra credit for
+aliases. The 117 added roots contribute 71,028 emitted bytes over 0.0.14, about
+1.48 times its combined linked share. Full analysis C for N2O.EXE and NEW.EXE,
+BIOS, interpreter, renderer, audio backend and desktop menu do not count.
 
 The denominator includes embedded data, which has not yet been fully separated
 from instructions. Therefore this is **not a project-completion percentage**, a
@@ -55,6 +55,7 @@ pre-0.0.7 receipt by rebuilding first.
 | Drawing packet preparation | 25 additional native entry ranges, with guarded internal resumes; user verified 0.0.11 gameplay through level 9 |
 | Geometry/object presentation and text | 32 additional native entry ranges in 0.0.13; private comparisons, first-level visuals, normal build and Windows/Linux CI passed; user reports no issues in the focused Windows playtest |
 | Model primitives and game/menu control | 46 additional roots in 0.0.14; 10,316 private comparisons, 17 exact-frame checks, normal production/controller fixture and Windows/Linux CI passed; user reports no issues in the focused Windows playtest |
+| Game/object updates and resource control | 117 additional native roots in 0.0.15; final diagnostic/replay, 17 exact-frame checks, normal/controller fixture and Windows/Linux CI passed; focused Windows player checks pending |
 | Card-control/event polling | 20 additional native entry ranges; BIOS/serial protocol and file publication retain compatibility services; user reports no Windows saving/loading slowdowns in 0.0.12 |
 | Music and effects | Emulated SPU/CD path; no independent cue-driven player yet |
 | Opening movies | Native STR/XA service for three opening routes; user verified Windows playback and skipping |
@@ -157,3 +158,16 @@ without adequate evidence remain on fallback. This is the selected emitted-range
 inventory, not proof of every branch or an execution-time share. The final selection passed 10,316 private comparisons and 17 exact-frame
 checks. The normal production build/controller fixture and Windows/Linux CI passed. The user reports no issues in the focused Windows 0.0.14 playtest; no new
 level-9 campaign playthrough or exhaustive coverage is inferred.
+
+## 0.0.15 gameplay/object selection
+
+The final selection adds 86 game/object/presentation-control roots, two model
+dispatch roots and 29 resource/service-control roots. Input bands total 78,396
+bytes; the pinned emitter contributes 71,028 new reachable bytes. All 117 direct
+roots were observed on the controlled first-level route. Final qualification
+passed 968 live comparisons and 25 variants at each of 399 captured segment PCs
+(9,975 replays), with 17 pixel-identical frames. The combined 10,943 comparisons
+apply only to the final reduced binding. Three mismatch owners and 140 other
+candidates without adequate evidence stay unselected. Native service counts and
+compatibility services are unchanged. Normal-production/controller checks and
+Windows/Linux CI passed. Windows player acceptance remains pending. See VALIDATION.md for the bounded inputs and limits.

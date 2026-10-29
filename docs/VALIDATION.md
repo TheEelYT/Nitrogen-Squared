@@ -1247,3 +1247,73 @@ roots, two model-dispatch roots and 29 resource/service-control roots, totaling
 78,396 input bytes. All have direct live-root evidence, subject to final binding
 revalidation. The accepted main runtime remains 0.0.14. Final 0.0.15 reduced
 coverage, comparisons, replay, normal-production and checkpoint CI are pending.
+
+### Final 0.0.15 reduced diagnostic qualification — passed
+
+A fresh private source directory generated and linked exactly 117 new roots
+plus the accepted selection: 242 N2O roots with 7,440 continuation aliases.
+The final build passed 968 live CPU/register/RAM/scratchpad/GTE comparisons at
+399 segment PCs, with direct entry evidence for all 117 new owners. The route
+completed through frame 6307. All 17 decoded captures matched the new reference
+pixel-for-pixel. Isolated replay then passed all 25 variants at all 399 captured
+PCs: 9,975 cases, zero failures. The combined final-only count is 10,943.
+Exploratory pool runs and excluded owners are not included in that count.
+
+Final diagnostic coverage is 219,976 / 845,824 = 26.0073% linked, with 625,848
+bytes (73.9927%) outside. N2O contributes 202,068 / 458,752 = 44.0473%; boot
+remains 17,908 / 53,248 and NEW.EXE zero. The update adds 71,028 emitted bytes
+from 78,396 selected input bytes, about 1.48 times 0.0.14's combined linked share.
+The malformed selection-tail check again returned expected exit 92.
+
+Device time is frozen for isolated comparisons; these checks do not prove all
+hardware timing, host globals, branches, inputs or later-level behavior. No
+personal saves were used or changed. Normal-production checks, final checkpoint
+CI and focused Windows 0.0.15 player acceptance remain pending.
+
+### Final 0.0.15 normal production and platform result — passed
+
+The normal diagnostics-disabled player build reproduces 219,976 linked bytes
+(26.0073%) / 625,848 outside (73.9927%). Its complete native source/range receipt
+matches the qualified diagnostic receipt exactly. The project-inclusion hook is
+empty, diagnostics are OFF, and the production link contains neither comparison
+interposition nor replay objects. The separate original SDL controller fixture
+links production objects without replacing the player executable. Normal
+execution identity: c0de3f22544b8420dc39ad50f3ea593e7ee2d12a40c748551c4b72d8d177df08.
+
+The fixture completed all three native opening movies, reached first-level
+gameplay, sampled analog X=217 and X=38 with firing held, issued the planned
+Start inputs, and handled SDL_QUIT cleanly at frame 4500. Its frame-3000 and
+frame-4000 captures were inspected: gameplay, ship/object rendering, HUD and
+score progression are present. The audio/render sample reports one render frame
+in flight, 44.1 kHz dummy output, 3,304,560 output frames, zero underflow samples
+and 44,450 overflow frames. These are dummy-device transport observations, not
+physical audio quality or a Windows FPS benchmark.
+
+The static gate reports 2,404,577 hits and 296,459 variant declines in that normal
+run. These hits are gate statistics, not a CPU-time share. A separate bounded
+diagnostic timeline through frame 1904 records 296,186 declines and zero static
+hits at frame 800; declines reach 296,459 by frame 1500 and stay unchanged at
+1600, 1700 and 1800. The full normal run has that same decline total through
+gameplay at 4500. Both main executable headers load at 0x80021500, with different
+entry points and contents. The startup-only declines are consistent with the
+intended rejection of other image occupants at N2O addresses; no bypass or
+shared-address identity assumption was introduced. NEW.EXE still receives no
+linked-range credit. The final controlled route remains pixel-identical.
+
+All 40 source tests pass locally without skips and the 79-file reviewed text
+package audit passes. Final code checkpoint 59d48f6149a2ab5fcbba610edf26fc7cc9c30ed3
+passed source CI 40826321381 and runtime/renderer CI 40826321330 on both Windows
+and Linux, including original mixed-boundary and reference/enhanced fixtures.
+The optional replay --keep-going mode was exercised across 445 pool witnesses:
+it retained all nine failures and returned unsuccessful status after collecting
+them; final selected replay used the default fail-fast mode and passed 399/399
+witnesses with 25 variants each. Latest changes after that checkpoint are
+documentation only and need no new build or player replay before publication.
+
+The source update is ready for main under the user's standing promotion
+authorization. Windows 0.0.15 player acceptance remains pending the focused
+menu/first-level/quit checks in TESTING.md. No later campaign progression, new
+files, reimport or deliberate save overwrite is required. Earlier Windows
+acceptance remains scoped to its reported versions. No disc content, generated
+game bodies/guards, compiled game modules, witnesses, captures or saves enter Git
+or releases; framework tracked files remain unchanged.

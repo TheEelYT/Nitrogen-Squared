@@ -29,6 +29,14 @@ candidates remain unselected. The final selection passed 10,316 segment comparis
 checks. The normal production/controller fixture and Windows/Linux CI passed;
 the user reports no issues in the focused Windows 0.0.14 playtest.
 
+Version 0.0.15 selects 117 further game/object, model-dispatch and resource-control
+roots. Normal-build coverage is 26.0073% linked / 73.9927% outside, adding
+71,028 emitted bytes. The reduced binding passed 10,943 comparisons and 17
+matching-frame checks. Three mismatch owners and 140 other unqualified candidates
+remain on fallback. The normal production/controller fixture and Windows/Linux
+CI passed. Focused Windows player acceptance is pending; earlier reports retain
+their tested version scope.
+
 ## 1. Loaded-code identity and native game slices — underway
 
 The [first slice](NATIVE_GAME_SLICES.md) uses per-entry resident code identity and

@@ -2,17 +2,32 @@
 
 ## Current acceptance and update checks
 
-**0.0.15 final selection — qualification pending:** 117 additional roots are
-selected for game updates, object/presentation control, model dispatch and
-resource/service control. They total 78,396 input bytes. Initial live comparisons
-and exact-frame checks passed for a larger pool, then GTE replay narrowed it.
-The rebuilt 117-root selection still requires final diagnostic/replay, normal
-production and platform checks. No player rebuild or test is requested yet.
+**0.0.15 — local and platform checks passed; Windows player acceptance pending:**
+117 additional roots cover game updates, object/presentation control, model
+dispatch and resource/service control. The final binding passed 10,943 private
+comparisons (968 live and 9,975 replay) and 17 pixel-identical scanouts. All 117
+new roots were observed directly. The normal diagnostics-disabled build and
+movie/controller/shutdown fixture passed, selected source/range hashes match,
+all 40 source tests and the 79-file source audit pass, and Windows/Linux source
+and runtime CI matrices passed for the final code.
 
-Three mismatch owners and 140 other candidates without sufficient evidence
-remain unselected. The reusable tools contain original source only; all game
-bodies, guards, witnesses and captures remain private. The accepted main runtime
-is still 0.0.14 at 17.6098% linked / 82.3902% outside.
+Linked normal-build coverage is **26.0073% / 73.9927%** (219,976 / 845,824 bytes,
++71,028 from 0.0.14). N2O has 242 roots and 7,440 aliases. This measures linked
+executable ranges, not overall completion or native CPU time. Three mismatch
+owners and 140 other unqualified candidates remain on fallback. Captured inputs
+and generated game code stay private. Bounded comparisons do not prove every
+branch, input or later-level scenario.
+
+After pulling 0.0.15 from main and rebuilding with the usual commands below, check:
+
+1. Navigate title/menu, ship and level selection; check labels, models and animation.
+2. Play a short first-level session with analog movement and firing. Check enemies,
+   shots, explosions, ship/object effects, HUD and score/life counters.
+3. Pause/resume, continue playing briefly and quit normally.
+
+Windows 0.0.15 player acceptance is pending these checks. No later-level campaign,
+new files, reimport or deliberate save overwrite is required. Preserve existing saves.
+The accepted 0.0.14 Windows playtest remains history for that version.
 
 **0.0.14 — focused Windows playtest accepted:** the user reports no issues
 noticed. This accepts the tested route without implying a new level-9 campaign

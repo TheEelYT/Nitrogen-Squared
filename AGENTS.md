@@ -74,12 +74,19 @@
 - Documentation-only changes need no runtime VERSION bump, rebuild or player
   retest. Explain what was published and what testing, if any, is still needed.
 
-- The 0.0.15 branch has been narrowed from 260 candidates to 117 new roots
-  for final qualification (242 N2O roots expected). The restored private pool
-  route passed 1,104 comparisons and 17 pixel-identical captures. Owner
-  0x80039E50 has a reproducible register comparison mismatch; 0x80040D44 and
-  0x800440DC fail constructed GTE replay and remain unselected. Another 140
-  candidates lack sufficient evidence. Final reduced-selection live/replay,
-  normal-production and platform checks are still required before promotion.
-  The source checkpoint and original private upload survived the connection
-  loss; temporary captures and generated bodies had to be regenerated.
+- Version 0.0.15 retains 117 new game/object, model-dispatch and resource-control
+  roots, adding 71,028 emitted bytes. The final diagnostic and normal builds
+  verify 219,976 / 845,824 = 26.0073% linked, with 73.9927% outside. N2O has
+  242 roots and 7,440 aliases. All 117 new roots were observed directly; final
+  qualification passed 10,943 comparisons and 17 pixel-identical frames, the
+  normal production/controller fixture, 40 source tests, the 79-file source
+  audit and Windows/Linux CI. Three mismatch owners (0x80039E50, 0x80040D44,
+  0x800440DC) and 140 other candidates without sufficient evidence stay
+  unselected. The normal fixture's residency declines stop during startup;
+  overlapping images retain guarded fallback. Focused Windows 0.0.15 player
+  acceptance is pending TESTING.md; do not infer it from accepted 0.0.14.
+  The existing private upload was restored after connection loss; do not
+  request it again unnecessarily. Preserve existing record order and append
+  new candidates so unchanged generated units keep their identities. When
+  reducing a private exploratory pool, regenerate in a fresh source directory
+  and check for stale parts before building. Game-derived files remain private.
