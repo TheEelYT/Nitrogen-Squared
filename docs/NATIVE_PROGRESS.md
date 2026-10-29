@@ -55,7 +55,7 @@ pre-0.0.7 receipt by rebuilding first.
 | Drawing packet preparation | 25 additional native entry ranges, with guarded internal resumes; user verified 0.0.11 gameplay through level 9 |
 | Geometry/object presentation and text | 32 additional native entry ranges in 0.0.13; private comparisons, first-level visuals, normal build and Windows/Linux CI passed; user reports no issues in the focused Windows playtest |
 | Model primitives and game/menu control | 46 additional roots in 0.0.14; 10,316 private comparisons, 17 exact-frame checks, normal production/controller fixture and Windows/Linux CI passed; user reports no issues in the focused Windows playtest |
-| Game/object updates and resource control | 117 additional native roots in 0.0.15; final diagnostic/replay, 17 exact-frame checks, normal/controller fixture and Windows/Linux CI passed; focused Windows player checks pending |
+| Game/object updates and resource control | 117 additional native roots in 0.0.15; final diagnostic/replay, 17 exact-frame checks, normal/controller fixture and Windows/Linux CI passed; user reports no issues in the focused Windows playtest |
 | Card-control/event polling | 20 additional native entry ranges; BIOS/serial protocol and file publication retain compatibility services; user reports no Windows saving/loading slowdowns in 0.0.12 |
 | Music and effects | Emulated SPU/CD path; no independent cue-driven player yet |
 | Opening movies | Native STR/XA service for three opening routes; user verified Windows playback and skipping |
@@ -170,4 +170,5 @@ passed 968 live comparisons and 25 variants at each of 399 captured segment PCs
 apply only to the final reduced binding. Three mismatch owners and 140 other
 candidates without adequate evidence stay unselected. Native service counts and
 compatibility services are unchanged. Normal-production/controller checks and
-Windows/Linux CI passed. Windows player acceptance remains pending. See VALIDATION.md for the bounded inputs and limits.
+Windows/Linux CI passed. The user reports no issues in the focused Windows
+0.0.15 playtest. See VALIDATION.md for the bounded inputs and limits.

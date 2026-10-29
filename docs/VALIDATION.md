@@ -1317,3 +1317,13 @@ files, reimport or deliberate save overwrite is required. Earlier Windows
 acceptance remains scoped to its reported versions. No disc content, generated
 game bodies/guards, compiled game modules, witnesses, captures or saves enter Git
 or releases; framework tracked files remain unchanged.
+
+### 0.0.15 Windows player acceptance
+
+The user reports continued gameplay with no issues noticed in Windows 0.0.15.
+Record the focused playtest as accepted. This report does not establish exhaustive
+branch coverage, an exact FPS measurement or a new level-9 campaign playthrough.
+Coverage remains 26.0073% linked / 73.9927% outside. This acceptance note changes
+documentation only: no VERSION bump, rebuild, new files or repeated player test
+is required. Existing saves and prior version-specific acceptance retain their
+scope. Standing authorization to promote qualified updates to main continues.

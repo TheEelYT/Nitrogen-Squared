@@ -83,8 +83,9 @@
   audit and Windows/Linux CI. Three mismatch owners (0x80039E50, 0x80040D44,
   0x800440DC) and 140 other candidates without sufficient evidence stay
   unselected. The normal fixture's residency declines stop during startup;
-  overlapping images retain guarded fallback. Focused Windows 0.0.15 player
-  acceptance is pending TESTING.md; do not infer it from accepted 0.0.14.
+  overlapping images retain guarded fallback. The user reports no issues noticed
+  in the focused Windows 0.0.15 playtest. Record that route as accepted without
+  implying exhaustive coverage or a new level-9 campaign playthrough.
   The existing private upload was restored after connection loss; do not
   request it again unnecessarily. Preserve existing record order and append
   new candidates so unchanged generated units keep their identities. When

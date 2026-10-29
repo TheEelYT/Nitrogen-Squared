@@ -220,5 +220,6 @@ All 117 new roots were observed directly. Final reduced-binding checks passed
 frames. Three mismatch owners and 140 other candidates without adequate evidence
 remain unselected. These bounded tests do not prove all branches or later levels.
 The normal production build/controller fixture and Windows/Linux CI passed;
-focused Windows player acceptance is pending. PS1 rendering/GTE, guest sound and BIOS/card compatibility services
+the user reports no issues in the focused Windows 0.0.15 playtest.
+PS1 rendering/GTE, guest sound and BIOS/card compatibility services
 remain separate from this native-game range inventory.

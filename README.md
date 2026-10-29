@@ -7,7 +7,7 @@ with a planned PS Vita port and optional remaster presentation.
 117 additional roots cover game updates, object/presentation control, model
 dispatch and resource/service control. The final selection passed 10,943 private
 segment comparisons and 17 pixel-identical scanouts. The normal player build/controller fixture and Windows/Linux CI passed.
-The focused Windows 0.0.15 player check is pending.
+The user reports no issues in the focused Windows 0.0.15 playtest.
 The user reported no issues in the focused Windows 0.0.14 playtest. Earlier
 0.0.11 gameplay reached level 9 and 0.0.12 resolved the reported save/load slowdown;
 those reports retain their tested version scope.

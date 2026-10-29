@@ -2,7 +2,9 @@
 
 ## Current acceptance and update checks
 
-**0.0.15 — local and platform checks passed; Windows player acceptance pending:**
+**0.0.15 — focused Windows playtest accepted:** the user reports no issues
+noticed. This accepts the reported route without implying exhaustive coverage
+or a new level-9 campaign playthrough. No repeat test is needed for this note.
 117 additional roots cover game updates, object/presentation control, model
 dispatch and resource/service control. The final binding passed 10,943 private
 comparisons (968 live and 9,975 replay) and 17 pixel-identical scanouts. All 117
@@ -18,15 +20,16 @@ owners and 140 other unqualified candidates remain on fallback. Captured inputs
 and generated game code stay private. Bounded comparisons do not prove every
 branch, input or later-level scenario.
 
-After pulling 0.0.15 from main and rebuilding with the usual commands below, check:
+The focused player-check scope was:
 
 1. Navigate title/menu, ship and level selection; check labels, models and animation.
 2. Play a short first-level session with analog movement and firing. Check enemies,
    shots, explosions, ship/object effects, HUD and score/life counters.
 3. Pause/resume, continue playing briefly and quit normally.
 
-Windows 0.0.15 player acceptance is pending these checks. No later-level campaign,
-new files, reimport or deliberate save overwrite is required. Preserve existing saves.
+The user reports no issues noticed in Windows 0.0.15; the focused playtest is
+accepted. No repeated campaign, new files, reimport or deliberate save overwrite
+is required. Preserve existing saves.
 The accepted 0.0.14 Windows playtest remains history for that version.
 
 **0.0.14 — focused Windows playtest accepted:** the user reports no issues

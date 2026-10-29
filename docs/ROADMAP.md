@@ -34,8 +34,8 @@ roots. Normal-build coverage is 26.0073% linked / 73.9927% outside, adding
 71,028 emitted bytes. The reduced binding passed 10,943 comparisons and 17
 matching-frame checks. Three mismatch owners and 140 other unqualified candidates
 remain on fallback. The normal production/controller fixture and Windows/Linux
-CI passed. Focused Windows player acceptance is pending; earlier reports retain
-their tested version scope.
+CI passed. The user reports no issues in the focused Windows 0.0.15 playtest;
+earlier reports retain their tested version scope.
 
 ## 1. Loaded-code identity and native game slices — underway
 
