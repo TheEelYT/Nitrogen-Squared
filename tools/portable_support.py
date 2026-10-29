@@ -167,6 +167,7 @@ class Layout:
         env.update(CC="x86_64-w64-mingw32-clang.exe",
                    CXX="x86_64-w64-mingw32-clang++.exe",
                    CMAKE_GENERATOR="Ninja", CMAKE_BUILD_PARALLEL_LEVEL="2",
+                   CXXFLAGS="-include cstdlib",
                    PSX_SDL3_SOURCE_DIR=str(self.local/"SDL3-source"),
                    PYTHONNOUSERSITE="1", PYTHONDONTWRITEBYTECODE="1")
         temp = beneath(self.root, ".local/tmp")

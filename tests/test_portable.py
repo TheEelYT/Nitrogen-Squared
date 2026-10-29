@@ -30,7 +30,7 @@ def package(root,version,extra=None):
 class PortableTests(unittest.TestCase):
     def setUp(self):
         self.temp=tempfile.TemporaryDirectory()
-        self.base=Path(self.temp.name)
+        self.base=Path(self.temp.name).resolve()
         self.root=self.base/"Nitrogen-Squared"
         self.root.mkdir()
         self.layout=Layout(self.root)
@@ -50,7 +50,10 @@ class PortableTests(unittest.TestCase):
     def test_zip_preflight_does_not_write_partial_output(self):
         z=self.base/"bad.zip"
         for bad in ["../outside","C:/outside","app/a:b","app/CON","a\\b"]:
-            with zipfile.ZipFile(z,"w") as f:f.writestr("valid.txt","good");f.writestr(bad,"bad")
+            with zipfile.ZipFile(z,"w") as f:
+                f.writestr("valid.txt","good")
+                info=zipfile.ZipInfo("placeholder");info.filename=bad
+                f.writestr(info,"bad")
             out=self.base/"out"
             with self.assertRaises(ValueError):extract_zip(z,out)
             self.assertFalse(out.exists())
