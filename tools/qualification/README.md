@@ -106,3 +106,8 @@ fail closed. Exclusions are active before the first dispatch, including resumes,
 and apply only when that exact guarded occupant is resident. They do not imply
 qualification. `replay.py` clears exploratory collection/block/trace environment
 options so captured-input replay cannot inherit a pool's forced fallbacks.
+
+`route.py --extended` uses ordinary controller input through frame 12300 and
+captures 21 frames, including later first-level and post-level UI when reached
+by the deterministic route. Pair it with an identically driven preserved
+reference binary. It does not require personal saves or a new campaign report.

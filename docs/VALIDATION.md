@@ -1430,3 +1430,46 @@ owner intervals and NEW movie-control addresses, 115 N2O and 18 NEW boundaries
 remain for preflight. They are observed indirect/continuation candidates, not
 confirmed complete functions or coverage credit. New inputs are capped before
 excluded intervals and existing emitted ranges. Main remains accepted 0.0.15.
+
+### Extended route, indirect boundaries and reduced O1 pool — passed
+
+A reference run with ordinary controller input completes 21 captures through
+frame 12307, including natural first-level completion and bonus/shop screens.
+The broad pool, with known failures and conservative non-leaf NEW routines
+held on fallback, completes the same route through 12306: 1,301 comparisons,
+zero failures and 591 passing identity/PC pairs. All 21 frames match exactly.
+Its 25-variant replay excludes one additional N2O owner after six GTE-state
+failures. Previous replay also excludes three small N2O GTE-register helpers
+that differ in GTE data register 31 on raw zero-GTE variants. These inputs are
+not claimed to be reachable gameplay states; the exclusions remain conservative.
+
+The next source binding removes all blocked and unobserved broad-pool owners,
+retains 236 observed call-target roots, and adds 112 preflighted indirect or
+continuation roots discovered from actual untranslated PC traces. Prefix hashes
+were matched to the verified images, all existing emitted ranges were excluded
+from discovery, and known failed owners were excluded as whole input intervals.
+New input extents stop before excluded intervals or previously emitted ranges.
+NEW additions remain conservative leaf CPU/RAM paths; its movie-control callers
+remain interpreted. The generated sources are rebuilt in a fresh private directory.
+
+The resulting O1 candidate has 590 total roots: 546 N2O roots with 10,144 aliases,
+and 44 NEW roots with 87 aliases. The 348 additions comprise 236 call-target roots
+and 112 observed indirect/continuation boundaries, not 348 newly identified
+complete functions. Its selected input bands total 119,332 bytes. Emitted union
+coverage is 295,648 / 845,824 = 34.9538%, with 550,176 bytes (65.0462%) outside.
+N2O contributes 274,800 / 458,752 = 59.9016%; NEW 2,940 / 333,824 = 0.8807%;
+boot remains 17,908 / 53,248. The increase over 0.0.15 is 75,672 emitted bytes.
+
+All 348 code identities are observed on the expanded route (347 direct owner
+entries, one via a continuation). It completes through frame 12300 with 1,458
+CPU/RAM/register/scratchpad/GTE comparisons, zero failures and 687 identity/PC
+pairs. All 21 frames match the extended reference exactly. All 25 replay variants
+pass at all 687 captured pairs: 17,175 comparisons, zero failures. The combined
+18,633 count applies to this O1 exploratory binding only. Final strict O3
+diagnostic and normal-production verification remains pending.
+
+Helper checkpoint 934174807daf401269858be6c3ab2abbd59be3f7 passed source CI
+40916615761 and runtime/renderer CI 40916615489 on Windows/Linux. Initial pool
+checkpoint dd2d75efe9995e691ea9a119cba42cb4f09a8a6e passed source CI 40920346042
+and runtime/renderer CI 40920346014 on both platforms. Final binding CI remains
+pending. Main remains accepted 0.0.15 until final qualification completes.

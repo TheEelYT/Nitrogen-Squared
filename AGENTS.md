@@ -111,3 +111,12 @@
   or exceed the checker budgets. N2O_BLOCKED_IDS is an exploratory, v2-only
   exclusion file, verified before the first dispatch; final builds must remove
   these owners and contain no diagnostic interposition. Main remains 0.0.15.
+
+- The reduced 0.0.16 candidate contains 348 new entry roots: 236 call-target
+  roots and 112 observed indirect/continuation boundaries. Its O1 pool passed
+  1,458 live plus 17,175 replay comparisons at 687 identity/PC pairs, zero
+  failures, and 21 exact-frame checks through first-level completion/bonus/shop.
+  Preliminary coverage is 295,648 / 845,824 = 34.9538%, with 65.0462% outside;
+  N2O has 546 roots and NEW 44. This is pending final strict O3 diagnostic,
+  normal-production and final platform checks. All earlier failed owners and
+  their whole input intervals stay excluded, including new fragment discovery.

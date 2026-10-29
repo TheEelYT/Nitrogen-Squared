@@ -27,6 +27,7 @@ def main():
     p.add_argument("--timeout", type=float, default=600,
                    help="Bounded wall-clock budget for the frame-based route, in seconds")
     p.add_argument("--help-prompts", action="store_true")
+    p.add_argument("--extended", action="store_true", help="Extend ordinary controller play and scanouts through frame 12300")
     args = p.parse_args()
     if not 0 < args.timeout <= 1800:
         raise ValueError("Route timeout must be between 0 and 1800 seconds")
@@ -79,8 +80,14 @@ def main():
                                     (0xBFFF,200),(0xFFF7,20),(0xFFFF,180),(0xFFF7,20),(0xFFFF,180),
                                     (0xBFDF,400),(0xBF7F,500),(0xBFFF,600)]:
                 request("input_route_append", buttons=buttons, frames=frames)
+            if args.extended:
+                for _ in range(4):
+                    for buttons, frames in [(0xBFFF,500),(0xBFDF,500),(0xBFFF,100),(0xBF7F,500),(0xFFFF,20),(0xBFFF,20)]:
+                        request("input_route_append", buttons=buttons, frames=frames)
             print(request("input_route_start", at_frame=1800), flush=True)
             frames = [800,1500,1900,2100,2300,2500,2700,3000,3500,4000,4200,4300,4500,4700,5000,5500,6000]
+            if args.extended:
+                frames += [7500,9000,10500,12000]
             done = set()
             deadline = time.monotonic() + args.timeout
             while time.monotonic() < deadline:
@@ -94,7 +101,7 @@ def main():
                             raise RuntimeError(str(result))
                         print(target, result, flush=True)
                         done.add(target)
-                if frame >= 6300:
+                if frame >= (12300 if args.extended else 6300):
                     break
                 time.sleep(.15)
             else:
