@@ -276,3 +276,29 @@
   report retains its version scope. This documentation-only note requires no
   runtime rebuild, release, repeat playthrough or new user input. Native coverage
   stays 35.4660% / 64.5340%; the unfinished native reduction remains unqualified.
+
+
+- Version 0.0.20 supersedes the interrupted native checkpoint with 53 qualified
+  entry roots (40 N2O/13 NEW), +8,188 emitted bytes. Diagnostic and normal reports
+  agree: 308,168 / 845,824 = 36.4341% linked; 63.5659% outside. Preserve all 675
+  old config records in order, all 47 whole-owner exclusions and fallback.
+  N2O: 602 roots/10,525 aliases; NEW: 127 roots/192 aliases. Boot is unchanged.
+- Fresh reduced O3 qualification passes 269 live + 2775 fail-fast replay =
+  3044 comparisons, no failures, and 50 exact frames across two --long routes
+  through frame 18300/second-level play. All 53 identities were observed,
+  52 directly and 1 continuation-only. Normal hashes match, diagnostics and
+  qualification hooks are absent, and the normal controller/movie/quit fixture
+  passes. The 261-root exploratory pool and 208 unobserved candidates receive
+  no extra credit; the older failed pool/provisional 80 roots remain unqualified.
+- Focused 0.0.20 Windows player acceptance is pending. Earlier reports retain
+  scope: 0.0.18 level 9/saving and 0.0.19 gameplay/Asset folders. No new upload,
+  repeated campaign or deliberate save overwrite is required. Clock separation
+  remains deferred; folder-backed runtime assets and mod-pack loading are future
+  work. Continue code/data mapping without changing the linked-range metric.
+- Recovery metadata is privately saved as Nitrogen-Squared-0.0.20-native-recovery.zip,
+  in the user's project files. It contains root/address/hash
+  metadata and original helper scripts, not disc bytes, guards, generated C,
+  compiled game, media, RAM witnesses or saves. Reuse the existing verified disc
+  upload. Inspect checkpoint phase; provisional metadata is not qualification.
+- All 80 local source tests pass with no skips, and the 98-file source audit
+  passes with the unchanged 128 KiB bound, including Windows CRLF sizes.

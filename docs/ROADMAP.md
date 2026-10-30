@@ -1,5 +1,20 @@
 # Windows first, Vita by design
 
+## Current native milestone — 0.0.20
+
+The recovered batch adds 53 observed entry roots and 8,188 emitted bytes,
+reaching **36.4341% linked / 63.5659% outside**. Final reduced O3 live/replay,
+50 exact-frame and normal-production/controller checks passed. Focused Windows
+player acceptance is pending; no repeated campaign is required. This supersedes
+the interrupted 0.0.19 native checkpoint without crediting its failed pool.
+
+The user confirmed 0.0.19 gameplay and Asset folders. Extracted original asset
+containers and music stay editable under .local/game; runtime folder-backed
+loading, format conversion and replacement-pack support remain future work.
+Continue code/data mapping with native batches. Logic/render clock separation
+remains deferred; no code-only denominator is inferred from static hints.
+
+
 ## Accepted player baseline — 0.0.18 launcher build through level 9
 
 The user now reports Windows 0.0.18 launcher-built gameplay through level 9 with

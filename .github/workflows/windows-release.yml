@@ -136,10 +136,10 @@ jobs:
           Extract the complete **Nitrogen-Squared** folder and run **launcher.exe**.
           On first launch select the supported USA CUE with its matching BIN beside it. The launcher verifies/imports/generates/compiles your private game; no separate Python or Visual Studio installation is required.
 
-          **New: Asset folders.** After disc import, use this button to extract original textures, models, maps, sound banks, text, movie-sector streams and ten PCM WAV music tracks into `.local/game`. Later uses open the preserved folder. Extraction is optional; the runtime still needs the original CUE/BIN, and replacement-pack loading is future work.
+          **Asset folders.** After disc import, use this button to extract original textures, models, maps, sound banks, text, movie-sector streams and ten PCM WAV music tracks into `.local/game`. Later uses open the preserved folder. Extraction is optional; the runtime still needs the original CUE/BIN, and replacement-pack loading is future work.
 
           Updates preserve `.local`, including saves and extracted files. Keep the original disc available. Windows 10/11 x64; internet is required for first preparation and updates.
-          Native coverage is unchanged at 35.4660%. The next native batch remains pending private qualification after the execution environment became unavailable. No unqualified native additions are enabled.
+          **New native batch:** 53 qualified entry roots add 8,188 linked bytes. Executable-range coverage is 36.4341% linked / 63.5659% outside; this is not overall completion or a native CPU-time share. Final O3 checks passed 3,044 bounded comparisons with zero mismatches and 50 pixel-identical frames through second-level play. A short Windows player check is pending; no repeat campaign is requested.
 
           This package contains no commercial game data, generated game code or prepared game executable.
           NOTES

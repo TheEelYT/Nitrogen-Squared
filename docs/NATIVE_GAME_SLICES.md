@@ -277,3 +277,22 @@ portable release supplies original setup/play/update code; generated native C,
 guards, game executables, captures, saves and media remain private under .local.
 See VALIDATION.md for normal-build and platform receipts and TESTING.md for the
 accepted Windows 0.0.18 launcher-built route through level 9 with successful saving.
+
+
+## 0.0.20 observed game/library fragments
+
+Adds 40 N2O and 13 NEW roots, preserving all 675 prior input records in order.
+The 53 new input bands total 8,444 bytes and add 8,188 emitted bytes: 6,956 N2O
+and 1,232 NEW. The linked union is 308,168 / 845,824 = **36.4341%**, with
+**63.5659%** outside. Inventory: 602 N2O roots/10,525 aliases and 127 NEW roots/
+192 aliases; boot remains unchanged. Aliases receive no separate byte credit.
+
+Fresh reduced O3 qualification passed 269 live plus 2,775 fail-fast replay
+comparisons, zero mismatches, and 50 exact RGB frames across two ordinary-input
+routes through frame 18300, including second-level play. All 53 identities were
+observed: 52 directly and 1 through continuations only. Normal source/range hashes
+match and the production/controller fixture passes without comparison hooks.
+Preserve the 47 whole-owner exclusions, fallback and the unchanged framework.
+The failed 0.0.19 pool and its provisional 80-root reduction earn no credit.
+See VALIDATION.md for bounded evidence and TESTING.md for the focused pending
+Windows player check. No repeat campaign or new disc input is requested.

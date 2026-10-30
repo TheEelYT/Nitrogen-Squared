@@ -1908,3 +1908,81 @@ and launcher changes do not depend on the unfinished native batch.
 Coverage remains 299,980 / 845,824 = 35.4660% linked, with 545,844 bytes / 64.5340%
 outside. No game inputs, extracted assets, generated guards/code, compiled game
 runtime, witnesses, captures or saves enter Git or release assets.
+
+
+## 0.0.20 recovered native batch
+
+The restored environment contained an older 0.0.18 source snapshot and no private
+0.0.19 qualification artifacts. Recovery preserved its local work, restored main
+c2c9b3196e50d3d725faa6e8c13b2e0e73ae86a9 and reused the existing verified user
+upload. Fresh O3 references retain the accepted 675-band binding (35.4660%).
+Both --long ordinary-input routes reached frame 18300 with 25 captures each,
+including second-level transition/play. Alternate ship choice is visible;
+the difficulty flag alone does not prove an actual menu difficulty change.
+
+Verified static analysis and prefix-labelled misses proposed 398 candidates.
+Conservative preflight held 137: 67 unproven indirect call closures, 65 unproven
+direct closures, four direct hardware contexts and one exception context.
+Its 261-root O3 exploratory pool passed 121+148 comparisons and 50 exact frames,
+with no failures. Retain 53 observed identities (40 N2O/13 NEW); 208 unobserved
+pool roots earn no credit. All 47 prior whole-owner exclusions remain intact.
+No earlier failed pool or provisional 80-root reduction is promoted or counted.
+
+The reduced build regenerates into a fresh source directory and contains exactly
+its recorded sources. All 675 prior config records remain semantically identical
+and in order. Compact per-record JSON preserves the 128 KiB source-file bound.
+All 53 reduced guarded identities match their observed pool identities.
+Both C and C++ Release flags are -O3 -DNDEBUG. Final live qualification clears
+collection, forced blocks, miss tracing and edge options:
+
+| Final route | Live comparisons | Captured inputs | Exact frames |
+| --- | ---: | ---: | ---: |
+| Default | 121 | 49 | 25 |
+| Alternate inputs | 148 | 62 | 25 |
+| Total | 269 | 111 | 50 |
+
+All 53 identities were observed: 52 at owner entry and 1 only through a
+guarded continuation. Across both routes there are 65 distinct identity/PC
+pairs. Captured-input replay uses the final O3 binary, 25 original input/GTE
+variants per input, fail-fast without --keep-going: 2,775 passing replay
+comparisons. Final live plus replay totals **3,044, zero mismatches**.
+Every final RGB capture equals its identically driven reference byte-for-byte.
+These bounded CPU/RAM/scratchpad/GTE comparisons freeze device time; they do not
+prove every branch, host/device effect, two-player path or campaign level.
+
+The 53 input bands total 8,444 bytes. Their emitted union adds 8,188 bytes:
+6,956 N2O and 1,232 NEW. Diagnostic and normal builds agree on **308,168 /
+845,824 = 36.4341% linked**, **537,656 / 63.5659% outside**. N2O: 282,576 /
+458,752 = 61.5967%, 602 roots/10,525 aliases. NEW: 7,684 / 333,824 = 2.3018%,
+127 roots/192 aliases. Boot is unchanged: 17,908 bytes, 86 functions. Aliases
+earn no separate byte credit; payload data stays in the denominator.
+
+The normal build has diagnostics OFF, an empty qualification include and no
+comparison/replay objects or --wrap interposition. Its source/range manifest
+matches the final diagnostic manifest exactly. Production execution identity:
+4e4f9dd3254e9ef2e564dbdac801afa86a1c97ddff69634e7c2f50ef0b56ab84.
+The separate controller fixture completes all three native movies, samples
+analog movement/fire, exercises pause/resume and exits via SDL_QUIT. Its two
+private captures were inspected. Dummy audio/offscreen checks do not measure
+physical audio quality or sustained Windows FPS. All 80 local Python cases pass with CMake/Ninja available and no skips. The
+98-file reviewed source audit passes; every allowed file also fits 128 KiB after
+Windows CRLF conversion. Windows/Linux source,
+runtime/renderer and portable package/update checks gate release publication.
+
+The incremental private inventory retains verified source hashes and labels
+hints separately; no code-only denominator or hint-based credit is introduced:
+
+| Payload | Linked | Static-code hint | Data hint | Conflict | Unclassified |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| N2O.EXE | 282,576 | 86,972 | 15,679 | 0 | 73,525 |
+| NEW.EXE | 7,684 | 36,344 | 184,128 | 0 | 105,668 |
+| SLUS_006.37 | 17,908 | 0 | 677 | 0 | 34,663 |
+
+The 0.0.19 reported Windows gameplay/asset-folder flow remains accepted for that
+version; 0.0.18 retains the level-9/save report. The focused 0.0.20 player check
+is pending. No new upload, repeat campaign or deliberate save overwrite is
+requested. Assets remain private and runtime still uses the original disc;
+folder-backed loading, mod packs and clock separation are separate work.
+No game bytes, generated C/guards, compiled game, witnesses, media or saves
+enter Git/releases. A private metadata-only recovery checkpoint preserves the
+selection, source identities, reference RGB hashes and original helper scripts.

@@ -3,34 +3,32 @@
 A Windows-first recompilation project for **N2O: Nitrous Oxide (PlayStation)**,
 with a planned PS Vita port and optional remaster presentation.
 
-**Current status: 0.0.19 — private asset folders and music extraction.**
-The Windows release includes `launcher.exe`, the supporting source and portable
+**Current status: 0.0.20 — 53 further qualified native entry roots.**
+The new binding adds 8,188 linked bytes: **36.4341% linked / 63.5659% outside**.
+These are observed game/library fragments, not 53 newly identified complete
+functions or a native CPU-time share. Final checks passed 3,044 bounded comparisons
+and 50 pixel-identical frames across two routes reaching second-level play.
+
+The Windows release includes `launcher.exe`, supporting source and portable
 Python. First launch selects your CUE sheet and automatically verifies, extracts,
-generates, compiles and starts your private game. The launcher also checks for
-updates. No separate Python or Visual Studio installation is needed.
+generates, compiles and starts your private game. Use **Check for updates** in an
+existing launcher; keep .local and your saves. No separate Python or Visual Studio
+installation is needed. The short 0.0.20 Windows player check is pending; see TESTING.md.
 
-Version 0.0.18 fixed the first-setup CMake error `Invalid character escape` in
-CMakeRCCompiler.cmake. If 0.0.17 stopped there, reopen its launcher and use
-**Check for updates**, then **Prepare & play** after restart. The update archives
-the broken runtime configuration while retaining completed tools, verified inputs,
-generated files and saves. Keep your existing .local folder. Native coverage and
-game behavior are unchanged: **35.4660% linked / 64.5340% outside**.
+The user accepted 0.0.18 launcher-built gameplay through level 9 with successful
+saving and no issues noticed, then confirmed gameplay and **Asset folders** in
+0.0.19. Those reports retain their version scope; no repeated campaign is needed.
 
-The user verified the 0.0.18 launcher-built Windows game through level 9 with no
-issues noticed and successful saving, reporting the same behavior as the command-
-line build. This accepts the reported preparation/gameplay route; see TESTING.md.
-
-Use **Asset folders** after the launcher has verified your disc to extract
-textures, models, maps, sound banks, text, raw movie streams and ten PCM WAV music
-tracks under `.local/game`. Later uses open the existing folder and preserve
-edits. This is optional preparation for future replacement packs. The runtime
-still needs the original CUE/BIN. Native coverage is unchanged at **35.4660%**;
-the next native selection remains pending private qualification.
+Use **Asset folders** after disc import to extract original texture/model/map/
+sound/text containers, raw movie streams and ten PCM WAV music tracks into
+`.local/game`. Later uses open that folder and preserve edits. The runtime still
+uses the original CUE/BIN; folder-backed loading and replacement packs remain
+future work. Logic/render clock separation remains deferred.
 
 ## Play on Windows
 
-1. Download [Nitrogen-Squared-Windows-x64.zip](https://github.com/TheEelYT/Nitrogen-Squared/releases/download/v0.0.19/Nitrogen-Squared-Windows-x64.zip)
-   from the [0.0.19 release](https://github.com/TheEelYT/Nitrogen-Squared/releases/tag/v0.0.19).
+1. Download [Nitrogen-Squared-Windows-x64.zip](https://github.com/TheEelYT/Nitrogen-Squared/releases/download/v0.0.20/Nitrogen-Squared-Windows-x64.zip)
+   from the [0.0.20 release](https://github.com/TheEelYT/Nitrogen-Squared/releases/tag/v0.0.20).
 2. Extract the complete **Nitrogen-Squared** folder somewhere you can write to,
    then run **launcher.exe**. Windows 10/11 x64 is supported.
 3. Select your supported USA **CUE** sheet, keeping its matching BIN beside it.
@@ -52,27 +50,26 @@ privately from the player's verified input and must not be redistributed. No Vit
 VPK is available. The runtime retains native boot/BIOS, selected native game
 routines and interpreter fallback, with the pinned PSXRecomp framework still in use.
 
-## Native progress — 0.0.19 (unchanged)
+## Native progress — 0.0.20
 
 | Selected executable payloads | Bytes | Share |
 | --- | ---: | ---: |
-| Covered by linked native translations | 299,980 | **35.4660%** |
-| Outside linked native translation ranges | 545,844 | **64.5340%** |
+| Covered by linked native translations | 308,168 | **36.4341%** |
+| Outside linked native translation ranges | 537,656 | **63.5659%** |
 | Total | 845,824 | 100.00% |
 
-The 0.0.17 native batch added 86 entry roots and expands one existing owner, adding 4,332 linked
-bytes over 0.0.16. These include library fragments and indirect entries, not 86
-newly identified complete functions. N2O.EXE contributes 275,620 bytes (60.0804%)
-and NEW.EXE 6,452 bytes (1.9328%); boot is unchanged. The selected game inventory
-has 562 N2O roots, 114 NEW roots and 10,339 continuation aliases. Aliases receive
-no extra byte credit. Failed or insufficiently observed candidates remain on
-fallback. Results and bounded qualification scope are in [validation](docs/VALIDATION.md)
-and the [focused testing instructions](TESTING.md).
+This batch adds 40 N2O and 13 NEW entry roots, preserving all earlier bindings.
+N2O.EXE contributes 282,576 bytes (61.5967%); NEW.EXE contributes 7,684 bytes
+(2.3018%); boot is unchanged. There are 602 N2O roots, 127 NEW roots and 10,717
+continuation aliases. Aliases earn no extra byte credit. Failed or insufficiently
+observed candidates retain fallback.
 
-Final O3 qualification passed 5,162 comparisons with zero mismatches and 42
-matching captures. Normal-production hashes/coverage and the movie/controller/
-pause/quit fixture passed, along with 69 source tests, the 95-file source audit,
-Windows/Linux CI and Windows package/update integration.
+Final O3 qualification passed 269 live plus 2,775 fail-fast replay comparisons,
+with no mismatches and 50 pixel-identical frames through second-level play.
+The normal build matches the qualified source/range hashes, has no comparison
+hooks, and passes the movie/controller/pause/quit fixture. Windows/Linux source,
+runtime and portable package/update checks gate publication. See
+[validation](docs/VALIDATION.md) and [focused player checks](TESTING.md).
 
 These are executable-range measurements, not overall completion or native CPU
 time. Payloads include embedded data. A new private code/data inventory records
