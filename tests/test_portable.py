@@ -2,7 +2,9 @@
 import hashlib
 import io
 import json
-from pathlib import Path
+from pathlib import Path, PureWindowsPath
+import shutil
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -203,6 +205,82 @@ class PortableTests(unittest.TestCase):
         self.assertEqual((self.layout.local/"retained-settings.toml").read_text(),'[video]\n')
         self.assertTrue(list((self.layout.local/"relocated").glob('*/runtime-dev/saves/card.mcd')))
         self.assertFalse(self.layout.work.exists())
+
+    @unittest.skipUnless(shutil.which("cmake"),"CMake required for compiler-path regression")
+    def test_windows_compiler_path_survives_generated_cmake_source(self):
+        layout=Layout.__new__(Layout)
+        layout.tools=PureWindowsPath("B:/Games/Nitrogen-Squared With Spaces/.local/tools")
+        layout.python=PureWindowsPath("B:/Games/Nitrogen-Squared With Spaces/support/python/python.exe")
+        definitions=dict(arg[2:].split("=",1) for arg in layout.runtime_cmake_args())
+        compiler=layout.tools/"llvm-mingw/bin/x86_64-w64-mingw32-windres.exe"
+        script=self.base/"CMakeRCCompiler.cmake"
+        # Reproduce the compiler-file failure from the user's setup log.
+        script.write_text('cmake_minimum_required(VERSION 3.20)\n'
+                          'set(CMAKE_RC_COMPILER "'+str(compiler)+'")\n')
+        bad=subprocess.run(["cmake","-P",str(script)],capture_output=True,text=True,timeout=10)
+        self.assertNotEqual(bad.returncode,0)
+        self.assertIn("Invalid character escape",bad.stderr)
+        value=definitions["CMAKE_RC_COMPILER"]
+        self.assertEqual(value,compiler.as_posix())
+        self.assertEqual(definitions["Python3_EXECUTABLE"],layout.python.as_posix())
+        script.write_text('cmake_minimum_required(VERSION 3.20)\n'
+                          'set(CMAKE_RC_COMPILER "'+value+'")\n'
+                          'if(NOT CMAKE_RC_COMPILER STREQUAL "'+compiler.as_posix()+'")\n'
+                          '  message(FATAL_ERROR "Compiler path changed")\nendif()\n')
+        fixed=subprocess.run(["cmake","-P",str(script)],capture_output=True,text=True,timeout=10)
+        self.assertEqual(fixed.returncode,0,fixed.stderr)
+
+    def test_backslash_compiler_cache_repair_keeps_completed_preparation_and_saves(self):
+        self.layout.app.mkdir()
+        for name in ("runtime-dev/private/prepared.txt","build-recompiler/compiled.txt",
+                     "installation/import.txt","saves/card.mcd"):
+            p=self.layout.local/name;p.parent.mkdir(parents=True,exist_ok=True)
+            p.write_bytes(b"original preservation fixture")
+        for kind in ("UNINITIALIZED","FILEPATH"):
+            with self.subTest(kind=kind):
+                build=self.layout.work/"build";build.mkdir()
+                (build/"CMakeCache.txt").write_text(
+                    'CMAKE_HOME_DIRECTORY:INTERNAL='+self.layout.app.as_posix()+'\n'
+                    'CMAKE_GENERATOR:INTERNAL=Ninja\n'
+                    'CMAKE_RC_COMPILER:'+kind+'=B:\\Games\\tools\\windres.exe\n')
+                (build/"settings.toml").write_text('[video]\n')
+                broken=build/"CMakeFiles/4.4.5/CMakeRCCompiler.cmake"
+                broken.parent.mkdir(parents=True);broken.write_text('original broken configuration')
+                Backend(self.layout).align_cache({})
+                self.assertFalse(build.exists())
+                self.assertEqual((self.layout.local/"retained-settings.toml").read_text(),'[video]\n')
+                for name in ("runtime-dev/private/prepared.txt","build-recompiler/compiled.txt",
+                             "installation/import.txt","saves/card.mcd"):
+                    self.assertEqual((self.layout.local/name).read_bytes(),b"original preservation fixture")
+        self.assertEqual(len(list((self.layout.local/"relocated").glob('*/runtime-build/CMakeCache.txt'))),2)
+
+    def test_forward_slash_compiler_cache_is_reused(self):
+        self.layout.app.mkdir()
+        build=self.layout.work/"build";build.mkdir(parents=True)
+        (build/"CMakeCache.txt").write_text(
+            'CMAKE_HOME_DIRECTORY:INTERNAL='+self.layout.app.as_posix()+'\n'
+            'CMAKE_GENERATOR:INTERNAL=Ninja\n'
+            'CMAKE_RC_COMPILER:FILEPATH=B:/Games/tools/windres.exe\n')
+        Backend(self.layout).align_cache({})
+        self.assertTrue((build/"CMakeCache.txt").is_file())
+        self.assertFalse((self.layout.local/"relocated").exists())
+
+    def test_broken_generated_compiler_file_is_repaired_even_without_bad_cache_value(self):
+        self.layout.app.mkdir()
+        for has_cache in (False,True):
+            with self.subTest(has_cache=has_cache):
+                build=self.layout.work/"build";build.mkdir(parents=True)
+                if has_cache:
+                    (build/"CMakeCache.txt").write_text(
+                        'CMAKE_HOME_DIRECTORY:INTERNAL='+self.layout.app.as_posix()+'\n'
+                        'CMAKE_GENERATOR:INTERNAL=Ninja\n'
+                        'CMAKE_RC_COMPILER:FILEPATH=B:/Games/tools/windres.exe\n')
+                compiler=build/"CMakeFiles/4.4.5/CMakeRCCompiler.cmake"
+                compiler.parent.mkdir(parents=True)
+                compiler.write_text('set(CMAKE_RC_COMPILER "B:\\Games\\tools\\windres.exe")\n')
+                Backend(self.layout).align_cache({})
+                self.assertFalse(build.exists())
+        self.assertEqual(len(list((self.layout.local/"relocated").glob('*/runtime-build/CMakeFiles/*/CMakeRCCompiler.cmake'))),2)
 
     def test_release_version_comparison_is_numeric(self):
         self.assertGreater(version_tuple("0.0.10"),version_tuple("0.0.9"))

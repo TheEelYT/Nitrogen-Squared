@@ -139,6 +139,7 @@ jobs:
 
           All downloaded, extracted and generated files and saves stay in the extracted folder's `.local` directory. Original disc files remain at the selected location. Keep them available.
           Use the launcher to check for updates. Updates preserve `.local`; the local game is rebuilt when required.
+          Version 0.0.18 fixes Windows first-setup compiler-path escaping and preserves completed preparation when repairing the failed configuration. Existing users can install it through **Check for updates**, then select **Prepare & play** after restart. Keep the existing `.local` folder.
 
           **Windows 10/11 x64. Internet is required for first preparation and updates.** First compilation may take several minutes. This release contains no commercial game data, generated game code, or prepared game executable.
           NOTES

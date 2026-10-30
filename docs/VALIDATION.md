@@ -1773,3 +1773,45 @@ workflow 40960407083 and runtime/renderer workflow 40960407040 passed both
 Windows and Linux at that same final-code commit. The final publication changes
 documentation only; main publication independently repeats and gates on the
 complete workflow set before making the release public.
+
+
+## 0.0.18 Windows first-setup compiler-path repair
+
+The user's supplied setup.log demonstrates that disc verification/import,
+pinned-tool download and psxrecomp-game/psxrecomp-bios compilation completed.
+CMake then failed while including its generated CMakeRCCompiler.cmake: the
+launcher supplied a native Windows resource-compiler path with backslashes,
+which CMake's quoted compiler template interpreted as escapes (Invalid character
+escape \G). The earlier portable CI fixture built the real runtime but omitted
+these launcher-specific explicit compiler/Python definitions, so it missed this
+failure. Compiler warnings earlier in the log were not the stopping error.
+
+Layout.runtime_cmake_args now supplies forward-slash compiler/Python paths and
+the package-registry options to both Backend.prepare and the portable synthetic
+runtime fixture. The latter forwards them through ci_runtime_build --cmake-arg,
+so actual Windows configuration/compilation exercises the same definitions.
+No pinned framework code, native selection or game/runtime services are changed.
+
+Recovery detects backslash compiler paths in either CMakeCache.txt or persisted
+CMakeRCCompiler.cmake, including cases without a saved cache. It archives only
+runtime-dev/build under .local/relocated and retains settings for restoration;
+verified inputs, generated private files, compiled recompiler tools and saves
+remain in place. Healthy forward-slash caches are reused. The existing updater
+can deliver this repair even though the game has not finished preparing.
+
+All 73 local Python source tests pass with CMake/Ninja available and no skips.
+Four added tests reproduce the failing compiler-file syntax with a Windows path
+containing spaces, verify the corrected file parses unchanged, cover damaged
+cache/compiler-file recovery and preserve healthy caches. Preservation fixtures
+verify imports, generated inputs, compiled preparation tools, settings and saves.
+The reviewed allowlist remains 95 original text files and the 128 KiB bound is
+unchanged. No user log, disc input, generated code/guards or game executable is
+added to Git/releases. Full Windows package/compiler/update integration and
+Windows/Linux runtime/source workflows gate release publication. They use
+original synthetic inputs; the user's real-disc retry remains pending.
+
+Coverage is unchanged from 0.0.17: 299,980 / 845,824 = 35.4660% linked, with
+545,844 bytes / 64.5340% outside. This host-only repair earns no native-range
+credit. The earlier 5,162-comparison/42-frame native qualification retains its
+version scope; no new private game rebuild or repeat campaign is required for
+this preparation-path repair. Focused retry instructions are in TESTING.md.

@@ -1,6 +1,29 @@
-# Windows release and development test — 0.0.17
+# Windows release and development test — 0.0.18
 
 ## Current acceptance and update checks
+
+**0.0.18 — Windows first-setup compiler-path fix; retry on the user's PC pending.**
+The supplied setup.log shows successful disc verification and preparation-tool
+compilation, followed by CMake rejecting backslashes in the explicit resource-
+compiler path as escapes (`\G`). The launcher now passes forward-slash compiler
+and Python paths. It also archives an existing broken runtime build configuration,
+including persisted compiler files, without discarding completed preparation,
+imports or saves. Nothing needs to be deleted or reuploaded.
+
+All 73 local source tests pass, including reproduction of the actual CMake syntax
+failure, its corrected path, damaged-cache recovery and reuse of healthy caches.
+The portable Windows runtime fixture now consumes the same CMake arguments as the
+player build, covering the previously missed configuration path. Release publication
+requires that Windows package/toolchain/update fixture and both operating systems'
+source/runtime workflows to pass. No native code or service selection changes:
+**35.4660% linked / 64.5340% outside**, 299,980 / 845,824 bytes, unchanged.
+
+Focused retry: reopen the existing launcher, choose **Check for updates**, install
+0.0.18 and let it restart. Click **Prepare & play** with the existing disc selection.
+Confirm that configuration passes and compilation continues, then try the opening
+movies, a short first-level session and normal close. This Windows real-disc retry
+is pending. Preserve .local; no new import, campaign replay or save overwrite is
+requested. If another failure occurs, report the new error and .local/setup.log.
 
 **0.0.17 — portable launcher and native fragment batch; focused Windows player check pending.**
 The public Windows ZIP now contains a Nitrogen-Squared folder with launcher.exe,

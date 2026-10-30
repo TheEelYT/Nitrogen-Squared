@@ -190,6 +190,14 @@ class Layout:
     def command(self, script: str, *args):
         return [str(self.python), "-X", "utf8", "-E", "-s", "-B", str(self.app/"tools"/script), *map(str,args)]
 
+    def runtime_cmake_args(self):
+        # CMake writes compiler paths into quoted CMake source. Native Windows
+        # backslashes would become escapes there (for example B:\Games -> \G).
+        return ["-DCMAKE_RC_COMPILER="+(self.tools/"llvm-mingw/bin/x86_64-w64-mingw32-windres.exe").as_posix(),
+                "-DPython3_EXECUTABLE="+self.python.as_posix(),
+                "-DCMAKE_EXPORT_PACKAGE_REGISTRY=OFF",
+                "-DCMAKE_FIND_USE_PACKAGE_REGISTRY=OFF"]
+
 
 def run(command, cwd: Path, env: dict, progress=print):
     flags = subprocess.CREATE_NO_WINDOW if os.name=="nt" else 0

@@ -67,6 +67,11 @@ The pinned framework is still required. Logic/render clock separation remains
 later work at the user's preference; nominal 100% linkage alone would not replace
 compatibility services or separate data from code.
 
+Version 0.0.18 fixes Windows first-run compiler-path escaping and preserves
+completed work when repairing the failed configuration. Portable CI now uses the
+same explicit CMake arguments as the launcher. Native coverage stays 35.4660% /
+64.5340%; the user's real-disc Windows setup/player retry remains pending.
+
 ## 1. Loaded-code identity and native game slices — underway
 
 The [first slice](NATIVE_GAME_SLICES.md) uses per-entry resident code identity and

@@ -39,6 +39,8 @@ def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--framework", type=Path, default=ROOT / ".local/psxrecomp")
     p.add_argument("--work-dir", type=Path, default=ROOT / ".local/ci-runtime")
+    p.add_argument("--cmake-arg", action="append", default=[],
+                   help="Additional configuration shared with the portable player build")
     args = p.parse_args()
     framework, work = args.framework.resolve(), args.work_dir.resolve()
     build(framework, work / "emitters", bios=True)
@@ -113,6 +115,7 @@ def main():
                     "-DNITROGEN_NATIVE_SMOKE=ON",
                     "-DCMAKE_BUILD_TYPE=Release", "-DBUILD_TESTING=OFF", "-DNITROGEN_INPUT_SMOKE=OFF",
                     "-DNITROGEN_DIAGNOSTICS=OFF", "-DPSX_EXECUTION_PROFILE=ENHANCED"]
+    configure.extend(args.cmake_arg)
     if os.name != "nt":
         configure.append("-DSDL_UNIX_CONSOLE_BUILD=ON")
     subprocess.run(configure, check=True)

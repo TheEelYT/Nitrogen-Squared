@@ -3,16 +3,23 @@
 A Windows-first recompilation project for **N2O: Nitrous Oxide (PlayStation)**,
 with a planned PS Vita port and optional remaster presentation.
 
-**Current status: 0.0.17 — portable Windows launcher and further native entries.**
+**Current status: 0.0.18 — Windows first-setup compiler-path fix.**
 The Windows release includes `launcher.exe`, the supporting source and portable
 Python. First launch selects your CUE sheet and automatically verifies, extracts,
 generates, compiles and starts your private game. The launcher also checks for
 updates. No separate Python or Visual Studio installation is needed.
 
+Version 0.0.18 fixes the first-setup CMake error `Invalid character escape` in
+CMakeRCCompiler.cmake. If 0.0.17 stopped there, reopen its launcher and use
+**Check for updates**, then **Prepare & play** after restart. The update archives
+the broken runtime configuration while retaining completed tools, verified inputs,
+generated files and saves. Keep your existing .local folder. Native coverage and
+game behavior are unchanged: **35.4660% linked / 64.5340% outside**.
+
 ## Play on Windows
 
-1. Download [Nitrogen-Squared-Windows-x64.zip](https://github.com/TheEelYT/Nitrogen-Squared/releases/download/v0.0.17/Nitrogen-Squared-Windows-x64.zip)
-   from the [0.0.17 release](https://github.com/TheEelYT/Nitrogen-Squared/releases/tag/v0.0.17).
+1. Download [Nitrogen-Squared-Windows-x64.zip](https://github.com/TheEelYT/Nitrogen-Squared/releases/download/v0.0.18/Nitrogen-Squared-Windows-x64.zip)
+   from the [0.0.18 release](https://github.com/TheEelYT/Nitrogen-Squared/releases/tag/v0.0.18).
 2. Extract the complete **Nitrogen-Squared** folder somewhere you can write to,
    then run **launcher.exe**. Windows 10/11 x64 is supported.
 3. Select your supported USA **CUE** sheet, keeping its matching BIN beside it.
@@ -34,7 +41,7 @@ privately from the player's verified input and must not be redistributed. No Vit
 VPK is available. The runtime retains native boot/BIOS, selected native game
 routines and interpreter fallback, with the pinned PSXRecomp framework still in use.
 
-## Native progress — 0.0.17
+## Native progress — 0.0.18 (unchanged)
 
 | Selected executable payloads | Bytes | Share |
 | --- | ---: | ---: |
@@ -42,7 +49,7 @@ routines and interpreter fallback, with the pinned PSXRecomp framework still in 
 | Outside linked native translation ranges | 545,844 | **64.5340%** |
 | Total | 845,824 | 100.00% |
 
-This batch adds 86 entry roots and expands one existing owner, adding 4,332 linked
+The 0.0.17 native batch added 86 entry roots and expands one existing owner, adding 4,332 linked
 bytes over 0.0.16. These include library fragments and indirect entries, not 86
 newly identified complete functions. N2O.EXE contributes 275,620 bytes (60.0804%)
 and NEW.EXE 6,452 bytes (1.9328%); boot is unchanged. The selected game inventory

@@ -1,6 +1,6 @@
 # Native translation progress
 
-The 0.0.17 normal build verifies **35.4660% linked native translation coverage**
+The unchanged 0.0.17 native selection retained by 0.0.18 verifies **35.4660% linked native translation coverage**
 against the combined payloads of the three selected USA game executables.
 The complementary **64.5340% (545,844 bytes)** is outside linked ranges.
 Payload data and separate native services make this different from interpreter
@@ -63,7 +63,7 @@ pre-0.0.7 receipt by rebuilding first.
 | Game/object updates and resource control | 117 additional native roots in 0.0.15; final diagnostic/replay, 17 exact-frame checks, normal/controller fixture and Windows/Linux CI passed; user reports no issues in the focused Windows playtest |
 | Game/library and indirect entries | 348 additional entry roots in 0.0.16; strict O3 comparison/replay, 21 exact frames, normal controller and Windows/Linux CI passed; user reports no issues on the Python-launched Windows route; direct-launch intro stutter remains open |
 | Library/indirect fragments | 86 new roots and one expanded owner in 0.0.17; bounded final O3 comparisons/replays and matching-frame checks; see VALIDATION.md for scope |
-| Portable preparation and updates | Original host launcher; disc selection, local compilation/play and package updates; no native game-byte credit |
+| Portable preparation and updates | Original host launcher; 0.0.18 fixes Windows compiler-path escaping and preserves completed preparation during cache repair; no native game-byte credit |
 | Card-control/event polling | 20 additional native entry ranges; BIOS/serial protocol and file publication retain compatibility services; user reports no Windows saving/loading slowdowns in 0.0.12 |
 | Music and effects | Emulated SPU/CD path; no independent cue-driven player yet |
 | Opening movies | Native STR/XA service for three opening routes; user verified Windows playback and skipping |

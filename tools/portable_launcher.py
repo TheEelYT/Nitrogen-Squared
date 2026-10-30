@@ -113,11 +113,16 @@ class Backend:
         moved=bool(state.get("root") and state["root"]!=str(self.layout.root))
         changed_tools=bool(state.get("prepared_tools") and state["prepared_tools"]!=sha256(self.layout.app/"configs/portable_tools.json"))
         incompatible=False
+        escaped_compiler=False
         if cache.is_file():
             values=dict(line.split("=",1) for line in cache.read_text(errors="replace").splitlines() if "=" in line and not line.startswith(("#","//")))
             source=values.get("CMAKE_HOME_DIRECTORY:INTERNAL")
             generator=values.get("CMAKE_GENERATOR:INTERNAL")
             incompatible=not source or Path(source).resolve()!=self.layout.app or generator!="Ninja"
+            escaped_compiler=any(key.startswith("CMAKE_RC_COMPILER:") and "\\" in value for key,value in values.items())
+        for compiler in (self.layout.work/"build/CMakeFiles").glob("*/CMakeRCCompiler.cmake"):
+            escaped_compiler |= any(line.startswith("set(CMAKE_RC_COMPILER ") and "\\" in line
+                                    for line in compiler.read_text(errors="replace").splitlines())
         if moved or changed_tools or incompatible:
             backup=beneath(self.layout.root,".local/relocated/"+str(time.time_ns()))
             backup.mkdir(parents=True)
@@ -127,6 +132,16 @@ class Backend:
             for old in (backup/"runtime-dev/build/settings.toml",backup/"runtime-dev/build/Release/settings.toml"):
                 if old.is_file():shutil.copy2(old,self.layout.local/"retained-settings.toml");break
             self("Preparing a fresh compatible build cache; previous files and saves are preserved.")
+        elif escaped_compiler:
+            # 0.0.17 could leave CMakeRCCompiler.cmake with invalid backslash
+            # escapes. Archive only this configuration, keeping completed tools
+            # and generated inputs so repair does not repeat their compilation.
+            backup=beneath(self.layout.root,".local/relocated/"+str(time.time_ns()))
+            backup.mkdir(parents=True)
+            os.replace(self.layout.work/"build",backup/"runtime-build")
+            for old in (backup/"runtime-build/settings.toml",backup/"runtime-build/Release/settings.toml"):
+                if old.is_file():shutil.copy2(old,self.layout.local/"retained-settings.toml");break
+            self("Refreshing Windows compiler configuration; completed preparation and saves are preserved.")
 
     def prepare(self):
         state=self.layout.state()
@@ -140,10 +155,7 @@ class Backend:
         command=self.layout.command("build_runtime.py","--installation",self.layout.installation,
                                     "--framework",self.layout.framework,"--recompiler-build",self.layout.local/"build-recompiler",
                                     "--work-dir",self.layout.work,"--cmake",cmake,
-                                    "--cmake-arg=-DCMAKE_RC_COMPILER="+str(self.layout.tools/"llvm-mingw/bin/x86_64-w64-mingw32-windres.exe"),
-                                    "--cmake-arg=-DPython3_EXECUTABLE="+str(self.layout.python),
-                                    "--cmake-arg=-DCMAKE_EXPORT_PACKAGE_REGISTRY=OFF",
-                                    "--cmake-arg=-DCMAKE_FIND_USE_PACKAGE_REGISTRY=OFF")
+                                    *("--cmake-arg="+arg for arg in self.layout.runtime_cmake_args()))
         run(command,self.layout.root,env,self)
         retained=self.layout.local/"retained-settings.toml"
         if retained.is_file():
@@ -359,7 +371,8 @@ def main():
         backend.ensure_framework(env)
         if args.runtime_fixture:
             run(layout.command("ci_runtime_build.py","--framework",layout.framework,
-                               "--work-dir",layout.local/"portable-runtime-fixture"),layout.root,env,backend)
+                               "--work-dir",layout.local/"portable-runtime-fixture",
+                               *("--cmake-arg="+arg for arg in layout.runtime_cmake_args())),layout.root,env,backend)
         lock.close();return
     for key,pattern in (("TCL_LIBRARY","tcl8.*"),("TK_LIBRARY","tk8.*")):
         candidates=sorted((layout.python.parent/"tcl").glob(pattern))

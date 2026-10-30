@@ -198,3 +198,15 @@
   portable package/update workflow 40960406995. Final documentation records
   these receipts. Main publication repeats the complete gated workflow set;
   preserve public version assets and verify the published ZIP/source inventory.
+
+
+- Version 0.0.18 repairs the user's reported first-setup CMakeRCCompiler.cmake
+  escape failure. Explicit portable compiler/Python definitions must use forward
+  slashes and be shared with the actual Windows synthetic-runtime fixture.
+  Detect damaged compiler metadata/cache and archive only runtime-dev/build;
+  retain imports, generated inputs, compiled preparation tools, settings and saves.
+  Do not ask the user to delete .local or repeat tool downloads. The existing
+  updater works before game preparation succeeds. Seventy-three local tests pass,
+  the source allowlist stays 95 files, and coverage is unchanged at 35.4660% /
+  64.5340%. The user's real-disc Windows retry remains pending; earlier native
+  qualification is history, not evidence that first setup succeeded on their PC.
