@@ -96,7 +96,8 @@ verified; that does not mean the user's disc is bad. Extract ZIPs before import.
 
 ## Private asset extraction
 
-An optional extractor organizes the verified player's textures, models, maps,
+The launcher's **Asset folders** button optionally organizes the verified player's
+textures, models, maps,
 sound banks, text, movies and CD music under `.local/game`. It preserves original
 containers and movie sectors, exports CD music as PCM WAV, and records file/track
 aliases and hashes. Runtime still needs the original BIN; replacement-pack loading

@@ -7,7 +7,12 @@ and records its identities; runtime migration is a separate compatibility step.
 
 ## Extract with the portable Windows release
 
-Open PowerShell in the extracted Nitrogen-Squared folder and run:
+After the launcher has verified your disc, choose **Asset folders**. The first
+use extracts the private files; later uses open the existing folder. Extraction
+runs separately from play and preserves existing files. The game continues using
+the original disc while folder-backed loading is developed.
+
+For a command-line extraction, open PowerShell in the extracted Nitrogen-Squared folder and run:
 
 ```powershell
 .\support\python\python.exe -I -X utf8 -B .\app\tools\extract_assets.py --installation .\.local\installation --output .\.local\game

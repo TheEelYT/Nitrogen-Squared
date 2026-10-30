@@ -177,18 +177,23 @@ class Backend:
         run(self.layout.command("run_runtime.py","--work-dir",self.layout.work,
                                  "--save-dir",self.layout.local/"saves"),self.layout.root,env,self)
 
-    def action(self,selected=None,play=True):
+    def action(self,selected=None,play=True,assets=False):
         self.cancel.clear()
         self.layout.writable()
         with (self.layout.local/"setup.log").open("a",encoding="utf-8") as self.log:
             try:
                 if selected:
                     self.import_disc(selected)
-                if play:
+                message="Ready to play."
+                if assets:
+                    from extract_assets import extract
+                    extract(self.layout.installation,self.layout.local/"game",progress=self)
+                    message="Assets extracted to .local/game. Use Asset folders to open them."
+                elif play:
                     self.play()
                 else:
                     bootstrap(self.layout,self)
-                self.notify("done","Ready to play.")
+                self.notify("done",message)
             except Exception as e:
                 self.log.write("ERROR: "+str(e)+"\n");self.log.flush()
                 self.notify("error",str(e))
@@ -212,8 +217,8 @@ class Application:
         if result_path.is_file():result_path.unlink()
         self.window=tk.Tk()
         self.window.title("Nitrogen Squared")
-        self.window.geometry("650x310")
-        self.window.minsize(550,280)
+        self.window.geometry("780x310")
+        self.window.minsize(740,280)
         body=ttk.Frame(self.window,padding=22)
         body.pack(fill="both",expand=True)
         ttk.Label(body,text="Nitrogen Squared",font=("Segoe UI",20,"bold")).pack(anchor="w")
@@ -229,15 +234,23 @@ class Application:
         self.play_button.pack(side="left")
         self.disc_button=ttk.Button(buttons,text="Choose disc…",command=self.choose)
         self.disc_button.pack(side="left",padx=8)
+        self.assets_button=ttk.Button(buttons,text="Asset folders",command=self.assets,
+                                     state="normal" if (layout.installation/"installation.json").is_file() else "disabled")
+        self.assets_button.pack(side="left",padx=(0,8))
         self.update_button=ttk.Button(buttons,text="Restore previous version" if self.recovery else "Check for updates",command=self.restore if self.recovery else self.check_update)
         self.update_button.pack(side="left")
         self.stop_button=ttk.Button(buttons,text="Stop",command=self.stop,state="disabled")
         self.stop_button.pack(side="right")
+        self.window.update_idletasks()
+        width,height=max(740,body.winfo_reqwidth()),max(280,body.winfo_reqheight())
+        self.window.minsize(width,height)
+        self.window.geometry(f"{max(780,width)}x{max(310,height)}")
         self.window.protocol("WM_DELETE_WINDOW",self.close)
         self.window.after(100,self.poll)
         if self.recovery:
             self.status.set("An update was interrupted. Restore the previous version before playing.")
             self.play_button.configure(state="disabled");self.disc_button.configure(state="disabled")
+            self.assets_button.configure(state="disabled")
         elif update_result and not update_result.get("success"):
             self.status.set("The update failed; the previous version was restored.")
             self.detail.set(update_result.get("error","Details are in .local/update.log"))
@@ -248,6 +261,7 @@ class Application:
         self.busy=value
         for button in (self.play_button,self.disc_button,self.update_button):
             button.configure(state="disabled" if value else "normal")
+        self.assets_button.configure(state="normal" if not value and (self.layout.installation/"installation.json").is_file() else "disabled")
         self.stop_button.configure(state="normal" if value else "disabled")
         if value:self.bar.start(12)
         else:self.bar.stop()
@@ -264,6 +278,14 @@ class Application:
         if selected:
             self.activity(True);self.status.set("Verifying and preparing your game…")
             threading.Thread(target=self.backend.action,args=(Path(selected),),daemon=False).start()
+
+    def assets(self):
+        folder=self.layout.local/"game"
+        if folder.is_dir():
+            os.startfile(str(folder));return
+        self.activity(True);self.status.set("Extracting asset folders…")
+        self.detail.set("Original assets and music will be saved in .local/game. The game still uses the original disc.")
+        threading.Thread(target=self.backend.action,kwargs=dict(assets=True),daemon=False).start()
 
     def stop(self):
         self.stop_button.configure(state="disabled")
@@ -301,6 +323,8 @@ class Application:
                         self.detail.set(text[-400:])
                     elif text.startswith("Preparing "):
                         self.detail.set("Preparing your game and its local tools…")
+                    elif text.startswith("Extracting "):
+                        self.detail.set("Extracting original assets and music to .local/game…")
                     elif text.startswith("["):
                         import re
                         stage=re.match(r"\[\s*(\d+)%\]",text)
@@ -383,7 +407,8 @@ def main():
         app.window.update()
         Path(sys.executable).resolve().relative_to((layout.root/"support/python").resolve())
         report=dict(version=layout.version,python=str(sys.executable),storage=str(layout.local),
-                    tkinter=True,first_run=not bool(layout.state().get("disc")),status=app.status.get())
+                    tkinter=True,asset_tools=bool(app.assets_button.winfo_exists()),
+                    first_run=not bool(layout.state().get("disc")),status=app.status.get())
         if not args.report:raise ValueError("Self-test needs a report path")
         args.report.resolve().relative_to(layout.local.resolve())
         write_json(args.report,report)

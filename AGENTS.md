@@ -235,3 +235,12 @@
   unchanged at this checkpoint; new native candidates remain unqualified. A
   fresh O1 baseline is tracing an ordinary-input route through frame 18300.
   Final diagnostic and production builds must restore both Release flags to O3.
+
+- The asset tooling now also has a launcher Asset folders button: extract once,
+  then open the preserved folder. It is unavailable until a verified import
+  exists and disabled during preparation/play/update. Backend extraction is
+  independent of game launch and retains the shared setup log/cancellation path.
+  Seven synthetic asset tests cover source preservation and this launcher action;
+  the total source suite is now 80 cases. The Windows startup fixture requires
+  the asset-tools control to exist. Native pool source is private/unqualified;
+  do not include its temporary configs/native_usa.json in source checkpoints.

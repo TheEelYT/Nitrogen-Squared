@@ -1,6 +1,7 @@
 """Original disc/audio fixtures for private asset extraction; no game content."""
 import hashlib
 import json
+import shutil
 from pathlib import Path
 import struct
 import sys
@@ -12,7 +13,8 @@ import wave
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"tools"))
 from extract_assets import extract,plan_files
 from n2o_disc import Entry,prepare
-from portable_support import sha256
+from portable_support import Layout,sha256
+from portable_launcher import Backend
 from test_disc import fixture,record
 
 
@@ -90,6 +92,21 @@ class AssetTests(unittest.TestCase):
         for entries in ([Entry("../OUT",30,4,False)],
                         [Entry("A.TIM",30,4,False),Entry("a.tim",31,4,False)]):
             with self.assertRaises(ValueError):plan_files(entries,tracks,72)
+
+    def test_launcher_asset_action_extracts_into_portable_folder_without_starting_game(self):
+        portable=self.root/"portable";portable.mkdir();layout=Layout(portable)
+        shutil.copytree(self.installation,layout.installation)
+        events=[];backend=Backend(layout,lambda kind,text:events.append((kind,text)))
+        real_extract=extract
+        def synthetic(installation,output,progress):
+            return real_extract(installation,output,self.identity,progress)
+        with patch("extract_assets.extract",side_effect=synthetic),patch.object(backend,"play") as play:
+            backend.action(assets=True)
+            play.assert_not_called()
+        self.assertTrue((layout.local/"game/music/track-02.wav").is_file())
+        self.assertEqual(events[-1][0],"done")
+        self.assertIn(".local/game",events[-1][1])
+        self.assertTrue((layout.local/"setup.log").is_file())
 
 
 if __name__=="__main__":unittest.main()
