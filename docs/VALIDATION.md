@@ -1877,8 +1877,12 @@ passed. Windows checks start the actual Win32/Tk launcher with its asset control
 compile/exercise the synthetic runtime using bundled preparation tools, and
 exercise copied-process update/restart while preserving private save/cache data.
 Main release publication independently repeats and gates on the full check set.
-The user's focused Windows asset-folder check remains pending. The accepted
-0.0.18 level-9/save report remains the unchanged gameplay baseline.
+The user downloaded and tested 0.0.19, reports gameplay is still fine and confirms
+that Asset folders works as intended. Accept the reported Windows gameplay route
+and asset-folder flow. The report does not separately verify every extracted
+file, mod loading, another level-9 campaign or new save/reload operations; the
+0.0.18 level-9/save report retains its version scope. This documentation-only
+acceptance needs no runtime rebuild, new release or repeated player check.
 
 Native work remains incomplete. Fresh O1 reference routes with ordinary controller
 input reached frame 18305, 25 captures each, including second-level transition/play.

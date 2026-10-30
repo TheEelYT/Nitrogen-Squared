@@ -266,4 +266,13 @@
   27 records, ten music tracks and 37 outputs (539,899,114 bytes), with all
   preserved source payloads checked. The launcher Asset folders action extracts
   separately from play, opens existing folders and keeps edits. The user's
-  focused asset-folder check remains pending. Do not ask for another disc upload.
+  focused asset-folder check was pending at this checkpoint; the acceptance note
+  below supersedes it. Do not ask for another disc upload.
+
+- The user downloaded and tested 0.0.19, reports gameplay is still fine and confirms
+  that Asset folders works as intended. Accept the reported Windows route and
+  asset-folder flow without inferring each extracted file, mod loading, a new
+  level-9 campaign or additional save/reload coverage. The 0.0.18 level-9/save
+  report retains its version scope. This documentation-only note requires no
+  runtime rebuild, release, repeat playthrough or new user input. Native coverage
+  stays 35.4660% / 64.5340%; the unfinished native reduction remains unqualified.

@@ -2,7 +2,7 @@
 
 ## Current acceptance and update checks
 
-**0.0.19 — optional asset folders; focused Windows asset check pending.**
+**0.0.19 — reported Windows gameplay and Asset folders flow accepted.**
 After a verified disc import, **Asset folders** extracts original containers and
 movie sectors plus ten PCM WAVE music tracks into .local/game. Later uses open
 the existing folder without overwriting edits. The game still reads its original
@@ -15,11 +15,13 @@ extraction and launcher action; the source suite has 80 cases. Windows package/
 startup/update and Windows/Linux source/runtime CI passed for this feature.
 Release publication independently requires the complete check set.
 
-Focused checks: update the existing launcher, choose **Asset folders** after
-import, confirm the folders and WAV tracks appear under .local/game, then use
-the button again to open them. Preserve .local and the original disc. No repeat
-campaign, deliberate save overwrite or new upload is requested. The reported
-0.0.18 level-9/save acceptance remains the unchanged gameplay baseline.
+The user downloaded and tested 0.0.19, reports gameplay is still fine, and
+confirms that **Asset folders** works as intended. Accept that reported Windows
+route and asset-folder flow. This report does not separately establish every
+output file, mod loading, a new level-9 campaign or another save/reload test.
+The 0.0.18 level-9/save report retains its version scope. No rebuild, repeat
+campaign, deliberate save overwrite or new upload is requested for this
+documentation-only acceptance note. Preserve .local and the original disc.
 
 This release enables no further game ranges. Coverage remains **35.4660% linked /
 64.5340% outside**, 299,980 / 845,824 bytes. The exploratory native batch was held
