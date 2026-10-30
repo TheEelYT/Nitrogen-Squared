@@ -2,7 +2,7 @@
 
 ## Current acceptance and update checks
 
-**0.0.18 — Windows first-setup compiler-path fix; retry on the user's PC pending.**
+**0.0.18 — Windows launcher preparation and gameplay accepted through level 9.**
 The supplied setup.log shows successful disc verification and preparation-tool
 compilation, followed by CMake rejecting backslashes in the explicit resource-
 compiler path as escapes (`\G`). The launcher now passes forward-slash compiler
@@ -13,19 +13,24 @@ imports or saves. Nothing needs to be deleted or reuploaded.
 All 73 local source tests pass, including reproduction of the actual CMake syntax
 failure, its corrected path, damaged-cache recovery and reuse of healthy caches.
 The portable Windows runtime fixture now consumes the same CMake arguments as the
-player build, covering the previously missed configuration path. Release publication
-requires that Windows package/toolchain/update fixture and both operating systems'
-source/runtime workflows to pass. No native code or service selection changes:
+player build, covering the previously missed configuration path. The Windows
+package/toolchain/update fixture and both operating systems' source/runtime
+workflows passed before publication. No native code or service selection changes:
 **35.4660% linked / 64.5340% outside**, 299,980 / 845,824 bytes, unchanged.
 
-Focused retry: reopen the existing launcher, choose **Check for updates**, install
-0.0.18 and let it restart. Click **Prepare & play** with the existing disc selection.
-Confirm that configuration passes and compilation continues, then try the opening
-movies, a short first-level session and normal close. This Windows real-disc retry
-is pending. Preserve .local; no new import, campaign replay or save overwrite is
-requested. If another failure occurs, report the new error and .local/setup.log.
+The user reports that the launcher-built game plays the same as the command-line
+build, completed another playthrough through level 9 with no issues noticed, and
+saved successfully. This accepts real-disc preparation and the reported Windows
+0.0.18 player route, superseding the pending retry. It also provides player
+acceptance of the unchanged 0.0.17 native selection as shipped in 0.0.18.
 
-**0.0.17 — portable launcher and native fragment batch; focused Windows player check pending.**
+This report does not establish every checklist action, every branch or levels
+beyond 9; save reload and a particular update-installation method were not
+separately reported. No rebuild, additional files, repeat campaign or deliberate
+save overwrite is requested for this documentation-only acceptance note. Preserve
+existing saves. Further focused checks will accompany actual behavior changes.
+
+**0.0.17 — portable launcher and native fragment batch; preparation repaired and player route accepted in 0.0.18 above.**
 The public Windows ZIP now contains a Nitrogen-Squared folder with launcher.exe,
 portable Python and reviewed supporting source. CUE selection verifies the user's
 complete disc, then privately downloads tools, extracts/generates/compiles and
@@ -57,10 +62,11 @@ Focused Windows release checks:
    report that it is current. A real newer-release update will be checked when
    one exists; CI separately tests replacement, restart and save preservation.
 
-This first Windows real-disc preparation check is pending. Windows CI has tested
-actual launcher startup, bundled-toolchain/runtime compilation on original
-synthetic inputs, and copied-process update/restart. That does not substitute for
-the pending real-disc Windows check or establish physical audio quality.
+The initial 0.0.17 real-disc preparation stopped at the compiler-path error.
+Version 0.0.18 repairs it, and its reported launcher-built route is now accepted
+through level 9. Windows CI separately tests actual startup, bundled-toolchain/
+runtime compilation on synthetic inputs and copied-process update/restart.
+The historical checklist above is not a request to repeat the accepted route.
 No repeated campaign, new upload or deliberate save overwrite is requested.
 Preserve existing saves; the release uses .local/saves. To bring developer saves
 across, close both versions and copy valued files from .local/runtime-dev/saves

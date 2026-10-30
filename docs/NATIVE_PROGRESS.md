@@ -63,18 +63,19 @@ pre-0.0.7 receipt by rebuilding first.
 | Game/object updates and resource control | 117 additional native roots in 0.0.15; final diagnostic/replay, 17 exact-frame checks, normal/controller fixture and Windows/Linux CI passed; user reports no issues in the focused Windows playtest |
 | Game/library and indirect entries | 348 additional entry roots in 0.0.16; strict O3 comparison/replay, 21 exact frames, normal controller and Windows/Linux CI passed; user reports no issues on the Python-launched Windows route; direct-launch intro stutter remains open |
 | Library/indirect fragments | 86 new roots and one expanded owner in 0.0.17; bounded final O3 comparisons/replays and matching-frame checks; see VALIDATION.md for scope |
-| Portable preparation and updates | Original host launcher; 0.0.18 fixes Windows compiler-path escaping and preserves completed preparation during cache repair; no native game-byte credit |
+| Portable preparation and updates | Original host launcher; 0.0.18 fixes compiler-path escaping; user reports launcher-built play through level 9 and successful saving with no issues noticed; update/restart separately tested in CI; no native game-byte credit |
 | Card-control/event polling | 20 additional native entry ranges; BIOS/serial protocol and file publication retain compatibility services; user reports no Windows saving/loading slowdowns in 0.0.12 |
 | Music and effects | Emulated SPU/CD path; no independent cue-driven player yet |
 | Opening movies | Native STR/XA service for three opening routes; user verified Windows playback and skipping |
 | Ending / separate STR route | Original playback until full call/return paths are qualified |
 | Saves and high scores | Guest persistence through compatibility services; user reports working on Windows, not a native save-system replacement |
 
-The Windows player baseline now reaches level 9 in 0.0.11, with no other gameplay
-issues reported. The later 0.0.12 save/load slowdown check passed on the user's
-Windows route; no new level-9 playthrough is inferred. Further
-campaign progression is not required for the next native milestone. This does not
-change the linked-range count or qualify untested later-level behavior.
+The current Windows player baseline reaches level 9 in launcher-built 0.0.18,
+with no issues noticed and successful saving, matching the user's command-line
+build. Real-disc preparation and the reported player route are accepted. Earlier
+0.0.11 campaign and 0.0.12 save/load reports retain their tested version scope.
+No further campaign progression is required for the next native milestone. This
+does not change linked coverage or qualify every branch or later-level behavior.
 
 Every runtime update must refresh the README's measured native/uncovered shares,
 this service inventory when affected, and TESTING.md's specific player checks.
@@ -216,7 +217,7 @@ of Git and releases. Bounded comparisons do not prove every branch or campaign.
 Linked coverage rises from 295,648 to 299,980 / 845,824 bytes (34.9538% to
 35.4660%). N2O adds 820 emitted bytes and NEW 3,512; boot is unchanged. The
 Windows launcher and code/data tooling receive no game-translation credit.
-Strict final evidence, replay-only entries, normal production parity and pending
-Windows real-disc/player acceptance are recorded in VALIDATION.md and TESTING.md.
+Strict final evidence, captured replay inputs, normal production parity and the
+accepted Windows 0.0.18 route are recorded in VALIDATION.md and TESTING.md.
 PS1 packets/GTE, guest SPU/CD audio and BIOS/card services remain in use. Clock
 separation is deferred; no unlocked-framerate or measured CPU-share claim is made.

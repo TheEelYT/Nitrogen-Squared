@@ -16,6 +16,10 @@ the broken runtime configuration while retaining completed tools, verified input
 generated files and saves. Keep your existing .local folder. Native coverage and
 game behavior are unchanged: **35.4660% linked / 64.5340% outside**.
 
+The user verified the 0.0.18 launcher-built Windows game through level 9 with no
+issues noticed and successful saving, reporting the same behavior as the command-
+line build. This accepts the reported preparation/gameplay route; see TESTING.md.
+
 ## Play on Windows
 
 1. Download [Nitrogen-Squared-Windows-x64.zip](https://github.com/TheEelYT/Nitrogen-Squared/releases/download/v0.0.18/Nitrogen-Squared-Windows-x64.zip)
@@ -75,8 +79,8 @@ and the same runtime settings as the Python launch path. Game routines still use
 PS1 drawing packets/GTE, guest SPU/CD audio and BIOS/card compatibility services.
 Normal launch requests the bounded OpenGL render worker. Native movie audio has
 its own timeline; gameplay audio and simulation/render clock separation remain
-future work. The user's 0.0.16 Python-launched route was accepted; the new Windows
-first-disc preparation/player check is tracked separately in TESTING.md.
+future work. The user accepted launcher-built Windows 0.0.18 through level 9
+with successful saving and no issues noticed; see TESTING.md.
 
 ## Bring your own game
 

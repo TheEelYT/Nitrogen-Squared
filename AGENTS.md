@@ -210,3 +210,13 @@
   the source allowlist stays 95 files, and coverage is unchanged at 35.4660% /
   64.5340%. The user's real-disc Windows retry remains pending; earlier native
   qualification is history, not evidence that first setup succeeded on their PC.
+
+
+- The user reports successful Windows 0.0.18 launcher-built gameplay through
+  level 9 with no issues noticed, the same behavior as command-line builds, and
+  successful saving. Accept real-disc preparation and that reported route,
+  superseding pending retry/player status above. This also accepts the unchanged
+  0.0.17 native selection within the tested 0.0.18 build. Do not infer every
+  checklist action, explicit save reload, update-installation method or later
+  campaign coverage. No rebuild, new files or repeat playthrough is needed for
+  this documentation-only acceptance note. Coverage stays 35.4660% / 64.5340%.

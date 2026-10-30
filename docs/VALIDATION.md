@@ -1815,3 +1815,30 @@ Coverage is unchanged from 0.0.17: 299,980 / 845,824 = 35.4660% linked, with
 credit. The earlier 5,162-comparison/42-frame native qualification retains its
 version scope; no new private game rebuild or repeat campaign is required for
 this preparation-path repair. Focused retry instructions are in TESTING.md.
+
+
+## 0.0.18 Windows launcher/player acceptance
+
+The user reports that the launcher-built game plays the same as the command-line
+build, completed another playthrough through level 9 with no issues noticed, and
+saved successfully. Record real-disc preparation and the reported Windows 0.0.18
+route as accepted, superseding the pending retry above. This also supplies player
+acceptance for the unchanged 0.0.17 native selection as shipped in 0.0.18.
+
+The published 0.0.18 code is 88c3d0de3060807f5ffd38c14e54f56e9a27387f. Source
+workflow 40983032389, Windows/Linux runtime workflow 40983032480 and portable
+Windows package/update workflow 40983032373 passed before publication. The latter
+uses the same explicit compiler/Python CMake arguments as player preparation.
+The public assets were downloaded and verified against their checksums, exact
+owned-file manifest and 95-file reviewed source inventory (allowing Git checkout
+line-ending normalization). They contain no private game data. Existing published
+release assets are preserved; this acceptance changes documentation only.
+
+The player report establishes the stated preparation, gameplay and save result,
+not every checklist action, every branch, explicit save reload, a particular
+update-installation method or levels beyond 9. It does not provide measured FPS
+or audio-quality metrics. No repeated campaign, new input, deliberate save
+operation or player rebuild is needed for this note. Further checks should match
+actual changes. Native coverage stays 299,980 / 845,824 = 35.4660% linked,
+545,844 bytes / 64.5340% outside. VERSION and runtime code remain unchanged.
+Only documentation and the source-package audit need checking for this note.

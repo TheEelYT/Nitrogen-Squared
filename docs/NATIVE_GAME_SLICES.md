@@ -276,4 +276,4 @@ is inferred from hints. Future batches continue this work incrementally. The
 portable release supplies original setup/play/update code; generated native C,
 guards, game executables, captures, saves and media remain private under .local.
 See VALIDATION.md for normal-build and platform receipts and TESTING.md for the
-pending focused Windows real-disc/player check.
+accepted Windows 0.0.18 launcher-built route through level 9 with successful saving.

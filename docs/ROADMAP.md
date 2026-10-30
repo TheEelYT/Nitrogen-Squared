@@ -1,8 +1,13 @@
 # Windows first, Vita by design
 
-## Accepted player baseline — 0.0.11 through level 9
+## Accepted player baseline — 0.0.18 launcher build through level 9
 
-The user tested Windows gameplay through level 9 with no bugs noticed beyond the
+The user now reports Windows 0.0.18 launcher-built gameplay through level 9 with
+no issues noticed and successful saving, matching their command-line build.
+Real-disc preparation and that reported route are accepted. No repeat campaign
+is needed; later levels and exhaustive branch/input coverage remain unverified.
+
+Historical baseline: The user tested Windows gameplay through level 9 with no bugs noticed beyond the
 save slowdown. Saving/high scores, native openings/skipping and analog input were
 accepted in preceding updates. This is enough player coverage to continue native
 work; levels beyond 9 and two-player behavior remain unverified.
@@ -70,7 +75,8 @@ compatibility services or separate data from code.
 Version 0.0.18 fixes Windows first-run compiler-path escaping and preserves
 completed work when repairing the failed configuration. Portable CI now uses the
 same explicit CMake arguments as the launcher. Native coverage stays 35.4660% /
-64.5340%; the user's real-disc Windows setup/player retry remains pending.
+64.5340%. The user now reports successful launcher-built play through level 9
+with no issues noticed and successful saving; that real-disc route is accepted.
 
 ## 1. Loaded-code identity and native game slices — underway
 
