@@ -78,6 +78,16 @@ same explicit CMake arguments as the launcher. Native coverage stays 35.4660% /
 64.5340%. The user now reports successful launcher-built play through level 9
 with no issues noticed and successful saving; that real-disc route is accepted.
 
+## Asset folders and replacement packs — incremental work
+
+The user requests readable asset/music folders and eventual runtime access without
+the original BIN, to support later replacement packs. This can proceed before
+100% linkage. The optional [private extractor](ASSETS.md) catalogs all ISO file
+records and CD tracks, retains original containers/movie sectors and exports PCM
+WAVE music. The runtime still needs the verified disc. Folder-backed resource
+loading and mod manifests require separately qualified loader/media boundaries;
+the first extractor does not enable them or change native coverage.
+
 ## 1. Loaded-code identity and native game slices — underway
 
 The [first slice](NATIVE_GAME_SLICES.md) uses per-entry resident code identity and

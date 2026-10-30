@@ -94,6 +94,15 @@ The current verifier accepts one verified merged BIN/CUE layout, with one data
 track and ten audio tracks. A different dump layout is rejected until separately
 verified; that does not mean the user's disc is bad. Extract ZIPs before import.
 
+## Private asset extraction
+
+An optional extractor organizes the verified player's textures, models, maps,
+sound banks, text, movies and CD music under `.local/game`. It preserves original
+containers and movie sectors, exports CD music as PCM WAV, and records file/track
+aliases and hashes. Runtime still needs the original BIN; replacement-pack loading
+and folder-backed runtime access are separate work. See [asset folders and the
+modding plan](docs/ASSETS.md) for the bundled-Python command and current scope.
+
 ## Developer importer
 
 Requires Python 3.10 or later. It uses the standard library; no pip dependencies.

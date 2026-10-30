@@ -220,3 +220,18 @@
   checklist action, explicit save reload, update-installation method or later
   campaign coverage. No rebuild, new files or repeat playthrough is needed for
   this documentation-only acceptance note. Coverage stays 35.4660% / 64.5340%.
+
+
+- The user authorizes the next native batch and requests eventual full asset/music
+  folders for future mod packs, with runtime reads moved off the original BIN.
+  Extraction and loader migration may proceed incrementally before 100% linkage;
+  clock separation remains deferred. The active next-batch checkpoint adds an
+  optional private asset extractor: original containers, raw movie sectors, PCM
+  WAVE CD tracks, preserved pregaps and explicit ISO audio aliases. All 27 records,
+  ten tracks and 37 outputs were extracted privately and checked byte-for-byte
+  against verified input; no runtime asset redirection or mod loading is enabled.
+  Preserve original inputs and existing edited extraction directories. Public
+  source inventory is 98 original text files. The accepted 35.4660% coverage is
+  unchanged at this checkpoint; new native candidates remain unqualified. A
+  fresh O1 baseline is tracing an ordinary-input route through frame 18300.
+  Final diagnostic and production builds must restore both Release flags to O3.

@@ -30,7 +30,9 @@ def main():
     p.add_argument("--alternate-ship", action="store_true", help="Select another ship with ordinary D-pad input")
     p.add_argument("--alternate-difficulty", action="store_true", help="Change difficulty with ordinary D-pad input")
     p.add_argument("--extended", action="store_true", help="Extend ordinary controller play and scanouts through frame 12300")
+    p.add_argument("--long", action="store_true", help="Extend ordinary controller play and scanouts through frame 18300")
     args = p.parse_args()
+    if args.long:args.extended=True
     if not 0 < args.timeout <= 1800:
         raise ValueError("Route timeout must be between 0 and 1800 seconds")
     out = args.output
@@ -88,13 +90,15 @@ def main():
                                     (0xBFDF,400),(0xBF7F,500),(0xBFFF,600)]:
                 request("input_route_append", buttons=buttons, frames=frames)
             if args.extended:
-                for _ in range(4):
+                for _ in range(8 if args.long else 4):
                     for buttons, frames in [(0xBFFF,500),(0xBFDF,500),(0xBFFF,100),(0xBF7F,500),(0xFFFF,20),(0xBFFF,20)]:
                         request("input_route_append", buttons=buttons, frames=frames)
             print(request("input_route_start", at_frame=1800), flush=True)
             frames = [800,1500,1900,2100,2300,2500,2700,3000,3500,4000,4200,4300,4500,4700,5000,5500,6000]
             if args.extended:
                 frames += [7500,9000,10500,12000]
+            if args.long:
+                frames += [13500,15000,16500,18000]
             done = set()
             deadline = time.monotonic() + args.timeout
             while time.monotonic() < deadline:
@@ -108,7 +112,7 @@ def main():
                             raise RuntimeError(str(result))
                         print(target, result, flush=True)
                         done.add(target)
-                if frame >= (12300 if args.extended else 6300):
+                if frame >= (18300 if args.long else 12300 if args.extended else 6300):
                     break
                 time.sleep(.15)
             else:
