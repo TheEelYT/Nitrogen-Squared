@@ -244,3 +244,26 @@
   the total source suite is now 80 cases. The Windows startup fixture requires
   the asset-tools control to exist. Native pool source is private/unqualified;
   do not include its temporary configs/native_usa.json in source checkpoints.
+
+- 0.0.19 releases only the tested asset feature after the execution environment
+  became unavailable during final native O3 compilation. Its production native
+  config stays the accepted 0.0.18/0.0.17 selection: 299,980 / 845,824 = 35.4660%
+  linked, 64.5340% outside. Do not count the private 302-candidate pool or its
+  provisional 80-root reduction as converted code. Main must keep the qualified
+  config; private configs and witnesses stay out of Git/releases.
+- Native recovery checkpoint: both O1 reference routes use route.py --long through
+  frame 18300, 25 captures each, reaching second-level play. The private pool
+  default produced 276 comparisons/two failures/110 PC pairs, and its later
+  frames differed. The alternate route with those IDs preblocked passed 224
+  comparisons and 25 exact frames. Retained provisional roots: 80 (47 N2O,
+  33 NEW), 16,712 input bytes; final strict/replay/normal evidence is incomplete.
+  Hold whole N2O inputs 0x80070B1C/4 and 0x800728E8/384. The candidate's private
+  final-native.json is not the release config. Restore both Release flags to
+  O3 for resumed final checks and preserve a fresh generated-source directory.
+- Asset feature checkpoint 580e2c23de047778fd8b69d7c0c747cb5a024d58 passed source
+  40991982195, runtime/renderer 40991982081 and portable Windows 40991982177.
+  All 80 source tests and the 98-file audit pass. Real-input extraction catalogued
+  27 records, ten music tracks and 37 outputs (539,899,114 bytes), with all
+  preserved source payloads checked. The launcher Asset folders action extracts
+  separately from play, opens existing folders and keeps edits. The user's
+  focused asset-folder check remains pending. Do not ask for another disc upload.

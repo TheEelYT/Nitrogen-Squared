@@ -1,6 +1,6 @@
 # Native translation progress
 
-The unchanged 0.0.17 native selection retained by 0.0.18 verifies **35.4660% linked native translation coverage**
+The unchanged 0.0.17 native selection retained by 0.0.19 verifies **35.4660% linked native translation coverage**
 against the combined payloads of the three selected USA game executables.
 The complementary **64.5340% (545,844 bytes)** is outside linked ranges.
 Payload data and separate native services make this different from interpreter
@@ -63,7 +63,7 @@ pre-0.0.7 receipt by rebuilding first.
 | Game/object updates and resource control | 117 additional native roots in 0.0.15; final diagnostic/replay, 17 exact-frame checks, normal/controller fixture and Windows/Linux CI passed; user reports no issues in the focused Windows playtest |
 | Game/library and indirect entries | 348 additional entry roots in 0.0.16; strict O3 comparison/replay, 21 exact frames, normal controller and Windows/Linux CI passed; user reports no issues on the Python-launched Windows route; direct-launch intro stutter remains open |
 | Library/indirect fragments | 86 new roots and one expanded owner in 0.0.17; bounded final O3 comparisons/replays and matching-frame checks; see VALIDATION.md for scope |
-| Portable preparation and updates | Original host launcher; 0.0.18 fixes compiler-path escaping; user reports launcher-built play through level 9 and successful saving with no issues noticed; update/restart separately tested in CI; no native game-byte credit |
+| Portable preparation, updates and asset folders | Original host launcher; 0.0.18 setup/player route accepted through level 9 with saving; 0.0.19 adds optional private asset/music extraction and folder access; runtime still uses original disc; no native game-byte credit |
 | Card-control/event polling | 20 additional native entry ranges; BIOS/serial protocol and file publication retain compatibility services; user reports no Windows saving/loading slowdowns in 0.0.12 |
 | Music and effects | Emulated SPU/CD path; no independent cue-driven player yet |
 | Opening movies | Native STR/XA service for three opening routes; user verified Windows playback and skipping |
@@ -221,3 +221,12 @@ Strict final evidence, captured replay inputs, normal production parity and the
 accepted Windows 0.0.18 route are recorded in VALIDATION.md and TESTING.md.
 PS1 packets/GTE, guest SPU/CD audio and BIOS/card services remain in use. Clock
 separation is deferred; no unlocked-framerate or measured CPU-share claim is made.
+
+## 0.0.19 asset folders; native qualification held
+
+The optional asset extractor and launcher control change no selected game ranges
+or native services. Coverage stays 299,980 / 845,824 = 35.4660% linked and 64.5340%
+outside. The 302-candidate private native pool and its 80-root provisional
+reduction remain unqualified. Execution became unavailable during final O3
+compilation, before strict reduced-selection/replay/production checks could run.
+No candidate coverage is published. Resume those checks when execution returns.

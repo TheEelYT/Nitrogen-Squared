@@ -1842,3 +1842,65 @@ operation or player rebuild is needed for this note. Further checks should match
 actual changes. Native coverage stays 299,980 / 845,824 = 35.4660% linked,
 545,844 bytes / 64.5340% outside. VERSION and runtime code remain unchanged.
 Only documentation and the source-package audit need checking for this note.
+
+## 0.0.19 private asset folders; native qualification interrupted
+
+This release contains the qualified asset tooling and no added native binding.
+The original extractor verifies the complete user's disc before extraction,
+stages a new private directory atomically and refuses existing destinations.
+It organizes texture/model/map/sound/text containers and system inputs, preserves
+complete 2352-byte movie sectors, exports ten CD-DA tracks as 44.1 kHz/stereo/
+signed-16-bit-little-endian WAVE, and retains track pregaps. ISO DA/*.RAW entries
+are mapped to audio-track outputs rather than read as 2048-byte data files.
+
+Private real-input validation catalogued 27 ISO records: 12 data-payload files,
+five raw-sector movie files and ten audio aliases. The 37 physical outputs,
+including ten tracks and ten pregaps, total 539,899,114 bytes. Each logical data
+payload, raw movie stream, WAVE PCM body and pregap was checked against its source
+bytes; all passed. The source is rehashed before publication of the new folder.
+This does not reconstruct all disc metadata/padding or enable BIN-free play.
+
+The launcher Asset folders button becomes available after import, runs extraction
+through the shared logging/cancellation path, then opens the existing directory
+on later use. Existing content is preserved. The window fits its requested
+control dimensions, including scaled fonts. Runtime reads still use the original
+CUE/BIN, and replacement-pack loading remains future work. See ASSETS.md.
+
+Seven original synthetic tests cover payload/movie/music bytes, WAVE metadata,
+audio aliases, pregaps, original-input preservation, existing edits, failed writes,
+changed input, invalid extents/names and the separate launcher extraction action.
+The suite totals 80 cases; source inventory is 98 original text files, with the
+unchanged 128 KiB bound. At feature commit
+580e2c23de047778fd8b69d7c0c747cb5a024d58, source workflow 40991982195,
+runtime/renderer workflow 40991982081 and portable Windows workflow 40991982177
+passed. Windows checks start the actual Win32/Tk launcher with its asset control,
+compile/exercise the synthetic runtime using bundled preparation tools, and
+exercise copied-process update/restart while preserving private save/cache data.
+Main release publication independently repeats and gates on the full check set.
+The user's focused Windows asset-folder check remains pending. The accepted
+0.0.18 level-9/save report remains the unchanged gameplay baseline.
+
+Native work remains incomplete. Fresh O1 reference routes with ordinary controller
+input reached frame 18305, 25 captures each, including second-level transition/play.
+Static/code-data hints and observed missed dispatches proposed 400 candidates.
+Preflight considered 412 including potential owner expansions, passed 302, and held
+110 (97 unproven NEW call closures, eight unchanged identities, four direct
+hardware contexts and one exception context). This is not qualification credit.
+
+The exploratory default pool produced 276 comparisons, two failures and 110
+identity/PC pairs, exited unsuccessfully (91), and had 23 differing later captures.
+N2O 0x80070B1C/4 and 0x800728E8/384 failed; retain their whole-input exclusions.
+The alternate pool, with these identities disabled before startup, completed
+224 comparisons with zero new failures and 25 exact reference frames. This does
+not retroactively qualify the failed default pool or its hardware/global effects.
+
+A provisional reduction retained 80 observed identities (47 N2O, 33 NEW; 16,712
+input bytes). Its final O3 build was running when the execution environment became
+unavailable. Strict reduced-selection routes, final replays and normal-production
+checks were not completed. The release keeps all those additions unselected.
+Resume qualification before crediting or promoting them. The optional extractor
+and launcher changes do not depend on the unfinished native batch.
+
+Coverage remains 299,980 / 845,824 = 35.4660% linked, with 545,844 bytes / 64.5340%
+outside. No game inputs, extracted assets, generated guards/code, compiled game
+runtime, witnesses, captures or saves enter Git or release assets.

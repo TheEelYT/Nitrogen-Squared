@@ -1,6 +1,30 @@
-# Windows release and development test — 0.0.18
+# Windows release and development test — 0.0.19
 
 ## Current acceptance and update checks
+
+**0.0.19 — optional asset folders; focused Windows asset check pending.**
+After a verified disc import, **Asset folders** extracts original containers and
+movie sectors plus ten PCM WAVE music tracks into .local/game. Later uses open
+the existing folder without overwriting edits. The game still reads its original
+CUE/BIN; replacement-pack loading and folder-backed runtime access are future work.
+
+The extractor privately catalogued all 27 ISO records and produced 37 outputs,
+including track pregaps. Every output payload matched its source bytes. Seven
+original synthetic asset tests cover formats, aliases, preservation, interrupted
+extraction and launcher action; the source suite has 80 cases. Windows package/
+startup/update and Windows/Linux source/runtime CI passed for this feature.
+Release publication independently requires the complete check set.
+
+Focused checks: update the existing launcher, choose **Asset folders** after
+import, confirm the folders and WAV tracks appear under .local/game, then use
+the button again to open them. Preserve .local and the original disc. No repeat
+campaign, deliberate save overwrite or new upload is requested. The reported
+0.0.18 level-9/save acceptance remains the unchanged gameplay baseline.
+
+This release enables no further game ranges. Coverage remains **35.4660% linked /
+64.5340% outside**, 299,980 / 845,824 bytes. The exploratory native batch was held
+when its execution environment became unavailable during final O3 compilation;
+its final strict/replay/normal checks are incomplete, so it earns no coverage.
 
 **0.0.18 — Windows launcher preparation and gameplay accepted through level 9.**
 The supplied setup.log shows successful disc verification and preparation-tool

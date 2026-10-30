@@ -3,13 +3,13 @@
 A Windows-first recompilation project for **N2O: Nitrous Oxide (PlayStation)**,
 with a planned PS Vita port and optional remaster presentation.
 
-**Current status: 0.0.18 — Windows first-setup compiler-path fix.**
+**Current status: 0.0.19 — private asset folders and music extraction.**
 The Windows release includes `launcher.exe`, the supporting source and portable
 Python. First launch selects your CUE sheet and automatically verifies, extracts,
 generates, compiles and starts your private game. The launcher also checks for
 updates. No separate Python or Visual Studio installation is needed.
 
-Version 0.0.18 fixes the first-setup CMake error `Invalid character escape` in
+Version 0.0.18 fixed the first-setup CMake error `Invalid character escape` in
 CMakeRCCompiler.cmake. If 0.0.17 stopped there, reopen its launcher and use
 **Check for updates**, then **Prepare & play** after restart. The update archives
 the broken runtime configuration while retaining completed tools, verified inputs,
@@ -20,10 +20,17 @@ The user verified the 0.0.18 launcher-built Windows game through level 9 with no
 issues noticed and successful saving, reporting the same behavior as the command-
 line build. This accepts the reported preparation/gameplay route; see TESTING.md.
 
+Use **Asset folders** after the launcher has verified your disc to extract
+textures, models, maps, sound banks, text, raw movie streams and ten PCM WAV music
+tracks under `.local/game`. Later uses open the existing folder and preserve
+edits. This is optional preparation for future replacement packs. The runtime
+still needs the original CUE/BIN. Native coverage is unchanged at **35.4660%**;
+the next native selection remains pending private qualification.
+
 ## Play on Windows
 
-1. Download [Nitrogen-Squared-Windows-x64.zip](https://github.com/TheEelYT/Nitrogen-Squared/releases/download/v0.0.18/Nitrogen-Squared-Windows-x64.zip)
-   from the [0.0.18 release](https://github.com/TheEelYT/Nitrogen-Squared/releases/tag/v0.0.18).
+1. Download [Nitrogen-Squared-Windows-x64.zip](https://github.com/TheEelYT/Nitrogen-Squared/releases/download/v0.0.19/Nitrogen-Squared-Windows-x64.zip)
+   from the [0.0.19 release](https://github.com/TheEelYT/Nitrogen-Squared/releases/tag/v0.0.19).
 2. Extract the complete **Nitrogen-Squared** folder somewhere you can write to,
    then run **launcher.exe**. Windows 10/11 x64 is supported.
 3. Select your supported USA **CUE** sheet, keeping its matching BIN beside it.
@@ -45,7 +52,7 @@ privately from the player's verified input and must not be redistributed. No Vit
 VPK is available. The runtime retains native boot/BIOS, selected native game
 routines and interpreter fallback, with the pinned PSXRecomp framework still in use.
 
-## Native progress — 0.0.18 (unchanged)
+## Native progress — 0.0.19 (unchanged)
 
 | Selected executable payloads | Bytes | Share |
 | --- | ---: | ---: |

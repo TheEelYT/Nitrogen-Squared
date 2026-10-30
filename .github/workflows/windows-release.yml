@@ -134,14 +134,14 @@ jobs:
           fi
           cat > "$RUNNER_TEMP/release-notes.md" <<'NOTES'
           Extract the complete **Nitrogen-Squared** folder and run **launcher.exe**.
-          On first launch, select your supported USA N2O **CUE** sheet, keeping its BIN beside it.
-          The launcher verifies the disc, downloads pinned preparation tools, compiles your private game, and starts play. No separate Python or Visual Studio installation is required.
+          On first launch select the supported USA CUE with its matching BIN beside it. The launcher verifies/imports/generates/compiles your private game; no separate Python or Visual Studio installation is required.
 
-          All downloaded, extracted and generated files and saves stay in the extracted folder's `.local` directory. Original disc files remain at the selected location. Keep them available.
-          Use the launcher to check for updates. Updates preserve `.local`; the local game is rebuilt when required.
-          Version 0.0.18 fixes Windows first-setup compiler-path escaping and preserves completed preparation when repairing the failed configuration. Existing users can install it through **Check for updates**, then select **Prepare & play** after restart. Keep the existing `.local` folder.
+          **New: Asset folders.** After disc import, use this button to extract original textures, models, maps, sound banks, text, movie-sector streams and ten PCM WAV music tracks into `.local/game`. Later uses open the preserved folder. Extraction is optional; the runtime still needs the original CUE/BIN, and replacement-pack loading is future work.
 
-          **Windows 10/11 x64. Internet is required for first preparation and updates.** First compilation may take several minutes. This release contains no commercial game data, generated game code, or prepared game executable.
+          Updates preserve `.local`, including saves and extracted files. Keep the original disc available. Windows 10/11 x64; internet is required for first preparation and updates.
+          Native coverage is unchanged at 35.4660%. The next native batch remains pending private qualification after the execution environment became unavailable. No unqualified native additions are enabled.
+
+          This package contains no commercial game data, generated game code or prepared game executable.
           NOTES
           if [ "$existing" -eq 0 ]; then
             gh release create "v$version" --draft --target "$GITHUB_SHA" --title "Nitrogen Squared $version — Windows launcher" --notes-file "$RUNNER_TEMP/release-notes.md" dist/Nitrogen-Squared-Windows-x64.zip dist/Nitrogen-Squared-Windows-x64.zip.sha256 dist/Nitrogen-Squared-source.zip

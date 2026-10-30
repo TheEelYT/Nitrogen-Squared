@@ -211,3 +211,17 @@ and verification status. Record evidence and limitations in VALIDATION.md. Keep
 earlier acceptance as history; never mark a replacement verified solely because
 its previous implementation worked. Documentation-only updates need no runtime
 version bump or player rebuild.
+
+## 0.0.19 asset extraction and native-work checkpoint
+
+The tested asset feature is released independently: Asset folders extracts once
+and then opens the preserved .local/game directory. Original containers, movie
+sectors, PCM WAVE music, pregaps and source aliases are catalogued. Runtime reads
+still use the original disc, and replacement-pack loading remains future work.
+Coverage stays 35.4660% / 64.5340%.
+
+The new native batch has extended reference routes through the second level,
+but its final reduced O3 qualification was interrupted by an unavailable execution
+environment. Keep these candidates unselected until fresh strict live/replay,
+exact-frame and normal-production checks pass. Asset extraction can continue
+incrementally without waiting for full code linkage or clock separation.
