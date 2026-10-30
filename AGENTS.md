@@ -302,3 +302,9 @@
   upload. Inspect checkpoint phase; provisional metadata is not qualification.
 - All 80 local source tests pass with no skips, and the 98-file source audit
   passes with the unchanged 128 KiB bound, including Windows CRLF sizes.
+- Published 0.0.20 code b8a631621094266a6d22089499d3ab326738673d passes source
+  41007750065, Windows/Linux runtime 41007750056 and portable Windows 41007750099.
+  The actual public ZIPs, checksum/digests, 1,749-file owned manifest, x64 launcher
+  and 98-file source inventory were downloaded/verified. Preserve public assets;
+  focused 0.0.20 player acceptance remains pending. Release-receipt documentation
+  changes need no runtime rebuild, VERSION bump or repeat player check.

@@ -1986,3 +1986,24 @@ folder-backed loading, mod packs and clock separation are separate work.
 No game bytes, generated C/guards, compiled game, witnesses, media or saves
 enter Git/releases. A private metadata-only recovery checkpoint preserves the
 selection, source identities, reference RGB hashes and original helper scripts.
+
+
+### Published 0.0.20 receipts
+
+Release code b8a631621094266a6d22089499d3ab326738673d passes Source checks
+41007750065 on Windows/Linux, runtime/renderer workflow 41007750056 on both
+platforms, and portable Windows workflow 41007750099 (package 123906388316,
+publish 123908275475). Actual Win32/Tk startup reports asset_tools=true and
+version 0.0.20. Bundled preparation tools compile/exercise the actual synthetic
+runtime; copied-process update/restart loads the new version while preserving
+private cache/saves. All release gates passed before publication.
+
+The public v0.0.20 tag targets that exact commit and is the latest published
+release. Its actual ZIPs were downloaded: checksum, GitHub asset digest, exact
+owned-file manifest, x64 PE launcher, licenses, absence of .local and complete
+98-file source inventory all verify. App/source ZIP bytes agree; source matches
+the audited release checkout after Git line-ending normalization. The Windows
+ZIP contains 1,749 owned files and is 14,856,301 bytes, SHA-256
+`ee99af597e62a9960aa8272832e9a2ad45fdd1b33953a95a1a6b76e43fcbd6ce`.
+Existing published assets are preserved. These receipts change documentation
+only; no rebuild, new version or additional player test is needed for this note.
