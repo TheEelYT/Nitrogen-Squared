@@ -112,6 +112,14 @@ captures 21 frames, including later first-level and post-level UI when reached
 by the deterministic route. Pair it with an identically driven preserved
 reference binary. It does not require personal saves or a new campaign report.
 
+`route.py --combat-inputs` adds short Triangle, Circle and Square presses in
+rotation alongside ordinary firing during the extended movement loops. It does
+not change their total frame count or the initial input prefix through frame
+6100. Use it with --extended/--long/--deep and an identically driven accepted
+reference. A requested button press does not prove a weapon/action took effect;
+inspect captures before describing gameplay coverage. Without this flag, the
+existing input schedules remain unchanged. No guest memory or save is injected.
+
 
 The optional --alternate-ship and --alternate-difficulty flags add ordinary D-pad
 input to the initial route while keeping its frame schedule. Preserve a reference

@@ -32,6 +32,7 @@ def main():
     p.add_argument("--extended", action="store_true", help="Extend ordinary controller play and scanouts through frame 12300")
     p.add_argument("--long", action="store_true", help="Extend ordinary controller play and scanouts through frame 18300")
     p.add_argument("--deep", action="store_true", help="Extend ordinary controller play and scanouts through frame 36300")
+    p.add_argument("--combat-inputs", action="store_true", help="Add short ordinary face-button presses during extended gameplay")
     args = p.parse_args()
     if args.deep:args.long=True
     if args.long:args.extended=True
@@ -93,8 +94,11 @@ def main():
                                     (0xBFDF,400),(0xBF7F,500),(0xBFFF,600)]:
                 request("input_route_append", buttons=buttons, frames=frames)
             if args.extended:
-                for _ in range(20 if args.deep else 8 if args.long else 4):
-                    for buttons, frames in [(0xBFFF,500),(0xBFDF,500),(0xBFFF,100),(0xBF7F,500),(0xFFFF,20),(0xBFFF,20)]:
+                for loop in range(20 if args.deep else 8 if args.long else 4):
+                    for part, (buttons, frames) in enumerate([(0xBFFF,500),(0xBFDF,500),(0xBFFF,100),(0xBF7F,500),(0xFFFF,20),(0xBFFF,20)]):
+                        if args.combat_inputs and part == 0:
+                            request("input_route_append", buttons=buttons & ~(0x1000,0x2000,0x8000)[loop % 3], frames=20)
+                            frames -= 20
                         request("input_route_append", buttons=buttons, frames=frames)
             print(request("input_route_start", at_frame=1800), flush=True)
             frames = [800,1500,1900,2100,2300,2500,2700,3000,3500,4000,4200,4300,4500,4700,5000,5500,6000]
