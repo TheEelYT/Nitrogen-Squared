@@ -476,3 +476,13 @@
   remain stable. Future versions start with fresh checks. This docs-only note
   needs no VERSION bump, rebuild, release replacement or repeat player test.
   Coverage remains 37.5927% linked / 62.4073% outside.
+
+
+- The user accepts the change in approach for the next native batch after small
+  gains in 0.0.20–0.0.22. Prioritize larger uncovered call paths and expand ordinary
+  automated controller routes to reach them. Rank by potential newly emitted
+  bytes and verified reachability; avoid defaulting to another broad tiny-leaf
+  pool. Keep whole-owner exclusions, final reduced O3/replay/normal qualification,
+  code/data mapping and all source/platform/release checks. Do not promise a
+  percentage jump or credit unobserved/failed candidates. Work solo and checkpoint
+  meaningful stages. Current accepted baseline is 0.0.22 at 37.5927% linked.
