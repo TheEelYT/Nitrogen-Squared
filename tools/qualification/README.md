@@ -125,3 +125,11 @@ Use tools/code_inventory.py with source-hash-labelled private analyzer JSON and
 optional miss traces to keep code/data hints alongside each batch. Its candidate
 metadata is not qualification evidence. Retain whole failed input bands from
 configs/native_exclusions_usa.json and keep all generated code and captures private.
+
+`route.py --deep` extends the same controller-input prefix through frame 36300
+and records 37 captures. It implies --long/--extended and defaults to a bounded
+1200-second timeout; an explicit --timeout still takes precedence. Existing
+route modes keep their input and capture schedules. Compare the deeper run
+against an identically driven accepted binding and inspect the captures before
+claiming a particular level was reached. Saved decoded-RGB reference hashes may
+be reused only with verified matching route, source and framework identities.

@@ -24,15 +24,18 @@ def main():
     p.add_argument("--game", type=Path, default=ROOT / ".local/runtime-dev/game.toml")
     p.add_argument("--disc", required=True, type=Path)
     p.add_argument("--port", type=int, default=4370)
-    p.add_argument("--timeout", type=float, default=600,
-                   help="Bounded wall-clock budget for the frame-based route, in seconds")
+    p.add_argument("--timeout", type=float,
+                   help="Wall-clock budget in seconds (default: 600; 1200 for --deep)")
     p.add_argument("--help-prompts", action="store_true")
     p.add_argument("--alternate-ship", action="store_true", help="Select another ship with ordinary D-pad input")
     p.add_argument("--alternate-difficulty", action="store_true", help="Change difficulty with ordinary D-pad input")
     p.add_argument("--extended", action="store_true", help="Extend ordinary controller play and scanouts through frame 12300")
     p.add_argument("--long", action="store_true", help="Extend ordinary controller play and scanouts through frame 18300")
+    p.add_argument("--deep", action="store_true", help="Extend ordinary controller play and scanouts through frame 36300")
     args = p.parse_args()
+    if args.deep:args.long=True
     if args.long:args.extended=True
+    if args.timeout is None:args.timeout=1200 if args.deep else 600
     if not 0 < args.timeout <= 1800:
         raise ValueError("Route timeout must be between 0 and 1800 seconds")
     out = args.output
@@ -90,7 +93,7 @@ def main():
                                     (0xBFDF,400),(0xBF7F,500),(0xBFFF,600)]:
                 request("input_route_append", buttons=buttons, frames=frames)
             if args.extended:
-                for _ in range(8 if args.long else 4):
+                for _ in range(20 if args.deep else 8 if args.long else 4):
                     for buttons, frames in [(0xBFFF,500),(0xBFDF,500),(0xBFFF,100),(0xBF7F,500),(0xFFFF,20),(0xBFFF,20)]:
                         request("input_route_append", buttons=buttons, frames=frames)
             print(request("input_route_start", at_frame=1800), flush=True)
@@ -99,6 +102,8 @@ def main():
                 frames += [7500,9000,10500,12000]
             if args.long:
                 frames += [13500,15000,16500,18000]
+            if args.deep:
+                frames += list(range(19500,36001,1500))
             done = set()
             deadline = time.monotonic() + args.timeout
             while time.monotonic() < deadline:
@@ -112,7 +117,7 @@ def main():
                             raise RuntimeError(str(result))
                         print(target, result, flush=True)
                         done.add(target)
-                if frame >= (18300 if args.long else 12300 if args.extended else 6300):
+                if frame >= (36300 if args.deep else 18300 if args.long else 12300 if args.extended else 6300):
                     break
                 time.sleep(.15)
             else:
