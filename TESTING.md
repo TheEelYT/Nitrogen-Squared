@@ -1,6 +1,32 @@
-# Windows release and development test — 0.0.21
+# Windows release and development test — 0.0.22
 
 ## Current acceptance and update checks
+
+**0.0.22 — 29 additional native entry roots; focused Windows player check pending.**
+Adds 8 N2O and 21 NEW roots while preserving all 754 earlier input records.
+Linked emitted coverage is **317,968 / 845,824 = 37.5927%**,
+with **62.4073%** outside; +3,496 bytes over 0.0.21. This includes payload data
+and is not project completion or native CPU time.
+
+Final reduced O3 checks pass 163 live + 1,550 replay = 1,713
+comparisons, zero mismatches, and 74 exact frame checks. All 29 identities
+were observed (29 at owner entry, 0 continuation-only). The new
+ordinary-input route adds short face-button presses after the unchanged initial
+prefix. Requested inputs do not prove every possible weapon/action was exercised.
+Normal hashes match; the movie/controller/pause/quit fixture passes without hooks.
+
+Use **Check for updates**, let the private build refresh, let the opening movies
+play with normal audio/video, then try menus and a short first-level session
+with movement/firing and your usual face-button actions,
+pause/resume and normal quit. Check high-score name selection only if it comes up
+naturally. No new campaign, reimport, upload or deliberate save overwrite is
+requested. Preserve .local and existing saves. Startup performance was accepted
+in 0.0.21 and needs no unrelated repeat check for this native batch.
+
+Dashboard definitions use n0022 with fresh untested checks. Submitted n0021 passes,
+notes and timestamps are retained exactly. Earlier results do not accept 0.0.22.
+Runtime still uses the original USA disc; Asset folders and deferred folder-backed
+loading, EU work and logic/render clock separation are separate work.
 
 **0.0.21 — 26 additional native entry roots; reported Windows and dashboard checks accepted.**
 Adds 22 N2O and 4 NEW roots, preserving all 728 earlier input records.
@@ -577,7 +603,7 @@ python tools/native_progress.py
 The report counts only native ranges linked into the build, excluding generated
 analysis-only translations and host/BIOS code. Its payload denominator includes
 embedded data, so it is not an estimate of overall project completion.
-The default 0.0.21 ENHANCED build should report **37.1794%** linked and **62.8206%**
+The default 0.0.22 ENHANCED build should report **37.5927%** linked and **62.4073%**
 outside linked ranges. Its normal clean-shutdown log also prints
 `nitrogen: native game slice: dispatches=... residency_rejections=...`.
 After first-level gameplay the dispatch count should be positive. This is an
@@ -670,17 +696,17 @@ Instructions for future maintainers and assistants:
     "name": "Nitrogen-Squared",
     "subtitle": "N₂O · native port",
     "repo": "https://github.com/TheEelYT/Nitrogen-Squared",
-    "metric": "37.1794%",
+    "metric": "37.5927%",
     "metricNote": "Linked emitted byte coverage, including payload data. Not project completion or CPU time."
   },
   "version": {
-    "id": "n0021",
-    "name": "v0.0.21",
-    "title": "26 additional native entry roots",
+    "id": "n0022",
+    "name": "v0.0.22",
+    "title": "29 further native entry roots",
     "runtime": "Windows · USA disc",
     "cart": "",
-    "createdAt": "2026-10-30",
-    "description": "Reported Windows gameplay and all four submitted dashboard checks accepted. Preserve .local and existing saves; no repeat campaign or deliberate save overwrite requested."
+    "createdAt": "2026-10-31",
+    "description": "Focused Windows player check pending. Preserve .local and existing saves. No new campaign or deliberate save overwrite requested."
   },
   "checks": [
     {
@@ -694,21 +720,21 @@ Instructions for future maintainers and assistants:
         "Allow the private build to refresh; preserve .local and existing saves."
       ],
       "expected": "Update completes and the launcher starts the refreshed build.",
-      "context": "Current v0.0.21 focused check. No reimport or new upload is requested."
+      "context": "Current v0.0.22 focused check. Keep the existing import and saves; no new upload requested."
     },
     {
       "id": "N2-PLAY",
-      "title": "Menus and short first-level gameplay",
+      "title": "Opening movies, menus and short gameplay",
       "area": "Gameplay",
       "required": true,
       "priority": "high",
       "steps": [
-        "Navigate menus.",
-        "Play a short first-level session with movement and firing.",
+        "Let the opening movies play; check normal audio/video, then navigate menus.",
+        "Play a short first-level session with movement, firing and your usual face-button actions.",
         "Pause/resume, then quit normally."
       ],
-      "expected": "Menus, movement, firing, pause/resume and normal quit work on the reported route.",
-      "context": "Reported v0.0.21 route accepted with no issues noticed. Earlier reports retain their own version scope."
+      "expected": "Opening playback, menus, movement, firing, pause/resume and normal quit work on the reported route.",
+      "context": "v0.0.22 awaits player confirmation. Earlier acceptance stays with its recorded version."
     },
     {
       "id": "N2-SCORE",
@@ -720,17 +746,7 @@ Instructions for future maintainers and assistants:
         "If high-score entry arises naturally, inspect the name-selection display."
       ],
       "expected": "Name-selection display remains readable and usable.",
-      "context": "Optional: only if encountered naturally. Do not overwrite a valued save or force another campaign."
-    },
-    {
-      "id": "N2-STARTUP",
-      "title": "Startup loading performance observation",
-      "area": "Performance",
-      "required": false,
-      "priority": "normal",
-      "steps": [],
-      "expected": "Previously reported startup dip does not recur on the reported route.",
-      "context": "Player reports this has been absent for several updates and suspects the native save/load work. Its cause and exact timing remain unconfirmed; no repeat test requested."
+      "context": "Optional v0.0.22 check, only if encountered naturally. Do not force another campaign or overwrite a valued save."
     }
   ]
 }

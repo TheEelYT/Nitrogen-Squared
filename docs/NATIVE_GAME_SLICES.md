@@ -313,3 +313,15 @@ and 62 exact frame checks. All 26 identities were observed: 26 directly and
 0 through a continuation only. Normal source/range hashes match and its
 controller/movie/quit fixture passes without qualification hooks. Failed and
 unobserved contexts stay unselected. See VALIDATION.md and TESTING.md.
+
+
+## 0.0.22 further game/library entry fragments
+
+Adds 8 N2O/21 NEW observed roots and 3,496 emitted bytes. All 754 prior
+records remain semantically identical and in order. Final coverage is
+317,968 / 845,824 = 37.5927% linked / 62.4073% outside.
+Final O3 checks pass 1,713 comparisons, zero failures, and 74 exact frames
+across two deep routes. All 29 identities were observed (29 direct,
+0 continuation-only). Normal source/range hashes match and the
+movie/controller/pause/quit fixture passes without diagnostic hooks. Aliases and
+unobserved candidates earn no duplicate/extra credit. See VALIDATION.md.

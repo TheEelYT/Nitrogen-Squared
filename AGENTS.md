@@ -370,7 +370,7 @@
   auto-submit results. Use GitHub SHA guards and preserve concurrent feedback.
 
 
-## Interrupted 0.0.22 work — resume before release
+## Historical 0.0.22 execution interruption (superseded below)
 
 - The execution environment became unavailable during final qualification.
   Public production keeps accepted 0.0.21, its 754 input records and 37.1794%
@@ -422,3 +422,34 @@
   The planned focused scope is updating, opening playback/menus/short gameplay/
   pause/quit, and optional natural high-score entry. Startup performance was
   already accepted and needs no unrelated repeat.
+
+
+- Version 0.0.22 adds 29 observed native roots (8 N2O/21 NEW), +3,496
+  emitted bytes. Preserve all 754 earlier input records in order and all
+  48 whole-owner exclusions/fallback. Final diagnostic/normal coverage
+  agrees: 317,968 / 845,824 = 37.5927% linked, 62.4073%
+  outside. Boot is unchanged. Unobserved/failed candidates earn no credit.
+- Final strict O3 tests pass 163 live + 1550 replay = 1713 comparisons,
+  zero failures; 74 exact frame checks and 3 fresh-card files match.
+  All 29 identities were observed (29 direct/0 continuation-only).
+  Normal hashes match, hooks are absent, movie/controller/pause/quit checks pass.
+  All 80 source tests and the 99-file source audit pass. Both Release flag sets
+  remain -O3 -DNDEBUG. The new --combat-inputs route uses ordinary face buttons,
+  not guest patches; requested input does not prove each weapon or later level.
+- TESTING.md n0022 contains fresh focused Windows checks; player acceptance is
+  pending. Accepted n0021 results/notes/timestamps and their markers are preserved
+  exactly. The actual dashboard importer accepts definitions and preserves prior
+  results. No repeat campaign, upload or valued-save overwrite is needed.
+- NEW CPU closure admits only explicitly source/body-hash-reviewed small CPU
+  leaves despite low static confidence; returns/control flow and sensitive
+  contexts are checked before emission and every entry still needs qualification.
+  It also rejects any intersecting failed-owner interval in its static call closure. Reviewing local jump geometry does not override an
+  existing exclusion; NEW 0x8002A44C..0x8002A9A8 stays held. New boot/movie-control
+  callers and all other unresolved indirect closures retain fallback.
+- Private recovery PRIVATE-Nitrogen-Squared-0.0.22-recovery.tar.gz contains
+  compiler-cache game objects and qualification metadata; keep it private.
+  Source checkpoints belong in Git. Restore metadata to .local/qualification-022
+  and compiler-cache to .local/compiler-cache. Reuse the verified existing USA
+  upload. Inspect checkpoint phase; incomplete exploratory work is unqualified.
+  USA-only scope, deferred EU/assets/clock work and per-batch code/data mapping
+  remain as described above.

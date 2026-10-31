@@ -136,9 +136,11 @@ jobs:
           Extract the complete **Nitrogen-Squared** folder and run **launcher.exe**.
           Select the supported USA CUE with its matching BIN beside it. Preparation verifies/imports/generates/compiles your private game; no separate Python or Visual Studio installation is required.
 
-          **Native batch:** 26 qualified entry roots add 6,304 emitted bytes. Linked executable-range coverage is 37.1794% / 62.8206% outside; this is not overall completion or native CPU time. Final O3 tests pass 1,081 bounded comparisons and 62 exact frame checks, including high-score/restart flow. A short Windows player check is pending; no repeat campaign is requested.
+          **Native batch:** 29 qualified entry roots add 3,496 emitted bytes. Linked executable-range coverage is 37.5927% / 62.4073% outside; this is not overall completion or native CPU time. Final O3 tests pass 1,713 bounded comparisons and 74 exact frame checks across two routes, including additional ordinary face-button inputs. A short Windows player check is pending; no repeat campaign is requested.
 
-          **Asset folders** remains optional: extract original containers, raw movie streams and ten PCM WAV tracks into .local/game, then open the preserved folder. Runtime still uses the original disc. Folder-backed loading, mod packs and EU language import remain future work; USA is the supported base.
+          Test Dashboard definitions use a fresh n0022 version. Earlier n0021 results remain with 0.0.21 and do not automatically accept this update.
+
+          **Asset folders** remains optional: original containers, raw movie streams and ten PCM WAV tracks are preserved under .local/game. Runtime still uses the original USA disc. Folder-backed loading, mod packs and EU language import remain future work.
 
           Updates preserve .local, including saves and extracted edits. Keep the original disc available. Windows 10/11 x64; internet is needed for initial preparation and updates. No commercial game data, generated game C or prepared game executable is included.
           NOTES
