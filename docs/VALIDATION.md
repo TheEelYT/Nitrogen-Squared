@@ -98,3 +98,30 @@ language import can be investigated after folder-backed runtime assets exist.
 The game still reads the original disc. Asset extraction, mod packs and deferred
 logic/render clock separation are separate work. No commercial files, derived C,
 instruction guards, compiled game, media, witnesses or saves enter Git/releases.
+
+
+## Published 0.0.21 release receipts
+
+Release commit: 891f1a2d47ea7a69843ce679f61335277867d363. All required jobs succeeded:
+
+- Source checks: [41159267588](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/41159267588), Windows and Linux.
+- Runtime and renderer checks: [41159267620](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/41159267620), Windows and Linux.
+- Portable Windows launcher: [41159267649](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/41159267649), packaging, extracted startup, actual bundled runtime tools, copied-process update/restart and gated publication.
+
+The actual [public release](https://github.com/TheEelYT/Nitrogen-Squared/releases/tag/v0.0.21) assets were downloaded and audited.
+Latest release and tag resolve to this release commit; published asset digests,
+lengths and the standalone Windows checksum agree. The extracted owned-file
+manifest verifies all 1,750 files. The launcher is x64 PE and portable
+Python's license is present. There is no .local directory or private game payload.
+The 99 app source files match this release checkout after Git newline
+normalization, and the source ZIP entries match the packaged app byte-for-byte.
+
+| Published asset | Bytes | SHA-256 |
+| --- | ---: | --- |
+| Nitrogen-Squared-source.zip | 281,863 | `23acf8858334a1a7f90eb7383d37051ad3734846115cca2c08e9cac5acfac8a3` |
+| Nitrogen-Squared-Windows-x64.zip | 14,864,246 | `24765ec7dcd10e956203427084b7bbe41f9a6a98e0b1aba1a76463b390100525` |
+| Nitrogen-Squared-Windows-x64.zip.sha256 | 100 | `0b309720c7c18aaea2f1e0c325f046dd225cfe51b8a7629f79df9f96a57fa64e` |
+
+This subsequent receipt update is documentation only. Preserve the published
+0.0.21 assets/tag; no VERSION bump, runtime rebuild or repeat player check is
+needed for this receipt. Focused Windows player acceptance remains pending.

@@ -342,3 +342,12 @@
   reuse the original verified user upload. Inspect checkpoint phase before trusting
   any qualification receipt after a reset. Validation through 0.0.20 is archived in
   docs/VALIDATION_THROUGH_0.0.20.md; current results are in docs/VALIDATION.md.
+
+
+- Published 0.0.21 code 891f1a2d47ea7a69843ce679f61335277867d363 passes source
+  41159267588, Windows/Linux runtime 41159267620 and portable Windows 41159267649.
+  Actual public ZIPs, checksums/digests, 1,750-file owned manifest,
+  x64 launcher, portable Python license and 99-file source inventory were
+  downloaded and verified. Preserve published assets/tag. This receipt is
+  documentation only; no rebuild, VERSION bump or repeat player check is needed.
+  Focused Windows 0.0.21 player acceptance remains pending.
