@@ -413,3 +413,22 @@ This acceptance is documentation only: VERSION remains 0.0.22, published assets
 and tag remain unchanged, and no rebuild or repeat player check is needed.
 Linked coverage remains 317,968 / 845,824 = 37.5927%, with 62.4073% outside.
 Future runtime releases require fresh version-scoped checks.
+
+## Published 0.0.23 release receipts
+Release code [08f42bf](https://github.com/TheEelYT/Nitrogen-Squared/commit/08f42bff99ac548026063a68429335ed944b519c) passes all required workflows:
+- [Source checks](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/41250851616): passed.
+- [Portable Windows launcher](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/41250851730): passed.
+- [Runtime and renderer checks](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/41250851661): passed.
+
+The portable job verifies version 0.0.23, the Asset folders interface, bundled
+preparation/runtime tools and an actual copied-process update/restart preserving
+private files and saves (`PORTABLE_SELF_UPDATE_PASS`). The published
+[Windows release](https://github.com/TheEelYT/Nitrogen-Squared/releases/tag/v0.0.23) was downloaded and audited: all three assets,
+checksums/digests, 1,750-file owned manifest, 99-file source inventory,
+x64 launcher PE and portable Python license pass. Source contents match the
+release commit after Git line-ending normalization; no private game payload is
+included. Windows ZIP SHA-256: `fb8cc48d13593fdde8933192a3270f4305d9f8fe3979a3301b6fdd200a2e73b4`.
+
+This receipt is documentation only. Preserve the published tag/assets; no VERSION
+bump, rebuild or repeat local qualification is needed. Fresh n0023 Windows player
+checks remain pending; earlier n0021/n0022 reports retain their version scope.

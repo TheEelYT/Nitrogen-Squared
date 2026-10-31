@@ -569,3 +569,14 @@
   New private checkpoints retain the exact tested developer binary, execution
   contract and bundled OpenBIOS/MIT notice, with SHA/staging verification before
   reuse. Keep every compiled game artifact private, out of Git/releases.
+
+- Published 0.0.23 code 08f42bff99ac548026063a68429335ed944b519c passes source workflow
+  41250851616, Windows/Linux runtime/renderer workflow 41250851661 and portable
+  package/update workflow 41250851730. All required jobs, including publication,
+  pass. Actual three release assets, SHA/digests, 1,750-file owned manifest,
+  x64 launcher, Python license and 99-file source inventory were downloaded
+  and audited. Preserve the published tag/assets. This docs-only receipt requires
+  no VERSION bump, rebuild or repeated qualification. Fresh n0023 player checks
+  remain pending; preserve n0021/n0022 submitted results exactly. The local normal
+  cache repair changed no source; exact tested binaries/contracts are retained
+  only in private recovery, never Git/releases.
