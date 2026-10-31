@@ -453,3 +453,13 @@
   upload. Inspect checkpoint phase; incomplete exploratory work is unqualified.
   USA-only scope, deferred EU/assets/clock work and per-batch code/data mapping
   remain as described above.
+
+
+- Published 0.0.22 code 51d6a71be26e1ebc88ac0d7cd017a9bf77b01485 passes all required source,
+  Windows/Linux runtime and portable package/update workflows. Run IDs:
+  41229625471, 41229625432, 41229625466. Actual public assets,
+  checksums/digests, 1,750-file owned manifest, x64 launcher,
+  Python license and 99-file source inventory were downloaded and verified.
+  Preserve assets/tag. This receipt needs no rebuild, VERSION bump or repeat
+  player check. Focused Windows/dashboard n0022 player acceptance is pending;
+  preserve earlier submitted results by version.

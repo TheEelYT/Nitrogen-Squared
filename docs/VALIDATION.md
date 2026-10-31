@@ -273,3 +273,33 @@ Keep those results by version; eventual n0022 definitions start fresh. This
 checkpoint retains the accepted production binding and VERSION, and preserves
 the original controller tool plus failed-input metadata. It publishes no
 commercial data, generated game bodies, guards, compiled game or private files.
+
+
+## Published 0.0.22 release receipts
+
+Release commit: 51d6a71be26e1ebc88ac0d7cd017a9bf77b01485. Required workflows and all their jobs succeeded:
+
+- Source checks: [41229625471](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/41229625471), successful.
+- Runtime and renderer checks: [41229625432](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/41229625432), successful.
+- Portable Windows launcher: [41229625466](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/41229625466), successful.
+
+The portable job confirms version 0.0.22, Asset folders tools and an actual
+copied-process update/restart with private cache and test saves preserved.
+The actual [public release](https://github.com/TheEelYT/Nitrogen-Squared/releases/tag/v0.0.22) assets were downloaded and audited.
+Latest release and tag resolve to this code commit. All lengths, published
+digests and the standalone Windows checksum agree. The extracted owned-file
+manifest verifies 1,750 files. The launcher is x64 PE and portable
+Python's license is present. There is no .local directory or private game payload.
+The 99 app source files match the release checkout after Git newline
+normalization; source ZIP entries match the packaged app byte-for-byte.
+
+| Published asset | Bytes | SHA-256 |
+| --- | ---: | --- |
+| Nitrogen-Squared-source.zip | 291,472 | `6a4a536bf42a5022ffac4178985cf2a28db57ae2472fdc4d9f82ff6ccd804438` |
+| Nitrogen-Squared-Windows-x64.zip | 14,871,830 | `6c9e7ceb1ca068f406ca1e29eb6c15b6accd1555d4ecdd1e6e6bcf1cc28508d0` |
+| Nitrogen-Squared-Windows-x64.zip.sha256 | 100 | `cc052023eed8b9401c88249b4e3e83544c5bb0bc1296b8ee71d70f2b28887c84` |
+
+This following receipt update is documentation only. Preserve the published
+assets/tag; it needs no VERSION bump, rebuild or repeat player check. Focused
+Windows 0.0.22 player acceptance remains pending. Dashboard n0022 has fresh
+checks, with earlier n0021 result markers/notes/timestamps preserved.
