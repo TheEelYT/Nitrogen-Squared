@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 """Original deterministic input route; screenshots and device reports stay private."""
 import argparse
+import hashlib
 import json
 import os
 from pathlib import Path
+import shutil
 import socket
 import subprocess
 import time
@@ -15,6 +17,29 @@ def private_output(value):
     path = Path(value).resolve()
     path.relative_to(ROOT / ".local")
     return path
+
+
+def load_script(path):
+    """Read an original controller schedule; never apply guest memory changes."""
+    value = json.loads(path.read_text())
+    if not isinstance(value, dict) or set(value) != {"schema", "name", "start_frame", "stop_frame", "capture_frames", "steps"} or type(value["schema"]) is not int or value["schema"] != 1:
+        raise ValueError("Unsupported controller script")
+    integer = lambda n: type(n) is int
+    start, stop, frames, steps = (value[k] for k in ("start_frame", "stop_frame", "capture_frames", "steps"))
+    if not isinstance(value["name"], str) or not value["name"].strip():
+        raise ValueError("Controller script needs a name")
+    if not integer(start) or not integer(stop) or not 1 <= start < stop <= 200000:
+        raise ValueError("Invalid controller script frame bounds")
+    if not isinstance(frames, list) or not 1 <= len(frames) <= 256 or any(not integer(f) or not 0 <= f <= stop-3 for f in frames) or frames != sorted(set(frames)):
+        raise ValueError("Capture frames must be sorted, unique and before shutdown")
+    if not isinstance(steps, list) or not 1 <= len(steps) <= 512:
+        raise ValueError("Controller script needs 1 to 512 steps")
+    for step in steps:
+        if not isinstance(step, dict) or set(step) != {"buttons", "frames"} or not integer(step["buttons"]) or not 0 <= step["buttons"] <= 0xFFFF or not integer(step["frames"]) or step["frames"] <= 0:
+            raise ValueError("Invalid controller step")
+    if sum(s["frames"] for s in steps) > stop-start:
+        raise ValueError("Controller steps extend beyond shutdown")
+    return value
 
 
 def main():
@@ -33,7 +58,13 @@ def main():
     p.add_argument("--long", action="store_true", help="Extend ordinary controller play and scanouts through frame 18300")
     p.add_argument("--deep", action="store_true", help="Extend ordinary controller play and scanouts through frame 36300")
     p.add_argument("--combat-inputs", action="store_true", help="Add short ordinary face-button presses during extended gameplay")
+    p.add_argument("--script", type=Path, help="Original JSON controller schedule for a targeted route")
+    p.add_argument("--seed-cards", type=private_output, help="Copy private test cards into a fresh output directory; never edit the source")
     args = p.parse_args()
+    script = load_script(args.script) if args.script else None
+    if script and any((args.help_prompts, args.alternate_ship, args.alternate_difficulty,
+                       args.extended, args.long, args.deep, args.combat_inputs)):
+        raise ValueError("Use either a controller script or the built-in route flags")
     if args.deep:args.long=True
     if args.long:args.extended=True
     if args.timeout is None:args.timeout=1200 if args.deep else 600
@@ -41,6 +72,13 @@ def main():
         raise ValueError("Route timeout must be between 0 and 1800 seconds")
     out = args.output
     out.mkdir(parents=True, exist_ok=True)
+    if args.seed_cards:
+        if not args.seed_cards.is_dir() or (out / "cards").exists():
+            raise ValueError("Seed cards require an existing source and a fresh output cards directory")
+        shutil.copytree(args.seed_cards, out / "cards")
+    description = dict(script=script, script_sha256=hashlib.sha256(args.script.read_bytes()).hexdigest() if script else None,
+                       builtin_flags={k: getattr(args, k) for k in ("help_prompts", "alternate_ship", "alternate_difficulty", "extended", "long", "deep", "combat_inputs")})
+    (out / "route-description.json").write_text(json.dumps(description, indent=2) + "\n")
     env = os.environ.copy()
     env.update(SDL_VIDEODRIVER="offscreen", SDL_AUDIODRIVER="dummy", EGL_PLATFORM="surfaceless",
                PSX_OVERLAY_AUTOCOMPILE_OFF="1", PSX_DISPLAY_RING="1", PSX_DEBUG_TOGGLES="0",
@@ -81,7 +119,12 @@ def main():
             else:
                 raise RuntimeError("No diagnostic server")
             request("input_route_clear")
-            for n in range(6):
+            if script:
+                for step in script["steps"]:
+                    result = request("input_route_append", **step)
+                    if not result.get("ok"):
+                        raise RuntimeError(str(result))
+            for n in range(0 if script else 6):
                 request("input_route_append", buttons=0xEFFF if n == 4 and not args.help_prompts else 0xBFFF, frames=20)
                 if (n == 1 and args.alternate_ship) or (n == 2 and args.alternate_difficulty):
                     request("input_route_append", buttons=0xFFFF, frames=40)
@@ -89,9 +132,9 @@ def main():
                     request("input_route_append", buttons=0xFFFF, frames=120)
                 else:
                     request("input_route_append", buttons=0xFFFF, frames=180)
-            for buttons, frames in [(0xBFFF,240),(0xBFDF,180),(0xBF7F,180),(0xBFFF,400),
+            for buttons, frames in ([] if script else [(0xBFFF,240),(0xBFDF,180),(0xBF7F,180),(0xBFFF,400),
                                     (0xBFFF,200),(0xFFF7,20),(0xFFFF,180),(0xFFF7,20),(0xFFFF,180),
-                                    (0xBFDF,400),(0xBF7F,500),(0xBFFF,600)]:
+                                    (0xBFDF,400),(0xBF7F,500),(0xBFFF,600)]):
                 request("input_route_append", buttons=buttons, frames=frames)
             if args.extended:
                 for loop in range(20 if args.deep else 8 if args.long else 4):
@@ -100,8 +143,10 @@ def main():
                             request("input_route_append", buttons=buttons & ~(0x1000,0x2000,0x8000)[loop % 3], frames=20)
                             frames -= 20
                         request("input_route_append", buttons=buttons, frames=frames)
-            print(request("input_route_start", at_frame=1800), flush=True)
-            frames = [800,1500,1900,2100,2300,2500,2700,3000,3500,4000,4200,4300,4500,4700,5000,5500,6000]
+            start_frame = script["start_frame"] if script else 1800
+            stop_frame = script["stop_frame"] if script else 36300 if args.deep else 18300 if args.long else 12300 if args.extended else 6300
+            print(request("input_route_start", at_frame=start_frame), flush=True)
+            frames = script["capture_frames"] if script else [800,1500,1900,2100,2300,2500,2700,3000,3500,4000,4200,4300,4500,4700,5000,5500,6000]
             if args.extended:
                 frames += [7500,9000,10500,12000]
             if args.long:
@@ -121,7 +166,7 @@ def main():
                             raise RuntimeError(str(result))
                         print(target, result, flush=True)
                         done.add(target)
-                if frame >= (36300 if args.deep else 18300 if args.long else 12300 if args.extended else 6300):
+                if frame >= stop_frame:
                     break
                 time.sleep(.15)
             else:

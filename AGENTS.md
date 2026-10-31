@@ -486,3 +486,17 @@
   code/data mapping and all source/platform/release checks. Do not promise a
   percentage jump or credit unobserved/failed candidates. Work solo and checkpoint
   meaningful stages. Current accepted baseline is 0.0.22 at 37.5927% linked.
+
+- Active 0.0.23 work follows the larger-call-path strategy. The accepted 0.0.22
+  diagnostic guarded manifest and execution identity were reproduced exactly.
+  Static ranking proposes 32 larger N2O targets and 12 supporting CPU routines
+  (31,088 input bytes; 29,256 seed bytes outside current linked ranges). All 44
+  pass preflight generation; none is qualified or credited yet. Keep production
+  VERSION/native selection at accepted 0.0.22 until final reduced checks pass.
+- Original route tooling now accepts bounded JSON controller scripts and optional
+  copied disposable test cards. Existing default/deep/all-flag queued inputs and
+  captures were checked unchanged. The expanded tutorial reference completed 37
+  captures; menu discovery is being refined from actual captures. Requested
+  inputs and short prefix hashes remain discovery hints. Qualify exact guarded
+  identities, reduce to passing observed roots and repeat final O3/live/replay/
+  visual/normal/source/platform/public-release checks before promotion.

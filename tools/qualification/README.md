@@ -141,3 +141,20 @@ route modes keep their input and capture schedules. Compare the deeper run
 against an identically driven accepted binding and inspect the captures before
 claiming a particular level was reached. Saved decoded-RGB reference hashes may
 be reused only with verified matching route, source and framework identities.
+
+`route.py --script PATH` accepts an original JSON controller schedule for targeted
+menu and gameplay paths. Schema 1 has `name`, `start_frame`, `stop_frame`,
+`capture_frames` (sorted unique frame numbers) and `steps` (objects with `buttons`
+and `frames`). Pad words are the same active-low 16-bit controller inputs used
+by the built-in routes. Scripts have bounded frame/step counts, cannot combine
+with built-in route flags and apply no guest memory changes. Preserve the exact
+script and its recorded hash for reference/candidate comparisons; requested input
+alone does not prove which menu or gameplay path was reached. Private outputs
+include route-description.json for reproducibility.
+
+`--seed-cards PATH` copies private test-card files into a fresh output `cards`
+directory. It refuses an existing destination and keeps the source untouched.
+Use disposable cards produced by a qualified ordinary-input route to exercise
+load/menu paths; do not overwrite or require a player's valued save. Record
+initial card fingerprints when qualifying a seeded route. Game-derived card
+files, captures and RAM witnesses remain private.
