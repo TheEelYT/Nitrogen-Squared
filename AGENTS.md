@@ -512,3 +512,38 @@
   record initial file fingerprints. Test copies must not inherit the uploaded
   file's Library identity. Keep raw cards/captures/witnesses private and preserve
   n0021/n0022 dashboard results when defining a later release's fresh checks.
+
+- The 0.0.23 execution environment became unavailable after four targeted final
+  reduced strict routes and fail-fast replay completed. Their observed receipts:
+  loaded game: 56 live/650 replay/31 exact frames; disposable saved-slot overwrite:
+  51/550/34; fresh setup create/load/overwrite: 89/1425/33; second saved slot:
+  44/550/31. Total 240 live + 3,175 replay = 3,415 passing comparisons,
+  zero failures, 129 exact frames and 12 matching output-card file comparisons
+  (three per route). Actual saved-game stages were level 12 and level 9.
+  The uploaded original fingerprint was rechecked unchanged.
+- The reduced O3 diagnostic build keeps 13 roots, 6,972 input bytes and adds
+  6,960 emitted bytes: provisional 324,928 / 845,824 = 38.4156% linked,
+  61.5844% outside. All 783 accepted input records/order and guarded identities
+  match the accepted baseline; reduced identities match the observed pool.
+  All 48 exclusions remain. The 31 unobserved pool candidates stay unselected.
+  This is NOT yet a qualified public release or credited production coverage.
+- The expanded pool tutorial route completed 37 exact frames with no new selected
+  target calls; count it as compatibility evidence, with zero native comparison
+  or replay credit. The reduced broad regression had only just started when
+  access was lost. Its completion is unverified. Do not assume transport loss
+  means it either stopped or completed, or add exploration counts to final totals.
+- The current private 0.0.23 recovery archive was saved successfully after the
+  reduced diagnostic build, before those four strict routes finished. It contains
+  the reduced config, selector/manifest, original helpers and compiler cache.
+  Later strict receipts above were observed afterward; raw witnesses, cards,
+  captures, game C/guards and binaries are omitted. Restore/recollect required
+  evidence if scratch was lost. The compiler cache stays private.
+- Finish the reduced broad regression, exact frame/card checks, normal O3
+  diagnostics-OFF build with empty qualification include and matching hashes,
+  normal movie/controller/pause/quit fixture and image review, code/data inventory,
+  final source tests/audit/CRLF bounds, fresh n0023 dashboard import preview,
+  Windows/Linux and portable release CI, and actual public ZIP audit.
+  Earlier 80 source tests passed for the route tooling, not the unfinished final
+  0.0.23 source/version state. Preserve n0021/n0022 submitted results byte-for-byte.
+  Main remains accepted 0.0.22 at 37.5927%; do not publish an unqualified config
+  or substitute a tooling-only release for the viable native batch.
