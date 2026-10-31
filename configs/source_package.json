@@ -96,5 +96,6 @@
   "configs/native_exclusions_usa.json",
   "tools/extract_assets.py",
   "tests/test_extract_assets.py",
-  "docs/ASSETS.md"
+  "docs/ASSETS.md",
+  "docs/VALIDATION_THROUGH_0.0.20.md"
 ]

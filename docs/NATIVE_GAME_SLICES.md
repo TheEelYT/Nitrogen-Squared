@@ -296,3 +296,20 @@ Preserve the 47 whole-owner exclusions, fallback and the unchanged framework.
 The failed 0.0.19 pool and its provisional 80-root reduction earn no credit.
 See VALIDATION.md for bounded evidence and TESTING.md for the focused pending
 Windows player check. No repeat campaign or new disc input is requested.
+
+
+## 0.0.21 game/high-score and library entry fragments
+
+Adds 22 N2O and 4 NEW roots, preserving all 728 earlier records in order.
+New input bands total 7,020 bytes; the emitted union adds 6,304 bytes.
+The resulting union is 314,472 / 845,824 = **37.1794% linked**,
+**62.8206% outside**. Alias counts earn no extra byte credit; boot is unchanged.
+
+The deeper ordinary-input route reaches high-score name entry and a return to
+gameplay. Its 37 fresh reference frames retain the first 25 accepted 0.0.20
+RGB hashes. The alternate route uses 25 retained accepted-reference RGB hashes.
+Final reduced O3 qualification passes 106 live + 975 replay = 1,081 comparisons, zero failures,
+and 62 exact frame checks. All 26 identities were observed: 26 directly and
+0 through a continuation only. Normal source/range hashes match and its
+controller/movie/quit fixture passes without qualification hooks. Failed and
+unobserved contexts stay unselected. See VALIDATION.md and TESTING.md.

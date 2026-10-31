@@ -315,3 +315,30 @@
   result or every checklist action. This documentation-only acceptance needs no
   runtime rebuild, version bump, additional files or repeat player check. Coverage
   remains 36.4341% linked / 63.5659% outside.
+
+
+- Version 0.0.21 adds 26 observed entry roots (22 N2O/4 NEW), +6,304
+  emitted bytes. Preserve all 728 prior records in order. Final diagnostic and
+  normal reports agree: 314,472 / 845,824 = 37.1794% linked,
+  62.8206% outside. Boot is unchanged. Keep all 47 whole-owner exclusions
+  and guarded fallback; unobserved or failed contexts receive no credit.
+- Final strict O3 qualification passes 106 live + 975 replay = 1081
+  comparisons, zero failures, and 62 exact frame checks. All 26 identities
+  were observed (26 directly/0 continuation-only). Deep reference
+  covers high-score entry and return to gameplay; it does not prove later levels.
+  Normal hashes match, hooks are absent, and normal movie/controller/quit checks
+  pass. Focused Windows 0.0.21 player acceptance is pending. The reported 0.0.20
+  route remains accepted; no new upload, repeat campaign or valued-save overwrite
+  is required. All 80 source tests and the 99-file source audit pass.
+- USA remains the sole supported base. The user defers EU comparison/support;
+  later optional language import should use a user's own EU assets after runtime
+  folder-backed loading exists. Clock separation remains deferred. Continue
+  code/data mapping without changing the linked-range denominator.
+- Existing framework compiler-cache support is enabled privately with compiler-
+  content/source/flag checks intact. Recovery archive
+  PRIVATE-Nitrogen-Squared-0.0.21-recovery.tar.gz contains compiled game objects;
+  keep it private and out of Git/releases. Public source remains in Git. Recover
+  metadata into .local/qualification-021 and compiler-cache into .local/compiler-cache;
+  reuse the original verified user upload. Inspect checkpoint phase before trusting
+  any qualification receipt after a reset. Validation through 0.0.20 is archived in
+  docs/VALIDATION_THROUGH_0.0.20.md; current results are in docs/VALIDATION.md.

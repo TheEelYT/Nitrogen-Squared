@@ -1,6 +1,21 @@
 # Windows first, Vita by design
 
-## Current native milestone — 0.0.20
+## Current native milestone — 0.0.21
+
+Adds 26 qualified entry roots and 6,304 emitted bytes, reaching 37.1794%
+linked / 62.8206% outside. Final live/replay, 62 exact-frame and normal player
+checks pass; focused Windows player acceptance remains pending. The user accepted
+the reported 0.0.20 route with no issues noticed. No repeat campaign is required.
+
+USA remains the sole supported base. EU comparison and compatibility are deferred.
+Once folder-backed runtime assets are established, investigate optional language
+assets imported privately from a user's EU disc. The existing extraction button
+preserves edits under .local/game; runtime loading still uses the original disc.
+Continue code/data mapping alongside native batches. Logic/render clock separation
+remains deferred; the linked-range metric is unchanged.
+
+
+## 0.0.20 native milestone
 
 The recovered batch adds 53 observed entry roots and 8,188 emitted bytes,
 reaching **36.4341% linked / 63.5659% outside**. Final reduced O3 live/replay,

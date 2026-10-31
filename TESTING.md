@@ -1,6 +1,26 @@
-# Windows release and development test — 0.0.20
+# Windows release and development test — 0.0.21
 
 ## Current acceptance and update checks
+
+**0.0.21 — 26 additional native entry roots; focused Windows player check pending.**
+Adds 22 N2O and 4 NEW roots, preserving all 728 earlier input records.
+Linked emitted coverage is **314,472 / 845,824 = 37.1794%**,
+with **62.8206%** outside; +6,304 bytes over 0.0.20. This metric includes payload
+data and is not a native CPU-time share or overall completion estimate.
+
+Final reduced O3 tests pass 106 live + 975 replay = 1,081 comparisons, zero mismatches,
+and 62 exact frame checks. The deeper route covers high-score name entry and
+return to gameplay; a second route keeps the earlier alternate-input schedule.
+All 26 identities were observed (26 at owner entry, 0 continuation-only).
+Normal hashes match and the movie/controller/quit fixture passes without hooks.
+
+Update using **Check for updates**, let the private build refresh, then try menus
+and a short first-level session with movement/firing, pause/resume and ordinary
+quit. If high-score entry comes up naturally, check its name-selection display.
+No new campaign, deliberate save overwrite or new upload is requested. Preserve
+.local and existing saves. Earlier player reports retain their version scope.
+Asset folders and the original-disc runtime path are unchanged; USA remains the
+supported base. EU support/language import and clock separation remain deferred.
 
 **0.0.20 — 53 further native entry roots; reported Windows gameplay accepted.**
 Adds 40 N2O and 13 NEW roots while preserving the earlier binding. Linked emitted
@@ -557,7 +577,7 @@ python tools/native_progress.py
 The report counts only native ranges linked into the build, excluding generated
 analysis-only translations and host/BIOS code. Its payload denominator includes
 embedded data, so it is not an estimate of overall project completion.
-The default 0.0.20 ENHANCED build should report **36.4341%** linked and **63.5659%**
+The default 0.0.21 ENHANCED build should report **37.1794%** linked and **62.8206%**
 outside linked ranges. Its normal clean-shutdown log also prints
 `nitrogen: native game slice: dispatches=... residency_rejections=...`.
 After first-level gameplay the dispatch count should be positive. This is an
