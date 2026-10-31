@@ -1,6 +1,18 @@
 # Windows first, Vita by design
 
-## Current native milestone — 0.0.22
+## Current native milestone — 0.0.23
+
+Larger-target exploration adds 13 observed roots and 6,960 emitted bytes,
+reaching 38.4156% linked / 61.5844% outside. Automated routes now cover disposable
+saved-game loading/saving, later-level play and fresh setup round trips. Final
+O3/live/replay/frame/card/normal checks pass. Focused Windows n0023 checks remain
+pending; preserve accepted n0021/n0022 results. No new campaign or valued-save
+overwrite is requested. Continue source-bound code/data mapping. USA-only scope,
+folder-backed assets/mod packs, optional EU assets and clock separation retain
+their previous scope and priorities.
+
+
+## 0.0.22 native milestone
 
 Adds 29 qualified entry roots and 3,496 emitted bytes, reaching 37.5927%
 linked / 62.4073% outside. Final O3 live/replay, 74 exact frames and normal

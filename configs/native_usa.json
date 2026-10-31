@@ -781,5 +781,18 @@
   {"executable":"N2O.EXE","start":"0x8002FBF8","size":80,"entries":["0x8002FBF8"],"purpose":"Observed code or CPU-closed library entry"},
   {"executable":"N2O.EXE","start":"0x8002FDE4","size":8,"entries":["0x8002FDE4"],"purpose":"Observed code or CPU-closed library entry"},
   {"executable":"N2O.EXE","start":"0x80064CFC","size":108,"entries":["0x80064CFC"],"purpose":"Observed code or CPU-closed library entry"},
-  {"executable":"NEW.EXE","start":"0x8002B5AC","size":20,"entries":["0x8002B5AC"],"purpose":"Observed code or CPU-closed library entry"}
+  {"executable":"NEW.EXE","start":"0x8002B5AC","size":20,"entries":["0x8002B5AC"],"purpose":"Observed code or CPU-closed library entry"},
+  {"executable":"N2O.EXE","start":"0x8002E84C","size":772,"entries":["0x8002E84C"],"purpose":"Observed save/load, gameplay or CPU helper entry; final bounded qualification required"},
+  {"executable":"N2O.EXE","start":"0x8002F2A4","size":596,"entries":["0x8002F2A4"],"purpose":"Observed save/load, gameplay or CPU helper entry; final bounded qualification required"},
+  {"executable":"N2O.EXE","start":"0x80037BF8","size":572,"entries":["0x80037BF8"],"purpose":"Observed save/load, gameplay or CPU helper entry; final bounded qualification required"},
+  {"executable":"N2O.EXE","start":"0x80054160","size":1392,"entries":["0x80054160"],"purpose":"Observed save/load, gameplay or CPU helper entry; final bounded qualification required"},
+  {"executable":"N2O.EXE","start":"0x8006D4E8","size":320,"entries":["0x8006D4E8"],"purpose":"Observed save/load, gameplay or CPU helper entry; final bounded qualification required"},
+  {"executable":"N2O.EXE","start":"0x8006DDE0","size":68,"entries":["0x8006DDE0"],"purpose":"Observed save/load, gameplay or CPU helper entry; final bounded qualification required"},
+  {"executable":"N2O.EXE","start":"0x8006DE24","size":716,"entries":["0x8006DE24"],"purpose":"Observed save/load, gameplay or CPU helper entry; final bounded qualification required"},
+  {"executable":"N2O.EXE","start":"0x8006E0F0","size":620,"entries":["0x8006E0F0"],"purpose":"Observed save/load, gameplay or CPU helper entry; final bounded qualification required"},
+  {"executable":"N2O.EXE","start":"0x8006EB5C","size":516,"entries":["0x8006EB5C"],"purpose":"Observed save/load, gameplay or CPU helper entry; final bounded qualification required"},
+  {"executable":"N2O.EXE","start":"0x8006EEF4","size":1352,"entries":["0x8006EEF4"],"purpose":"Observed save/load, gameplay or CPU helper entry; final bounded qualification required"},
+  {"executable":"N2O.EXE","start":"0x80071D6C","size":16,"entries":["0x80071D6C"],"purpose":"Observed save/load, gameplay or CPU helper entry; final bounded qualification required"},
+  {"executable":"N2O.EXE","start":"0x80071D7C","size":16,"entries":["0x80071D7C"],"purpose":"Observed save/load, gameplay or CPU helper entry; final bounded qualification required"},
+  {"executable":"N2O.EXE","start":"0x80071D8C","size":16,"entries":["0x80071D8C"],"purpose":"Observed save/load, gameplay or CPU helper entry; final bounded qualification required"}
 ]

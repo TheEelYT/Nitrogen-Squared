@@ -325,3 +325,20 @@ across two deep routes. All 29 identities were observed (29 direct,
 0 continuation-only). Normal source/range hashes match and the
 movie/controller/pause/quit fixture passes without diagnostic hooks. Aliases and
 unobserved candidates earn no duplicate/extra credit. See VALIDATION.md.
+
+## 0.0.23 larger save/load and gameplay paths
+
+Adds 13 observed N2O entry roots (6,972 input bytes), preserving all
+783 accepted input records and guarded identities. Final emitted-byte gain
+is 6,960; diagnostic and normal reports agree on 324,928 /
+845,824 = 38.4156% linked / 61.5844% outside. NEW/boot selections are unchanged.
+
+The 44-root preflight pool targets larger uncovered call paths and their helpers.
+Only observed passing roots survive reduction. Exact identities match the pool;
+unobserved candidates and all 48 whole-owner exclusions retain fallback. Final
+fresh regeneration contains no stale pool parts. Final O3 tests pass 3,415
+comparisons, zero failures, 166 matching frames and identical card outputs.
+All 13 identities are observed; 2 through continuations only.
+The normal fixture passes without qualification hooks. These are translated game
+entries, not a replacement host save system; BIOS/serial/device services remain.
+See VALIDATION.md for route evidence and its limits.

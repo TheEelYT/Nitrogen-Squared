@@ -136,9 +136,9 @@ jobs:
           Extract the complete **Nitrogen-Squared** folder and run **launcher.exe**.
           Select the supported USA CUE with its matching BIN beside it. Preparation verifies/imports/generates/compiles your private game; no separate Python or Visual Studio installation is required.
 
-          **Native batch:** 29 qualified entry roots add 3,496 emitted bytes. Linked executable-range coverage is 37.5927% / 62.4073% outside; this is not overall completion or native CPU time. Final O3 tests pass 1,713 bounded comparisons and 74 exact frame checks across two routes, including additional ordinary face-button inputs. A short Windows player check is pending; no repeat campaign is requested.
+          **Native batch:** 13 observed save/load, gameplay and supporting entry roots add 6,960 emitted bytes. Linked payload-range coverage is 38.4156% / 61.5844% outside; this is not overall completion or native CPU time. Final O3 tests pass 3,415 bounded comparisons, 166 exact frame checks and matching card outputs. Local save/overwrite tests use disposable copies; uploaded originals are preserved.
 
-          Test Dashboard definitions use a fresh n0022 version. Earlier n0021 results remain with 0.0.21 and do not automatically accept this update.
+          Test Dashboard definitions use fresh n0023 update/gameplay/optional existing-save-load checks. Earlier n0021/n0022 results retain their versions. A short Windows check is pending; no new campaign, upload or deliberate valued-save overwrite is requested.
 
           **Asset folders** remains optional: original containers, raw movie streams and ten PCM WAV tracks are preserved under .local/game. Runtime still uses the original USA disc. Folder-backed loading, mod packs and EU language import remain future work.
 

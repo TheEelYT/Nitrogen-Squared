@@ -547,3 +547,25 @@
   0.0.23 source/version state. Preserve n0021/n0022 submitted results byte-for-byte.
   Main remains accepted 0.0.22 at 37.5927%; do not publish an unqualified config
   or substitute a tooling-only release for the viable native batch.
+
+- Version 0.0.23 retains 13 observed N2O save/load, gameplay and supporting roots,
+  +6,960 emitted bytes: 324,928 / 845,824 = 38.4156% linked,
+  61.5844% outside. All 783 accepted input records/order/guarded identities
+  and all 48 exclusions remain. NEW/boot are unchanged. Larger 44-root exploration
+  earns no unobserved credit. Final fresh regeneration removes stale pool parts.
+- Final strict O3 routes pass 240 live + 3,175 fail-fast replay =
+  3,415 comparisons, zero failures; 166 exact frames and three output-card
+  files per route match reference bytes. All 13 identities are observed
+  (11 direct/2 continuation-only). Disposable copied-card
+  load/save/overwrite checks preserve the uploaded original fingerprint. Keep raw
+  card/capture/witness data private. These game entries retain compatibility services.
+- Normal diagnostics-OFF source/range hashes match, hooks are absent, both Release
+  flags remain -O3 -DNDEBUG and the movie/controller/pause/quit fixture passes.
+  All 80 source tests, 99-file audit, CRLF text bounds and dashboard preview pass.
+  Final platform/package/public-asset receipts are pending until recorded.
+  Fresh n0023 checks do not inherit accepted n0021/n0022 passes; their submitted
+  markers/results remain byte-identical. No new campaign, upload or valued-save
+  overwrite is requested. Continue code/data mapping and work solo.
+  New private checkpoints retain the exact tested developer binary, execution
+  contract and bundled OpenBIOS/MIT notice, with SHA/staging verification before
+  reuse. Keep every compiled game artifact private, out of Git/releases.

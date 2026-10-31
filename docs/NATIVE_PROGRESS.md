@@ -1,22 +1,22 @@
 # Native translation progress
 
-The 0.0.22 native selection verifies **37.5927% linked native translation
-coverage**, with **62.4073% / 527,856 bytes** outside linked ranges.
+The 0.0.23 native selection verifies **38.4156% linked native translation
+coverage**, with **61.5844% / 520,896 bytes** outside linked ranges.
 This payload-range metric includes data; it is not CPU time or project completion.
 
 | Executable | Linked native range bytes | Payload bytes | Coverage |
 | --- | ---: | ---: | ---: |
-| SLUS_006.37 (boot loader) | 17,908 | 53,248 | 33.6313% |
-| N2O.EXE | 289,560 | 458,752 | 63.1191% |
+| N2O.EXE | 296,520 | 458,752 | 64.6362% |
 | NEW.EXE | 10,500 | 333,824 | 3.1454% |
-| Combined | 317,968 | 845,824 | 37.5927% |
+| SLUS_006.37 | 17,908 | 53,248 | 33.6313% |
+| Combined | 324,928 | 845,824 | 38.4156% |
 
-Adds 29 observed roots (8 N2O/21 NEW) and 3,496 emitted bytes, preserving
-all 754 earlier records. Boot is unchanged at 86 functions. N2O has
-632 roots/10,855 aliases; NEW has 152 roots/300
-aliases. Aliases earn no extra byte/function credit. BIOS, host services and
-analysis-only C do not count. See VALIDATION.md and TESTING.md for bounded
-qualification and the accepted reported Windows/dashboard route.
+Adds 13 observed N2O roots and 6,960 emitted bytes, preserving all 783
+earlier records. N2O has 645 roots/11,133 aliases;
+NEW has 152 roots/300 aliases. Boot is unchanged.
+Aliases, host/BIOS services and analysis-only C earn no extra credit. All 48
+whole-owner exclusions remain. Final qualification uses disposable cards and
+ordinary inputs; reported 0.0.23 Windows acceptance remains pending.
 
 The denominator includes embedded data. Current playability still relies on the
 interpreter and compatibility services; two main executable translations are not
@@ -63,6 +63,7 @@ pre-0.0.7 receipt by rebuilding first.
 | Observed game/library fragments (0.0.20) | 53 added roots; 3,044 passing final O3 comparisons and 50 exact frames through second-level play; normal production/controller check passed; user reports no gameplay issues noticed |
 | Further game/library entry fragments (0.0.21) | 26 added roots; 1,081 passing comparisons, 62 exact frames including high-score/restart flow; normal player fixture passed; reported Windows/dashboard checks accepted |
 | Further observed game/library fragments (0.0.22) | 29 added roots; 1,713 final passing comparisons and 74 exact frame checks; normal player fixture passed; all three submitted Windows/dashboard checks accepted |
+| Saved-game/card/gameplay paths (0.0.23) | 13 added roots; 3,415 final passing comparisons, 166 exact frames and matching card outputs; normal fixture passed; focused Windows checks pending |
 | Portable preparation, updates and asset folders | Original host launcher; 0.0.18 setup/player route accepted through level 9 with saving; 0.0.19 adds optional private asset/music extraction and folder access; runtime still uses original disc; no native game-byte credit |
 | Card-control/event polling | 20 additional native entry ranges; BIOS/serial protocol and file publication retain compatibility services; user reports no Windows saving/loading slowdowns in 0.0.12 |
 | Music and effects | Emulated SPU/CD path; no independent cue-driven player yet |

@@ -4,6 +4,93 @@ Reports through 0.0.20 are preserved in
 [the validation history](VALIDATION_THROUGH_0.0.20.md). Historical claims retain
 their tested version and scope.
 
+## 0.0.23 saved-game, card and gameplay paths
+
+The accepted 0.0.22 O3 baseline was reproduced with identical guarded manifest
+and diagnostic execution identity. All 783 accepted input records and their
+order remain intact. The revised strategy ranks larger uncovered call paths;
+32 larger N2O seeds plus 12 supporting helpers pass preflight (31,088 input bytes).
+The provisional pool is exploratory only. Reduction retains 13 observed roots;
+unobserved candidates and all 48 whole-owner exclusions remain unselected.
+Fresh reduced generation has matching observed guarded identities and no stale
+pool source parts. NEW/boot bindings are unchanged.
+
+Original bounded JSON scripts drive ordinary queued controller inputs, with no
+guest memory patches. Default/deep/all-flag queues and captures remain unchanged.
+The additional uploaded USA card is fingerprint-checked and used only through
+fresh byte copies, without inherited file identity metadata. Reference and candidate
+start from the same seed; the original card's SHA-256 remains unchanged.
+Actual captures confirm populated slot selection/cancellation, confirmed level-12
+loading, slot overwrite on a disposable copy and return to gameplay. The second
+saved-slot route loads level 9. The tutorial route includes prompts, ship selection,
+high-score/restart and ordinary gameplay. Requested buttons alone do not establish
+every action, stage or weapon. Fresh-card
+captures confirm setup creation, setup load and overwrite. This extends scenario
+coverage without requiring another player campaign or altering valued saves.
+
+The four targeted strict routes and their fail-fast replays completed before an
+execution-environment reset. Completion is recorded in Git commit
+e53f763331029b59dee7143f99c10dcbbf73830e. Their raw witnesses/captures were omitted
+from recovery; counts below retain those observed completed runs, not recreated
+per-witness records. Restoration reproduces the saved full diagnostic execution
+identity and guarded manifest exactly, with the same GNU 13.3 compiler and both
+Release flag sets. The four completed stages are retained. The broad reduced
+regression is rerun after restoration against retained accepted RGB/card hashes.
+
+Final reduced O3 routes clear exploratory failure collection, forced blocks,
+miss/edge tracing and use only the final identity-qualified selector:
+
+| Final route | Live comparisons | Captured inputs | Exact frames |
+| --- | ---: | ---: | ---: |
+| loaded | 56 | 26 | 31 |
+| saved-slot | 51 | 22 | 34 |
+| card-roundtrip | 89 | 57 | 33 |
+| second-slot | 44 | 22 | 31 |
+| tour | 0 | 0 | 37 |
+
+All 13 retained identities have archived identity-qualified pool observations
+(11 direct, 2 through continuations only) at
+78 distinct identity/PC pairs. The targeted strict runs passed
+fail-fast replay with 25 captured CPU/RAM/scratchpad/GTE variants per input,
+without --keep-going: 3,175 passing comparisons. Total is **240 live +
+3,175 replay = 3,415, zero failures**. All **166 decoded-RGB
+frames match**. All 15 output file comparisons (three per
+route, not that many unique cards) match accepted reference bytes.
+
+Isolated bounded comparisons freeze device time; they do not establish all
+branches, device/host side effects, campaigns or player systems. Normal production
+has diagnostics disabled, an empty qualification include and no comparison/replay/
+wrapper link hooks. Normal source/range hashes and coverage match the diagnostic
+manifest exactly; C and C++ Release flags remain -O3 -DNDEBUG. The separate normal
+movie/controller/pause/quit fixture passes; inspected images confirm presentation.
+A restored cached object still carried diagnostic call references during the
+normal link. Recompiling that object with the compiler cache disabled removed
+those references; the production build continued with the cache disabled.
+Framework and generated game sources were unchanged. The completed normal
+fixture and source/range checks above use that repaired production binary.
+Both reports verify **324,928 / 845,824 = 38.4156% linked**,
+**520,896 / 61.5844% outside**, +6,960 emitted bytes.
+The metric includes payload data, not CPU time or overall completion.
+
+Source-identity-bound code/data analysis is refreshed with current static and
+observed trace hints; hints neither qualify entries nor change the denominator:
+
+| Payload | Linked | Static-code hint | Data hint | Conflict | Unclassified |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| N2O.EXE | 296,520 | 73,388 | 15,679 | 0 | 73,165 |
+| NEW.EXE | 10,500 | 35,752 | 184,128 | 0 | 103,444 |
+| SLUS_006.37 | 17,908 | 0 | 677 | 0 | 34,663 |
+
+All 80 source tests, the 99-file reviewed source audit, Windows CRLF 128 KiB text
+bounds and diff checks pass. The current dashboard parser/importer accepts fresh
+n0023 definitions, preserves both earlier submitted reports byte-for-byte and
+leaves new checks untested. Source, Windows/Linux runtime/renderer and portable
+package/update CI gate release publication; final receipts and public ZIP audit
+are recorded separately after completion. Focused 0.0.23 Windows player checks
+remain pending. No commercial inputs, derived C/guards, compiled game, captures,
+witnesses or saves enter Git/releases. Private recovery includes compiler-cache
+objects and stays private. USA-only scope and deferred asset/EU/clock work remain.
+
 ## 0.0.22 further observed native game/library batch
 
 The user accepts 0.0.21 gameplay and its submitted dashboard n0021 results,

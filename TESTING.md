@@ -1,6 +1,31 @@
-# Windows release and development test — 0.0.22
+# Windows release and development test — 0.0.23
 
 ## Current acceptance and update checks
+
+**0.0.23 — 13 native save/load, gameplay and supporting entry roots; focused Windows check pending.**
+Adds 6,960 emitted bytes while preserving all 783 earlier input records.
+Linked emitted coverage is **324,928 / 845,824 = 38.4156%**,
+with **61.5844%** outside. This includes payload data, not project completion or CPU time.
+
+Final reduced O3 tests pass 240 live + 3,175 replay = 3,415
+comparisons, zero mismatches, and 166 exact frames. All 13 identities are
+observed (11 at owner entry, 2 through continuations only).
+Private copied-card routes exercise actual saved-game loading, later-level play,
+slot overwrite and fresh setup create/load/overwrite. Output cards match the
+accepted reference byte-for-byte; the uploaded original remains unchanged.
+The normal movie/controller/pause/quit fixture passes without qualification hooks.
+
+Use **Check for updates**, let the private build refresh, then try opening playback,
+menus, short gameplay with movement/firing and usual face buttons, pause/resume
+and normal quit. If you normally use an existing saved slot, optionally load one
+and play briefly. No new campaign, upload, reimport or deliberate valued-save
+overwrite is requested. Preserve .local and existing saves.
+
+Dashboard n0023 has fresh untested update/gameplay/optional-load checks. Submitted
+n0021 and n0022 results, notes, timestamps and markers remain unchanged and retain
+their version scope. Startup performance does not require an unrelated repeat.
+Runtime still uses the original USA disc; folder-backed assets, EU support and
+clock separation remain future work.
 
 **0.0.22 — 29 additional native entry roots; submitted Windows/dashboard checks accepted.**
 Adds 8 N2O and 21 NEW roots while preserving all 754 earlier input records.
@@ -604,7 +629,7 @@ python tools/native_progress.py
 The report counts only native ranges linked into the build, excluding generated
 analysis-only translations and host/BIOS code. Its payload denominator includes
 embedded data, so it is not an estimate of overall project completion.
-The default 0.0.22 ENHANCED build should report **37.5927%** linked and **62.4073%**
+The default 0.0.23 ENHANCED build should report **38.4156%** linked and **61.5844%**
 outside linked ranges. Its normal clean-shutdown log also prints
 `nitrogen: native game slice: dispatches=... residency_rejections=...`.
 After first-level gameplay the dispatch count should be positive. This is an
@@ -697,22 +722,22 @@ Instructions for future maintainers and assistants:
     "name": "Nitrogen-Squared",
     "subtitle": "N₂O · native port",
     "repo": "https://github.com/TheEelYT/Nitrogen-Squared",
-    "metric": "37.5927%",
+    "metric": "38.4156%",
     "metricNote": "Linked emitted byte coverage, including payload data. Not project completion or CPU time."
   },
   "version": {
-    "id": "n0022",
-    "name": "v0.0.22",
-    "title": "29 further native entry roots",
+    "id": "n0023",
+    "name": "v0.0.23",
+    "title": "Saved-game, card and gameplay paths",
     "runtime": "Windows · USA disc",
     "cart": "",
     "createdAt": "2026-10-31",
-    "description": "Reported Windows route and all three submitted dashboard checks accepted. Preserve .local and existing saves; no repeat testing requested."
+    "description": "Fresh focused update/gameplay checks and optional existing-save load. Preserve .local and saves; no repeat campaign or deliberate valued-save overwrite."
   },
   "checks": [
     {
       "id": "N2-UPDATE",
-      "title": "Check for updates and refresh the private build",
+      "title": "Update and refresh the private build",
       "area": "Launcher",
       "required": true,
       "priority": "high",
@@ -721,33 +746,34 @@ Instructions for future maintainers and assistants:
         "Allow the private build to refresh; preserve .local and existing saves."
       ],
       "expected": "Update completes and the launcher starts the refreshed build.",
-      "context": "Submitted v0.0.22 update/private-build refresh check accepted. Preserve the existing import and saves; no repeat requested."
+      "context": "Fresh v0.0.23 check; earlier results retain their version."
     },
     {
       "id": "N2-PLAY",
-      "title": "Opening movies, menus and short gameplay",
+      "title": "Opening playback, menus and short gameplay",
       "area": "Gameplay",
       "required": true,
       "priority": "high",
       "steps": [
-        "Let the opening movies play; check normal audio/video, then navigate menus.",
-        "Play a short first-level session with movement, firing and your usual face-button actions.",
-        "Pause/resume, then quit normally."
+        "Let opening movies play, then navigate the menus.",
+        "Play briefly with movement, firing and usual face buttons.",
+        "Pause/resume and quit normally."
       ],
-      "expected": "Opening playback, menus, movement, firing, pause/resume and normal quit work on the reported route.",
-      "context": "Submitted v0.0.22 opening playback/menu/short gameplay check accepted. Earlier acceptance retains its version scope; no repeat requested."
+      "expected": "Playback, menus, controls, presentation, pause/resume and quit behave normally.",
+      "context": "Fresh v0.0.23 check. No repeat campaign or exact FPS measurement is requested."
     },
     {
-      "id": "N2-SCORE",
-      "title": "High-score name-selection display",
-      "area": "Presentation",
+      "id": "N2-LOAD",
+      "title": "Load a familiar existing saved slot",
+      "area": "Persistence",
       "required": false,
       "priority": "normal",
       "steps": [
-        "If high-score entry arises naturally, inspect the name-selection display."
+        "If you normally use an existing saved slot, load it.",
+        "Play briefly and check the expected stage/progress and normal controls."
       ],
-      "expected": "Name-selection display remains readable and usable.",
-      "context": "Submitted v0.0.22 high-score display check accepted. No repeat campaign or valued-save overwrite requested."
+      "expected": "Existing saved progress loads and gameplay behaves normally.",
+      "context": "Optional existing-save check; no new campaign, new upload or deliberate valued-save overwrite. Local overwrite tests use disposable copies only."
     }
   ]
 }
