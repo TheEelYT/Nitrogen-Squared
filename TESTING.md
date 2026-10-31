@@ -735,3 +735,53 @@ Instructions for future maintainers and assistants:
   ]
 }
 ```
+
+<!-- project-lab-results:start -->
+## Submitted dashboard results
+
+These are version-scoped player results, separate from the check definitions and earlier acceptance history.
+
+```test-dashboard-results
+{
+  "schemaVersion": 1,
+  "projectId": "nitrogen",
+  "reports": [
+    {
+      "versionId": "n0021",
+      "version": "v0.0.21",
+      "notes": "",
+      "checks": [
+        {
+          "id": "N2-PLAY",
+          "title": "Menus and short first-level gameplay",
+          "status": "pass",
+          "notes": "",
+          "updatedAt": "2026-10-31T14:09:40.269Z"
+        },
+        {
+          "id": "N2-SCORE",
+          "title": "High-score name-selection display",
+          "status": "pass",
+          "notes": "",
+          "updatedAt": "2026-10-31T14:09:58.825Z"
+        },
+        {
+          "id": "N2-STARTUP",
+          "title": "Startup loading performance observation",
+          "status": "pass",
+          "notes": "I'm pretty sure our native save/load fixed this, as this has been gone for a few updates. ",
+          "updatedAt": "2026-10-31T14:10:32.518Z"
+        },
+        {
+          "id": "N2-UPDATE",
+          "title": "Check for updates and refresh the private build",
+          "status": "pass",
+          "notes": "",
+          "updatedAt": "2026-10-31T14:09:30.160Z"
+        }
+      ]
+    }
+  ]
+}
+```
+<!-- project-lab-results:end -->
