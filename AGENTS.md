@@ -368,3 +368,57 @@
   metric/scope, stable per-version check IDs and no inherited results. Keep
   prose and JSON checks consistent. Never put statuses in definitions or
   auto-submit results. Use GitHub SHA guards and preserve concurrent feedback.
+
+
+## Interrupted 0.0.22 work — resume before release
+
+- The execution environment became unavailable during final qualification.
+  Public production keeps accepted 0.0.21, its 754 input records and 37.1794%
+  linked / 62.8206% outside. User gameplay and all four submitted n0021 dashboard
+  checks are accepted. Preserve their result markers, notes and timestamps.
+- A private reduced candidate has 29 new roots (8 N2O / 21 NEW), 3,520 input
+  bytes, +3,496 emitted bytes: provisional 317,968 / 845,824 = 37.5927% linked,
+  62.4073% outside. All accepted records remain identical and in order. This is
+  pending final qualification, not credited public progress or a 0.0.22 release.
+- The original --combat-inputs tool adds short ordinary face-button presses,
+  preserving the original initial prefix and loop duration. Its reference passed
+  37 captures through frame 36308; the first 17 match accepted hashes. Exploration
+  ended with 29 retained roots, one held whole input and 74 exact frame checks.
+  Keep all 48 whole-owner exclusions. No reduced emitted guard intersects them;
+  accepted capture scaffolds can span un-emitted gaps and must not be removed
+  merely because their input scaffold spans a held gap.
+- The reduced O3 binary passed 1,550 preliminary captured-input/GTE replay cases.
+  Fresh strict combat then passed 90 comparisons, zero failures, 37 exact RGB
+  frames and three identical fresh test-card files. The second strict deep route
+  was observed through frame 12000 with 64 comparisons and zero failures before
+  execution access was lost; its completion is unverified. Inspect surviving
+  logs if access returns. Do not assume transport loss means the process either
+  finished or stopped, or add preliminary tests to final-only totals.
+- Finish/verify strict routes with collection/preblocks/traces/edge options clear,
+  fresh fail-fast replay without keep-going, normal diagnostics-OFF/O3 build
+  with empty qualification include and matching source/range hashes, the normal
+  movie/controller/pause/quit fixture and image inspection, 80 source tests,
+  99-file audit including 128 KiB Windows CRLF bounds, dashboard import preview,
+  Windows/Linux and portable package/update CI, and actual public ZIP audit.
+  Publish 0.0.22 only after that work. Standing main/release authorization remains.
+- The private recovery archive in the project files saves the reduced config,
+  selector/manifest, exclusions, accepted frame/card hashes, original helper
+  scripts, preliminary replay receipts and compiler cache. Its latest saved
+  snapshot predates completion of the first strict route; the completion totals
+  above were observed afterward. Raw witnesses/captures/saves are omitted.
+  Restore metadata under .local/qualification-022 and compiler-cache under
+  .local/compiler-cache. Inspect checkpoint phase and repeat any required final
+  tests with fresh output/card directories if scratch was lost. Never publish
+  exploratory configs or compiled game/cache data.
+- Keep ccache compiler-content/source/flag checks, both Release flag sets
+  -O3 -DNDEBUG, two compile jobs, serialized game sessions and the unmodified
+  pinned framework. Reuse the verified existing USA input; no new upload,
+  repeated campaign or valued-save overwrite is required. USA-only scope and
+  deferred EU/assets/clock work remain. Continue the code/data inventory.
+- Eventual TESTING.md definitions need fresh n0022 checks and matching prose,
+  metric and release date while preserving submitted n0021 results exactly.
+  Keep project id nitrogen, one strict definition block and the result markers.
+  Use the linked dashboard format/importer and SHA guards for concurrent edits.
+  The planned focused scope is updating, opening playback/menus/short gameplay/
+  pause/quit, and optional natural high-score entry. Startup performance was
+  already accepted and needs no unrelated repeat.

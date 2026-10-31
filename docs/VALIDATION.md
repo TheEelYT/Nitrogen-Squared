@@ -142,3 +142,31 @@ operation. No runtime rebuild, VERSION bump or repeated check is needed for this
 acceptance note. Coverage remains 314,472 / 845,824 = 37.1794% linked, 62.8206%
 outside. Future release definitions must use their own version ID and start
 untested; earlier passes remain evidence only for their recorded version.
+
+
+## Interrupted 0.0.22 qualification checkpoint
+
+Execution access was lost during the second fresh strict route. The prepared
+29-root candidate is unqualified for release; public production remains the
+accepted 0.0.21 binding at 37.1794% linked. Its original qualification tooling
+and newly discovered failed-owner exclusion are preserved for continuation.
+
+The private reduced O3 candidate has 8 N2O and 21 NEW additions, preserving all
+754 prior records. It adds 3,496 emitted bytes to reach a provisional 317,968 /
+845,824 = 37.5927% linked / 62.4073% outside. One exploratory N2O input failed
+a bounded GPR/RAM comparison and is held as a whole input. All 48 held intervals
+are absent from the reduced emitted guards. Exploration matched all 74 frames.
+
+The reduced binary passed 1,550 preliminary captured-input/GTE replay cases.
+Its first fresh strict route completed 90 comparisons with zero failures,
+37 identical RGB frames and three identical fresh test-card files. The second
+strict route was observed through frame 12000 with 64 passing comparisons;
+completion is unverified. Fresh final replay, normal-production/source/CI/package
+and eventual Windows player checks remain pending. AGENTS.md records the exact
+remaining steps and private recovery procedure.
+
+The user's 0.0.21 gameplay and four submitted dashboard checks are accepted.
+Keep those results by version; eventual n0022 definitions start fresh. This
+checkpoint retains the accepted production binding and VERSION, and preserves
+the original controller tool plus failed-input metadata. It publishes no
+commercial data, generated game bodies, guards, compiled game or private files.

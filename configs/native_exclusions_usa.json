@@ -280,5 +280,11 @@
     "start": "0x800728E8",
     "size": 384,
     "reason": "Unqualified bounded comparison context in the 0.0.19 private pool; exclude the whole input band"
+  },
+  {
+    "executable": "N2O.EXE",
+    "start": "0x8002FDC4",
+    "size": 32,
+    "reason": "Unqualified bounded O3 live comparison in 0.0.22; exclude the whole input band"
   }
 ]
