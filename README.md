@@ -14,8 +14,8 @@ First launch selects your USA CUE/BIN and privately verifies, extracts, generate
 compiles and plays. Use **Check for updates** in an existing launcher, keeping
 .local and your saves. No separate Python or Visual Studio installation is needed.
 
-The user reports 0.0.20 still plays with no issues noticed. Its reported route
-is accepted; the focused 0.0.21 Windows player check remains pending. No repeated
+The user reports 0.0.21 plays as before with no issues noticed; its submitted
+dashboard update, gameplay, high-score and startup checks pass. No repeated
 campaign is requested. USA remains the sole supported disc.
 
 **Asset folders** extracts original asset containers, raw movie streams and ten

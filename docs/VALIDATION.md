@@ -125,3 +125,20 @@ normalization, and the source ZIP entries match the packaged app byte-for-byte.
 This subsequent receipt update is documentation only. Preserve the published
 0.0.21 assets/tag; no VERSION bump, runtime rebuild or repeat player check is
 needed for this receipt. Focused Windows player acceptance remains pending.
+
+
+## 0.0.21 reported Windows/dashboard acceptance
+
+The user completed the gameplay check and reports the same behavior as before,
+with no issues noticed. The submitted version n0021 dashboard report records
+passes for launcher update/private build refresh, menus/first-level gameplay,
+high-score name selection and startup performance. Preserve its result markers,
+notes and timestamps exactly. The startup note reports the historical dip has
+been absent for several updates and suspects native save/load; this is a player
+observation, not a confirmed causal diagnosis or precise FPS measurement.
+
+Accept that reported route without inferring a new level-9 campaign or save/reload
+operation. No runtime rebuild, VERSION bump or repeated check is needed for this
+acceptance note. Coverage remains 314,472 / 845,824 = 37.1794% linked, 62.8206%
+outside. Future release definitions must use their own version ID and start
+untested; earlier passes remain evidence only for their recorded version.

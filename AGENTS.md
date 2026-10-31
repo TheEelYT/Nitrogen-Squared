@@ -351,3 +351,20 @@
   downloaded and verified. Preserve published assets/tag. This receipt is
   documentation only; no rebuild, VERSION bump or repeat player check is needed.
   Focused Windows 0.0.21 player acceptance remains pending.
+
+
+- The user completed 0.0.21 gameplay and reports unchanged behavior with no issues
+  noticed. Submitted n0021 dashboard results pass N2-UPDATE, N2-PLAY, N2-SCORE and
+  N2-STARTUP. Accept the reported route without inferring a new campaign/save
+  check. The startup dip is reported absent for several updates; native save/load
+  is the user's suspected cause, not an established diagnosis. No repeat test,
+  rebuild or VERSION bump is needed for this acceptance note.
+- TESTING.md now contains the Test Dashboard v1 import contract and submitted
+  version-scoped results. Read its maintainer instructions and the linked
+  projects-dashboard-site/docs/TESTING-FORMAT.md before updating it. Preserve
+  project id nitrogen, exactly one strict test-dashboard JSON definition block,
+  and the project-lab-results markers/results block byte-for-byte when changing
+  definitions. New releases need a fresh version ID, matching name/title/date/
+  metric/scope, stable per-version check IDs and no inherited results. Keep
+  prose and JSON checks consistent. Never put statuses in definitions or
+  auto-submit results. Use GitHub SHA guards and preserve concurrent feedback.

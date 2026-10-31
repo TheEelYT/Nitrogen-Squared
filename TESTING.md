@@ -2,7 +2,7 @@
 
 ## Current acceptance and update checks
 
-**0.0.21 — 26 additional native entry roots; focused Windows player check pending.**
+**0.0.21 — 26 additional native entry roots; reported Windows and dashboard checks accepted.**
 Adds 22 N2O and 4 NEW roots, preserving all 728 earlier input records.
 Linked emitted coverage is **314,472 / 845,824 = 37.1794%**,
 with **62.8206%** outside; +6,304 bytes over 0.0.20. This metric includes payload
@@ -14,9 +14,9 @@ return to gameplay; a second route keeps the earlier alternate-input schedule.
 All 26 identities were observed (26 at owner entry, 0 continuation-only).
 Normal hashes match and the movie/controller/quit fixture passes without hooks.
 
-Update using **Check for updates**, let the private build refresh, then try menus
+The completed focused check used **Check for updates**, refreshed the private build, then covered menus
 and a short first-level session with movement/firing, pause/resume and ordinary
-quit. If high-score entry comes up naturally, check its name-selection display.
+quit. The submitted dashboard also records a pass for high-score name selection.
 No new campaign, deliberate save overwrite or new upload is requested. Preserve
 .local and existing saves. Earlier player reports retain their version scope.
 Asset folders and the original-disc runtime path are unchanged; USA remains the
@@ -680,7 +680,7 @@ Instructions for future maintainers and assistants:
     "runtime": "Windows · USA disc",
     "cart": "",
     "createdAt": "2026-10-30",
-    "description": "Focused Windows player check pending. Preserve .local and existing saves. No new campaign or deliberate save overwrite requested."
+    "description": "Reported Windows gameplay and all four submitted dashboard checks accepted. Preserve .local and existing saves; no repeat campaign or deliberate save overwrite requested."
   },
   "checks": [
     {
@@ -708,7 +708,7 @@ Instructions for future maintainers and assistants:
         "Pause/resume, then quit normally."
       ],
       "expected": "Menus, movement, firing, pause/resume and normal quit work on the reported route.",
-      "context": "v0.0.21 awaits player confirmation. Earlier acceptance stays with its version."
+      "context": "Reported v0.0.21 route accepted with no issues noticed. Earlier reports retain their own version scope."
     },
     {
       "id": "N2-SCORE",
@@ -729,8 +729,8 @@ Instructions for future maintainers and assistants:
       "required": false,
       "priority": "normal",
       "steps": [],
-      "expected": "Record evidence if the loading dip occurs naturally.",
-      "context": "Historical startup FPS dip remains unresolved. Its cause is unconfirmed; no immediate repeat test requested."
+      "expected": "Previously reported startup dip does not recur on the reported route.",
+      "context": "Player reports this has been absent for several updates and suspects the native save/load work. Its cause and exact timing remain unconfirmed; no repeat test requested."
     }
   ]
 }

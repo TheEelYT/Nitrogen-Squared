@@ -4,8 +4,8 @@
 
 Adds 26 qualified entry roots and 6,304 emitted bytes, reaching 37.1794%
 linked / 62.8206% outside. Final live/replay, 62 exact-frame and normal player
-checks pass; focused Windows player acceptance remains pending. The user accepted
-the reported 0.0.20 route with no issues noticed. No repeat campaign is required.
+checks pass; reported Windows 0.0.21 gameplay/dashboard checks are accepted.
+The user reports no issues noticed. No repeat campaign is required.
 
 USA remains the sole supported base. EU comparison and compatibility are deferred.
 Once folder-backed runtime assets are established, investigate optional language
