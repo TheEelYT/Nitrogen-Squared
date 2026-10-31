@@ -796,6 +796,34 @@ These are version-scoped player results, separate from the check definitions and
           "updatedAt": "2026-10-31T14:09:30.160Z"
         }
       ]
+    },
+    {
+      "versionId": "nitrogen:n0022",
+      "version": "v0.0.22",
+      "notes": "",
+      "checks": [
+        {
+          "id": "nitrogen:n0022:N2-PLAY",
+          "title": "Opening movies, menus and short gameplay",
+          "status": "pass",
+          "notes": "",
+          "updatedAt": "2026-10-31T18:59:56.554Z"
+        },
+        {
+          "id": "nitrogen:n0022:N2-SCORE",
+          "title": "High-score name-selection display",
+          "status": "pass",
+          "notes": "",
+          "updatedAt": "2026-10-31T19:00:00.079Z"
+        },
+        {
+          "id": "nitrogen:n0022:N2-UPDATE",
+          "title": "Check for updates and refresh the private build",
+          "status": "pass",
+          "notes": "",
+          "updatedAt": "2026-10-31T18:59:54.808Z"
+        }
+      ]
     }
   ]
 }
