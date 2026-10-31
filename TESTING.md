@@ -624,3 +624,108 @@ uses `run_runtime.py --display-ring`.
 
 Do not attach the `generated`, `cache`, `overlay-private` directories or
 `overlay_captures.json`; those can contain original game code/data.
+
+
+## Dashboard import format — maintainer instructions
+
+Keep the single fenced `test-dashboard` JSON block below in sync with the current
+player-check scope above. The schema is version 1, documented in
+[Projects Dashboard](https://github.com/TheEelYT/projects-dashboard-site/blob/main/docs/TESTING-FORMAT.md).
+
+Instructions for future maintainers and assistants:
+- Preserve the project ID. Keep version and check IDs stable while editing the same
+  update, so reimport preserves recorded results and notes.
+- When a new release requires fresh checks, assign a new version ID and update its
+  name, title, runtime, description, date and affected check definitions together.
+  Do not carry a previous pass forward as confirmation of a new implementation.
+- Keep ordinary testing instructions, acceptance history, limits and access
+  prerequisites in the prose above. Update the JSON steps, expected result and
+  context when those instructions change.
+- The block contains definitions only: no checkbox statuses, player results,
+  private notes, tokens or generated game data. Record results in the dashboard.
+  New imported checks start untested; inaccessible checks need an explicit
+  blocked result and reason.
+- Checking a box must never commit this file. Export a report and review it before
+  deliberately publishing feedback to GitHub. Definition edits are ordinary
+  reviewed project changes.
+- The dashboard currently imports a local file explicitly; it does not poll GitHub.
+  Pull the repo while online before importing if the latest definitions are needed.
+  Offline testing uses the last imported snapshot.
+- Validate strict JSON (no comments/trailing commas), unique check IDs, and the
+  dashboard import preview before accepting a format change. Keep exactly one
+  `test-dashboard` block. Use the dashboard's Export check definitions action
+  or its template when adding a project or changing the format.
+
+```test-dashboard
+{
+  "schemaVersion": 1,
+  "project": {
+    "id": "nitrogen",
+    "name": "Nitrogen-Squared",
+    "subtitle": "N₂O · native port",
+    "repo": "https://github.com/TheEelYT/Nitrogen-Squared",
+    "metric": "37.1794%",
+    "metricNote": "Linked emitted byte coverage, including payload data. Not project completion or CPU time."
+  },
+  "version": {
+    "id": "n0021",
+    "name": "v0.0.21",
+    "title": "26 additional native entry roots",
+    "runtime": "Windows · USA disc",
+    "cart": "",
+    "createdAt": "2026-10-30",
+    "description": "Focused Windows player check pending. Preserve .local and existing saves. No new campaign or deliberate save overwrite requested."
+  },
+  "checks": [
+    {
+      "id": "N2-UPDATE",
+      "title": "Check for updates and refresh the private build",
+      "area": "Launcher",
+      "required": true,
+      "priority": "high",
+      "steps": [
+        "Use Check for updates in the existing launcher.",
+        "Allow the private build to refresh; preserve .local and existing saves."
+      ],
+      "expected": "Update completes and the launcher starts the refreshed build.",
+      "context": "Current v0.0.21 focused check. No reimport or new upload is requested."
+    },
+    {
+      "id": "N2-PLAY",
+      "title": "Menus and short first-level gameplay",
+      "area": "Gameplay",
+      "required": true,
+      "priority": "high",
+      "steps": [
+        "Navigate menus.",
+        "Play a short first-level session with movement and firing.",
+        "Pause/resume, then quit normally."
+      ],
+      "expected": "Menus, movement, firing, pause/resume and normal quit work on the reported route.",
+      "context": "v0.0.21 awaits player confirmation. Earlier acceptance stays with its version."
+    },
+    {
+      "id": "N2-SCORE",
+      "title": "High-score name-selection display",
+      "area": "Presentation",
+      "required": false,
+      "priority": "normal",
+      "steps": [
+        "If high-score entry arises naturally, inspect the name-selection display."
+      ],
+      "expected": "Name-selection display remains readable and usable.",
+      "context": "Optional: only if encountered naturally. Do not overwrite a valued save or force another campaign."
+    },
+    {
+      "id": "N2-STARTUP",
+      "title": "Startup loading performance observation",
+      "area": "Performance",
+      "required": false,
+      "priority": "normal",
+      "steps": [],
+      "expected": "Record evidence if the loading dip occurs naturally.",
+      "context": "Historical startup FPS dip remains unresolved. Its cause is unconfirmed; no immediate repeat test requested."
+    }
+  ]
+}
+```
