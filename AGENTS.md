@@ -500,3 +500,15 @@
   inputs and short prefix hashes remain discovery hints. Qualify exact guarded
   identities, reduce to passing observed roots and repeat final O3/live/replay/
   visual/normal/source/platform/public-release checks before promotion.
+
+- The user's additional USA memory-card input is used only through disposable
+  copies; preserve the uploaded original and verify its fingerprint. The first
+  two targeted exploratory routes pass 94 comparisons, zero failures, and 55
+  exact frame checks. They observe nine candidate roots (4,664 input bytes),
+  including a larger gameplay/render helper in level 12. These are exploratory
+  receipts, not final reduced qualification or credited release coverage.
+  Save-slot and fresh-card create/load/overwrite paths are being tested next.
+- Seeded controller routes copy file bytes into a fresh writable directory and
+  record initial file fingerprints. Test copies must not inherit the uploaded
+  file's Library identity. Keep raw cards/captures/witnesses private and preserve
+  n0021/n0022 dashboard results when defining a later release's fresh checks.

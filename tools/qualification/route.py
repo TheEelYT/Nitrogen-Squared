@@ -75,9 +75,13 @@ def main():
     if args.seed_cards:
         if not args.seed_cards.is_dir() or (out / "cards").exists():
             raise ValueError("Seed cards require an existing source and a fresh output cards directory")
-        shutil.copytree(args.seed_cards, out / "cards")
+        shutil.copytree(args.seed_cards, out / "cards", copy_function=shutil.copyfile)
     description = dict(script=script, script_sha256=hashlib.sha256(args.script.read_bytes()).hexdigest() if script else None,
-                       builtin_flags={k: getattr(args, k) for k in ("help_prompts", "alternate_ship", "alternate_difficulty", "extended", "long", "deep", "combat_inputs")})
+                       builtin_flags={k: getattr(args, k) for k in ("help_prompts", "alternate_ship", "alternate_difficulty", "extended", "long", "deep", "combat_inputs")},
+                       seeded_cards=bool(args.seed_cards), initial_card_files=[
+                           dict(file=f.relative_to(out / "cards").as_posix(), size=f.stat().st_size,
+                                sha256=hashlib.sha256(f.read_bytes()).hexdigest())
+                           for f in sorted((out / "cards").rglob("*")) if f.is_file()])
     (out / "route-description.json").write_text(json.dumps(description, indent=2) + "\n")
     env = os.environ.copy()
     env.update(SDL_VIDEODRIVER="offscreen", SDL_AUDIODRIVER="dummy", EGL_PLATFORM="surfaceless",
