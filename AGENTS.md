@@ -463,3 +463,16 @@
   Preserve assets/tag. This receipt needs no rebuild, VERSION bump or repeat
   player check. Focused Windows/dashboard n0022 player acceptance is pending;
   preserve earlier submitted results by version.
+
+
+- The user submitted v0.0.22 dashboard results in main commit
+  a6183f1b4c594ea5de166436f8f195c70ba94882. All three checks pass:
+  N2-UPDATE (launcher/private-build refresh), N2-PLAY (opening playback, menus,
+  short gameplay and defined pause/quit scope), N2-SCORE (high-score display).
+  Accept that reported Windows route, superseding pending 0.0.22 status above.
+  Do not infer a new campaign, save/reload check, every weapon or exact FPS.
+  Preserve both n0021/n0022 reports, notes, timestamps and result markers exactly;
+  the current report uses project-prefixed version/check IDs. Definition IDs
+  remain stable. Future versions start with fresh checks. This docs-only note
+  needs no VERSION bump, rebuild, release replacement or repeat player test.
+  Coverage remains 37.5927% linked / 62.4073% outside.

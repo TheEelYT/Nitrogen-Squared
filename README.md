@@ -14,10 +14,10 @@ First launch selects your USA CUE/BIN and privately verifies, extracts, generate
 compiles and plays. Use **Check for updates**, preserving .local and existing saves.
 No separate Python or Visual Studio installation is needed.
 
-The user accepts 0.0.21 gameplay and its dashboard update, gameplay, high-score
-and startup checks with no issues noticed. The focused 0.0.22 Windows check is
-pending and has fresh dashboard definitions; earlier results retain their version.
-No repeated campaign is requested. USA remains the sole supported base.
+All three submitted 0.0.22 dashboard checks pass: launcher update/private-build
+refresh, opening playback/menus/short gameplay and high-score display. The reported
+Windows route is accepted; earlier results retain their version. No repeat testing
+is requested. USA remains the sole supported base.
 
 **Asset folders** preserves original containers, raw movie streams and ten PCM
 WAV tracks under .local/game. Runtime still uses the original disc. Folder-backed

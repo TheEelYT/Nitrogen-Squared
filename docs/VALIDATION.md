@@ -78,7 +78,7 @@ b42738b02a9015dfe23f695c343d0b792be0dfccea25d499fc38784fd5b3a162. The separate n
 all three native movies, samples analog movement/firing, checks pause/resume and
 exits through SDL_QUIT; its two private gameplay captures were inspected. Dummy
 and offscreen device observations do not establish physical audio quality or
-sustained Windows FPS. Focused Windows 0.0.22 player acceptance remains pending.
+sustained Windows FPS. Submitted Windows 0.0.22 checks are accepted below.
 No repeated campaign, new upload or valued-save overwrite is requested.
 
 The 80 local source tests and 99-file reviewed source audit pass, including the
@@ -300,6 +300,29 @@ normalization; source ZIP entries match the packaged app byte-for-byte.
 | Nitrogen-Squared-Windows-x64.zip.sha256 | 100 | `cc052023eed8b9401c88249b4e3e83544c5bb0bc1296b8ee71d70f2b28887c84` |
 
 This following receipt update is documentation only. Preserve the published
-assets/tag; it needs no VERSION bump, rebuild or repeat player check. Focused
-Windows 0.0.22 player acceptance remains pending. Dashboard n0022 has fresh
-checks, with earlier n0021 result markers/notes/timestamps preserved.
+assets/tag; it needs no VERSION bump, rebuild or repeat player check.
+The subsequent 0.0.22 acceptance note below supersedes pending Windows status.
+Dashboard result markers/notes/timestamps remain preserved by version.
+
+
+## 0.0.22 reported Windows/dashboard acceptance
+
+The user submitted results in main commit a6183f1b4c594ea5de166436f8f195c70ba94882.
+All three checks for v0.0.22 (`nitrogen:n0022`) are marked pass:
+
+- N2-UPDATE: launcher update and private-build refresh.
+- N2-PLAY: opening movies/audio-video, menus and short gameplay with the defined
+  movement/firing, usual face-button actions, pause/resume and normal quit scope.
+- N2-SCORE: readable and usable high-score name-selection display.
+
+Accept the reported Windows route without inferring a new campaign, save/reload
+operation, every weapon/action, physical performance measurement or exhaustive
+branch coverage. The submitted report has no additional notes. Preserve both
+n0021 and n0022 submitted results/notes/timestamps and the exact result markers.
+The dashboard importer retains all seven earlier/current check results while
+updating definition prose; project/version/check IDs remain unchanged.
+
+This acceptance is documentation only: VERSION remains 0.0.22, published assets
+and tag remain unchanged, and no rebuild or repeat player check is needed.
+Linked coverage remains 317,968 / 845,824 = 37.5927%, with 62.4073% outside.
+Future runtime releases require fresh version-scoped checks.

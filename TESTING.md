@@ -2,7 +2,7 @@
 
 ## Current acceptance and update checks
 
-**0.0.22 — 29 additional native entry roots; focused Windows player check pending.**
+**0.0.22 — 29 additional native entry roots; submitted Windows/dashboard checks accepted.**
 Adds 8 N2O and 21 NEW roots while preserving all 754 earlier input records.
 Linked emitted coverage is **317,968 / 845,824 = 37.5927%**,
 with **62.4073%** outside; +3,496 bytes over 0.0.21. This includes payload data
@@ -15,16 +15,17 @@ ordinary-input route adds short face-button presses after the unchanged initial
 prefix. Requested inputs do not prove every possible weapon/action was exercised.
 Normal hashes match; the movie/controller/pause/quit fixture passes without hooks.
 
-Use **Check for updates**, let the private build refresh, let the opening movies
-play with normal audio/video, then try menus and a short first-level session
-with movement/firing and your usual face-button actions,
-pause/resume and normal quit. Check high-score name selection only if it comes up
-naturally. No new campaign, reimport, upload or deliberate save overwrite is
-requested. Preserve .local and existing saves. Startup performance was accepted
-in 0.0.21 and needs no unrelated repeat check for this native batch.
+The submitted 0.0.22 results pass all three checks: launcher update/private-build
+refresh; opening playback, menus and short gameplay (including the defined
+movement/firing, usual face buttons, pause/resume and normal quit scope); and
+high-score name-selection display. Accept this reported Windows route without
+inferring a new campaign, save/reload check, every weapon/action or exact FPS.
+No repeat testing, reimport, upload or deliberate save overwrite is requested.
+Preserve .local and existing saves. Startup performance retains its 0.0.21 scope.
 
-Dashboard definitions use n0022 with fresh untested checks. Submitted n0021 passes,
-notes and timestamps are retained exactly. Earlier results do not accept 0.0.22.
+Dashboard n0022 now has three submitted passes. Both n0021 and n0022 result
+markers, notes and timestamps are preserved exactly. Each report retains its
+version scope; future releases need fresh untested checks.
 Runtime still uses the original USA disc; Asset folders and deferred folder-backed
 loading, EU work and logic/render clock separation are separate work.
 
@@ -706,7 +707,7 @@ Instructions for future maintainers and assistants:
     "runtime": "Windows · USA disc",
     "cart": "",
     "createdAt": "2026-10-31",
-    "description": "Focused Windows player check pending. Preserve .local and existing saves. No new campaign or deliberate save overwrite requested."
+    "description": "Reported Windows route and all three submitted dashboard checks accepted. Preserve .local and existing saves; no repeat testing requested."
   },
   "checks": [
     {
@@ -720,7 +721,7 @@ Instructions for future maintainers and assistants:
         "Allow the private build to refresh; preserve .local and existing saves."
       ],
       "expected": "Update completes and the launcher starts the refreshed build.",
-      "context": "Current v0.0.22 focused check. Keep the existing import and saves; no new upload requested."
+      "context": "Submitted v0.0.22 update/private-build refresh check accepted. Preserve the existing import and saves; no repeat requested."
     },
     {
       "id": "N2-PLAY",
@@ -734,7 +735,7 @@ Instructions for future maintainers and assistants:
         "Pause/resume, then quit normally."
       ],
       "expected": "Opening playback, menus, movement, firing, pause/resume and normal quit work on the reported route.",
-      "context": "v0.0.22 awaits player confirmation. Earlier acceptance stays with its recorded version."
+      "context": "Submitted v0.0.22 opening playback/menu/short gameplay check accepted. Earlier acceptance retains its version scope; no repeat requested."
     },
     {
       "id": "N2-SCORE",
@@ -746,7 +747,7 @@ Instructions for future maintainers and assistants:
         "If high-score entry arises naturally, inspect the name-selection display."
       ],
       "expected": "Name-selection display remains readable and usable.",
-      "context": "Optional v0.0.22 check, only if encountered naturally. Do not force another campaign or overwrite a valued save."
+      "context": "Submitted v0.0.22 high-score display check accepted. No repeat campaign or valued-save overwrite requested."
     }
   ]
 }

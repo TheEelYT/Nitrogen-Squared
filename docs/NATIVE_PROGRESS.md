@@ -16,7 +16,7 @@ all 754 earlier records. Boot is unchanged at 86 functions. N2O has
 632 roots/10,855 aliases; NEW has 152 roots/300
 aliases. Aliases earn no extra byte/function credit. BIOS, host services and
 analysis-only C do not count. See VALIDATION.md and TESTING.md for bounded
-qualification and the pending focused Windows check.
+qualification and the accepted reported Windows/dashboard route.
 
 The denominator includes embedded data. Current playability still relies on the
 interpreter and compatibility services; two main executable translations are not
@@ -62,7 +62,7 @@ pre-0.0.7 receipt by rebuilding first.
 | Library/indirect fragments | 86 new roots and one expanded owner in 0.0.17; bounded final O3 comparisons/replays and matching-frame checks; see VALIDATION.md for scope |
 | Observed game/library fragments (0.0.20) | 53 added roots; 3,044 passing final O3 comparisons and 50 exact frames through second-level play; normal production/controller check passed; user reports no gameplay issues noticed |
 | Further game/library entry fragments (0.0.21) | 26 added roots; 1,081 passing comparisons, 62 exact frames including high-score/restart flow; normal player fixture passed; reported Windows/dashboard checks accepted |
-| Further observed game/library fragments (0.0.22) | 29 added roots; 1,713 final passing comparisons and 74 exact frame checks; normal player fixture passed; focused Windows check pending |
+| Further observed game/library fragments (0.0.22) | 29 added roots; 1,713 final passing comparisons and 74 exact frame checks; normal player fixture passed; all three submitted Windows/dashboard checks accepted |
 | Portable preparation, updates and asset folders | Original host launcher; 0.0.18 setup/player route accepted through level 9 with saving; 0.0.19 adds optional private asset/music extraction and folder access; runtime still uses original disc; no native game-byte credit |
 | Card-control/event polling | 20 additional native entry ranges; BIOS/serial protocol and file publication retain compatibility services; user reports no Windows saving/loading slowdowns in 0.0.12 |
 | Music and effects | Emulated SPU/CD path; no independent cue-driven player yet |

@@ -4,8 +4,8 @@
 
 Adds 29 qualified entry roots and 3,496 emitted bytes, reaching 37.5927%
 linked / 62.4073% outside. Final O3 live/replay, 74 exact frames and normal
-player checks pass; the new focused Windows/dashboard n0022 check is pending.
-Reported 0.0.21 gameplay and all four submitted dashboard checks are accepted.
+player checks pass; all three submitted Windows/dashboard n0022 checks pass.
+Accept the reported route; earlier 0.0.21 results retain their version scope.
 Preserve results by version; do not request another campaign or valued-save test.
 USA remains the sole supported base. Continue code/data mapping with each batch.
 Runtime folder-backed assets, mod packs, optional user-owned EU language assets,
