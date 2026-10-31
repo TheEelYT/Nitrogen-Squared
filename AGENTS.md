@@ -290,7 +290,7 @@
   qualification hooks are absent, and the normal controller/movie/quit fixture
   passes. The 261-root exploratory pool and 208 unobserved candidates receive
   no extra credit; the older failed pool/provisional 80 roots remain unqualified.
-- Focused 0.0.20 Windows player acceptance is pending. Earlier reports retain
+- The reported 0.0.20 Windows gameplay route is accepted below. Earlier reports retain
   scope: 0.0.18 level 9/saving and 0.0.19 gameplay/Asset folders. No new upload,
   repeated campaign or deliberate save overwrite is required. Clock separation
   remains deferred; folder-backed runtime assets and mod-pack loading are future
@@ -306,5 +306,12 @@
   41007750065, Windows/Linux runtime 41007750056 and portable Windows 41007750099.
   The actual public ZIPs, checksum/digests, 1,749-file owned manifest, x64 launcher
   and 98-file source inventory were downloaded/verified. Preserve public assets;
-  focused 0.0.20 player acceptance remains pending. Release-receipt documentation
+  the subsequent 0.0.20 acceptance note below supersedes pending player status.
+  Release-receipt documentation
   changes need no runtime rebuild, VERSION bump or repeat player check.
+
+- The user reports that 0.0.20 still plays with no issues noticed. Accept that
+  reported Windows route without inferring a new level-9 playthrough, save/reload
+  result or every checklist action. This documentation-only acceptance needs no
+  runtime rebuild, version bump, additional files or repeat player check. Coverage
+  remains 36.4341% linked / 63.5659% outside.

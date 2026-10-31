@@ -2,7 +2,7 @@
 
 ## Current acceptance and update checks
 
-**0.0.20 — 53 further native entry roots; focused Windows player check pending.**
+**0.0.20 — 53 further native entry roots; reported Windows gameplay accepted.**
 Adds 40 N2O and 13 NEW roots while preserving the earlier binding. Linked emitted
 coverage rises by 8,188 bytes to **308,168 / 845,824 = 36.4341%**, with **63.5659%**
 outside. These are entry fragments, not complete recovered functions or CPU shares.
@@ -13,11 +13,12 @@ through second-level play. All 53 identities were observed; 52 at owner entry
 and 1 through continuations only. The normal production/controller
 check passed with matching source/range hashes and no qualification hooks.
 
-Use **Check for updates**, let the private build refresh, then try menus/ship
-selection and a short first-level session with movement and firing. Check pause/
-resume and ordinary quit. Report any changed visuals, sound or controls. No new
-disc upload, repeated level-9 campaign or deliberate save overwrite is requested.
-Keep .local and existing saves. Previous player reports retain their version scope.
+The user reports that 0.0.20 still plays with no issues noticed. Accept the
+reported Windows gameplay route without inferring a new level-9 campaign,
+save/reload check or every checklist action. No rebuild, repeat playthrough,
+new upload or deliberate save overwrite is requested for this documentation-only
+acceptance note. Keep .local and existing saves. Earlier reports retain their
+version scope.
 Asset folders remains available and preserves extracted edits; runtime reads still
 use the original disc. Clock separation and replacement-pack loading are separate work.
 

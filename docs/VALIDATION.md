@@ -1979,9 +1979,11 @@ hints separately; no code-only denominator or hint-based credit is introduced:
 | SLUS_006.37 | 17,908 | 0 | 677 | 0 | 34,663 |
 
 The 0.0.19 reported Windows gameplay/asset-folder flow remains accepted for that
-version; 0.0.18 retains the level-9/save report. The focused 0.0.20 player check
-is pending. No new upload, repeat campaign or deliberate save overwrite is
-requested. Assets remain private and runtime still uses the original disc;
+version; 0.0.18 retains the level-9/save report. The user subsequently reports
+0.0.20 still plays with no issues noticed; accept that reported Windows route.
+No new level-9 campaign, save/reload result or every checklist action is inferred.
+This documentation-only acceptance needs no rebuild, version bump, new upload,
+repeat playthrough or deliberate save operation. Assets remain private and runtime still uses the original disc;
 folder-backed loading, mod packs and clock separation are separate work.
 No game bytes, generated C/guards, compiled game, witnesses, media or saves
 enter Git/releases. A private metadata-only recovery checkpoint preserves the
