@@ -510,3 +510,12 @@ were inspected. All 83 source tests pass without skips; the 106-file source
 audit, Windows CRLF bounds and actual dashboard import preview pass. Platform/
 package and publication checks remain pending until their receipts are recorded. Fresh n0024 player checks do
 not inherit earlier passes; all submitted n0021/n0022/n0023 reports are preserved.
+
+
+## 0.0.24 publication receipt
+
+Published code [6299190](https://github.com/TheEelYT/Nitrogen-Squared/commit/629919092801b45dae27d3787b59a81b1506f0b0) passes all required main workflows: 41282459215, 41282459204, 41282459250. Source checks, actual Windows/Linux synthetic runtime/renderer execution, portable Windows launcher/toolchain and copied-update preservation checks pass.
+
+The [0.0.24 release](https://github.com/TheEelYT/Nitrogen-Squared/releases/tag/v0.0.24) was downloaded and audited: all three assets, checksum/digests, 1,757-file owned manifest, x64 launcher, portable Python license and 106-file source inventory pass. Source contents match the release commit after Git line-ending normalization; no private game payload is included. Windows ZIP SHA-256: `053a1f3c8786636c31fe3004ad187c41e42118652aca56fc3b64ac174454daf7`.
+
+This receipt is documentation only. Preserve the published tag/assets; no VERSION bump or rebuild is needed. Fresh n0024 Windows display/update/sharpness checks remain pending. Earlier n0021/n0022/n0023 submissions retain their versions and exact contents. Native coverage remains 38.4156% linked / 61.5844% outside.

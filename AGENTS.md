@@ -623,3 +623,11 @@
   builds/game sessions. Preserve private tested binaries/contracts and recovery
   receipts. Never publish disc bytes, derived game C/guards, compiled game
   modules or private recovery identifiers. The pinned framework stays unmodified.
+
+- Published 0.0.24 code 6299190 passes required main source, Windows/Linux runtime
+  and portable workflows 41282459215, 41282459204, 41282459250. Actual public three assets, SHA/digests,
+  1,757-file owned manifest, x64 launcher/Python license and 106-file source
+  inventory are downloaded/audited. Preserve published assets/tag. This receipt
+  is docs only; no VERSION bump, rebuild or repeat local checks are needed.
+  Fresh n0024 Windows display/update/sharpness player checks remain pending.
+  Preserve all earlier submitted reports. Coverage stays 38.4156% linked / 61.5844% outside.
