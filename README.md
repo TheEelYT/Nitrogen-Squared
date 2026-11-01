@@ -3,18 +3,20 @@
 A Windows-first recompilation project for **N2O: Nitrous Oxide (PlayStation)**,
 with a planned PS Vita port and optional remaster presentation.
 
-**Current status: 0.0.26 — menu layers, perk icons and high-score UI repairs.**
-Repairs the title plate, selected-item backing, square-button outline, pulsing
-footer rings, pause-menu shadows and high-score controls reported in 0.0.25. Shield/firewall icons
-join the weapon-panel transform. UI retains square pixels, a 2x floor and a
-365x240 reference; 3D resolution and aspect follow the usable window.
+**Current status: 0.0.27 — password row, animated HUD and lower interpreter overhead.**
+The code label and all eight password buttons stay together. The active shield
+ring and red boost gauge share the weapon panel's transform. Square pixels,
+a 2x floor and the 365x240 UI reference remain; 3D follows the window.
 [Display policy](docs/WINDOW_DISPLAY.md).
 
-This host-only update adds no native ranges. Coverage remains **38.4156% linked /
-61.5844% outside**, 324,928 / 845,824 bytes. The metric includes payload data and
-is not project completion or CPU time. Local visual, normal-production, source,
-Windows/Linux runtime and portable package/update checks pass; the published
-assets are audited. Fresh focused Windows player checks remain pending.
+Normal builds omit a costly diagnostic-only occupant lookup while keeping native
+residency guards. Audio and game clocks are unchanged. Local CPU measurements
+and exact-output checks are recorded in [validation](docs/VALIDATION.md); the
+reported half-second Windows level-entry pause still needs player confirmation.
+This host-only update adds no native ranges: **38.4156% linked / 61.5844% outside**,
+324,928 / 845,824 bytes. The metric includes payload data and is not project
+completion or CPU time. Platform and public-package checks gate publication;
+fresh focused Windows player checks are pending.
 
 The Windows release contains launcher.exe, supporting source and portable Python.
 First launch selects your USA CUE/BIN and privately verifies, extracts, generates,
@@ -34,8 +36,8 @@ separation remain future work.
 
 ## Play on Windows
 
-1. Download [Nitrogen-Squared-Windows-x64.zip](https://github.com/TheEelYT/Nitrogen-Squared/releases/download/v0.0.26/Nitrogen-Squared-Windows-x64.zip)
-   from the [0.0.26 release](https://github.com/TheEelYT/Nitrogen-Squared/releases/tag/v0.0.26).
+1. Download [Nitrogen-Squared-Windows-x64.zip](https://github.com/TheEelYT/Nitrogen-Squared/releases/download/v0.0.27/Nitrogen-Squared-Windows-x64.zip)
+   from the [0.0.27 release](https://github.com/TheEelYT/Nitrogen-Squared/releases/tag/v0.0.27).
 2. Extract the complete **Nitrogen-Squared** folder somewhere you can write to,
    then run **launcher.exe**. Windows 10/11 x64 is supported.
 3. Select your supported USA **CUE** sheet, keeping its matching BIN beside it.
@@ -57,7 +59,7 @@ privately from the player's verified input and must not be redistributed. No Vit
 VPK is available. The runtime retains native boot/BIOS, selected native game
 routines and interpreter fallback, with the pinned PSXRecomp framework still in use.
 
-## Native progress — 0.0.26 (unchanged selection)
+## Native progress — 0.0.27 (unchanged selection)
 
 | Selected executable payloads | Bytes | Share |
 | --- | ---: | ---: |

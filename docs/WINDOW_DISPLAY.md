@@ -1,5 +1,11 @@
 # Window-driven presentation
 
+0.0.27 keeps the row-202/204 code label and row-203 password buttons centred;
+corner footer plates start at row 205. The observed OT-440 shaded shield
+polyline uses the weapon-panel role through its live streaming state, without
+reading a stale command header. Bounded boost-fill palette 7667 shares that
+role. World shield geometry and lens-flare exclusions remain separate.
+
 0.0.26 refines complete UI layers after the owner reported remaining 0.0.25
 plate, button, pulse-ring, pause-shadow, shield/firewall and high-score issues. HUD atlas
 cells distinguish score/life/multiplier content from menu letters and shadows.

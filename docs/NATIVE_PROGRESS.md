@@ -1,6 +1,6 @@
 # Native translation progress
 
-The unchanged 0.0.26 / 0.0.23 native selection verifies **38.4156% linked native translation
+The unchanged 0.0.27 / 0.0.23 native selection verifies **38.4156% linked native translation
 coverage**, with **61.5844% / 520,896 bytes** outside linked ranges.
 This payload-range metric includes data; it is not CPU time or project completion.
 
@@ -46,11 +46,21 @@ checked; reference builds get no slice credit. It writes counts/metadata, not
 game code or media. Reject a stale
 pre-0.0.7 receipt by rebuilding first.
 
+## Interpreter diagnostic attribution — 0.0.27
+
+An original build-time wrapper omits only the resident-occupant enrichment used
+by the debug server when debug tools are disabled. Entry counters, callers and
+all native residency guards remain. Diagnostic builds and the REFERENCE profile
+retain the pinned interpreter. The pinned source hash fails closed on drift;
+the selected wrapper has its own execution-identity implementation family.
+This changes host overhead, not linked coverage or game/audio clocks.
+
 ## Native services tracked separately
 
 | Service | Current status |
 | --- | --- |
-| Desktop presentation and menu | 0.0.25 repairs reported UI grouping/scaling and adds square pixels with a 2x floor; native ranges unchanged; qualification in VALIDATION.md |
+| Desktop presentation and menu | 0.0.27 repairs the password row and active shield/boost animation roles; square pixels and 2x floor remain; qualification in VALIDATION.md |
+| Interpreter debug attribution | 0.0.27 normal builds omit diagnostic-only resident-occupant scans; entry counters and actual native guards remain; no linked-byte credit |
 | Gameplay render scheduling | Bounded OpenGL worker; local pixel parity checked, user reports no issues with 0.0.9 on Windows |
 | Controller input | Host SDL input; analog gameplay verified by the user in 0.0.6 |
 | Gameplay angle-table lookups | Two native leaf translations in N2O.EXE; private comparisons passed and user verified first-level gameplay in 0.0.10 |

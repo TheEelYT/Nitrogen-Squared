@@ -138,9 +138,11 @@ jobs:
           Extract the complete **Nitrogen-Squared** folder and run **launcher.exe**.
           Select the supported USA CUE with its matching BIN beside it. Preparation verifies/imports/generates/compiles your private game; no separate Python or Visual Studio installation is required.
 
-          **UI layer repair:** aligns title/selection backing, square-button outlines, complete footer pulse rings and pause-menu shadows, including the high-score title and save prompt. Shield/firewall icons join the weapon-panel layout. UI retains square pixels, a 2x minimum and whole steps against a 365x240 game-area reference. The 3D view still follows the window; movies keep their proportions and sampling stays nearest. Game clocks are unchanged.
+          **Password and animated HUD repair:** keeps the complete code label and eight password buttons together, and aligns the active shield ring and red boost fill with the weapon panel. UI retains square pixels, a 2x minimum and whole steps against a 365x240 reference. The 3D view follows the window; sampling stays nearest.
 
-          Native selection is unchanged: 38.4156% linked / 61.5844% outside. Fresh Test Dashboard n0026 checks cover updating, menu/button layers, pause shadows and optional naturally available shield/firewall widgets and high-score screens. All earlier submitted reports retain their versions. Focused Windows player checks are pending; no new campaign, upload or valued-save overwrite is requested.
+          Normal builds omit a costly debug-only interpreter occupant lookup while retaining native residency guards. Audio and game clocks are unchanged. Local CPU/output checks pass; the reported half-second Windows level-entry pause still needs player confirmation.
+
+          Native selection stays 38.4156% linked / 61.5844% outside. Fresh Test Dashboard n0027 checks cover updating, password layout, animated HUD and playable-tunnel entry. Earlier submitted reports retain their versions. No new campaign, upload or valued-save overwrite is requested.
 
           **Asset folders** remains optional: original containers, raw movie streams and ten PCM WAV tracks are preserved under .local/game. Runtime still uses the original USA disc. Folder-backed loading, mod packs and EU language import remain future work.
 

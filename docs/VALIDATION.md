@@ -650,18 +650,52 @@ replacement or asset overwrite. Fresh n0026 Windows player checks remain pending
 all submitted reports retain their versions and contents. Native coverage remains
 38.4156% linked / 61.5844% outside.
 
-## 0.0.27 follow-up in progress
+## 0.0.27 password, animated HUD and interpreter overhead
 
-The owner reports a split password/code label and final button on the between-
-level menu, an incorrectly scaled active shield ring and red boost-gauge fill,
-and a brief stutter at each new level load. Audio separation remains deferred;
-the requested performance work targets the loading stall itself.
+The owner reports split password/code text and a final button beside Start,
+an incorrectly scaled active shield ring and red boost fill, and a pause when
+the playable tunnel first appears after Start. Audio/logic separation remains
+deferred; performance work targets CPU overhead rather than an audio workaround.
 
-A copied-card 0.0.26 route reproduces the password split on the loaded level-12
-menu. Label/shadows occupy rows 202/204 and buttons row 203; actual footer plates
-start at 205. The candidate excludes the password row from corner anchoring.
-Real shield activation reproduces the detached HUD polyline; observed HUD shield
-lines and boost-fill sprites join the weapon-panel transform. Three compiled
-window regressions pass, including password boundaries and world exclusions.
-Real-window candidate, normal-production and platform checks remain pending.
-Loading-time profiling is ongoing; no stutter fix or new native coverage is claimed.
+Copied-card baseline captures reproduce the password failure on the loaded
+level-12 menu. Label/shadows use rows 202/204, buttons 203 and actual footer
+plates start at 205. The repaired row stays centred. The active shield's observed
+OT-440 shaded polyline uses live streaming state, since the command buffer holds
+a stale prior packet. Bounded boost-fill palette 7667 joins the weapon panel.
+Real X11/EGL worker-on views cover 2x/3x/4x and portrait, with all eight password
+buttons together and shield ring/observed red segments aligned. A disposable
+inventory fixture activates the original shield builder; this is presentation
+proof, not a natural-pickup claim. Worker-off and peak-animation checks continue.
+
+Normal-build profiling found unconditional resident-occupant enrichment inside
+external interpreted entries. It scans the 16,384-slot cache solely to populate
+debug-server per-PC fields. An original build-time include wrapper skips that
+lookup only with debug tools disabled. Entry/caller counters and every actual
+native residency guard remain. Diagnostics retain enrichment; REFERENCE uses
+the original pinned interpreter. Exact source SHA rejects upstream drift and a
+separate implementation family records the selected code in execution identity.
+The framework checkout remains unmodified.
+
+A separately linked pass-through timing fixture measures the current UI build
+before/after this change. Across frames 1800–4400, main-thread CPU time is
+43,099.319 ms before and 36,834.876 ms after (14.53% lower in this sample).
+The prior lookup accounts for 7,069.256 ms across 248,583 calls; afterward there
+are zero such calls. Entry-window frames 2390–2700 measure 7,322.132 versus
+4,775.946 ms. Steady-play total varies (20,607.342 versus 20,863.812 ms), so this
+is not a general FPS or repeatable steady-speed claim. Two captured frames and
+all three fresh-card files are byte-identical. Three opening movies, analog in
+both directions, fire, pause/resume and normal quit pass. The production binary
+contains no fixture wrappers; timing/controller interposition is separately
+linked and kept private.
+
+The reported half-second Windows stall was not reproduced in a passive ordinary-
+keyboard normal 0.0.26 trace: its first-tunnel maximum was 96.382 ms. One diagnostic
+run had an 824.7 ms gap, but a repeat did not and enabled diagnostic GPU timers
+prevent production attribution. These measurements establish removable CPU work,
+not the cause or complete resolution of the user's Windows symptom. Fresh
+n0027 level-entry feedback remains required; clocks/audio are unchanged.
+
+Final source, normal-production, platform and public-package checks remain in
+progress. Selection stays at 796 input records and all 48 exclusions:
+324,928 / 845,824 = 38.4156% linked, 61.5844% outside. No new native comparison
+or coverage credit is claimed. Earlier dashboard reports remain byte-identical.
