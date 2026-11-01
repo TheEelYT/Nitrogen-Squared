@@ -755,10 +755,17 @@ bounds and draw rank retained; menu art sharing those palettes remains centred.
 An original compiled regression checks extended star positions, all ten LCD digit
 cells, the backing and unrelated menu/world exclusions. A disposable copied-card
 fixture renders twelve stars and a four-digit LCD through the original packet
-builders. Real X11/EGL worker-on captures at 2x/3x/4x and portrait show one star
+builders. Real X11/EGL worker-on and worker-off captures at 2x/3x/4x and portrait show one star
 row and the complete LCD aligned with its panel. This controlled presentation
 fixture is not a natural bonus-stage acquisition or native-comparison claim.
-Worker-off, final normal and platform qualification follow before publication.
+The final normal movie/controller fixture passes through frame 4500, including
+both analog directions, firing, pause/resume and quit. Two captured RGB frames
+and all three fresh-card files match 0.0.27 exactly. Normal diagnostics are OFF,
+both Release flags are -O3 -DNDEBUG, the qualification include is empty and
+production contains no fixture wrappers. Diagnostic/normal implementation
+identities match; retained native manifest SHA and the game/movie/batching/
+attribution families and shared contract match 0.0.27. Only window-role source
+changes. Platform and actual public-package checks still gate publication.
 
 The Linux x86_64 ZIP contains original launcher.sh, README-FIRST.txt and reviewed
 app source only. It uses system Python/Tk, Git, CMake, Make, compiler and desktop
@@ -772,9 +779,10 @@ The actual extracted Linux first-run Tk window and copied-process update/restart
 pass locally, including changed version and save/cache sentinels. The pristine
 ZIP is created before test state and includes no game-derived binary or data.
 
-Initial 88 source tests pass without skips, including three Linux packaging,
-environment and platform/update tests. Final source/package/dashboard and both
-Windows/Linux package integration workflows gate publication. Linux first-setup
+All 88 source tests pass without skips, including three Linux packaging,
+environment and platform/update tests. The 113-file source audit, Windows CRLF bounds and actual dashboard parser
+pass: three fresh n0028 checks, with all three reports/ten submitted checks
+unchanged. Both Windows/Linux package integration workflows gate publication. Linux first-setup
 integration uses original synthetic input in CI; actual Linux game presentation
 is tested privately. Broader distribution, Wayland and real audio-device support
 remain player checks. Native selection, all 48 exclusions and clocks are unchanged:
