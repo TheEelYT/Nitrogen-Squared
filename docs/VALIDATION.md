@@ -587,3 +587,19 @@ Published code [5b15c84](https://github.com/TheEelYT/Nitrogen-Squared/commit/5b1
 The [0.0.25 release](https://github.com/TheEelYT/Nitrogen-Squared/releases/tag/v0.0.25) was downloaded and audited. All three assets, tag/latest target, checksums and digests pass. The Windows package has the expected 1,757-file owned manifest, x64 launcher and portable Python license. Its 106 source files match the release commit after Git line-ending normalization and match the separate source ZIP byte-for-byte. No private game payload is included. Windows ZIP SHA-256: `aa361596ac4eae269ee5aaeb8dd8d4b8fe108f1c798199733f95a0fd11ac474f`.
 
 This supersedes pending platform/publication status above. This receipt changes documentation only; retain the published tag/assets without a VERSION bump or rebuild. Fresh n0025 Windows UI/update checks remain pending. All earlier submitted dashboard results retain their versions and exact contents. Native coverage stays 38.4156% linked / 61.5844% outside.
+
+## 0.0.26 UI-layer repair candidate
+
+The owner reports remaining 0.0.25 failures in menu-title/selection backing,
+square-button outlines, pulsing footer rings, pause-menu dark shadows and partial
+words, and shield/firewall icon scale/placement. These reports supersede the
+limited local 0.0.25 screen checks; published assets remain unchanged.
+
+The candidate identifies HUD atlas cells instead of opaque letters by position,
+keeps menu selection backing and complete footer rings with their controls, and
+admits bounded textured perk geometry alongside sprites/counts. The 2x floor,
+square pixels, 365x240 reference, world rendering and clocks are retained.
+Source regression fixtures cover the reported layer boundaries. Local visual,
+production, platform and public-package qualification remain in progress; no
+new native selection or comparison credit is claimed. Fresh n0026 player checks
+are pending, and all earlier submitted dashboard results are preserved.

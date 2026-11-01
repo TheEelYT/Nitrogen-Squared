@@ -1,6 +1,6 @@
 # Native translation progress
 
-The unchanged 0.0.25 / 0.0.23 native selection verifies **38.4156% linked native translation
+The unchanged 0.0.26 / 0.0.23 native selection verifies **38.4156% linked native translation
 coverage**, with **61.5844% / 520,896 bytes** outside linked ranges.
 This payload-range metric includes data; it is not CPU time or project completion.
 

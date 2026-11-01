@@ -34,12 +34,16 @@ unsigned nitrogen_gpu_ui_flags(void)
     if (op>=0x60u && op<=0x63u && gp0_ot_rank==441u) return nitrogen_ui_role(0,1);
     const int rect = op >= 0x64u && op <= 0x7fu && (op & 4u);
     const int textured_quad = op >= 0x2cu && op <= 0x2fu;
-    const unsigned palette = (rect || textured_quad) ? gp0_cmd_buf[2] >> 16 : 0;
+    const int textured_polygon = polygon && (op & 4u);
+    const unsigned palette = (rect || textured_polygon) ? gp0_cmd_buf[2] >> 16 : 0;
     int32_t x=0,y=0;
-    if (rect || textured_quad) parse_vertex(gp0_cmd_buf[1],&x,&y);
+    if (rect || textured_polygon) parse_vertex(gp0_cmd_buf[1],&x,&y);
     const int weapon_frame = rect && (palette == 0x7a27u || palette == 0x76e7u) &&
         gp0_ot_rank == 440u && x>=-16 && x<=112 && y>=128 && y<=255;
-    const int perk = rect && gp0_ot_rank == 440u && x>=0 && x<=192 && y>=160 && y<=239 &&
+    // HUD perks can use sprites or textured geometry. Keep the complete
+    // bounded shield/firewall family in the weapon-panel role.
+    const int perk = (rect || (textured_polygon &&
+        nitrogen_widget_vertices(op,0,208,144,255))) && gp0_ot_rank == 440u && x>=0 && x<=192 && y>=160 && y<=239 &&
         (((palette & 63u)==36u && palette>=0x7a24u && palette<=0x7be4u) ||
          palette==0x4ba1u || palette==0x4b73u);
     const int tutorial_icon = rect && palette == 0x3ba0u && gp0_ot_rank == 441u;
@@ -62,8 +66,8 @@ unsigned nitrogen_gpu_ui_flags(void)
     // HUD and opaque menu shadows share a palette and draw rank. Identify
     // the HUD atlas cells, never arbitrary letters by their screen position.
     const unsigned u=gp0_cmd_buf[2]&255u, v=(gp0_cmd_buf[2]>>8)&255u;
-    const unsigned w=rect ? gp0_cmd_buf[3]&65535u : 0u;
-    const unsigned h=rect ? gp0_cmd_buf[3]>>16 : 0u;
+    const unsigned w=op>=0x64u && op<=0x67u ? gp0_cmd_buf[3]&65535u : 0u;
+    const unsigned h=op>=0x64u && op<=0x67u ? gp0_cmd_buf[3]>>16 : 0u;
     const int digits=(v==32u && u<80u && w==8u && h==16u) ||
         (v==88u && u>=64u && u<124u && w==6u && h==8u);
     const int hud_symbol=(v==60u && u>=80u && w<=16u && h<=16u) ||
@@ -72,6 +76,9 @@ unsigned nitrogen_gpu_ui_flags(void)
         if (y<=64) role=x<128 ? 1u : 2u;
         else if (digits && x>=0 && x<=192 && y>=160 && y<=239) role=3;
     }
+    const int multiplier=rect && palette==0x4873u && w==8u && h==15u &&
+        ((v==144u && u>=64u && u<144u) || (u==118u && v==128u));
+    if (multiplier && x>=0 && x<=112 && y>=192 && y<=223) role=3;
     if (weapon_frame || perk) role=3;
     // Dedicated footer rows: the centred attract prompt shares neither edge.
     if (gp0_ot_rank == 440u &&

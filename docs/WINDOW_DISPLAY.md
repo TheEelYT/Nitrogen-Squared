@@ -1,5 +1,12 @@
 # Window-driven presentation
 
+0.0.26 refines complete UI layers after the owner reported remaining 0.0.25
+plate, button, pulse-ring, pause-shadow and shield/firewall issues. HUD atlas
+cells distinguish score/life/multiplier content from menu letters and shadows.
+Selected-menu backing and complete footer rings share their matching UI roles;
+bounded textured perk quads share the weapon-panel role with sprites and counts.
+The 2x floor, 365x240 reference and square-pixel policy below are unchanged.
+
 0.0.25 repairs split menu phrases, incomplete bonus widgets and help-panel
 scaling reported in 0.0.24. The 3D view follows the drawable game area, excluding
 the desktop menu. Wider views use the toolkit projection inside the authored

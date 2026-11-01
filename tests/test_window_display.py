@@ -105,6 +105,17 @@ int main(){
  sprite(317,205,0x4d73);assert(role()==4);
  sprite(8,162,0x7a27);assert(role()==3);
  for(unsigned p:{0x7a64u,0x7ba4u,0x4ba1u,0x4b73u}){sprite(60,201,p);assert(role()==3);}
+ // Shield quads and their sprite/count siblings use the same role.
+ for(unsigned op:{0x24u,0x2cu,0x34u,0x3cu}){
+  gp0_cmd_buf[0]=(op<<24)|0x808080u;gp0_cmd_buf[2]=0x4b730000u;
+  int n=(op&8)?4:3,stride=2+((op&16)?1:0);
+  for(int i=0;i<n;i++)gp0_cmd_buf[1+i*stride]=(201u<<16)|60u;
+  assert(role()==3);
+ }
+ gp0_ot_rank=22;assert(nitrogen_gpu_ui_flags()==0);gp0_ot_rank=440;
+ // The multiplier is not a pause-menu word, despite sharing its font.
+ sprite(30,203,0x4873);gp0_cmd_buf[2]=0x48738076u;assert(role()==3);
+ sprite(39,203,0x4873);gp0_cmd_buf[2]=0x48739050u;assert(role()==3);
  sprite(100,100,0x4cf3);assert(nitrogen_gpu_ui_flags()==0); // lens flare
  sprite(100,100,0x5da3);assert(nitrogen_gpu_ui_flags()==0); // world sprite
  gp0_ot_rank=438;sprite(100,100,0x5ff7);assert(role()==0); // name-entry art

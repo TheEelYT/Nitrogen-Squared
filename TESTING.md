@@ -1,6 +1,21 @@
-# Windows release and development test — 0.0.25
+# Windows release and development test — 0.0.26
 
 ## Current acceptance and update checks
+
+**0.0.26 candidate — complete menu layers and shield/firewall UI. Focused Windows checks pending.**
+Repairs the 0.0.25 title plate, selected-item backing, square-button outline,
+pulsing footer rings and pause-menu shadow fragments. Shield/firewall textured
+quads join their icon/count panel. UI keeps the 2x minimum, whole square-pixel
+steps and 365x240 reference. Coverage stays **38.4156% linked / 61.5844% outside**.
+
+Use Check for updates once published and preserve .local and saves. Check the
+main title plate and selected-item backing, square glyph/outline in ship and
+level menus, and complete rings around back/confirm controls. Open the pause
+options and compare help, quit and press-X shadows. When naturally available,
+check shield/firewall icons and counts at wide and portrait sizes. No new
+campaign, upload or valued-save overwrite is requested. Very small windows may
+crop the 2x UI. These fresh n0026 checks do not inherit earlier passes. The
+0.0.25 failures were reported in chat; submitted dashboard results stay intact.
 
 **0.0.25 — UI grouping repairs; square pixels with a 2x minimum. Focused Windows checks pending.**
 Repairs the reported attract prompt, menu sentences, widescreen squashing,
@@ -757,19 +772,19 @@ Instructions for future maintainers and assistants:
   "project": {
     "id": "nitrogen",
     "name": "Nitrogen-Squared",
-    "subtitle": "N₂O · native port",
+    "subtitle": "N\u2082O \u00b7 native port",
     "repo": "https://github.com/TheEelYT/Nitrogen-Squared",
     "metric": "38.4156%",
     "metricNote": "Linked emitted byte coverage, including payload data. Not project completion or CPU time."
   },
   "version": {
-    "id": "n0025",
-    "name": "v0.0.25",
-    "title": "Complete UI groups and square pixels, minimum 2x",
-    "runtime": "Windows · USA disc",
+    "id": "n0026",
+    "name": "v0.0.26",
+    "title": "Menu layers, pause shadows and perk quads",
+    "runtime": "Windows \u00b7 USA disc",
     "cart": "",
     "createdAt": "2026-11-01",
-    "description": "Focused Windows repair checks pending: intact phrases/panels, wide/portrait HUD, bonus widgets and square pixels. Coverage unchanged. Preserve .local and saves."
+    "description": "Focused Windows checks pending: title/backing layers, button outlines/rings, pause shadows and naturally available shield/firewall widgets. Square-pixel 2x floor and native coverage unchanged. Preserve .local and saves."
   },
   "checks": [
     {
@@ -783,39 +798,39 @@ Instructions for future maintainers and assistants:
         "Allow the private build to refresh; preserve .local and existing saves."
       ],
       "expected": "Update completes and the launcher starts the refreshed build.",
-      "context": "Fresh v0.0.25 update check. Preserve .local and saves."
+      "context": "Fresh v0.0.26 update check. Preserve .local and saves."
     },
     {
       "id": "N2-UI-GROUPS",
-      "title": "Intact phrases, menu art and help panels",
+      "title": "Menu plates, button outlines and pulse rings",
       "area": "Interface",
       "required": true,
       "priority": "high",
       "steps": [
-        "Check the attract press-X-to-start prompt as one centred phrase.",
-        "Check the ship-selection and difficulty sentences, menu titles and footer controls.",
-        "When naturally available, check a help popup and level-end text; try wide and portrait windows."
+        "Check the main-menu title plate and selected-item backing against their text.",
+        "Check the square glyph/outline in ship and level menus, and the complete pulse rings around back/confirm controls.",
+        "Try a wide and portrait window; the attract phrase and help popup should remain together."
       ],
-      "expected": "Words, shadows, button icons and panel fills/borders stay together with no separated fragments or sideways squashing.",
-      "context": "These reproduce the 0.0.24 issues reported in chat. No repeat campaign is requested; record inaccessible screens as blocked with a reason."
+      "expected": "Plates, shadows, glyphs, outlines and complete pulse rings share their UI positions and scale.",
+      "context": "Reproduces the 0.0.25 layering failures reported in chat. No repeat campaign is requested."
     },
     {
-      "id": "N2-UI-PIXELS",
-      "title": "Square-pixel scaling with a 2x minimum",
+      "id": "N2-PAUSE-UI",
+      "title": "Pause-menu text and shadows",
       "area": "Display",
       "required": true,
       "priority": "high",
       "steps": [
-        "Use Settings to see physical game-area size and interface step.",
-        "Try areas near 800x600 (2x) and 1095x720 (3x), plus a wide and portrait window.",
-        "Check score/high-score/progress text and the full weapon panel during brief movement/firing; pause/resume and quit."
+        "Open the in-game pause options during a brief session.",
+        "Check help on/off, quit game and the press-X-to-quit prompt, including their dark shadows.",
+        "Resize wide/portrait; confirm the 2x minimum remains and resume/quit normally."
       ],
-      "expected": "UI never drops below 2x, grows in whole steps and keeps square pixel proportions. World proportions, controls and normal quit remain correct.",
-      "context": "The desktop menu is excluded from game area. Small windows keep 2x and may crop UI. No exact FPS measurement is required."
+      "expected": "Whole phrases and their shadows stay together; no isolated qu, press or button fragment. UI keeps whole square-pixel steps.",
+      "context": "The desktop menu is excluded from game area. Small windows keep 2x and may crop UI. No new campaign is requested."
     },
     {
       "id": "N2-PERK-UI",
-      "title": "Bonus weapon and shield widget",
+      "title": "Shield/firewall and weapon widget",
       "area": "Gameplay UI",
       "required": false,
       "priority": "normal",
@@ -823,7 +838,7 @@ Instructions for future maintainers and assistants:
         "When bonus weapons, shields or firewalls are naturally available, inspect their icons and counts beside the weapon panel.",
         "Compare a usual window with a wide or portrait size."
       ],
-      "expected": "The complete widget uses the same step and anchors; icons/counts do not stretch or detach from the panel.",
+      "expected": "Shield, firewall and bonus-weapon icons/counts use the same panel step and anchor without sideways squashing or overlap.",
       "context": "Do not start another campaign or overwrite a valued save just to reach this check. Earlier reports keep their version scope."
     }
   ]
