@@ -613,8 +613,11 @@
   widget. Dedicated menu ray sprites use uniform cover/crop. The earlier
   native-wide-only candidate is superseded. All 83 source tests pass. Nearest
   movie sampling is checked using the actual half-texel mapping.
-- Final worker-off menu checks pass. Complete normal diagnostics-OFF/O3, source/dashboard,
-  Windows/Linux/package and public-asset checks before promotion. Standing main
+- Final worker-off menu, normal diagnostics-OFF/O3, 83 source tests without skips,
+  106-file audit/CRLF bounds and dashboard import preservation pass. The normal
+  manifest matches the accepted selection; its movie/analog/fire/pause/quit fixture
+  passes, with no hooks or instrumentation. Complete Windows/Linux/package and
+  public-asset checks before calling publication verified. Standing main
   and release authorization applies once qualified. SDL offscreen resize is
   invalid evidence; use actual window surfaces. Two compile jobs; serialize
   builds/game sessions. Preserve private tested binaries/contracts and recovery

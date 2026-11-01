@@ -501,6 +501,11 @@ SDL 3.4.10's offscreen resize does not reallocate its EGL pbuffer. Initial
 oversized captures are invalid resize evidence; the real-window runs replace them.
 Nearest sampling can still have pixel-phase differences at fractional sizes.
 Simulation and video/audio clocks are unchanged. The original fixed-aspect build
-option is retained. Normal-production, platform/package and publication checks
-remain pending until their receipts are recorded. Fresh n0024 player checks do
+option is retained. The normal diagnostics-OFF build uses C/CXX -O3 -DNDEBUG with an empty
+qualification include, no interposition and no temporary instrumentation. Its
+source/range manifest matches the accepted selection. The three-movie/analog/
+firing/pause/quit fixture passes through frame 4500; private gameplay captures
+were inspected. All 83 source tests pass without skips; the 106-file source
+audit, Windows CRLF bounds and actual dashboard import preview pass. Platform/
+package and publication checks remain pending until their receipts are recorded. Fresh n0024 player checks do
 not inherit earlier passes; all submitted n0021/n0022/n0023 reports are preserved.
