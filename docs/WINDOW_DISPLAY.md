@@ -1,5 +1,9 @@
 # Window-driven presentation
 
+0.0.28 assigns the bonus-star atlas cell to the score anchor independently of
+its screen x coordinate. Exact bonus speed-digit/backing cells share the weapon
+panel role; other menu art using those palettes stays centred. No clock changes.
+
 0.0.27 keeps the row-202/204 code label and row-203 password buttons centred;
 corner footer plates start at row 205. The observed OT-440 shaded shield
 polyline uses the weapon-panel role through its live streaming state, without

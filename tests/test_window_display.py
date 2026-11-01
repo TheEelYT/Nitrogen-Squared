@@ -88,6 +88,20 @@ int main(){
  digits(191,12,true);assert(role()==2);
  sprite(95,23,0x4873);gp0_cmd_buf[2]=0x48733d78u;gp0_cmd_buf[3]=(8u<<16)|7u;assert(role()==1);
  sprite(97,25,0x4873);gp0_cmd_buf[2]=0x48733d78u;gp0_cmd_buf[3]=(8u<<16)|7u;assert(role()==1);
+ // Every star, including those beyond the old x=128 split, stays at left.
+ for(int x:{87,95,103,111,119,127,135,143,151,159,167,175}){
+  sprite(x,23,0x4873);gp0_cmd_buf[2]=0x48733d78u;
+  gp0_cmd_buf[3]=(8u<<16)|7u;assert(role()==1);
+ }
+ // Bonus LCD frame and all ten digit cells follow the weapon panel.
+ for(unsigned u=196;u<=232;u+=4){
+  sprite(44,197,0x5eb7);gp0_cmd_buf[2]=(0x5eb7u<<16)|(55u<<8)|u;
+  gp0_cmd_buf[3]=(7u<<16)|4u;assert(role()==3);
+ }
+ sprite(22,184,0x5fb7);gp0_cmd_buf[2]=0x5fb700e0u;
+ gp0_cmd_buf[3]=(32u<<16)|32u;assert(role()==3);
+ sprite(200,100,0x5fb7);gp0_cmd_buf[2]=0x5fb700e0u;
+ gp0_cmd_buf[3]=(32u<<16)|32u;assert(role()==0);
  // Opaque title/button glyphs and pause-menu shadows are complete centre UI.
  for(int y:{20,58,60,61,160,162})for(int x:{145,155,160,183,202}){
   sprite(x,y,0x4873);assert(role()==0);

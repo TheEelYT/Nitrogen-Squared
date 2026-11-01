@@ -65,3 +65,8 @@ upstream licenses. This project's MIT license does not relicense any component.
 SDL3, Dear ImGui and the pinned PSXRecomp checkout are likewise fetched privately
 for the build, with their source notices retained. No Sony BIOS or prepared game
 module is distributed in the public ZIP.
+
+Linux launcher packages include only original launcher/source text. Python/Tk,
+compilers and graphics/audio libraries come from the user's system packages;
+no additional third-party binaries are bundled in the Linux ZIP. Pinned runtime
+and SDL sources are downloaded during private preparation with their notices.

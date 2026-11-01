@@ -1,4 +1,4 @@
-"""Original Windows portable launcher; all writable state is beside launcher.exe."""
+"""Original portable launcher; all writable state is beside launcher.exe."""
 from __future__ import annotations
 import argparse
 import json
@@ -65,7 +65,9 @@ class Backend:
                 subprocess.run(["taskkill","/PID",str(process.pid),"/T","/F"],capture_output=True,
                                creationflags=subprocess.CREATE_NO_WINDOW,timeout=15)
             else:
-                process.terminate()
+                import signal
+                try: os.killpg(process.pid,signal.SIGTERM)
+                except ProcessLookupError: pass
 
     def import_disc(self,selected):
         from n2o_disc import inspect,prepare,digest
@@ -90,7 +92,7 @@ class Backend:
     def ensure_framework(self,env):
         from build_recompiler import FRAMEWORK_REV,FRAMEWORK_URL
         target=self.layout.framework
-        git=str(self.layout.tools/"git/cmd/git.exe")
+        git=self.layout.git
         if not target.exists():
             run([git,"init",str(target)],self.layout.root,env,self)
             run([git,"-C",str(target),"remote","add","origin",FRAMEWORK_URL],self.layout.root,env,self)
@@ -111,14 +113,14 @@ class Backend:
             self("Existing saves were copied into the portable save folder.")
         cache=self.layout.work/"build/CMakeCache.txt"
         moved=bool(state.get("root") and state["root"]!=str(self.layout.root))
-        changed_tools=bool(state.get("prepared_tools") and state["prepared_tools"]!=sha256(self.layout.app/"configs/portable_tools.json"))
+        changed_tools=bool(state.get("prepared_tools") and state["prepared_tools"]!=self.layout.tool_fingerprint())
         incompatible=False
         escaped_compiler=False
         if cache.is_file():
             values=dict(line.split("=",1) for line in cache.read_text(errors="replace").splitlines() if "=" in line and not line.startswith(("#","//")))
             source=values.get("CMAKE_HOME_DIRECTORY:INTERNAL")
             generator=values.get("CMAKE_GENERATOR:INTERNAL")
-            incompatible=not source or Path(source).resolve()!=self.layout.app or generator!="Ninja"
+            incompatible=not source or Path(source).resolve()!=self.layout.app or generator!=("Unix Makefiles" if self.layout.platform=="linux-x86_64" else "Ninja")
             escaped_compiler=any(key.startswith("CMAKE_RC_COMPILER:") and "\\" in value for key,value in values.items())
         for compiler in (self.layout.work/"build/CMakeFiles").glob("*/CMakeRCCompiler.cmake"):
             escaped_compiler |= any(line.startswith("set(CMAKE_RC_COMPILER ") and "\\" in line
@@ -151,7 +153,7 @@ class Backend:
         self.ensure_framework(env)
         self.align_cache(state)
         self("Preparing the game. First compilation can take several minutes…")
-        cmake=self.layout.tools/"cmake/bin/cmake.exe"
+        cmake=self.layout.cmake
         command=self.layout.command("build_runtime.py","--installation",self.layout.installation,
                                     "--framework",self.layout.framework,"--recompiler-build",self.layout.local/"build-recompiler",
                                     "--work-dir",self.layout.work,"--cmake",cmake,
@@ -163,13 +165,13 @@ class Backend:
             target=Path(receipt["executable"]).parent/"settings.toml"
             if not target.exists():shutil.copy2(retained,target)
         state.update(schema=1,prepared_version=self.layout.version,root=str(self.layout.root),
-                     prepared_tools=sha256(self.layout.app/"configs/portable_tools.json"))
+                     prepared_tools=self.layout.tool_fingerprint())
         write_json(self.layout.state_path,state)
         return env
 
     def play(self):
         state=self.layout.state()
-        if state.get("prepared_version")!=self.layout.version or state.get("root")!=str(self.layout.root) or state.get("prepared_tools")!=sha256(self.layout.app/"configs/portable_tools.json") or not (self.layout.work/"runtime-build.json").is_file():
+        if state.get("prepared_version")!=self.layout.version or state.get("root")!=str(self.layout.root) or state.get("prepared_tools")!=self.layout.tool_fingerprint() or not (self.layout.work/"runtime-build.json").is_file():
             env=self.prepare()
         else:
             env=self.layout.environment()
@@ -222,7 +224,7 @@ class Application:
         body=ttk.Frame(self.window,padding=22)
         body.pack(fill="both",expand=True)
         ttk.Label(body,text="Nitrogen Squared",font=("Segoe UI",20,"bold")).pack(anchor="w")
-        ttk.Label(body,text="Version "+layout.version+"  ·  Windows x64").pack(anchor="w",pady=(0,16))
+        ttk.Label(body,text="Version "+layout.version+"  ·  "+layout.display_name).pack(anchor="w",pady=(0,16))
         self.status=tk.StringVar(value="Choose your N2O CUE sheet to prepare the game." if not layout.state().get("disc") else "Ready to play.")
         ttk.Label(body,textvariable=self.status,wraplength=590).pack(anchor="w",fill="x")
         self.detail=tk.StringVar(value="First setup downloads build tools. All prepared files and saves stay in this folder.")
@@ -282,7 +284,10 @@ class Application:
     def assets(self):
         folder=self.layout.local/"game"
         if folder.is_dir():
-            os.startfile(str(folder));return
+
+            if os.name=="nt": os.startfile(str(folder))
+            else: subprocess.Popen(["xdg-open",str(folder)])
+            return
         self.activity(True);self.status.set("Extracting asset folders…")
         self.detail.set("Original assets and music will be saved in .local/game. The game still uses the original disc.")
         threading.Thread(target=self.backend.action,kwargs=dict(assets=True),daemon=False).start()
@@ -297,7 +302,7 @@ class Application:
         self.activity(True);self.status.set("Checking for updates…")
         def check():
             try:
-                release=latest_release(self.layout.version)
+                release=latest_release(self.layout.version,self.layout.asset_name)
                 if self.backend.cancel.is_set():raise RuntimeError("Update check stopped")
                 self.events.put(("update",release))
             except Exception as e:self.events.put(("update-error",str(e)))
@@ -365,11 +370,16 @@ class Application:
 
 
 def instance_lock(layout):
-    import msvcrt
     layout.writable()
     handle=(layout.local/"launcher.lock").open("a+b")
     handle.seek(0);handle.write(b"0");handle.flush();handle.seek(0)
-    try:msvcrt.locking(handle.fileno(),msvcrt.LK_NBLCK,1)
+    try:
+        if os.name=="nt":
+            import msvcrt
+            msvcrt.locking(handle.fileno(),msvcrt.LK_NBLCK,1)
+        else:
+            import fcntl
+            fcntl.flock(handle,fcntl.LOCK_EX|fcntl.LOCK_NB)
     except OSError:
         handle.close();raise RuntimeError("Nitrogen Squared is already running from this folder")
     return handle
@@ -387,7 +397,10 @@ def main():
     p.add_argument("--bootstrap-tools",action="store_true")
     p.add_argument("--runtime-fixture",action="store_true")
     args=p.parse_args()
-    layout=Layout(args.root)
+    if os.name=="nt": layout=Layout(args.root)
+    else:
+        from linux_support import LinuxLayout
+        layout=LinuxLayout(args.root)
     lock=instance_lock(layout)
     if args.bootstrap_tools or args.runtime_fixture:
         backend=Backend(layout,lambda kind,text:print(text,flush=True))
@@ -398,14 +411,14 @@ def main():
                                "--work-dir",layout.local/"portable-runtime-fixture",
                                *("--cmake-arg="+arg for arg in layout.runtime_cmake_args())),layout.root,env,backend)
         lock.close();return
-    for key,pattern in (("TCL_LIBRARY","tcl8.*"),("TK_LIBRARY","tk8.*")):
+    for key,pattern in ((("TCL_LIBRARY","tcl8.*"),("TK_LIBRARY","tk8.*")) if os.name=="nt" else ()):
         candidates=sorted((layout.python.parent/"tcl").glob(pattern))
         if len(candidates)!=1:raise RuntimeError("The bundled Tcl/Tk runtime is incomplete")
         os.environ[key]=str(candidates[0])
     app=Application(layout,args.launcher_pid,testing=args.self_test)
     if args.self_test:
         app.window.update()
-        Path(sys.executable).resolve().relative_to((layout.root/"support/python").resolve())
+        if os.name=="nt": Path(sys.executable).resolve().relative_to((layout.root/"support/python").resolve())
         report=dict(version=layout.version,python=str(sys.executable),storage=str(layout.local),
                     tkinter=True,asset_tools=bool(app.assets_button.winfo_exists()),
                     first_run=not bool(layout.state().get("disc")),status=app.status.get())

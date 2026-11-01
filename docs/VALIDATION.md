@@ -741,3 +741,41 @@ measured CPU overhead is verified; complete resolution of the reported
 half-second Windows hitch is not yet confirmed. Audio/game clocks and native
 coverage remain unchanged at 38.4156% linked / 61.5844% outside. Earlier dashboard
 reports retain their versions and exact contents.
+
+## 0.0.28 bonus HUD and Linux launcher qualification
+
+The user reports the other UI failures fixed in 0.0.27 and identifies two more:
+bonus stars after the sixth move toward the centre, and the bonus speed display
+separates from the bottom-left HUD. Accept the reported UI scope; the earlier
+Windows level-entry hitch is not explicitly confirmed resolved.
+
+The star atlas cell now uses the score anchor regardless of its source x.
+The bonus LCD's exact digit and backing cells use the weapon-panel role, with
+bounds and draw rank retained; menu art sharing those palettes remains centred.
+An original compiled regression checks extended star positions, all ten LCD digit
+cells, the backing and unrelated menu/world exclusions. A disposable copied-card
+fixture renders twelve stars and a four-digit LCD through the original packet
+builders. Real X11/EGL worker-on captures at 2x/3x/4x and portrait show one star
+row and the complete LCD aligned with its panel. This controlled presentation
+fixture is not a natural bonus-stage acquisition or native-comparison claim.
+Worker-off, final normal and platform qualification follow before publication.
+
+The Linux x86_64 ZIP contains original launcher.sh, README-FIRST.txt and reviewed
+app source only. It uses system Python/Tk, Git, CMake, Make, compiler and desktop
+libraries; the package documents prerequisites and never runs sudo. The shared
+GUI imports the verified USA CUE/BIN and privately prepares/plays the game under
+.local. SDL/framework revisions stay pinned. Linux updates select the Linux
+asset, validate checksum/platform/inventory, use a copied runner and support
+rollback while preserving private/unknown files. Cross-platform replacements
+are rejected. Windows continues to bundle its existing Python/tool bootstrap.
+The actual extracted Linux first-run Tk window and copied-process update/restart
+pass locally, including changed version and save/cache sentinels. The pristine
+ZIP is created before test state and includes no game-derived binary or data.
+
+Initial 88 source tests pass without skips, including three Linux packaging,
+environment and platform/update tests. Final source/package/dashboard and both
+Windows/Linux package integration workflows gate publication. Linux first-setup
+integration uses original synthetic input in CI; actual Linux game presentation
+is tested privately. Broader distribution, Wayland and real audio-device support
+remain player checks. Native selection, all 48 exclusions and clocks are unchanged:
+324,928 / 845,824 = 38.4156% linked, 61.5844% outside. No new native credit.

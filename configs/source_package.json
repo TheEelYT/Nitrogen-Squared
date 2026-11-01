@@ -67,6 +67,7 @@
   "tests/test_extract_assets.py",
   "tests/test_gpu_mode.py",
   "tests/test_interpreter_attribution.py",
+  "tests/test_linux.py",
   "tests/test_native_progress.py",
   "tests/test_packaging.py",
   "tests/test_portable.py",
@@ -86,8 +87,10 @@
   "tools/extract_assets.py",
   "tools/first_boot.py",
   "tools/generate.py",
+  "tools/linux_support.py",
   "tools/n2o_disc.py",
   "tools/native_progress.py",
+  "tools/package_linux.py",
   "tools/package_source.py",
   "tools/package_windows.py",
   "tools/portable_launcher.py",
@@ -107,5 +110,6 @@
   "tools/qualification/route.py",
   "tools/qualification/selection.py",
   "tools/run_runtime.py",
+  "tools/test_portable_update_linux.py",
   "tools/test_portable_update_windows.py"
 ]

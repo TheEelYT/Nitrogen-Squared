@@ -27,14 +27,14 @@ def owned_path(name):
     name=relative_path(name)
     if any(p.casefold() in (".local","saves","cache","generated","disc","executables",".git") for p in name.split("/")):
         raise ValueError("A release cannot own private data")
-    if name not in ("launcher.exe","README-FIRST.txt") and not name.startswith(("app/","support/python/")):
+    if name not in ("launcher.exe","launcher.sh","README-FIRST.txt") and not name.startswith(("app/","support/python/")):
         raise ValueError("Unexpected release-owned path")
     return name
 
 
 def read_manifest(root: Path):
     value=json.loads((root/"release-manifest.json").read_text(encoding="utf-8"))
-    if value.get("schema")!=1 or value.get("platform")!="windows-x86_64" or not isinstance(value.get("files"),dict):
+    if value.get("schema")!=1 or value.get("platform") not in ("windows-x86_64","linux-x86_64") or not isinstance(value.get("files"),dict):
         raise ValueError("Unsupported release manifest")
     version_tuple(value["version"])
     seen=set()
@@ -43,7 +43,8 @@ def read_manifest(root: Path):
         if name.casefold() in seen or not re.fullmatch(r"[0-9a-f]{64}",info.get("sha256","")) or not isinstance(info.get("size"),int) or not 0<=info["size"]<=2*1024**3:
             raise ValueError("Invalid release file inventory")
         seen.add(name.casefold())
-    if "launcher.exe" not in value["files"] or "support/python/python.exe" not in value["files"] or "app/VERSION" not in value["files"]:
+    required = {"launcher.exe","support/python/python.exe","app/VERSION"} if value["platform"]=="windows-x86_64" else {"launcher.sh","app/VERSION","app/tools/linux_support.py"}
+    if not required <= value["files"].keys():
         raise ValueError("Incomplete portable package")
     return value
 
@@ -71,7 +72,7 @@ def api_json(url):
     return json.loads(data)
 
 
-def latest_release(current):
+def latest_release(current,asset_name=ASSET_NAME):
     try:
         value=api_json(f"https://api.github.com/repos/{REPOSITORY}/releases/latest")
     except urllib.error.HTTPError as e:
@@ -84,12 +85,12 @@ def latest_release(current):
     if version_tuple(version)<=version_tuple(current):
         return None
     assets={a["name"]:a for a in value["assets"]}
-    asset=assets.get(ASSET_NAME)
-    checksum=assets.get(ASSET_NAME+".sha256")
+    asset=assets.get(asset_name)
+    checksum=assets.get(asset_name+".sha256")
     if not asset or not checksum:
-        raise ValueError("The published release has no complete Windows package")
+        raise ValueError("The published release has no complete package for this platform")
     prefix=f"https://github.com/{REPOSITORY}/releases/download/{value['tag_name']}/"
-    if asset["browser_download_url"]!=prefix+ASSET_NAME or checksum["browser_download_url"]!=prefix+ASSET_NAME+".sha256":
+    if asset["browser_download_url"]!=prefix+asset_name or checksum["browser_download_url"]!=prefix+asset_name+".sha256":
         raise ValueError("Unexpected release download location")
     return dict(version=version,url=asset["browser_download_url"],checksum=checksum["browser_download_url"],digest=asset.get("digest"))
 
@@ -97,7 +98,7 @@ def latest_release(current):
 def stage_release(layout: Layout, release, progress=print):
     with urllib.request.urlopen(release["checksum"],timeout=30) as response:
         checksum=response.read(513)
-    match=re.fullmatch(rb"([0-9a-f]{64})[ \t]+\*?"+re.escape(ASSET_NAME.encode())+rb"\r?\n?",checksum)
+    match=re.fullmatch(rb"([0-9a-f]{64})[ \t]+\*?"+re.escape(layout.asset_name.encode())+rb"\r?\n?",checksum)
     if not match:
         raise ValueError("Invalid release checksum file")
     digest=match[1].decode()
@@ -116,6 +117,8 @@ def stage_release(layout: Layout, release, progress=print):
         if {p.name for p in staging.iterdir()}!={"Nitrogen-Squared"}:
             raise ValueError("Expected a Nitrogen-Squared package folder")
         verified=verify_package(staging/"Nitrogen-Squared")
+    if verified["platform"] != layout.platform:
+        raise ValueError("Downloaded package targets another platform")
     if verified["version"]!=release["version"]:
         raise ValueError("Downloaded package has another version")
     return staging/"Nitrogen-Squared"
@@ -149,6 +152,8 @@ def apply_update(layout: Layout, staged: Path):
     staged.resolve().relative_to(beneath(layout.root,".local/updates").resolve())
     new=verify_package(staged)
     old=read_manifest(layout.root)
+    if new["platform"] != old["platform"] or new["platform"] != layout.platform:
+        raise ValueError("Updates cannot change platform")
     if version_tuple(new["version"])<=version_tuple(old["version"]):
         raise ValueError("Update must advance the package version")
     journal_path=beneath(layout.root,".local/update-state.json")
@@ -191,6 +196,9 @@ def apply_update(layout: Layout, staged: Path):
 
 
 def start_updater(layout: Layout, staged: Path | None, launcher_pid: int, *, restart_report: Path | None = None):
+    if layout.platform=="linux-x86_64":
+        from linux_support import start_linux_updater
+        return start_linux_updater(layout,staged,launcher_pid,restart_report=restart_report)
     runner=beneath(layout.root,".local/updates/runner-"+str(time.time_ns()))
     shutil.copytree(layout.python.parent,runner/"python")
     scripts=runner/"scripts"
@@ -211,7 +219,15 @@ def start_updater(layout: Layout, staged: Path | None, launcher_pid: int, *, res
 
 def wait_for_processes(pids):
     if os.name!="nt":
-        raise RuntimeError("The portable updater requires Windows")
+        deadline=time.monotonic()+120
+        for pid in pids:
+            if pid<=0: raise ValueError("Invalid process id")
+            while True:
+                try: os.kill(pid,0)
+                except ProcessLookupError: break
+                if time.monotonic()>deadline: raise RuntimeError("Close running Nitrogen-Squared windows before updating")
+                time.sleep(.1)
+        return
     kernel=ctypes.WinDLL("kernel32",use_last_error=True)
     kernel.OpenProcess.argtypes=[ctypes.c_ulong,ctypes.c_int,ctypes.c_ulong]
     kernel.OpenProcess.restype=ctypes.c_void_p
@@ -240,7 +256,10 @@ def main():
     p.add_argument("--restart-report",type=Path)
     args=p.parse_args()
     wait_for_processes(args.wait_pid)
-    layout=Layout(args.root)
+    if os.name=="nt": layout=Layout(args.root)
+    else:
+        from linux_support import LinuxLayout
+        layout=LinuxLayout(args.root)
     failure=None
     try:
         if args.rollback:
@@ -254,9 +273,9 @@ def main():
         failure=e
         write_json(layout.local/"last-update-result.json",dict(success=False,error=str(e)))
         if (layout.local/"update-state.json").exists():
-            ctypes.windll.user32.MessageBoxW(None,"The update could not finish. Files and backups were kept. Relaunch and choose Restore previous version. Details: .local/update.log","Nitrogen Squared",0x10)
+            if os.name=="nt": ctypes.windll.user32.MessageBoxW(None,"The update could not finish. Files and backups were kept. Relaunch and choose Restore previous version. Details: .local/update.log","Nitrogen Squared",0x10)
             raise
-    command=[str(layout.root/"launcher.exe")]
+    command=[str(layout.root/"launcher.exe")] if os.name=="nt" else layout.command("portable_launcher.py","--root",layout.root)
     if args.restart_report:
         args.restart_report.resolve().relative_to(layout.local.resolve())
         command += ["--self-test","--report",str(args.restart_report)]

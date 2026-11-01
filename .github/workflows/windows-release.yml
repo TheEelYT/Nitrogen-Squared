@@ -74,9 +74,41 @@ jobs:
             dist/Nitrogen-Squared-source.zip
           if-no-files-found: error
           retention-days: 7
+  linux-package:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Linux desktop and preparation prerequisites
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y python3-tk build-essential cmake git pkg-config libgl-dev libegl-dev libx11-dev libxcursor-dev libxi-dev libxrandr-dev libxfixes-dev libxkbcommon-dev libasound2-dev libpulse-dev xvfb xauth xdg-utils
+      - name: Package original Linux launcher and reviewed source only
+        run: |
+          python tools/package_source.py --check-tracked
+          python tools/package_linux.py
+          unzip -q dist/Nitrogen-Squared-Linux-x64.zip -d "$RUNNER_TEMP/Linux Smoke With Spaces"
+          echo "NITROGEN_LINUX_ROOT=$RUNNER_TEMP/Linux Smoke With Spaces/Nitrogen-Squared" >> "$GITHUB_ENV"
+      - name: Linux first-run interface
+        run: xvfb-run -a sh "$NITROGEN_LINUX_ROOT/launcher.sh" --self-test --report "$NITROGEN_LINUX_ROOT/.local/launcher-smoke.json"
+      - name: Linux launcher preparation against the actual synthetic runtime
+        run: sh "$NITROGEN_LINUX_ROOT/launcher.sh" --runtime-fixture
+      - name: Copied-process Linux update and restart
+        run: xvfb-run -a python tools/test_portable_update_linux.py --root "$NITROGEN_LINUX_ROOT"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: portable-linux-x64
+          path: |
+            dist/Nitrogen-Squared-Linux-x64.zip
+            dist/Nitrogen-Squared-Linux-x64.zip.sha256
+          if-no-files-found: error
+          retention-days: 7
   publish:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    needs: package
+    needs: [package, linux-package]
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -86,6 +118,10 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: portable-windows-x64
+          path: dist
+      - uses: actions/download-artifact@v4
+        with:
+          name: portable-linux-x64
           path: dist
       - name: Require the source and cross-platform runtime checks
         env:
@@ -138,19 +174,19 @@ jobs:
           Extract the complete **Nitrogen-Squared** folder and run **launcher.exe**.
           Select the supported USA CUE with its matching BIN beside it. Preparation verifies/imports/generates/compiles your private game; no separate Python or Visual Studio installation is required.
 
-          **Password and animated HUD repair:** keeps the complete code label and eight password buttons together, and aligns the active shield ring and red boost fill with the weapon panel. UI retains square pixels, a 2x minimum and whole steps against a 365x240 reference. The 3D view follows the window; sampling stays nearest.
+          **Bonus HUD repairs:** keeps the full bonus-star row beside the score, including stars after the sixth, and anchors the bonus speed readout and its backing with the bottom-left HUD. The other reported UI fixes retain their tested behavior. Square pixels, a 2x minimum and the 365x240 UI reference remain unchanged.
 
-          Normal builds omit a costly debug-only interpreter occupant lookup while retaining native residency guards. Audio and game clocks are unchanged. Local CPU/output checks pass; the reported half-second Windows level-entry pause still needs player confirmation.
+          **Linux x86_64 launcher:** extract the Linux ZIP and run `sh launcher.sh`. Install the system Python/Tk, compiler and graphics/audio prerequisites listed in README-FIRST.txt once. The launcher selects your CUE/BIN, prepares your private game and handles updates. Windows continues to bundle portable Python and preparation tools; use separate folders for each platform.
 
-          Native selection stays 38.4156% linked / 61.5844% outside. Fresh Test Dashboard n0027 checks cover updating, password layout, animated HUD and playable-tunnel entry. Earlier submitted reports retain their versions. No new campaign, upload or valued-save overwrite is requested.
+          Native coverage stays 38.4156% linked / 61.5844% outside. Fresh Test Dashboard n0028 checks cover updating, the full bonus-star row, bonus speed display and optional Linux setup/play/update. Earlier submitted results retain their versions. No new campaign, upload or valued-save overwrite is requested. Audio/game clocks are unchanged; the earlier level-entry hitch still needs explicit Windows feedback.
 
           **Asset folders** remains optional: original containers, raw movie streams and ten PCM WAV tracks are preserved under .local/game. Runtime still uses the original USA disc. Folder-backed loading, mod packs and EU language import remain future work.
 
           Updates preserve .local, including saves and extracted edits. Keep the original disc available. Windows 10/11 x64; internet is needed for initial preparation and updates. No commercial game data, generated game C or prepared game executable is included.
           NOTES
           if [ "$existing" -eq 0 ]; then
-            gh release create "v$version" --draft --target "$GITHUB_SHA" --title "Nitrogen Squared $version — Windows launcher" --notes-file "$RUNNER_TEMP/release-notes.md" dist/Nitrogen-Squared-Windows-x64.zip dist/Nitrogen-Squared-Windows-x64.zip.sha256 dist/Nitrogen-Squared-source.zip
+            gh release create "v$version" --draft --target "$GITHUB_SHA" --title "Nitrogen Squared $version — Windows and Linux launchers" --notes-file "$RUNNER_TEMP/release-notes.md" dist/Nitrogen-Squared-Windows-x64.zip dist/Nitrogen-Squared-Windows-x64.zip.sha256 dist/Nitrogen-Squared-source.zip dist/Nitrogen-Squared-Linux-x64.zip dist/Nitrogen-Squared-Linux-x64.zip.sha256
           else
-            gh release upload "v$version" --clobber dist/Nitrogen-Squared-Windows-x64.zip dist/Nitrogen-Squared-Windows-x64.zip.sha256 dist/Nitrogen-Squared-source.zip
+            gh release upload "v$version" --clobber dist/Nitrogen-Squared-Windows-x64.zip dist/Nitrogen-Squared-Windows-x64.zip.sha256 dist/Nitrogen-Squared-source.zip dist/Nitrogen-Squared-Linux-x64.zip dist/Nitrogen-Squared-Linux-x64.zip.sha256
           fi
           gh release edit "v$version" --draft=false --latest

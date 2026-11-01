@@ -78,3 +78,13 @@ Vita preparation, target modules, signing/package constraints and runtime portab
 remain open engineering work. The future VPK must remain free of game-derived
 modules and assets. A Windows executable cannot simply be copied to Vita, and
 on-device compilation is not promised. See ROADMAP.md.
+
+## Linux launcher package (0.0.28)
+
+The Linux x86_64 ZIP contains launcher.sh, README-FIRST.txt and the same reviewed
+source allowlist under app. No system Python, compiler, prepared game executable
+or disc data is bundled. Users install the documented system prerequisites once.
+The shared GUI imports the supported CUE/BIN and privately prepares the game under
+.local; saves and extracted edits remain there. Updates select the Linux asset,
+validate its checksum/platform/inventory and use a copied runner with rollback.
+The Windows and Linux package jobs both gate release publication.

@@ -15,6 +15,7 @@ import zipfile
 
 REPOSITORY = "TheEelYT/Nitrogen-Squared"
 ASSET_NAME = "Nitrogen-Squared-Windows-x64.zip"
+LINUX_ASSET_NAME = "Nitrogen-Squared-Linux-x64.zip"
 MAX_ARCHIVE_BYTES = 2 * 1024**3
 MAX_EXPANDED_BYTES = 5 * 1024**3
 
@@ -95,6 +96,8 @@ def extract_zip(archive: Path, destination: Path, *, strip_root: bool = False):
                 target.parent.mkdir(parents=True, exist_ok=True)
                 with z.open(info) as source, target.open("wb") as out:
                     shutil.copyfileobj(source, out, 1024*1024)
+                if os.name != "nt" and (info.external_attr >> 16) & 0o111:
+                    target.chmod(0o755)
 
 
 def download(url: str, path: Path, expected_sha: str, progress=print, *, maximum=MAX_ARCHIVE_BYTES):
@@ -130,6 +133,10 @@ def download(url: str, path: Path, expected_sha: str, progress=print, *, maximum
 
 
 class Layout:
+    platform = "windows-x86_64"
+    asset_name = ASSET_NAME
+    display_name = "Windows x64"
+
     def __init__(self, root: Path):
         self.root = root.resolve()
         self.app = beneath(self.root, "app")
@@ -140,6 +147,14 @@ class Layout:
         self.installation = beneath(self.root, ".local/installation")
         self.framework = beneath(self.root, ".local/psxrecomp")
         self.state_path = beneath(self.root, ".local/launcher-state.json")
+
+    @property
+    def git(self): return str(self.tools/"git/cmd/git.exe")
+
+    @property
+    def cmake(self): return str(self.tools/"cmake/bin/cmake.exe")
+
+    def tool_fingerprint(self): return sha256(self.app/"configs/portable_tools.json")
 
     @property
     def version(self):
@@ -203,7 +218,7 @@ def run(command, cwd: Path, env: dict, progress=print):
     flags = subprocess.CREATE_NO_WINDOW if os.name=="nt" else 0
     with subprocess.Popen(command, cwd=cwd, env=env, stdout=subprocess.PIPE,
                           stderr=subprocess.STDOUT, text=True, encoding="utf-8",
-                          errors="replace", creationflags=flags) as proc:
+                          errors="replace", creationflags=flags, start_new_session=os.name!="nt") as proc:
         tracker=getattr(progress,"set_process",None)
         if tracker:
             tracker(proc)
@@ -218,6 +233,9 @@ def run(command, cwd: Path, env: dict, progress=print):
 
 
 def bootstrap(layout: Layout, progress=print):
+    if layout.platform == "linux-x86_64":
+        from linux_support import bootstrap_linux
+        return bootstrap_linux(layout, progress)
     layout.writable()
     pins=json.loads((layout.app/"configs/portable_tools.json").read_text())
     if pins.get("schema")!=1 or pins.get("platform")!="windows-x86_64":
@@ -249,13 +267,16 @@ def bootstrap(layout: Layout, progress=print):
             if staging.exists():
                 shutil.rmtree(staging)
     env=layout.environment()
+    prepare_sdl(layout, env, str(layout.tools/"git/cmd/git.exe"), progress)
+    return env
+
+
+def prepare_sdl(layout, env, git, progress):
     # Keep SDL preparation deterministic and avoid the release-archive fallback.
     sdl=layout.local/"SDL3-source"
     if not sdl.exists():
-        git=str(layout.tools/"git/cmd/git.exe")
         run([git,"init",str(sdl)],layout.root,env,progress)
         run([git,"-C",str(sdl),"remote","add","origin","https://github.com/libsdl-org/SDL.git"],layout.root,env,progress)
-    git=str(layout.tools/"git/cmd/git.exe")
     sdl_pin="8e37db5e797b6167f3a00d697d816a684bd259c7"
     current=subprocess.run([git,"-C",str(sdl),"rev-parse","HEAD"],env=env,capture_output=True,text=True,
                            creationflags=subprocess.CREATE_NO_WINDOW if os.name=="nt" else 0)

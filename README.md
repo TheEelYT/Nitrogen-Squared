@@ -3,20 +3,17 @@
 A Windows-first recompilation project for **N2O: Nitrous Oxide (PlayStation)**,
 with a planned PS Vita port and optional remaster presentation.
 
-**Current status: 0.0.27 — password row, animated HUD and lower interpreter overhead.**
-The code label and all eight password buttons stay together. The active shield
-ring and red boost gauge share the weapon panel's transform. Square pixels,
-a 2x floor and the 365x240 UI reference remain; 3D follows the window.
+**Current status: 0.0.28 — bonus HUD anchors and a Linux launcher package.**
+All bonus stars stay beside the score, and the bonus-level speed readout and
+backing share the bottom-left HUD transform. Other reported UI fixes retain
+their tested behavior. Square pixels, 2x floor and 365x240 reference remain.
 [Display policy](docs/WINDOW_DISPLAY.md).
 
-Normal builds omit a costly diagnostic-only occupant lookup while keeping native
-residency guards. Audio and game clocks are unchanged. Local CPU measurements
-and exact-output checks are recorded in [validation](docs/VALIDATION.md); the
-reported half-second Windows level-entry pause still needs player confirmation.
-This host-only update adds no native ranges: **38.4156% linked / 61.5844% outside**,
-324,928 / 845,824 bytes. The metric includes payload data and is not project
-completion or CPU time. Windows/Linux runtime and portable-package checks pass, and the published
-downloads are audited. Fresh focused Windows player checks are pending.
+Native coverage stays **38.4156% linked / 61.5844% outside**, 324,928 / 845,824
+bytes. This host/launcher update adds no native ranges. The metric includes
+payload data and is not project completion or CPU time. Windows/Linux runtime
+and both package checks gate publication. Fresh focused player checks are pending.
+The previous level-entry hitch still needs explicit Windows confirmation.
 
 The Windows release contains launcher.exe, supporting source and portable Python.
 First launch selects your USA CUE/BIN and privately verifies, extracts, generates,
@@ -36,8 +33,8 @@ separation remain future work.
 
 ## Play on Windows
 
-1. Download [Nitrogen-Squared-Windows-x64.zip](https://github.com/TheEelYT/Nitrogen-Squared/releases/download/v0.0.27/Nitrogen-Squared-Windows-x64.zip)
-   from the [0.0.27 release](https://github.com/TheEelYT/Nitrogen-Squared/releases/tag/v0.0.27).
+1. Download [Nitrogen-Squared-Windows-x64.zip](https://github.com/TheEelYT/Nitrogen-Squared/releases/download/v0.0.28/Nitrogen-Squared-Windows-x64.zip)
+   from the [0.0.28 release](https://github.com/TheEelYT/Nitrogen-Squared/releases/tag/v0.0.28).
 2. Extract the complete **Nitrogen-Squared** folder somewhere you can write to,
    then run **launcher.exe**. Windows 10/11 x64 is supported.
 3. Select your supported USA **CUE** sheet, keeping its matching BIN beside it.
@@ -59,7 +56,23 @@ privately from the player's verified input and must not be redistributed. No Vit
 VPK is available. The runtime retains native boot/BIOS, selected native game
 routines and interpreter fallback, with the pinned PSXRecomp framework still in use.
 
-## Native progress — 0.0.27 (unchanged selection)
+## Play on Linux x86_64
+
+Download [Nitrogen-Squared-Linux-x64.zip](https://github.com/TheEelYT/Nitrogen-Squared/releases/download/v0.0.28/Nitrogen-Squared-Linux-x64.zip),
+extract the whole folder and run `sh launcher.sh`. Select the same supported USA
+CUE/BIN. The shared launcher verifies/imports/generates/builds/plays and handles
+updates, keeping all project state and saves in .local. Keep Windows and Linux
+installations in separate folders.
+
+Linux uses system Python 3.11+ with Tk, Git, CMake, Make, a C11/C++17 compiler,
+pkg-config and graphics/audio development packages. See README-FIRST.txt for the
+Ubuntu 24.04+ prerequisite command and equivalent packages on other distributions.
+The launcher does not use sudo. Framework/SDL revisions stay pinned and download
+inside .local. This is a source launcher package; no game binary or commercial
+assets are distributed. Local gameplay uses Linux OpenGL; broader desktop,
+Wayland and audio-device compatibility remain player checks.
+
+## Native progress — 0.0.28 (unchanged selection)
 
 | Selected executable payloads | Bytes | Share |
 | --- | ---: | ---: |

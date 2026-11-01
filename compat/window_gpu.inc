@@ -74,14 +74,22 @@ unsigned nitrogen_gpu_ui_flags(void)
     const int hud_symbol=(v==60u && u>=80u && w<=16u && h<=16u) ||
         (u==76u && v==54u && w==51u && h==6u) ||
         (u==120u && v==61u && w==7u && h==8u);
+    const int bonus_star=u==120u && v==61u && w==7u && h==8u;
     if (palette==0x4873u && rect && (digits || hud_symbol)) {
-        if (y<=64) role=x<128 ? 1u : 2u;
+        if (y<=64) role=bonus_star || x<128 ? 1u : 2u;
         else if (digits && x>=0 && x<=192 && y>=160 && y<=239) role=3;
     }
     const int multiplier=rect && palette==0x4873u && w==8u && h==15u &&
         ((v==144u && u>=64u && u<144u) || (u==118u && v==128u));
     if (multiplier && x>=16 && x<=56 && y>=192 && y<=223) role=3;
-    if (weapon_frame || weapon_flash || perk) role=3;
+    // The bonus speed readout shares menu-art palettes. Match its exact cells
+    // inside the weapon panel; its backing and all digits use one anchor.
+    const int speed_readout=rect && gp0_ot_rank==440u &&
+        x>=-16 && x<=112 && y>=128 && y<=255 &&
+        ((palette==0x5eb7u && v==55u && u>=196u && u<=232u &&
+          (u-196u)%4u==0u && w==4u && h==7u) ||
+         (palette==0x5fb7u && u==224u && v==0u && w==32u && h==32u));
+    if (weapon_frame || weapon_flash || perk || speed_readout) role=3;
     // Footer plates start at 205. The complete password row (including its
     // shadows at 204) is centred immediately above them, never edge anchored.
     if (gp0_ot_rank == 440u &&

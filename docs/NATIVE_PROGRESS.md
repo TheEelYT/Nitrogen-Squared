@@ -1,6 +1,6 @@
 # Native translation progress
 
-The unchanged 0.0.27 / 0.0.23 native selection verifies **38.4156% linked native translation
+The unchanged 0.0.28 / 0.0.23 native selection verifies **38.4156% linked native translation
 coverage**, with **61.5844% / 520,896 bytes** outside linked ranges.
 This payload-range metric includes data; it is not CPU time or project completion.
 
@@ -59,7 +59,7 @@ This changes host overhead, not linked coverage or game/audio clocks.
 
 | Service | Current status |
 | --- | --- |
-| Desktop presentation and menu | 0.0.27 repairs the password row and active shield/boost animation roles; square pixels and 2x floor remain; qualification in VALIDATION.md |
+| Desktop presentation and menu | 0.0.28 repairs the full bonus-star row and bonus speed display; square pixels and 2x floor remain; qualification in VALIDATION.md |
 | Interpreter debug attribution | 0.0.27 normal builds omit diagnostic-only resident-occupant scans; entry counters and actual native guards remain; no linked-byte credit |
 | Gameplay render scheduling | Bounded OpenGL worker; local pixel parity checked, user reports no issues with 0.0.9 on Windows |
 | Controller input | Host SDL input; analog gameplay verified by the user in 0.0.6 |
@@ -74,7 +74,7 @@ This changes host overhead, not linked coverage or game/audio clocks.
 | Further game/library entry fragments (0.0.21) | 26 added roots; 1,081 passing comparisons, 62 exact frames including high-score/restart flow; normal player fixture passed; reported Windows/dashboard checks accepted |
 | Further observed game/library fragments (0.0.22) | 29 added roots; 1,713 final passing comparisons and 74 exact frame checks; normal player fixture passed; all three submitted Windows/dashboard checks accepted |
 | Saved-game/card/gameplay paths (0.0.23) | 13 added roots; 3,415 final passing comparisons, 166 exact frames and matching card outputs; normal fixture passed; all three submitted Windows/dashboard checks accepted |
-| Portable preparation, updates and asset folders | Original host launcher; 0.0.18 setup/player route accepted through level 9 with saving; 0.0.19 adds optional private asset/music extraction and folder access; runtime still uses original disc; no native game-byte credit |
+| Portable preparation, updates and asset folders | Windows and Linux host launchers (0.0.28); 0.0.18 setup/player route accepted through level 9 with saving; 0.0.19 adds optional private asset/music extraction and folder access; runtime still uses original disc; no native game-byte credit |
 | Card-control/event polling | 20 additional native entry ranges; BIOS/serial protocol and file publication retain compatibility services; user reports no Windows saving/loading slowdowns in 0.0.12 |
 | Music and effects | Emulated SPU/CD path; no independent cue-driven player yet |
 | Opening movies | Native STR/XA service for three opening routes; user verified Windows playback and skipping |

@@ -1,22 +1,28 @@
-# Windows release and development test — 0.0.27
+# Windows and Linux release tests — 0.0.28
 
 ## Current acceptance and update checks
 
-**0.0.27 — password row, animated shield/boost HUD and interpreter overhead. Windows checks pending.**
-Keeps the complete code label and eight password buttons together. The active
-shield ring and red boost fill use the weapon panel's transform. Normal builds
-skip a diagnostic-only occupant lookup; diagnostic builds retain it. Execution
-residency guards, audio and game clocks are unchanged. Coverage remains
-**38.4156% linked / 61.5844% outside**, 324,928 / 845,824 bytes.
+**0.0.28 — complete bonus-star row, bonus speed display and Linux launcher. Focused checks pending.**
+Keeps every bonus star with the score, including those beyond the sixth. The
+bonus speed readout and its backing follow the bottom-left HUD. Square pixels,
+2x minimum and the 365x240 UI reference remain unchanged. The Linux x86_64 ZIP
+adds the shared CUE/BIN setup, play and update flow, using system Python/Tk and
+build dependencies listed in README-FIRST.txt. All private state stays in .local.
+Windows keeps its bundled Python/tools. Use separate folders for the platforms.
+Coverage remains **38.4156% linked / 61.5844% outside**, 324,928 / 845,824 bytes.
 
-Use Check for updates, preserving .local and saves. Inspect a loaded/between-level
-password row in wide and portrait windows. When available, activate a shield and
-charge/release boost; compare their animations with the panel. Observe whether
-the reported pause when the playable tunnel first appears still occurs after
-Start. Local measurements removed avoidable CPU work but did not reproduce the
-reported half-second Windows stall, so that symptom remains unconfirmed. No new
-campaign, upload or valued-save overwrite is requested. Fresh n0027 checks start
-untested; earlier submitted reports remain intact.
+Use Check for updates, preserving .local and saves. When naturally available,
+inspect a bonus-star row longer than six and the bonus-level speed display in
+usual, wide and portrait windows. No new campaign, upload or valued-save
+replacement is requested. Linux checks are optional for Windows-only testers.
+Fresh n0028 checks start untested; all submitted reports remain intact.
+
+**0.0.27 — password, shield/boost animation and interpreter overhead.**
+The user reports the other UI failures fixed and identifies the two remaining
+bonus HUD cases above. Accept that reported UI scope; it does not constitute
+explicit confirmation that the half-second level-entry hitch is resolved.
+Audio/game clocks remain unchanged. Earlier dashboard submissions keep their
+original versions and exact contents.
 
 **0.0.26 — menu layers, shield/firewall and high-score UI repairs.**
 Repaired title/selection backing, button outlines/rings, pause shadows and perk
@@ -784,13 +790,13 @@ Instructions for future maintainers and assistants:
     "metricNote": "Linked emitted byte coverage, including payload data. Not project completion or CPU time."
   },
   "version": {
-    "id": "n0027",
-    "name": "v0.0.27",
-    "title": "Password row, animated HUD and interpreter overhead",
-    "runtime": "Windows \u00b7 USA disc",
+    "id": "n0028",
+    "name": "v0.0.28",
+    "title": "Bonus HUD anchors and Linux launcher",
+    "runtime": "Windows / Linux x64 \u00b7 USA disc",
     "cart": "",
     "createdAt": "2026-11-01",
-    "description": "Fresh Windows checks: complete password row, active shield ring, boost fill and playable-tunnel entry timing. Preserve .local and saves; coverage and clocks unchanged."
+    "description": "Fresh checks: full bonus-star row, bonus speed readout and optional Linux setup/play/update. Preserve .local and saves; coverage and clocks unchanged."
   },
   "checks": [
     {
@@ -804,46 +810,36 @@ Instructions for future maintainers and assistants:
         "Allow the private build to refresh; preserve .local and existing saves."
       ],
       "expected": "Update completes and the launcher starts the refreshed build.",
-      "context": "Fresh v0.0.27 update check. Preserve .local and saves."
+      "context": "Fresh v0.0.28 update check. Preserve .local and saves."
     },
     {
-      "id": "N2-PASSWORD-UI",
-      "title": "Complete code label and eight buttons",
-      "area": "Interface",
-      "required": true,
-      "priority": "high",
-      "steps": [
-        "Load a familiar saved slot or use a naturally reached between-level menu.",
-        "Compare the password row in usual, wide and portrait windows."
-      ],
-      "expected": "The whole code label and all eight buttons remain together; the final symbol stays with the row, away from Start.",
-      "context": "No new campaign or valued-save overwrite is requested."
-    },
-    {
-      "id": "N2-ANIMATED-HUD",
-      "title": "Active shield and boost gauge",
+      "id": "N2-BONUS-HUD",
+      "title": "Bonus stars and speed display",
       "area": "Gameplay UI",
       "required": false,
       "priority": "normal",
       "steps": [
-        "When available, activate a shield and inspect the blue HUD ring.",
-        "Charge/release boost and inspect the red gauge fill in usual, wide and portrait windows."
+        "When naturally reached, inspect a bonus-star row containing more than six stars.",
+        "In a bonus level, compare the speed readout and backing with the bottom-left HUD.",
+        "Try usual, wide and portrait windows."
       ],
-      "expected": "Ring and red fill follow the weapon panel step and anchor, including animation peaks.",
-      "context": "No new campaign is requested just to obtain a shield."
+      "expected": "Every star stays beside the score; the complete speed display stays with the bottom-left HUD at the same UI step.",
+      "context": "No new campaign or valued-save overwrite is requested just to reach these cases."
     },
     {
-      "id": "N2-LEVEL-ENTRY",
-      "title": "Playable tunnel entry stutter",
-      "area": "Performance",
-      "required": true,
-      "priority": "high",
+      "id": "N2-LINUX",
+      "title": "Linux setup, play and update",
+      "area": "Linux launcher",
+      "required": false,
+      "priority": "normal",
       "steps": [
-        "After Start, observe the moment the playable tunnel first appears.",
-        "During ordinary play, note whether the reported brief pause recurs on later level entry."
+        "On Linux x86_64, extract the Linux ZIP and install the documented system prerequisites.",
+        "Run sh launcher.sh, select your own supported CUE/BIN, allow private preparation and play briefly.",
+        "Check menus, movement/fire, pause/resume and normal quit; confirm .local contains generated files/saves.",
+        "On a later release, use Check for updates and confirm private files are preserved."
       ],
-      "expected": "Report whether entry is smooth or still pauses; include the affected level and approximate duration if it persists.",
-      "context": "Local CPU overhead was reduced; the half-second Windows symptom remains unconfirmed. Audio/logic clock separation is unchanged."
+      "expected": "The Linux launcher prepares and starts the private game; updates preserve .local. Report update as blocked until a newer release exists.",
+      "context": "Optional for Windows-only testers. Linux uses system Python/Tk and build tools; the release includes no prepared game executable."
     }
   ]
 }
