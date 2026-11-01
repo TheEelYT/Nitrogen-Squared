@@ -4,8 +4,7 @@
 
 **0.0.26 candidate — complete menu layers and shield/firewall UI. Focused Windows checks pending.**
 Repairs the 0.0.25 title plate, selected-item backing, square-button outline,
-pulsing footer rings and pause-menu shadow fragments. Shield/firewall textured
-quads join their icon/count panel. UI keeps the 2x minimum, whole square-pixel
+pulsing footer rings and pause-menu shadow fragments. Shield/firewall icons join their icon/count panel. UI keeps the 2x minimum, whole square-pixel
 steps and 365x240 reference. Coverage stays **38.4156% linked / 61.5844% outside**.
 
 Use Check for updates once published and preserve .local and saves. Check the
@@ -780,7 +779,7 @@ Instructions for future maintainers and assistants:
   "version": {
     "id": "n0026",
     "name": "v0.0.26",
-    "title": "Menu layers, pause shadows and perk quads",
+    "title": "Menu layers, pause shadows and perk icon palettes",
     "runtime": "Windows \u00b7 USA disc",
     "cart": "",
     "createdAt": "2026-11-01",
@@ -840,6 +839,19 @@ Instructions for future maintainers and assistants:
       ],
       "expected": "Shield, firewall and bonus-weapon icons/counts use the same panel step and anchor without sideways squashing or overlap.",
       "context": "Do not start another campaign or overwrite a valued save just to reach this check. Earlier reports keep their version scope."
+    },
+    {
+      "id": "N2-SCORE-UI",
+      "title": "High-score plate, rows and save prompt",
+      "area": "Interface",
+      "required": false,
+      "priority": "normal",
+      "steps": [
+        "When naturally available, inspect the high-score title plate, complete score/name rows and the square-button save prompt.",
+        "Compare a usual window with a wide or portrait size."
+      ],
+      "expected": "Title/backing, rows and save-button glyph/outline use a coherent layout and step.",
+      "context": "No new save, campaign or valued-save overwrite is requested just to reach this screen."
     }
   ]
 }

@@ -597,9 +597,18 @@ limited local 0.0.25 screen checks; published assets remain unchanged.
 
 The candidate identifies HUD atlas cells instead of opaque letters by position,
 keeps menu selection backing and complete footer rings with their controls, and
-admits bounded textured perk geometry alongside sprites/counts. The 2x floor,
+admits the shield/firewall icon palettes alongside sprites/counts. The 2x floor,
 square pixels, 365x240 reference, world rendering and clocks are retained.
 Source regression fixtures cover the reported layer boundaries. Local visual,
 production, platform and public-package qualification remain in progress; no
 new native selection or comparison credit is claimed. Fresh n0026 player checks
 are pending, and all earlier submitted dashboard results are preserved.
+
+The refined candidate identifies the actual shield/firewall icon palettes,
+separate from the button outlines and indexed bonus weapons, and retains all
+weapon-upgrade flash frames. A disposable RAM-count fixture displays both real
+game icons and their counters through the original packet builder; wide and
+portrait captures at 2x/3x/4x are coherent. This fixture verifies presentation,
+not natural pickup acquisition or new native behavior. The supplied card is not
+modified. Four captures each contain 392 bright score-font blocks with zero
+inconsistent RGB blocks. Final production/platform checks remain pending.

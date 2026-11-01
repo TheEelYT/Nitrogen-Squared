@@ -5,7 +5,7 @@ with a planned PS Vita port and optional remaster presentation.
 
 **Current status: 0.0.26 candidate — menu layers and perk UI repairs.**
 Repairs the title plate, selected-item backing, square-button outline, pulsing
-footer rings and pause-menu shadows reported in 0.0.25. Shield/firewall quads
+footer rings and pause-menu shadows reported in 0.0.25. Shield/firewall icons
 join the weapon-panel transform. UI retains square pixels, a 2x floor and a
 365x240 reference; 3D resolution and aspect follow the usable window.
 [Display policy](docs/WINDOW_DISPLAY.md).

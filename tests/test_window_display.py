@@ -86,6 +86,8 @@ int main(){
  for(int x:{127,157,167,187,193,234}){sprite(x,208,0x4873);gp0_cmd_buf[0]=0x66000000u;assert(role()==0);}
  gp0_ot_rank=440;digits(24,16);assert(role()==1);
  digits(191,12,true);assert(role()==2);
+ sprite(95,23,0x4873);gp0_cmd_buf[2]=0x48733d78u;gp0_cmd_buf[3]=(8u<<16)|7u;assert(role()==1);
+ sprite(97,25,0x4873);gp0_cmd_buf[2]=0x48733d78u;gp0_cmd_buf[3]=(8u<<16)|7u;assert(role()==1);
  // Opaque title/button glyphs and pause-menu shadows are complete centre UI.
  for(int y:{20,58,60,61,160,162})for(int x:{145,155,160,183,202}){
   sprite(x,y,0x4873);assert(role()==0);
@@ -104,15 +106,16 @@ int main(){
  sprite(32,205,0x4db3);assert(role()==3);
  sprite(317,205,0x4d73);assert(role()==4);
  sprite(8,162,0x7a27);assert(role()==3);
- for(unsigned p:{0x7a64u,0x7ba4u,0x4ba1u,0x4b73u}){sprite(60,201,p);assert(role()==3);}
- // Shield quads and their sprite/count siblings use the same role.
- for(unsigned op:{0x24u,0x2cu,0x34u,0x3cu}){
-  gp0_cmd_buf[0]=(op<<24)|0x808080u;gp0_cmd_buf[2]=0x4b730000u;
-  int n=(op&8)?4:3,stride=2+((op&16)?1:0);
-  for(int i=0;i<n;i++)gp0_cmd_buf[1+i*stride]=(201u<<16)|60u;
-  assert(role()==3);
+ for(unsigned p:{0x7a64u,0x7ba4u,0x4ba1u,0x73b2u,0x73f2u}){sprite(60,201,p);assert(role()==3);}
+ // Actual shield/firewall icon palettes differ from the button outlines.
+ for(unsigned palette:{0x73b2u,0x73f2u}){
+  sprite(60,201,palette);assert(role()==3);
+  gp0_ot_rank=22;assert(nitrogen_gpu_ui_flags()==0);gp0_ot_rank=440;
  }
- gp0_ot_rank=22;assert(nitrogen_gpu_ui_flags()==0);gp0_ot_rank=440;
+ // Every weapon-upgrade flash palette stays with its HUD frame.
+ for(unsigned palette:{0x48b3u,0x4a73u,0x4b73u,0x4cb3u}){
+  sprite(16,177,palette);assert(role()==3);
+ }
  // The multiplier is not a pause-menu word, despite sharing its font.
  sprite(30,203,0x4873);gp0_cmd_buf[2]=0x48738076u;assert(role()==3);
  sprite(39,203,0x4873);gp0_cmd_buf[2]=0x48739050u;assert(role()==3);

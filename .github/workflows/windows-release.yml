@@ -138,7 +138,7 @@ jobs:
           Extract the complete **Nitrogen-Squared** folder and run **launcher.exe**.
           Select the supported USA CUE with its matching BIN beside it. Preparation verifies/imports/generates/compiles your private game; no separate Python or Visual Studio installation is required.
 
-          **UI layer repair:** aligns title/selection backing, square-button outlines, complete footer pulse rings and pause-menu shadows. Shield/firewall quads join the weapon-panel layout. UI retains square pixels, a 2x minimum and whole steps against a 365x240 game-area reference. The 3D view still follows the window; movies keep their proportions and sampling stays nearest. Game clocks are unchanged.
+          **UI layer repair:** aligns title/selection backing, square-button outlines, complete footer pulse rings and pause-menu shadows. Shield/firewall icons join the weapon-panel layout. UI retains square pixels, a 2x minimum and whole steps against a 365x240 game-area reference. The 3D view still follows the window; movies keep their proportions and sampling stays nearest. Game clocks are unchanged.
 
           Native selection is unchanged: 38.4156% linked / 61.5844% outside. Fresh Test Dashboard n0026 checks cover updating, menu/button layers, pause shadows and optional naturally available shield/firewall widgets. All earlier submitted reports retain their versions. Focused Windows player checks are pending; no new campaign, upload or valued-save overwrite is requested.
 

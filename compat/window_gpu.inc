@@ -34,18 +34,19 @@ unsigned nitrogen_gpu_ui_flags(void)
     if (op>=0x60u && op<=0x63u && gp0_ot_rank==441u) return nitrogen_ui_role(0,1);
     const int rect = op >= 0x64u && op <= 0x7fu && (op & 4u);
     const int textured_quad = op >= 0x2cu && op <= 0x2fu;
-    const int textured_polygon = polygon && (op & 4u);
-    const unsigned palette = (rect || textured_polygon) ? gp0_cmd_buf[2] >> 16 : 0;
+    const unsigned palette = (rect || textured_quad) ? gp0_cmd_buf[2] >> 16 : 0;
     int32_t x=0,y=0;
-    if (rect || textured_polygon) parse_vertex(gp0_cmd_buf[1],&x,&y);
+    if (rect || textured_quad) parse_vertex(gp0_cmd_buf[1],&x,&y);
     const int weapon_frame = rect && (palette == 0x7a27u || palette == 0x76e7u) &&
         gp0_ot_rank == 440u && x>=-16 && x<=112 && y>=128 && y<=255;
-    // HUD perks can use sprites or textured geometry. Keep the complete
-    // bounded shield/firewall family in the weapon-panel role.
-    const int perk = (rect || (textured_polygon &&
-        nitrogen_widget_vertices(op,0,208,144,255))) && gp0_ot_rank == 440u && x>=0 && x<=192 && y>=160 && y<=239 &&
+    // The bonus-weapon atlas and the shield/firewall atlas are distinct.
+    // Their counters share the panel; palette similarity is not ownership.
+    const int perk = rect && gp0_ot_rank == 440u && x>=0 && x<=192 && y>=160 && y<=239 &&
         (((palette & 63u)==36u && palette>=0x7a24u && palette<=0x7be4u) ||
-         palette==0x4ba1u || palette==0x4b73u);
+         palette==0x4ba1u || palette==0x73b2u || palette==0x73f2u);
+    const int weapon_flash = rect && gp0_ot_rank==440u &&
+        x>=-16 && x<=112 && y>=128 && y<=255 &&
+        (palette&63u)==51u && palette>=0x48b3u && palette<=0x4cb3u;
     const int tutorial_icon = rect && palette == 0x3ba0u && gp0_ot_rank == 441u;
     const int font = palette == 0x4873u || palette == 0x4d33u ||
         palette == 0x4d73u || palette == 0x4db3u || palette == 0x73b3u || palette == 0x73f3u;
@@ -56,7 +57,7 @@ unsigned nitrogen_gpu_ui_flags(void)
     const int menu_marker = rect && palette == 0 && current_texpage() == 0x13cu && gp0_ot_rank == 440u;
     if (rect && palette == 0 && current_texpage() == 0x13cu && gp0_ot_rank == 2u)
         return nitrogen_ui_role(6,0); // ray field only, never footer decorations
-    const int atlas = ((rect || textured_quad) && font) || weapon_frame || perk || tutorial_icon || menu_art || menu_marker;
+    const int atlas = ((rect || textured_quad) && font) || weapon_frame || weapon_flash || perk || tutorial_icon || menu_art || menu_marker;
     const WsUiPrepassItem *it = atlas ? NULL : ws_auto_ui_item();
     if (!atlas && (!it || !it->full_draw_area || !ws_ui_untextured_op(it->op))) return 0;
     // Centre is one transform for complete phrases, shadows, panels and menu
@@ -71,15 +72,16 @@ unsigned nitrogen_gpu_ui_flags(void)
     const int digits=(v==32u && u<80u && w==8u && h==16u) ||
         (v==88u && u>=64u && u<124u && w==6u && h==8u);
     const int hud_symbol=(v==60u && u>=80u && w<=16u && h<=16u) ||
-        (u==76u && v==54u && w==51u && h==6u);
+        (u==76u && v==54u && w==51u && h==6u) ||
+        (u==120u && v==61u && w==7u && h==8u);
     if (palette==0x4873u && rect && (digits || hud_symbol)) {
         if (y<=64) role=x<128 ? 1u : 2u;
         else if (digits && x>=0 && x<=192 && y>=160 && y<=239) role=3;
     }
     const int multiplier=rect && palette==0x4873u && w==8u && h==15u &&
         ((v==144u && u>=64u && u<144u) || (u==118u && v==128u));
-    if (multiplier && x>=0 && x<=112 && y>=192 && y<=223) role=3;
-    if (weapon_frame || perk) role=3;
+    if (multiplier && x>=16 && x<=56 && y>=192 && y<=223) role=3;
+    if (weapon_frame || weapon_flash || perk) role=3;
     // Dedicated footer rows: the centred attract prompt shares neither edge.
     if (gp0_ot_rank == 440u &&
         ((menu_marker && y>=160 && y<=255) || (!menu_marker && y>=200 && y<=239)) &&

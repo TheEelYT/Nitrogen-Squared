@@ -4,7 +4,7 @@
 plate, button, pulse-ring, pause-shadow and shield/firewall issues. HUD atlas
 cells distinguish score/life/multiplier content from menu letters and shadows.
 Selected-menu backing and complete footer rings share their matching UI roles;
-bounded textured perk quads share the weapon-panel role with sprites and counts.
+the shield/firewall icon palettes share the weapon-panel role with sprites and counts.
 The 2x floor, 365x240 reference and square-pixel policy below are unchanged.
 
 0.0.25 repairs split menu phrases, incomplete bonus widgets and help-panel
