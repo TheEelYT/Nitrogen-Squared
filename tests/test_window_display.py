@@ -116,12 +116,14 @@ int main(){
  sprite(8,162,0x7a27);assert(role()==3);
  for(int y:{162,178,188,200,214}){sprite(19,y,0x7667);assert(role()==3);}
  sprite(100,100,0x7667);assert(nitrogen_gpu_ui_flags()==0);
- gp0_cmd_buf[0]=0x5cffff04u;
+ gp0_state=GP0_POLYLINE_SHADED;
+ gp0_cmd_buf[0]=0xe100023cu; // stale preceding packet, not the line header
  assert(((nitrogen_gpu_line_flags(22,200,31,219)>>5)&7)==3);
  assert(nitrogen_gpu_line_flags(112,200,113,219)==0);
  gp0_ot_rank=397;assert(nitrogen_gpu_line_flags(22,200,31,219)==0);
- gp0_ot_rank=440;gp0_cmd_buf[0]=0x58008080u;
+ gp0_ot_rank=440;gp0_state=GP0_POLYLINE_MONO;
  assert(nitrogen_gpu_line_flags(22,200,31,219)==0);
+ gp0_state=0;
  for(unsigned p:{0x7a64u,0x7ba4u,0x4ba1u,0x73b2u,0x73f2u}){sprite(60,201,p);assert(role()==3);}
  // Actual shield/firewall icon palettes differ from the button outlines.
  for(unsigned palette:{0x73b2u,0x73f2u}){

@@ -99,7 +99,8 @@ unsigned nitrogen_gpu_line_flags(int x0,int y0,int x1,int y1)
     if ((gp0_ot_rank==427u || gp0_ot_rank==428u) &&
         x0>=-16 && x0<=112 && x1>=-16 && x1<=112 &&
         y0>=128 && y0<=255 && y1>=128 && y1<=255) return nitrogen_ui_role(3,1);
-    if (gp0_ot_rank==440u && (gp0_cmd_buf[0]>>24)==0x5cu &&
+    // Streaming polylines do not populate gp0_cmd_buf: use their live state.
+    if (gp0_ot_rank==440u && gp0_state==GP0_POLYLINE_SHADED &&
         x0>=-16 && x0<=112 && x1>=-16 && x1<=112 &&
         y0>=128 && y0<=255 && y1>=128 && y1<=255) return nitrogen_ui_role(3,1);
     if (gp0_ot_rank==441u) return nitrogen_ui_role(0,1);
