@@ -1,6 +1,9 @@
 # The external-entry occupant stamp is consumed only by the debug server.
 # Preserve the original interpreter and every native residency guard.
-file(SHA256 "${_nitrogen_interp}" _nitrogen_interp_sha)
+# CMake READ normalizes CRLF, matching the framework's source contracts. Git
+# checkouts with core.autocrlf must accept the same pinned source text.
+file(READ "${_nitrogen_interp}" _nitrogen_interp_text)
+string(SHA256 _nitrogen_interp_sha "${_nitrogen_interp_text}")
 if(NOT _nitrogen_interp_sha STREQUAL "7439cdbb38d8142ab4719d7a9667e16259e7edc27273962b43f67f9de9f8f8b7")
     message(FATAL_ERROR "Pinned interpreter attribution contract changed")
 endif()

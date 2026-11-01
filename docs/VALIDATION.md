@@ -675,7 +675,9 @@ lookup only with debug tools disabled. Entry/caller counters and every actual
 native residency guard remain. Diagnostics retain enrichment; REFERENCE uses
 the original pinned interpreter. Exact source SHA rejects upstream drift and a
 separate implementation family records the selected code in execution identity.
-The framework checkout remains unmodified.
+The framework checkout remains unmodified. The source guard hashes CMake-read
+text so unchanged LF and CRLF Git checkouts are equivalent; a complete-adapter
+synthetic test accepts both and rejects a changed instruction token.
 
 A separately linked pass-through timing fixture measures the current UI build
 before/after this change. Across frames 1800–4400, main-thread CPU time is
@@ -696,7 +698,7 @@ prevent production attribution. These measurements establish removable CPU work,
 not the cause or complete resolution of the user's Windows symptom. Fresh
 n0027 level-entry feedback remains required; clocks/audio are unchanged.
 
-All 84 source tests pass without skips; the 109-file audit, Windows CRLF bounds
+All 85 source tests pass without skips; the 109-file audit, Windows CRLF bounds
 and dashboard import preview pass. Four fresh n0027 checks start untested, while
 three reports and ten submitted checks remain unchanged. The normal build has
 diagnostics OFF, both Release flags -O3 -DNDEBUG, an empty qualification include
