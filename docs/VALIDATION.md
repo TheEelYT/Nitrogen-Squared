@@ -86,8 +86,8 @@ bounds and diff checks pass. The current dashboard parser/importer accepts fresh
 n0023 definitions, preserves both earlier submitted reports byte-for-byte and
 leaves new checks untested. Source, Windows/Linux runtime/renderer and portable
 package/update CI gate release publication; final receipts and public ZIP audit
-are recorded separately after completion. Focused 0.0.23 Windows player checks
-remain pending. No commercial inputs, derived C/guards, compiled game, captures,
+are recorded separately below. Submitted 0.0.23 Windows player checks are
+accepted in the acceptance note below. No commercial inputs, derived C/guards, compiled game, captures,
 witnesses or saves enter Git/releases. Private recovery includes compiler-cache
 objects and stays private. USA-only scope and deferred asset/EU/clock work remain.
 
@@ -432,3 +432,36 @@ included. Windows ZIP SHA-256: `fb8cc48d13593fdde8933192a3270f4305d9f8fe3979a330
 This receipt is documentation only. Preserve the published tag/assets; no VERSION
 bump, rebuild or repeat local qualification is needed. Fresh n0023 Windows player
 checks remain pending; earlier n0021/n0022 reports retain their version scope.
+
+## 0.0.23 reported Windows/dashboard acceptance
+
+The user submitted project-lab results in main commit
+[a1c8300](https://github.com/TheEelYT/Nitrogen-Squared/commit/a1c83008b716cf8ea866dd58e648964934f138e6).
+All three v0.0.23 (`nitrogen:n0023`) checks pass:
+
+- N2-UPDATE: launcher update and private-build refresh.
+- N2-PLAY: opening playback, menus and short gameplay with the defined
+  movement/firing/face-button, pause/resume and normal-quit scope.
+- N2-LOAD: familiar existing saved-slot load and brief gameplay.
+
+Accept that reported Windows route, superseding pending 0.0.23 player status
+above. The report does not establish a new campaign, deliberate saved-slot
+write/overwrite, every branch or exact FPS. No repeat testing, reimport, upload
+or valued-save overwrite is requested. Preserve .local and existing saves.
+All three submitted version reports, notes, timestamps and result markers remain
+byte-for-byte unchanged. Definition project/version/check IDs and check steps/
+expected results remain stable so reimport preserves the recorded results.
+
+This is documentation only. VERSION remains 0.0.23; preserve the release tag and
+assets. No rebuild or repeated native qualification is needed. Coverage remains
+324,928 / 845,824 = 38.4156% linked / 61.5844% outside.
+
+## Project Lab submission build triggers
+
+Source, runtime/renderer and portable workflows now ignore TESTING.md-only
+pushes. A Project Lab results submission creates such a commit,
+so it no longer starts the build/package jobs. Any additional changed file,
+including source/config/workflows, continues to trigger all three. Pull-request
+checks and manual portable workflow_dispatch are unchanged. The filters match across the release-gating
+workflows so ordinary code releases keep their full required check set. This
+changes CI triggers only; game coverage, VERSION and published assets are unchanged.

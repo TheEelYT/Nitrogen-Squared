@@ -1,6 +1,8 @@
 name: Source checks
 on:
   push:
+    paths-ignore:
+      - 'TESTING.md'
   pull_request:
 permissions:
   contents: read

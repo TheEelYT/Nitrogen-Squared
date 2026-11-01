@@ -580,3 +580,24 @@
   remain pending; preserve n0021/n0022 submitted results exactly. The local normal
   cache repair changed no source; exact tested binaries/contracts are retained
   only in private recovery, never Git/releases.
+
+- The user submitted v0.0.23 project-lab results in main commit
+  a1c83008b716cf8ea866dd58e648964934f138e6. All three nitrogen:n0023 checks pass:
+  N2-UPDATE (update/private-build refresh), N2-PLAY (opening playback, menus and
+  short gameplay with the defined control/pause/quit scope), N2-LOAD (familiar
+  existing saved-slot load). Accept the reported Windows route, superseding
+  pending 0.0.23 player status above. Do not infer a new campaign, deliberate
+  save overwrite, every branch or exact FPS. No repeat test/upload/reimport is
+  needed. Preserve all n0021/n0022/n0023 reports, notes, timestamps and markers
+  exactly and keep definition IDs/steps/expected results stable. Future releases
+  need fresh checks. This docs-only acceptance leaves VERSION/releases/native
+  config unchanged; no rebuild/requalification is needed. Coverage remains
+  38.4156% linked / 61.5844% outside.
+
+- All three build workflows ignore TESTING.md-only push changes so
+  Project Lab submissions do not start source/runtime/package builds. Mixed
+  commits with code/config/workflow or any other file still run the full checks.
+  Pull-request checks and manual portable workflow_dispatch stay unchanged. Keep the same path
+  filter on all release-gating workflows so a code release cannot wait for an
+  intentionally skipped required workflow. This CI-only change does not bump
+  VERSION or replace published release assets.

@@ -1,6 +1,8 @@
 name: Portable Windows launcher
 on:
   push:
+    paths-ignore:
+      - 'TESTING.md'
   pull_request:
   workflow_dispatch:
 concurrency:

@@ -2,7 +2,7 @@
 
 ## Current acceptance and update checks
 
-**0.0.23 — 13 native save/load, gameplay and supporting entry roots; focused Windows check pending.**
+**0.0.23 — 13 native save/load, gameplay and supporting entry roots; submitted Windows/dashboard checks accepted.**
 Adds 6,960 emitted bytes while preserving all 783 earlier input records.
 Linked emitted coverage is **324,928 / 845,824 = 38.4156%**,
 with **61.5844%** outside. This includes payload data, not project completion or CPU time.
@@ -15,15 +15,17 @@ slot overwrite and fresh setup create/load/overwrite. Output cards match the
 accepted reference byte-for-byte; the uploaded original remains unchanged.
 The normal movie/controller/pause/quit fixture passes without qualification hooks.
 
-Use **Check for updates**, let the private build refresh, then try opening playback,
-menus, short gameplay with movement/firing and usual face buttons, pause/resume
-and normal quit. If you normally use an existing saved slot, optionally load one
-and play briefly. No new campaign, upload, reimport or deliberate valued-save
-overwrite is requested. Preserve .local and existing saves.
+The submitted 0.0.23 results pass all three checks: update/private-build refresh;
+opening playback, menus and short gameplay with the defined control/pause/quit
+scope; and loading a familiar existing saved slot. Accept that reported Windows
+route without inferring a new campaign, deliberate save overwrite, every branch
+or exact FPS. No repeat testing, upload or reimport is requested. Preserve .local
+and existing saves.
 
-Dashboard n0023 has fresh untested update/gameplay/optional-load checks. Submitted
-n0021 and n0022 results, notes, timestamps and markers remain unchanged and retain
-their version scope. Startup performance does not require an unrelated repeat.
+Dashboard n0023 now has three submitted passes. All n0021/n0022/n0023 reports,
+notes, timestamps and result markers are preserved exactly. Each report retains
+its version scope; future releases need fresh checks. Startup performance does
+not require an unrelated repeat.
 Runtime still uses the original USA disc; folder-backed assets, EU support and
 clock separation remain future work.
 
@@ -732,7 +734,7 @@ Instructions for future maintainers and assistants:
     "runtime": "Windows · USA disc",
     "cart": "",
     "createdAt": "2026-10-31",
-    "description": "Fresh focused update/gameplay checks and optional existing-save load. Preserve .local and saves; no repeat campaign or deliberate valued-save overwrite."
+    "description": "All three submitted Windows checks accepted: update/private-build refresh, opening playback/menus/short gameplay and existing-save load. Preserve .local and saves; no repeat test requested."
   },
   "checks": [
     {
@@ -746,7 +748,7 @@ Instructions for future maintainers and assistants:
         "Allow the private build to refresh; preserve .local and existing saves."
       ],
       "expected": "Update completes and the launcher starts the refreshed build.",
-      "context": "Fresh v0.0.23 check; earlier results retain their version."
+      "context": "Submitted v0.0.23 update/private-build refresh check accepted. Preserve .local and saves; no repeat requested."
     },
     {
       "id": "N2-PLAY",
@@ -760,7 +762,7 @@ Instructions for future maintainers and assistants:
         "Pause/resume and quit normally."
       ],
       "expected": "Playback, menus, controls, presentation, pause/resume and quit behave normally.",
-      "context": "Fresh v0.0.23 check. No repeat campaign or exact FPS measurement is requested."
+      "context": "Submitted v0.0.23 opening playback/menu/short gameplay check accepted, including the defined controls/pause/quit scope. No repeat campaign or exact FPS measurement requested."
     },
     {
       "id": "N2-LOAD",
@@ -773,7 +775,7 @@ Instructions for future maintainers and assistants:
         "Play briefly and check the expected stage/progress and normal controls."
       ],
       "expected": "Existing saved progress loads and gameplay behaves normally.",
-      "context": "Optional existing-save check; no new campaign, new upload or deliberate valued-save overwrite. Local overwrite tests use disposable copies only."
+      "context": "Submitted v0.0.23 familiar existing-save load check accepted. This does not imply a new campaign or deliberate valued-save overwrite; no repeat requested."
     }
   ]
 }

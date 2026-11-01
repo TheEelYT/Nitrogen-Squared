@@ -5,9 +5,9 @@
 Larger-target exploration adds 13 observed roots and 6,960 emitted bytes,
 reaching 38.4156% linked / 61.5844% outside. Automated routes now cover disposable
 saved-game loading/saving, later-level play and fresh setup round trips. Final
-O3/live/replay/frame/card/normal checks pass. Focused Windows n0023 checks remain
-pending; preserve accepted n0021/n0022 results. No new campaign or valued-save
-overwrite is requested. Continue source-bound code/data mapping. USA-only scope,
+O3/live/replay/frame/card/normal checks pass. All three submitted Windows n0023
+checks pass and the reported route is accepted. Preserve n0021/n0022/n0023 results.
+No repeat test, new campaign or valued-save overwrite is requested. Continue source-bound code/data mapping. USA-only scope,
 folder-backed assets/mod packs, optional EU assets and clock separation retain
 their previous scope and priorities.
 
