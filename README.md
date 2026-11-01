@@ -3,7 +3,7 @@
 A Windows-first recompilation project for **N2O: Nitrous Oxide (PlayStation)**,
 with a planned PS Vita port and optional remaster presentation.
 
-**Current status: 0.0.25 candidate — coherent UI and square pixels, minimum 2x.**
+**Current status: 0.0.25 — coherent UI and square pixels, minimum 2x.**
 Repairs the split phrases, widescreen UI squashing, bonus-icon/count scaling and
 help-popup grouping reported in 0.0.24. UI uses whole square-pixel steps with a
 2x floor and a 365x240 reference; 3D resolution and aspect still follow the
@@ -11,8 +11,8 @@ usable window. [Display policy](docs/WINDOW_DISPLAY.md).
 
 This host-only update adds no native ranges. Coverage remains **38.4156% linked /
 61.5844% outside**, 324,928 / 845,824 bytes. The metric includes payload data and
-is not project completion or CPU time. Expanded display/production/platform
-qualification is in progress; focused 0.0.25 Windows player checks start fresh.
+is not project completion or CPU time. Expanded real-window display checks, pixel-grid checks and the normal production
+fixture pass locally. Fresh focused Windows player checks remain pending.
 
 The Windows release contains launcher.exe, supporting source and portable Python.
 First launch selects your USA CUE/BIN and privately verifies, extracts, generates,
@@ -32,8 +32,8 @@ separation remain future work.
 
 ## Play on Windows
 
-1. Download [Nitrogen-Squared-Windows-x64.zip](https://github.com/TheEelYT/Nitrogen-Squared/releases/download/v0.0.24/Nitrogen-Squared-Windows-x64.zip)
-   from the [0.0.24 release](https://github.com/TheEelYT/Nitrogen-Squared/releases/tag/v0.0.24).
+1. Download [Nitrogen-Squared-Windows-x64.zip](https://github.com/TheEelYT/Nitrogen-Squared/releases/download/v0.0.25/Nitrogen-Squared-Windows-x64.zip)
+   from the [0.0.25 release](https://github.com/TheEelYT/Nitrogen-Squared/releases/tag/v0.0.25).
 2. Extract the complete **Nitrogen-Squared** folder somewhere you can write to,
    then run **launcher.exe**. Windows 10/11 x64 is supported.
 3. Select your supported USA **CUE** sheet, keeping its matching BIN beside it.
@@ -55,7 +55,7 @@ privately from the player's verified input and must not be redistributed. No Vit
 VPK is available. The runtime retains native boot/BIOS, selected native game
 routines and interpreter fallback, with the pinned PSXRecomp framework still in use.
 
-## Native progress — 0.0.24 (unchanged selection)
+## Native progress — 0.0.25 (unchanged selection)
 
 | Selected executable payloads | Bytes | Share |
 | --- | ---: | ---: |
@@ -63,7 +63,8 @@ routines and interpreter fallback, with the pinned PSXRecomp framework still in 
 | Outside linked native translation ranges | 520,896 | **61.5844%** |
 | Total | 845,824 | 100.00% |
 
-Adds 13 N2O roots while preserving all 783 earlier input records.
+The retained 0.0.23 batch adds 13 N2O roots while preserving all 783 earlier
+input records; 0.0.25 adds no further native ranges.
 N2O: 296,520 bytes (64.6362%), 645
 roots and 11,133 aliases. NEW: 10,500 bytes
 (3.1454%), 152 roots and 300 aliases.

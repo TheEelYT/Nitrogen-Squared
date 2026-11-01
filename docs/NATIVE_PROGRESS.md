@@ -11,7 +11,7 @@ This payload-range metric includes data; it is not CPU time or project completio
 | SLUS_006.37 | 17,908 | 53,248 | 33.6313% |
 | Combined | 324,928 | 845,824 | 38.4156% |
 
-Adds 13 observed N2O roots and 6,960 emitted bytes, preserving all 783
+The retained 0.0.23 batch adds 13 observed N2O roots and 6,960 emitted bytes, preserving all 783
 earlier records. N2O has 645 roots/11,133 aliases;
 NEW has 152 roots/300 aliases. Boot is unchanged.
 Aliases, host/BIOS services and analysis-only C earn no extra credit. All 48

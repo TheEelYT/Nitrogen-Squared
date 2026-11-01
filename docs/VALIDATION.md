@@ -530,7 +530,7 @@ Prior source/platform/package receipts remain valid for their stated scope;
 they did not establish correctness of all menu/help/bonus screens. Preserve the
 published release and all submitted version-scoped dashboard reports.
 
-## 0.0.25 UI repair candidate
+## 0.0.25 UI repair qualification
 
 The owner additionally requests a 2x UI floor and square-pixel output. The new
 365x240 step reference applies to the usable drawable game area. Shared UI roles
@@ -548,8 +548,30 @@ score-font blocks per view, with zero inconsistent RGB blocks, at 800x600,
 2048x960, 900x1000 and 1280x720: 2x/3x/2x/2x with the 21-pixel desktop menu.
 The first mask check omitted that menu offset and is not credited.
 
-Expanded ordinary-input routes reproduce the old split phrases and reach menus,
-help, gameplay, weapon pickups, level completion and name entry. Complete final
-popup, bonus-widget, worker-off, normal-production, source/dashboard and platform/
-release checks before publication. Native inputs, exclusions and coverage remain
-unchanged; no new native-comparison credit is claimed for presentation work.
+Expanded ordinary-input discovery reproduced the old split phrases and reached
+menus, help, gameplay, weapon pickups, level completion and name entry. The shared
+phrase-role logic was retained through the later pixel-alignment refinements.
+Focused gameplay captures confirm the shield icon and count now join the weapon
+panel; packet fixtures cover the observed bonus-icon/count family and exclude
+unrelated world sprites. This is focused coverage, not every possible UI branch.
+
+Final real-X11/EGL worker-on and worker-off popup captures verify text, button
+icons, translucent fill, gradient border and separator as one layout. Additional
+window boundaries verify 1094x720 game area at 2x, 1095x720 at 3x and 1095x719
+back at 2x. The opening movie has 21,610 nonblack source blocks with zero
+inconsistent 3x3 RGB blocks in the sampled 960x720 picture. Portrait framing is
+also inspected. UI never drops below 2x; very small windows can crop it.
+
+Final normal diagnostics-OFF production uses both C/CXX -O3 -DNDEBUG, an empty
+qualification include, no interposition and no temporary line instrumentation.
+Its source/range manifest matches the accepted native selection. The separate
+normal movie/analog/firing/pause/quit fixture passes through frame 4500, and its
+private gameplay captures were inspected. All 83 source tests pass without skips;
+the 106-file source audit, CRLF bounds and actual dashboard preview pass. All
+three submitted earlier reports remain byte-identical and n0025 starts fresh.
+The uploaded card remains unchanged; tests use disposable copies or fresh cards.
+
+Native inputs, all exclusions and coverage remain unchanged. No new native-
+comparison credit is claimed for this host-only update. Windows/Linux CI,
+portable package checks and actual public-asset audit gate final publication;
+their receipts are recorded separately when complete.

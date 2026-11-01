@@ -648,3 +648,15 @@
   window menu/help/bonus/level-end checks, pixel-grid evidence, worker on/off,
   normal O3/no-hook smoke, source/dashboard and platform/public-asset checks.
   Preserve submitted results byte-for-byte and work solo.
+
+- 0.0.25 local qualification passes: coherent attract/menu phrases and art,
+  exact square score blocks at 2x/3x in four window shapes, complete observed
+  shield/count widget, and final popup fill/border/text with worker on and off.
+  Boundary captures verify 1094x720=2x, 1095x720=3x, 1095x719=2x game areas.
+  The sampled opening movie has exact 3x3 blocks; portrait framing is inspected.
+  The separate normal movie/analog/fire/pause/quit fixture passes at frame 4500;
+  normal manifest matches accepted selection, diagnostics are OFF, both flags
+  are O3, qualification include empty and instrumentation/interposition absent.
+  All 83 source tests pass without skips; 106-file audit/CRLF/dashboard preview pass.
+  Preserve all submitted reports and uploaded original card. Platform/package/
+  public-asset qualification remains required; fresh n0025 player checks pending.
