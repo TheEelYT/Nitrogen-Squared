@@ -12,7 +12,8 @@ their tested behavior. Square pixels, 2x floor and 365x240 reference remain.
 Native coverage stays **38.4156% linked / 61.5844% outside**, 324,928 / 845,824
 bytes. This host/launcher update adds no native ranges. The metric includes
 payload data and is not project completion or CPU time. Windows/Linux runtime
-and both package checks gate publication. Fresh focused player checks are pending.
+and both package checks pass; all five published assets are audited. Fresh focused
+player checks are pending.
 The previous level-entry hitch still needs explicit Windows confirmation.
 
 The Windows release contains launcher.exe, supporting source and portable Python.

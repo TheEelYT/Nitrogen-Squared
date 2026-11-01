@@ -803,3 +803,39 @@ read the actual configured SDL source. Local external-path controller (11 cases)
 normal-controller syntax, renderer 1x/4x, queue and worker equivalence pass.
 The new configured-header regression and all 89 source tests pass without skips.
 These are test-helper fixes; no game implementation or tested binary changed.
+
+## Published 0.0.28 receipts
+
+Immutable code/tag: `9e1da69209f4b47d7544b921a5a2f760c25652b8`.
+All exact-code main-push gates pass:
+[Source checks 41361325719](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/41361325719),
+[Runtime and renderer checks 41361325651](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/41361325651),
+[Windows/Linux packages and publication 41361325646](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/41361325646).
+Both package jobs, both runtime jobs, both source jobs and publication pass.
+The earlier dependency/helper-path attempts remained unpublished; the corrected
+final source and these gates supersede them.
+
+The actual [0.0.28 release](https://github.com/TheEelYT/Nitrogen-Squared/releases/tag/v0.0.28)
+was downloaded and audited. Tag/latest target, all five assets, checksums and
+published digests pass. Windows has 1764 owned files, an x64 launcher and portable
+Python license; Linux has exactly 115 owned files plus its manifest, with executable
+launcher.sh, prerequisite instructions and no bundled game/tool binary. Both apps
+contain exactly the 113 reviewed source files. Windows app/source ZIP are byte-equal;
+Linux, Windows and immutable source match after Git line-ending normalization.
+No private payload is included. ZIP SHA-256 values:
+
+- Windows: `dd147aaabd81fc30954ea58289263afbfc4d666d81685ea3ac6f67bb18463620`.
+- Linux: `60900172ea49c9df4025fdcf7e27a6bdc7002821105e522bb638a1dd0674c429`.
+
+The extracted Linux package passes first-run Tk, actual synthetic preparation,
+11 controller-helper cases, configured-header syntax, enhanced/reference smoke,
+renderer equivalence (331 checks at 1x; 340 at 4x), 8843 queue checks, render-worker
+equivalence and actual copied-process update/restart with private sentinels retained.
+Private real-game Linux presentation and normal-production qualification are recorded
+above. Broader distribution/Wayland/audio-device checks remain player checks.
+
+This receipt changes documentation only; preserve the published tag/assets, with
+no VERSION bump or runtime rebuild. All 89 source tests pass without skips.
+Fresh n0028 player checks remain pending; earlier submitted reports stay unchanged.
+The Windows level-entry hitch still lacks explicit resolution confirmation.
+Native selection/clocks remain unchanged: 38.4156% linked / 61.5844% outside.
