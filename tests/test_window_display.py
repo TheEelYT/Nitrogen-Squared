@@ -40,6 +40,14 @@ int main() {
         nitrogen_window_ui_vertex(&wx,&wy,0,0,0,238,wide,off);
         assert(wx==12 && wy==34);
     }
+    // A portrait window crops a 4:3 world; text still fits its visible width.
+    nitrogen_window_publish(600,800);
+    unsigned portrait=0x10 | (1<<5) | (1<<7) | (91<<9);
+    float px=182,py=120,px1=182+364.f/32,py1=130;
+    nitrogen_window_ui_vertex(&px,&py,portrait,0,0,240,0,0);
+    nitrogen_window_ui_vertex(&px1,&py1,portrait,0,0,240,0,0);
+    assert(near((px1-px)*1066/364,10));
+    assert(near((py1-py)*800/240,10));
     // Right/bottom anchoring stays at the edge across resizes and buffer origins.
     nitrogen_window_publish(1280,720);
     unsigned flags=0x10 | (2<<5) | (2<<7) | (80<<9);
@@ -54,6 +62,53 @@ int main() {
             p=Path(t);(p/'fixture.cpp').write_text(source)
             r=subprocess.run(['c++','-std=c++17','-I',str(ROOT/'compat'),str(p/'fixture.cpp'),
                               str(ROOT/'compat/window_display.cpp'),'-o',str(p/'fixture')],capture_output=True,text=True)
+            self.assertEqual(r.returncode,0,r.stdout+r.stderr)
+            r=subprocess.run([str(p/'fixture')],capture_output=True,text=True)
+            self.assertEqual(r.returncode,0,r.stdout+r.stderr)
+
+    @unittest.skipUnless(shutil.which('c++'), 'C++ compiler required for packet fixture')
+    def test_complete_font_atlas_and_world_sprite_exclusion(self):
+        source = r'''#include <cstddef>
+#include <cstdint>
+#include <cassert>
+struct WsUiPrepassItem {
+ struct { int x=0, width=20; } group;
+ int y=20,h=15,full_draw_area=1; unsigned char op=0x66;
+};
+static uint32_t gp0_cmd_buf[12];
+static uint16_t gp0_ot_rank=3;
+static int ws_auto_ui_squash;
+static WsUiPrepassItem item;
+static const WsUiPrepassItem *ws_auto_ui_item(){return &item;}
+static int ws_ui_untextured_op(unsigned op){return op==0x28 || op==0x60;}
+static int ws_disp_w(){return 364;}
+static void parse_vertex(uint32_t p,int32_t *x,int32_t *y){*x=(int16_t)p;*y=(int16_t)(p>>16);}
+#include "window_gpu.inc"
+int main(){
+ for(unsigned op : {0x64u,0x66u}) for(unsigned x : {80u,120u,200u,280u}) {
+  gp0_cmd_buf[0]=op<<24;gp0_cmd_buf[1]=(112u<<16)|x;
+  gp0_cmd_buf[2]=0x48730000u;
+  const unsigned f=nitrogen_gpu_ui_flags();
+  assert(f&0x10);assert(((f>>5)&3)==1);assert(((f>>7)&3)==1);
+  assert((f&0xfff0u)==((f|0x0fu)&0xfff0u));
+  gp0_cmd_buf[2]=0x5da30000u; // unrelated world sprite, even in front layer
+  assert(nitrogen_gpu_ui_flags()==0);
+ }
+ gp0_cmd_buf[0]=0x64000000u;gp0_cmd_buf[1]=(24u<<16)|30;
+ gp0_cmd_buf[2]=0x4d330000u;
+ assert(((nitrogen_gpu_ui_flags()>>5)&15)==0); // score widget: top left
+ gp0_cmd_buf[0]=0x2c000000u;gp0_cmd_buf[2]=0x6fe30000u;gp0_ot_rank=427;
+ for(int i : {1,3,5,7})gp0_cmd_buf[i]=(200u<<16)|40u;
+ assert(nitrogen_gpu_ui_flags()&0x10); // complete weapon widget
+ gp0_cmd_buf[7]=(200u<<16)|200u;
+ assert(nitrogen_gpu_ui_flags()==0); // ordinary geometry outside widget
+}
+'''
+        source='#include <initializer_list>\n'+source
+        with tempfile.TemporaryDirectory() as t:
+            p=Path(t);(p/'fixture.cpp').write_text(source)
+            r=subprocess.run(['c++','-std=c++17','-I',str(ROOT/'compat'),str(p/'fixture.cpp'),
+                              '-o',str(p/'fixture')],capture_output=True,text=True)
             self.assertEqual(r.returncode,0,r.stdout+r.stderr)
             r=subprocess.run([str(p/'fixture')],capture_output=True,text=True)
             self.assertEqual(r.returncode,0,r.stdout+r.stderr)

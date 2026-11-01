@@ -58,10 +58,13 @@ static void nitrogen_window_update()
     // Integer internal raster surfaces round upward to cover the drawable;
     // nearest presentation samples the result at the actual window size.
     static int last_scale = 0;
+    static Uint32 last_window = 0;
+    const Uint32 window_id = SDL_GetWindowID(sdl_window);
+    if (last_window != window_id) { last_window = window_id; last_scale = 0; }
     const int scale = std::max(1, (height + 239) / 240);
     if (last_scale != scale) {
-        if (video_resolution_apply_live(std::min(height, PSX_IR_MAX_LINES), 0, 1000))
-            last_scale = scale;
+        (void)video_resolution_apply_live(std::min(height, PSX_IR_MAX_LINES), 0, 1000);
+        last_scale = scale; // a refused request is retried on the next size step
     }
 }
 #endif

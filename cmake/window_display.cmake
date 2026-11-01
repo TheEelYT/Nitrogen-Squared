@@ -28,6 +28,8 @@ psxrecomp_add_implementation(nitrogen-runtime
         "${CMAKE_CURRENT_SOURCE_DIR}/compat/window_display.h"
         "${CMAKE_CURRENT_SOURCE_DIR}/compat/window_gpu.inc"
         "${CMAKE_CURRENT_SOURCE_DIR}/cmake/window_display.cmake"
+        "${CMAKE_CURRENT_SOURCE_DIR}/compat/desktop_menu.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/cmake/desktop_menu.cmake"
         "${PSXRECOMP_ROOT}/runtime/src/gpu.c"
         "${PSXRECOMP_ROOT}/runtime/src/gpu_gl_renderer.c"
         "${PSXRECOMP_ROOT}/runtime/src/main.cpp")

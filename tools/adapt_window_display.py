@@ -27,7 +27,8 @@ def adapt_gpu(text):
         'int gpu_ws_present_native_43(void) {\n'
         '    GpuDisplayInfo nitrogen_di; gpu_get_display_info(&nitrogen_di);\n'
         '    if (nitrogen_di.width == 364 && nitrogen_di.height == 238 &&\n'
-        '        !nitrogen_di.depth24) return 0;')
+        '        !nitrogen_di.depth24) return 0;\n'
+        '    if (nitrogen_di.width != 364) return 1;')
     return text + '\n#include "window_gpu.inc"\n'
 
 
@@ -64,10 +65,27 @@ def adapt_renderer(text):
     # Nearest presentation also means no implicit supersampling area average.
     text = replace(text, 'if (src_scale > 1 && lw > 0 && lh > 0 && w > 0 && h > 0) {',
                    'if (linear && src_scale > 1 && lw > 0 && lh > 0 && w > 0 && h > 0) {')
+    text = replace(text,
+        '    letterbox_rect_aspect(ww, wh, s_aspect_num, s_aspect_den, x, y, w, h);',
+        '    extern void nitrogen_menu_world_letterbox(int,int,int,int,int*,int*,int*,int*);\n'
+        '    nitrogen_menu_world_letterbox(ww, wh, s_aspect_num, s_aspect_den, x, y, w, h);')
     return text
 
 
 def adapt_main(text):
+    # Below 4:3, crop the authentic projection at presentation. Expanding GTE X
+    # does not correct N2O's unprojected backdrop/feedback geometry.
+    text = replace(text,
+        '    gte_set_display_aspect(mode == 1 ? proj_num : 4,\n'
+        '                           mode == 1 ? proj_den : 3);',
+        '    const bool nitrogen_narrow = (int64_t)proj_num * 3 < (int64_t)proj_den * 4;\n'
+        '    gte_set_display_aspect(mode == 1 && !nitrogen_narrow ? proj_num : 4,\n'
+        '                           mode == 1 && !nitrogen_narrow ? proj_den : 3);')
+    text = replace(text,
+        '    gpu_ws_configure(proj_num, proj_den, g_ws_anchor_addr,\n'
+        '                     g_ws_hud_sprt ? 1 : 0, mode);',
+        '    gpu_ws_configure(nitrogen_narrow ? 4 : proj_num, nitrogen_narrow ? 3 : proj_den,\n'
+        '                     g_ws_anchor_addr, g_ws_hud_sprt ? 1 : 0, nitrogen_narrow ? 0 : mode);')
     start = text.index('static void update_adaptive_widescreen() {')
     end = text.index('\n/* SDL GL attributes', start)
     return text[:start] + 'static void update_adaptive_widescreen() { nitrogen_window_update(); }\n' + text[end:]

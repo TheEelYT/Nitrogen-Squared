@@ -601,3 +601,21 @@
   filter on all release-gating workflows so a code release cannot wait for an
   intentionally skipped required workflow. This CI-only change does not bump
   VERSION or replace published release assets.
+
+
+- Active 0.0.24 is the user's window-aspect/resolution, stepped UI and nearest
+  sampling request, not a native conversion batch. Main remains accepted 0.0.23
+  at 38.4156%. Work solo. Preserve all submitted n0021/n0022/n0023 results.
+  Branch window-display-024 has original private-copy adapters and title UI
+  metadata. Source/geometry tests and real-input visual qualification are in
+  progress. Do not publish the initial partial-font classifier. The current
+  classifier includes the complete USA screen-font atlas and excludes unrelated
+  textured world sprites; weapon preview metadata is region/OT bounded.
+- SDL's offscreen window-size setter does not resize its EGL pbuffer. Larger
+  screenshot artifacts from the initial probe are invalid resize evidence.
+  Real-window X11/EGL validation uses private prerequisites and Xvfb over local
+  TCP, with SDL_VIDEO_FORCE_EGL=1. Keep builds and game sessions serialized, with
+  two compile jobs. Preserve private exact tested binaries/contracts and durable
+  receipts; no disc bytes, derived game C/guards or compiled game modules enter
+  public source/releases. Complete portrait crop, menu/gameplay, sharp movie,
+  worker on/off, source/platform/package/public-asset checks before promotion.

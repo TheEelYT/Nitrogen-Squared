@@ -28,10 +28,14 @@ extern "C" void nitrogen_window_ui_vertex(float *x, float *y, unsigned flags,
     const float ax = static_cast<float>((flags >> 5) & 3u) * .5f;
     const float ay = static_cast<float>((flags >> 7) & 3u) * .5f;
     const int view_width = wide_width > 0 ? wide_width : width;
+    const bool narrow = static_cast<long long>(dw) * 3 < static_cast<long long>(dh) * 4;
+    const int viewport_width = narrow ? dh * 4 / 3 : dw;
+    const float visible_width = narrow ? static_cast<float>(width) * dw / viewport_width : view_width;
+    const float crop = narrow ? (width - visible_width) * .5f : 0.f;
     // Keep original physical 4:3 proportions; an authored pixel need not be
     // square (N2O uses both 320- and 368-column display modes).
-    const float sx = (320.f / width) * step * view_width / dw;
+    const float sx = (320.f / width) * step * view_width / viewport_width;
     const float sy = (240.f / height) * step * height / dh;
-    *x = ox + ax * view_width - wide_offset + (*x - ox - ax * width) * sx;
+    *x = ox + crop + ax * visible_width - wide_offset + (*x - ox - ax * width) * sx;
     *y = oy + ay * height + (*y - oy - ay * height) * sy;
 }

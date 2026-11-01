@@ -40,6 +40,7 @@
   "docs/RUNTIME_BRINGUP.md",
   "docs/VALIDATION.md",
   "docs/VALIDATION_THROUGH_0.0.20.md",
+  "docs/WINDOW_DISPLAY.md",
   "launcher/launcher_win.c",
   "native/game_slice_reference.c",
   "native/mdec_host.c",

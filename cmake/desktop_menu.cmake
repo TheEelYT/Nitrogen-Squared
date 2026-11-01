@@ -33,6 +33,7 @@ set(_nitrogen_menu_renderer "${CMAKE_CURRENT_BINARY_DIR}/nitrogen_gpu_renderer.c
 file(WRITE "${_nitrogen_menu_renderer}.in" "${_nitrogen_renderer_text}")
 configure_file("${_nitrogen_menu_renderer}.in" "${_nitrogen_menu_renderer}" COPYONLY)
 set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS "${_nitrogen_renderer}")
+get_target_property(_nitrogen_sources nitrogen-runtime SOURCES)
 list(REMOVE_ITEM _nitrogen_sources "${_nitrogen_renderer}")
 set_property(TARGET nitrogen-runtime PROPERTY SOURCES ${_nitrogen_sources})
 target_sources(nitrogen-runtime PRIVATE "${_nitrogen_menu_renderer}"

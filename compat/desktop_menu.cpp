@@ -3,6 +3,9 @@
 #include "psx_menu_host.h"
 #include "host_osd.h"
 #include "runtime_telemetry.h"
+#ifdef NITROGEN_WINDOW_DISPLAY
+#include "window_display.h"
+#endif
 #include "../native/movie_player.h"
 #include <SDL3/SDL.h>
 #include "imgui.h"
@@ -251,6 +254,15 @@ void draw(void *context, int, int)
             m.host->video_get(&v);
             bool full = v.fullscreen != 0;
             if (ImGui::Checkbox("Fullscreen", &full)) fullscreen(m);
+#ifdef NITROGEN_WINDOW_DISPLAY
+            ImGui::SeparatorText("Display");
+            const ImGuiIO &io = ImGui::GetIO();
+            const int area_w = (int)(io.DisplaySize.x * io.DisplayFramebufferScale.x);
+            const int area_h = std::max(1, (int)(io.DisplaySize.y * io.DisplayFramebufferScale.y) - reserved.load());
+            ImGui::Text("Game area: %d x %d", area_w, area_h);
+            ImGui::Text("Interface scale: %dx (automatic)", nitrogen_window_ui_step(area_w, area_h));
+            ImGui::TextUnformatted("Sharp textures and video. Movies retain their proportions.");
+#endif
             ImGui::SeparatorText("Audio");
             if (ImGui::SliderInt("Volume", &m.volume, 0, 100, "%d%%")) {
                 SDL_Event volume{}; volume.type = m.volume_event; volume.user.code = m.volume;
@@ -341,4 +353,17 @@ extern "C" void nitrogen_menu_letterbox(int ww, int wh, int num, int den,
     if (dh > usable) { dh = usable; dw = (int)((int64_t)usable * num / std::max(1, den)); }
     *x = (ww - dw) / 2; *y = (usable - dh) / 2;
     *w = dw; *h = dh;
+}
+
+// Game view below 4:3: keep the world at its native physical proportions and
+// let the window crop the sides. Authored images/movies still use the fit helper.
+extern "C" void nitrogen_menu_world_letterbox(int ww, int wh, int num, int den,
+                                              int *x, int *y, int *w, int *h)
+{
+    if ((int64_t)num * 3 >= (int64_t)den * 4) {
+        nitrogen_menu_letterbox(ww, wh, num, den, x, y, w, h);
+        return;
+    }
+    const int usable = std::max(1, wh - std::clamp(reserved.load(), 0, std::max(0, wh - 1)));
+    *w = usable * 4 / 3; *h = usable; *x = (ww - *w) / 2; *y = 0;
 }
