@@ -500,7 +500,8 @@ assumption was invalid because of the UV inset and is not counted as evidence.
 SDL 3.4.10's offscreen resize does not reallocate its EGL pbuffer. Initial
 oversized captures are invalid resize evidence; the real-window runs replace them.
 Nearest sampling can still have pixel-phase differences at fractional sizes.
-Simulation and video/audio clocks are unchanged. The original fixed-aspect build
+The sharpness policy initializes post-process AA once per window, avoiding a
+per-frame renderer-ownership query. Simulation and video/audio clocks are unchanged. The original fixed-aspect build
 option is retained. The normal diagnostics-OFF build uses C/CXX -O3 -DNDEBUG with an empty
 qualification include, no interposition and no temporary instrumentation. Its
 source/range manifest matches the accepted selection. The three-movie/analog/

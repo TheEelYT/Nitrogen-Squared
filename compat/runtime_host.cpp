@@ -39,7 +39,6 @@ static void nitrogen_window_update()
     g_video_texfilter = 0;
     g_video_fmv_filter = 0;
     if (gr_texture_filter() != 0) gr_set_texture_filter(0);
-    if (gl_renderer_post_aa() != 0) (void)gl_renderer_set_post_aa(0);
     nitrogen_gpu_enable_ui();
     gpu_ws_set_auto_ui_in_place(0);
     int num = width, den = height;
@@ -61,7 +60,13 @@ static void nitrogen_window_update()
     static int last_scale = 0;
     static Uint32 last_window = 0;
     const Uint32 window_id = SDL_GetWindowID(sdl_window);
-    if (last_window != window_id) { last_window = window_id; last_scale = 0; }
+    if (last_window != window_id) {
+        last_window = window_id;
+        last_scale = 0;
+        // The getter also takes renderer ownership. Set the fixed policy once
+        // for a new window instead of draining the worker on every frame.
+        (void)gl_renderer_set_post_aa(0);
+    }
     int scale = std::max(1, (height + 239) / 240);
     if ((int64_t)num * 3 > (int64_t)den * 4) {
         GpuDisplayInfo display{}; gpu_get_display_info(&display);
