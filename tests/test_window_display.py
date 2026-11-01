@@ -105,7 +105,23 @@ int main(){
  sprite(115,21,0x4d33);assert(role()==2);
  sprite(32,205,0x4db3);assert(role()==3);
  sprite(317,205,0x4d73);assert(role()==4);
+ // Password label, shadows and all eight symbols sit just above the footer.
+ // The first letters and final symbols must not choose either screen edge.
+ for(int y:{202,203,204})for(int x:{95,97,103,105,113,115,122,124,135,137,146,162,178,194,210,226,242,258,259}){
+  sprite(x,y,0x4873);assert(role()==0);
+  gp0_cmd_buf[0]=0x66000000u;assert(role()==0);
+ }
+ sprite(50,208,0x4873);assert(role()==3);
+ sprite(286,208,0x4873);assert(role()==4);
  sprite(8,162,0x7a27);assert(role()==3);
+ for(int y:{162,178,188,200,214}){sprite(19,y,0x7667);assert(role()==3);}
+ sprite(100,100,0x7667);assert(nitrogen_gpu_ui_flags()==0);
+ gp0_cmd_buf[0]=0x5cffff04u;
+ assert(((nitrogen_gpu_line_flags(22,200,31,219)>>5)&7)==3);
+ assert(nitrogen_gpu_line_flags(112,200,113,219)==0);
+ gp0_ot_rank=397;assert(nitrogen_gpu_line_flags(22,200,31,219)==0);
+ gp0_ot_rank=440;gp0_cmd_buf[0]=0x58008080u;
+ assert(nitrogen_gpu_line_flags(22,200,31,219)==0);
  for(unsigned p:{0x7a64u,0x7ba4u,0x4ba1u,0x73b2u,0x73f2u}){sprite(60,201,p);assert(role()==3);}
  // Actual shield/firewall icon palettes differ from the button outlines.
  for(unsigned palette:{0x73b2u,0x73f2u}){

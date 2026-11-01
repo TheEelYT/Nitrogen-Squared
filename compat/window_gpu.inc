@@ -37,7 +37,7 @@ unsigned nitrogen_gpu_ui_flags(void)
     const unsigned palette = (rect || textured_quad) ? gp0_cmd_buf[2] >> 16 : 0;
     int32_t x=0,y=0;
     if (rect || textured_quad) parse_vertex(gp0_cmd_buf[1],&x,&y);
-    const int weapon_frame = rect && (palette == 0x7a27u || palette == 0x76e7u) &&
+    const int weapon_frame = rect && (palette == 0x7a27u || palette == 0x76e7u || palette == 0x7667u) &&
         gp0_ot_rank == 440u && x>=-16 && x<=112 && y>=128 && y<=255;
     // The bonus-weapon atlas and the shield/firewall atlas are distinct.
     // Their counters share the panel; palette similarity is not ownership.
@@ -82,9 +82,10 @@ unsigned nitrogen_gpu_ui_flags(void)
         ((v==144u && u>=64u && u<144u) || (u==118u && v==128u));
     if (multiplier && x>=16 && x<=56 && y>=192 && y<=223) role=3;
     if (weapon_frame || weapon_flash || perk) role=3;
-    // Dedicated footer rows: the centred attract prompt shares neither edge.
+    // Footer plates start at 205. The complete password row (including its
+    // shadows at 204) is centred immediately above them, never edge anchored.
     if (gp0_ot_rank == 440u &&
-        ((menu_marker && y>=160 && y<=255) || (!menu_marker && y>=200 && y<=239)) &&
+        ((menu_marker && y>=160 && y<=255) || (!menu_marker && y>=205 && y<=239)) &&
         (palette==0x4873u || palette==0x4d73u || palette==0x4db3u || menu_marker)) {
         if (x>=0 && x<=112) role=3;
         else if (x>=244 && x<=368) role=4;
@@ -96,6 +97,9 @@ unsigned nitrogen_gpu_line_flags(int x0,int y0,int x1,int y1)
 {
     x0-=draw_offset_x; x1-=draw_offset_x; y0-=draw_offset_y; y1-=draw_offset_y;
     if ((gp0_ot_rank==427u || gp0_ot_rank==428u) &&
+        x0>=-16 && x0<=112 && x1>=-16 && x1<=112 &&
+        y0>=128 && y0<=255 && y1>=128 && y1<=255) return nitrogen_ui_role(3,1);
+    if (gp0_ot_rank==440u && (gp0_cmd_buf[0]>>24)==0x5cu &&
         x0>=-16 && x0<=112 && x1>=-16 && x1<=112 &&
         y0>=128 && y0<=255 && y1>=128 && y1<=255) return nitrogen_ui_role(3,1);
     if (gp0_ot_rank==441u) return nitrogen_ui_role(0,1);

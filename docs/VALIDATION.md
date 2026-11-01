@@ -649,3 +649,19 @@ This receipt is documentation only: VERSION stays 0.0.26, with no rebuild, tag
 replacement or asset overwrite. Fresh n0026 Windows player checks remain pending;
 all submitted reports retain their versions and contents. Native coverage remains
 38.4156% linked / 61.5844% outside.
+
+## 0.0.27 follow-up in progress
+
+The owner reports a split password/code label and final button on the between-
+level menu, an incorrectly scaled active shield ring and red boost-gauge fill,
+and a brief stutter at each new level load. Audio separation remains deferred;
+the requested performance work targets the loading stall itself.
+
+A copied-card 0.0.26 route reproduces the password split on the loaded level-12
+menu. Label/shadows occupy rows 202/204 and buttons row 203; actual footer plates
+start at 205. The candidate excludes the password row from corner anchoring.
+Real shield activation reproduces the detached HUD polyline; observed HUD shield
+lines and boost-fill sprites join the weapon-panel transform. Three compiled
+window regressions pass, including password boundaries and world exclusions.
+Real-window candidate, normal-production and platform checks remain pending.
+Loading-time profiling is ongoing; no stutter fix or new native coverage is claimed.
