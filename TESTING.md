@@ -851,6 +851,34 @@ These are version-scoped player results, separate from the check definitions and
           "updatedAt": "2026-10-31T18:59:54.808Z"
         }
       ]
+    },
+    {
+      "versionId": "nitrogen:n0023",
+      "version": "v0.0.23",
+      "notes": "",
+      "checks": [
+        {
+          "id": "nitrogen:n0023:N2-LOAD",
+          "title": "Load a familiar existing saved slot",
+          "status": "pass",
+          "notes": "",
+          "updatedAt": "2026-11-01T00:49:14.046Z"
+        },
+        {
+          "id": "nitrogen:n0023:N2-PLAY",
+          "title": "Opening playback, menus and short gameplay",
+          "status": "pass",
+          "notes": "",
+          "updatedAt": "2026-11-01T00:49:16.237Z"
+        },
+        {
+          "id": "nitrogen:n0023:N2-UPDATE",
+          "title": "Update and refresh the private build",
+          "status": "pass",
+          "notes": "",
+          "updatedAt": "2026-10-31T23:48:49.923Z"
+        }
+      ]
     }
   ]
 }
