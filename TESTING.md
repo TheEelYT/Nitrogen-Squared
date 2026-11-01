@@ -2,12 +2,12 @@
 
 ## Current acceptance and update checks
 
-**0.0.26 candidate — complete menu layers and shield/firewall UI. Focused Windows checks pending.**
+**0.0.26 — complete menu layers, shield/firewall and high-score UI. Focused Windows checks pending.**
 Repairs the 0.0.25 title plate, selected-item backing, square-button outline,
-pulsing footer rings and pause-menu shadow fragments. Shield/firewall icons join their icon/count panel. UI keeps the 2x minimum, whole square-pixel
+pulsing footer rings, pause-menu shadow fragments and high-score title/save controls. Shield/firewall icons join their icon/count panel. UI keeps the 2x minimum, whole square-pixel
 steps and 365x240 reference. Coverage stays **38.4156% linked / 61.5844% outside**.
 
-Use Check for updates once published and preserve .local and saves. Check the
+Use Check for updates and preserve .local and saves. Check the
 main title plate and selected-item backing, square glyph/outline in ship and
 level menus, and complete rings around back/confirm controls. Open the pause
 options and compare help, quit and press-X shadows. When naturally available,
@@ -837,7 +837,7 @@ Instructions for future maintainers and assistants:
         "When bonus weapons, shields or firewalls are naturally available, inspect their icons and counts beside the weapon panel.",
         "Compare a usual window with a wide or portrait size."
       ],
-      "expected": "Shield, firewall and bonus-weapon icons/counts use the same panel step and anchor without sideways squashing or overlap.",
+      "expected": "Shield, firewall and bonus-weapon icons/counts use the same panel step and anchor without sideways squashing, detached parts or new overlaps.",
       "context": "Do not start another campaign or overwrite a valued save just to reach this check. Earlier reports keep their version scope."
     },
     {

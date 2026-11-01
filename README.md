@@ -3,17 +3,17 @@
 A Windows-first recompilation project for **N2O: Nitrous Oxide (PlayStation)**,
 with a planned PS Vita port and optional remaster presentation.
 
-**Current status: 0.0.26 candidate — menu layers and perk UI repairs.**
+**Current status: 0.0.26 — menu layers, perk icons and high-score UI repairs.**
 Repairs the title plate, selected-item backing, square-button outline, pulsing
-footer rings and pause-menu shadows reported in 0.0.25. Shield/firewall icons
+footer rings, pause-menu shadows and high-score controls reported in 0.0.25. Shield/firewall icons
 join the weapon-panel transform. UI retains square pixels, a 2x floor and a
 365x240 reference; 3D resolution and aspect follow the usable window.
 [Display policy](docs/WINDOW_DISPLAY.md).
 
 This host-only update adds no native ranges. Coverage remains **38.4156% linked /
 61.5844% outside**, 324,928 / 845,824 bytes. The metric includes payload data and
-is not project completion or CPU time. Local and platform qualification is in
-progress; fresh focused Windows player checks remain pending.
+is not project completion or CPU time. Local visual, normal-production and source checks pass; platform/publication
+checks gate the release; fresh focused Windows player checks remain pending.
 
 The Windows release contains launcher.exe, supporting source and portable Python.
 First launch selects your USA CUE/BIN and privately verifies, extracts, generates,
@@ -33,8 +33,8 @@ separation remain future work.
 
 ## Play on Windows
 
-1. Download [Nitrogen-Squared-Windows-x64.zip](https://github.com/TheEelYT/Nitrogen-Squared/releases/download/v0.0.25/Nitrogen-Squared-Windows-x64.zip)
-   from the [0.0.25 release](https://github.com/TheEelYT/Nitrogen-Squared/releases/tag/v0.0.25).
+1. Download [Nitrogen-Squared-Windows-x64.zip](https://github.com/TheEelYT/Nitrogen-Squared/releases/download/v0.0.26/Nitrogen-Squared-Windows-x64.zip)
+   from the [0.0.26 release](https://github.com/TheEelYT/Nitrogen-Squared/releases/tag/v0.0.26).
 2. Extract the complete **Nitrogen-Squared** folder somewhere you can write to,
    then run **launcher.exe**. Windows 10/11 x64 is supported.
 3. Select your supported USA **CUE** sheet, keeping its matching BIN beside it.

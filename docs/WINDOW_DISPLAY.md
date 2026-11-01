@@ -1,7 +1,7 @@
 # Window-driven presentation
 
 0.0.26 refines complete UI layers after the owner reported remaining 0.0.25
-plate, button, pulse-ring, pause-shadow and shield/firewall issues. HUD atlas
+plate, button, pulse-ring, pause-shadow, shield/firewall and high-score issues. HUD atlas
 cells distinguish score/life/multiplier content from menu letters and shadows.
 Selected-menu backing and complete footer rings share their matching UI roles;
 the shield/firewall icon palettes share the weapon-panel role with sprites and counts.
