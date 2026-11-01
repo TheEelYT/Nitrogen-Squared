@@ -787,3 +787,10 @@ integration uses original synthetic input in CI; actual Linux game presentation
 is tested privately. Broader distribution, Wayland and real audio-device support
 remain player checks. Native selection, all 48 exclusions and clocks are unchanged:
 324,928 / 845,824 = 38.4156% linked, 61.5844% outside. No new native credit.
+
+The first unpublished Linux package CI run found missing XScreenSaver headers
+in the documented prerequisites. The Ubuntu command and Linux CI dependency
+list now include XScreenSaver/XTest/Xext development files, along with udev,
+USB and D-Bus support from the pinned SDL Linux dependency guide. Publication
+was blocked; the corrected package must pass the complete final gates. This
+changes package instructions and CI prerequisites, not runtime code or coverage.

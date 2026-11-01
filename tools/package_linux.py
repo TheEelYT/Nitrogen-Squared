@@ -20,7 +20,7 @@ Use Check for updates; keep .local and the original disc available.
 Requires a graphical Linux x86_64 desktop, Python 3.11+ with Tk, Git, CMake 3.20+,
 Make, a C11/C++17 compiler, pkg-config and OpenGL/EGL/X11/audio development files.
 On Ubuntu 24.04 or newer, install prerequisites once:
-    sudo apt install python3 python3-tk git cmake build-essential pkg-config libgl-dev libegl-dev libx11-dev libxcursor-dev libxi-dev libxrandr-dev libxfixes-dev libxkbcommon-dev libasound2-dev libpulse-dev xdg-utils
+    sudo apt install python3 python3-tk git cmake build-essential pkg-config libgl-dev libegl-dev libx11-dev libxcursor-dev libxi-dev libxrandr-dev libxfixes-dev libxext-dev libxss-dev libxtst-dev libxkbcommon-dev libudev-dev libusb-1.0-0-dev libdbus-1-dev libasound2-dev libpulse-dev xdg-utils
 Other distributions need the equivalent packages. No sudo is used by the launcher.
 The system Python and compiler are used; pinned SDL/framework source downloads
 and all project state remain inside this folder. This is a source launcher
