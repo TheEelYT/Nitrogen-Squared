@@ -662,10 +662,11 @@ level-12 menu. Label/shadows use rows 202/204, buttons 203 and actual footer
 plates start at 205. The repaired row stays centred. The active shield's observed
 OT-440 shaded polyline uses live streaming state, since the command buffer holds
 a stale prior packet. Bounded boost-fill palette 7667 joins the weapon panel.
-Real X11/EGL worker-on views cover 2x/3x/4x and portrait, with all eight password
+Real X11/EGL worker-on and worker-off views cover 2x/3x/4x and portrait, with all eight password
 buttons together and shield ring/observed red segments aligned. A disposable
 inventory fixture activates the original shield builder; this is presentation
-proof, not a natural-pickup claim. Worker-off and peak-animation checks continue.
+proof, not a natural-pickup claim. A separate 240-consecutive-frame boost capture
+includes the peak red highlight aligned inside its gauge backing.
 
 Normal-build profiling found unconditional resident-occupant enrichment inside
 external interpreted entries. It scans the 16,384-slot cache solely to populate
@@ -695,7 +696,17 @@ prevent production attribution. These measurements establish removable CPU work,
 not the cause or complete resolution of the user's Windows symptom. Fresh
 n0027 level-entry feedback remains required; clocks/audio are unchanged.
 
-Final source, normal-production, platform and public-package checks remain in
-progress. Selection stays at 796 input records and all 48 exclusions:
+All 84 source tests pass without skips; the 109-file audit, Windows CRLF bounds
+and dashboard import preview pass. Four fresh n0027 checks start untested, while
+three reports and ten submitted checks remain unchanged. The normal build has
+diagnostics OFF, both Release flags -O3 -DNDEBUG, an empty qualification include
+and no comparison/replay/controller/timing wrappers. Native manifest SHA matches
+0.0.26 exactly. Final diagnostic and normal implementation identities match;
+the three game/movie/batching families and shared contract are unchanged.
+Final real-window diagnostic smoke also checks the password and shield ring
+with the new attribution family present. Platform and actual public-package
+checks gate publication; receipts follow separately.
+
+Selection stays at 796 input records and all 48 exclusions:
 324,928 / 845,824 = 38.4156% linked, 61.5844% outside. No new native comparison
 or coverage credit is claimed. Earlier dashboard reports remain byte-identical.
