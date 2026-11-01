@@ -12,8 +12,9 @@ join the weapon-panel transform. UI retains square pixels, a 2x floor and a
 
 This host-only update adds no native ranges. Coverage remains **38.4156% linked /
 61.5844% outside**, 324,928 / 845,824 bytes. The metric includes payload data and
-is not project completion or CPU time. Local visual, normal-production and source checks pass; platform/publication
-checks gate the release; fresh focused Windows player checks remain pending.
+is not project completion or CPU time. Local visual, normal-production, source,
+Windows/Linux runtime and portable package/update checks pass; the published
+assets are audited. Fresh focused Windows player checks remain pending.
 
 The Windows release contains launcher.exe, supporting source and portable Python.
 First launch selects your USA CUE/BIN and privately verifies, extracts, generates,

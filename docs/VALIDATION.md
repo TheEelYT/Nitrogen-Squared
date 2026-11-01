@@ -627,3 +627,25 @@ comparison/replay/wrapper hooks. Windows/Linux platform and actual public-packag
 checks gate publication; their final receipts follow separately. No native
 selection or comparison credit is claimed: 324,928 / 845,824 = 38.4156% linked,
 61.5844% outside. Focused Windows player checks remain pending.
+
+## Published 0.0.26 receipts
+
+Immutable code/tag: `636e02058efc48f36644ffb39e62717847b35f1b`.
+All main push gates pass: [source checks 41325695833](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/41325695833),
+[Windows/Linux runtime and renderer checks 41325696001](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/41325696001),
+and [portable launcher/preparation/update/publication 41325695818](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/41325695818).
+This supersedes pending platform/publication status above.
+
+The actual [0.0.26 release](https://github.com/TheEelYT/Nitrogen-Squared/releases/tag/v0.0.26)
+was downloaded and audited. Tag/latest target, all three assets, checksums and
+published digests pass. The Windows ZIP has the expected 1,757-file owned
+manifest, x64 launcher and portable Python license. Its 106 source files match
+the immutable code commit after Git line-ending normalization and match the
+separate source ZIP byte-for-byte. No private game payload is included.
+Windows ZIP SHA-256:
+`8dc13d47c693f99c0809fcdf4185cac31dfc1961b47b39c19539b687f5599429`.
+
+This receipt is documentation only: VERSION stays 0.0.26, with no rebuild, tag
+replacement or asset overwrite. Fresh n0026 Windows player checks remain pending;
+all submitted reports retain their versions and contents. Native coverage remains
+38.4156% linked / 61.5844% outside.
