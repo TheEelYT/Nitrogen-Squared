@@ -575,3 +575,15 @@ Native inputs, all exclusions and coverage remain unchanged. No new native-
 comparison credit is claimed for this host-only update. Windows/Linux CI,
 portable package checks and actual public-asset audit gate final publication;
 their receipts are recorded separately when complete.
+
+## 0.0.25 publication receipt
+
+Published code [5b15c84](https://github.com/TheEelYT/Nitrogen-Squared/commit/5b15c8466be50a0b2cc2be3a95121fc4533e91bb) passes every required main workflow:
+
+- [Source checks](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/41290793754): Windows and Linux passed.
+- [Runtime and renderer checks](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/41290793790): actual Windows and Linux synthetic runtime execution passed.
+- [Portable Windows launcher](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/41290793802): package, startup/toolchain, copied-update preservation and gated publication passed.
+
+The [0.0.25 release](https://github.com/TheEelYT/Nitrogen-Squared/releases/tag/v0.0.25) was downloaded and audited. All three assets, tag/latest target, checksums and digests pass. The Windows package has the expected 1,757-file owned manifest, x64 launcher and portable Python license. Its 106 source files match the release commit after Git line-ending normalization and match the separate source ZIP byte-for-byte. No private game payload is included. Windows ZIP SHA-256: `aa361596ac4eae269ee5aaeb8dd8d4b8fe108f1c798199733f95a0fd11ac474f`.
+
+This supersedes pending platform/publication status above. This receipt changes documentation only; retain the published tag/assets without a VERSION bump or rebuild. Fresh n0025 Windows UI/update checks remain pending. All earlier submitted dashboard results retain their versions and exact contents. Native coverage stays 38.4156% linked / 61.5844% outside.

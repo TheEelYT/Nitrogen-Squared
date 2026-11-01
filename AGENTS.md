@@ -660,3 +660,16 @@
   All 83 source tests pass without skips; 106-file audit/CRLF/dashboard preview pass.
   Preserve all submitted reports and uploaded original card. Platform/package/
   public-asset qualification remains required; fresh n0025 player checks pending.
+
+- 0.0.25 publication is verified at immutable code/tag
+  5b15c8466be50a0b2cc2be3a95121fc4533e91bb. Main source checks 41290793754,
+  Windows/Linux runtime and renderer checks 41290793790 and portable package/
+  update/publication checks 41290793802 all pass. Actual downloaded release assets
+  pass tag/latest/SHA/digest checks, the 1,757-file owned manifest, x64 launcher,
+  Python license and 106-file source equality after Git line-ending normalization.
+  Windows ZIP SHA-256 is
+  aa361596ac4eae269ee5aaeb8dd8d4b8fe108f1c798199733f95a0fd11ac474f.
+  This supersedes pending platform/publication status above. Preserve published
+  assets and tag; this receipt is documentation only, with no rebuild or VERSION
+  bump. Fresh n0025 player checks remain pending. Preserve all earlier submitted
+  reports exactly. Native coverage stays 38.4156% linked / 61.5844% outside.
