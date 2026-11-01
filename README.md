@@ -15,8 +15,8 @@ and exact-output checks are recorded in [validation](docs/VALIDATION.md); the
 reported half-second Windows level-entry pause still needs player confirmation.
 This host-only update adds no native ranges: **38.4156% linked / 61.5844% outside**,
 324,928 / 845,824 bytes. The metric includes payload data and is not project
-completion or CPU time. Platform and public-package checks gate publication;
-fresh focused Windows player checks are pending.
+completion or CPU time. Windows/Linux runtime and portable-package checks pass, and the published
+downloads are audited. Fresh focused Windows player checks are pending.
 
 The Windows release contains launcher.exe, supporting source and portable Python.
 First launch selects your USA CUE/BIN and privately verifies, extracts, generates,

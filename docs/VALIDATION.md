@@ -712,3 +712,32 @@ checks gate publication; receipts follow separately.
 Selection stays at 796 input records and all 48 exclusions:
 324,928 / 845,824 = 38.4156% linked, 61.5844% outside. No new native comparison
 or coverage credit is claimed. Earlier dashboard reports remain byte-identical.
+
+## Published 0.0.27 receipts
+
+Immutable code/tag: `8845feda8c363808dac8caf88aa6eae105168383`.
+All final main-push gates pass:
+[Portable Windows launcher 41353424424](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/41353424424),
+[Runtime and renderer checks 41353424506](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/41353424506),
+[Source checks 41353424419](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/41353424419).
+The earlier unpublished integration attempt rejected Windows CRLF checkouts in
+the new source guard; the corrected guard and its LF/CRLF/change regression
+supersede that failed attempt. No earlier 0.0.27 asset was published or replaced.
+
+The actual [0.0.27 release](https://github.com/TheEelYT/Nitrogen-Squared/releases/tag/v0.0.27)
+was downloaded and audited. Tag/latest target, all three assets, checksums and
+published digests pass. The Windows ZIP has 1760 owned files, an x64
+launcher and portable Python license. Its 109 source files match immutable
+code after Git line-ending normalization and match the separate source ZIP
+byte-for-byte. No private game payload is included. Windows ZIP SHA-256:
+`c0824e54504e3b5802e2810084088258554add02261a68acb76b3dfacd3227a7`.
+
+Final normal and diagnostic builds share the refreshed implementation identity.
+The final normal ordinary-keyboard smoke reaches gameplay and quits normally;
+production has no qualification wrappers. This receipt changes documentation
+only; preserve the published tag/assets, with no VERSION bump or rebuild.
+Fresh n0027 Windows UI and level-entry feedback remain pending. Removal of
+measured CPU overhead is verified; complete resolution of the reported
+half-second Windows hitch is not yet confirmed. Audio/game clocks and native
+coverage remain unchanged at 38.4156% linked / 61.5844% outside. Earlier dashboard
+reports retain their versions and exact contents.
