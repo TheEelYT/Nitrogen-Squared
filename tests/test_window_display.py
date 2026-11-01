@@ -1,4 +1,4 @@
-"""Original geometry checks: fractional resizes, integer boundaries and anchors."""
+"""Original regression fixtures for complete UI phrases, popups and pixel roles."""
 from pathlib import Path
 import importlib.util
 import shutil
@@ -8,135 +8,103 @@ import unittest
 ROOT = Path(__file__).resolve().parents[1]
 
 class WindowDisplayTests(unittest.TestCase):
-    @unittest.skipUnless(shutil.which('c++'), 'C++ compiler required for geometry fixture')
-    def test_fractional_sizes_and_anchored_widgets(self):
-        source = r'''
-#include "window_display.h"
-#include <cassert>
-#include <cmath>
-bool near(float a, float b) { return std::fabs(a-b) < .001f; }
-int main() {
-    assert(nitrogen_window_projection_is_ui(40*65536,199*65536,320));
-    assert(!nitrogen_window_projection_is_ui(184*65536,130*65536,320));
-    assert(!nitrogen_window_projection_is_ui(184*65536,120*65536,320));
-    assert(!nitrogen_window_projection_is_ui(40*65536,199*65536,640));
-    assert(nitrogen_window_ui_step(320,240)==1);
-    assert(nitrogen_window_ui_step(480,360)==1);
-    assert(nitrogen_window_ui_step(639,479)==1);
-    assert(nitrogen_window_ui_step(640,480)==2);
-    assert(nitrogen_window_ui_step(800,600)==2);
-    assert(nitrogen_window_ui_step(960,720)==3);
-    assert(nitrogen_window_ui_step(1080,1920)==3);
-    assert(nitrogen_window_ui_step(0,0)==1);
-    for (int width : {320,364}) for (int dh : {240,360,479,480,600,720}) {
-        int dw=dh*16/9, step=nitrogen_window_ui_step(dw,dh);
-        nitrogen_window_publish(dw,dh);
-        unsigned flags=0x10 | (1<<5) | (1<<7) | ((width/4)<<9);
-        float x=width/2.f,y=119, x1=x+width/32.f,y1=y+10;
-        // A native-wide 16:9 surface; unchanged world geometry must not acquire
-        // this transform, while a 10-reference-pixel UI glyph has integer size.
-        int wide=width*4/3, off=(wide-width)/2;
-        nitrogen_window_ui_vertex(&x,&y,flags,0,0,238,wide,off);
-        nitrogen_window_ui_vertex(&x1,&y1,flags,0,0,238,wide,off);
-        assert(near((x1-x)*dw/wide,10.f*step));
-        assert(near((y1-y)*dh/238,10.f*240/238*step));
-        float wx=12,wy=34;
-        nitrogen_window_ui_vertex(&wx,&wy,0,0,0,238,wide,off);
-        assert(wx==12 && wy==34);
-    }
-    nitrogen_window_publish(1280,720);
-    float bx=100,by=60;
-    nitrogen_window_ui_vertex(&bx,&by,0x60u|(91u<<9),0,0,238,0,0);
-    assert(bx==100 && near(by,119+(60-119)*4.f/3));
-    // A portrait window crops a 4:3 world; text still fits its visible width.
-    nitrogen_window_publish(600,800);
-    unsigned portrait=0x10 | (1<<5) | (1<<7) | (91<<9);
-    float px=182,py=120,px1=182+364.f/32,py1=130;
-    nitrogen_window_ui_vertex(&px,&py,portrait,0,0,240,0,0);
-    nitrogen_window_ui_vertex(&px1,&py1,portrait,0,0,240,0,0);
-    assert(near((px1-px)*1066/364,10));
-    assert(near((py1-py)*800/240,10));
-    // Right/bottom anchoring stays at the edge across resizes and buffer origins.
-    nitrogen_window_publish(1280,720);
-    unsigned flags=0x10 | (2<<5) | (2<<7) | (80<<9);
-    float x=320, y=256+240;
-    nitrogen_window_ui_vertex(&x,&y,flags,0,256,240,426,53);
-    assert(near(x,373) && near(y,496));
-}
-'''
-        # Standard initializer lists are explicit for every supported compiler.
-        source='#include <initializer_list>\n'+source
+    def compile_run(self, source, policy=False):
         with tempfile.TemporaryDirectory() as t:
             p=Path(t);(p/'fixture.cpp').write_text(source)
-            r=subprocess.run(['c++','-std=c++17','-I',str(ROOT/'compat'),str(p/'fixture.cpp'),
-                              str(ROOT/'compat/window_display.cpp'),'-o',str(p/'fixture')],capture_output=True,text=True)
+            args=['c++','-std=c++17','-I',str(ROOT/'compat'),str(p/'fixture.cpp')]
+            if policy:args.append(str(ROOT/'compat/window_display.cpp'))
+            r=subprocess.run(args+['-o',str(p/'fixture')],capture_output=True,text=True)
             self.assertEqual(r.returncode,0,r.stdout+r.stderr)
             r=subprocess.run([str(p/'fixture')],capture_output=True,text=True)
             self.assertEqual(r.returncode,0,r.stdout+r.stderr)
 
+    @unittest.skipUnless(shutil.which('c++'), 'C++ compiler required for geometry fixture')
+    def test_fractional_sizes_and_anchored_widgets(self):
+        self.compile_run(r'''
+#include "window_display.h"
+#include <cassert>
+#include <cmath>
+#include <initializer_list>
+bool near(float a,float b){return std::fabs(a-b)<.001f;}
+int main(){
+ assert(nitrogen_window_projection_is_ui(40*65536,199*65536,320));
+ assert(!nitrogen_window_projection_is_ui(184*65536,130*65536,320));
+ assert(nitrogen_window_ui_step(320,240)==2);
+ assert(nitrogen_window_ui_step(800,600)==2);
+ assert(nitrogen_window_ui_step(1094,720)==2);
+ assert(nitrogen_window_ui_step(1095,720)==3);
+ for(int dw:{600,801,1280,2048})for(int dh:{480,675,720,1000})for(int sh:{236,238,240}){
+  nitrogen_window_publish(dw,dh);int step=nitrogen_window_ui_step(dw,dh);
+  int vw=(long long)dw*3<(long long)dh*4?dh*4/3:dw;
+  unsigned flags=0x10u|(sh<<8);float x=184,y=120,x1=194,y1=130;
+  nitrogen_window_ui_vertex(&x,&y,flags,0,0,240,0,0);
+  nitrogen_window_ui_vertex(&x1,&y1,flags,0,0,240,0,0);
+  assert(near((x1-x)*vw/364,10.f*step));
+  assert(near((y1-y)*dh/sh,10.f*step));
+  assert(near(x*vw/364+(dw-vw)/2,float(dw/2))&&near(y*dh/sh,float(dh/2)));
+  // Two halves of the attract prompt retain their authored gap around centre.
+  float a=167,b=187,ay=208,by=208;
+  nitrogen_window_ui_vertex(&a,&ay,flags,0,0,240,0,0);
+  nitrogen_window_ui_vertex(&b,&by,flags,0,0,240,0,0);
+  assert(near((b-a)*vw/364,20.f*step)&&near(ay,by));
+  float wx=12,wy=34;nitrogen_window_ui_vertex(&wx,&wy,0,0,0,240,0,0);
+  assert(wx==12&&wy==34);
+ }
+ nitrogen_window_publish(1280,720);float x=0,y=496;
+ nitrogen_window_ui_vertex(&x,&y,0x10u|(3<<5)|(238<<8),0,256,240,0,0);
+ assert(near(x,0)&&near(y,494));
+}
+''',True)
+
     @unittest.skipUnless(shutil.which('c++'), 'C++ compiler required for packet fixture')
     def test_complete_font_atlas_and_world_sprite_exclusion(self):
-        source = r'''#include <cstddef>
+        self.compile_run(r'''
+#include <cstddef>
 #include <cstdint>
 #include <cassert>
-struct WsUiPrepassItem {
- struct { int x=0, width=20; } group;
- int y=20,h=15,full_draw_area=1; unsigned char op=0x66;
-};
-static uint32_t gp0_cmd_buf[12];
-static uint16_t gp0_ot_rank=3;
-static int ws_auto_ui_squash;
-static int gp0_state,draw_offset_x,draw_offset_y;
-enum {GP0_POLYLINE_MONO=4,GP0_POLYLINE_SHADED=5};
+#include <initializer_list>
+struct GpuDisplayInfo{unsigned width=364,height=238;};
+static unsigned source_height=238;
+static void gpu_get_display_info(GpuDisplayInfo*p){p->width=364;p->height=source_height;}
+struct WsUiPrepassItem{int full_draw_area=1;unsigned op=0x66;};
+static uint32_t gp0_cmd_buf[12];static uint16_t gp0_ot_rank=440;
+static int ws_auto_ui_squash,gp0_state,draw_offset_x,draw_offset_y;
+enum{GP0_POLYLINE_MONO=4,GP0_POLYLINE_SHADED=5};
 static WsUiPrepassItem item;
-static const WsUiPrepassItem *ws_auto_ui_item(){return &item;}
-static int ws_ui_untextured_op(unsigned op){return op==0x28 || op==0x60;}
-static int ws_disp_w(){return 364;}
+static const WsUiPrepassItem*ws_auto_ui_item(){return &item;}
+static int ws_ui_untextured_op(unsigned op){return op==0x28||op==0x60;}
 static unsigned current_texpage(){return 0x13c;}
-static void parse_vertex(uint32_t p,int32_t *x,int32_t *y){*x=(int16_t)p;*y=(int16_t)(p>>16);}
+static void parse_vertex(uint32_t p,int32_t*x,int32_t*y){*x=(int16_t)p;*y=(int16_t)(p>>16);}
 #include "window_gpu.inc"
+unsigned role(){unsigned f=nitrogen_gpu_ui_flags();assert(f&0x10);return(f>>5)&7;}
+void sprite(int x,int y,unsigned palette){gp0_cmd_buf[0]=0x64000000u;gp0_cmd_buf[1]=(uint32_t(y)<<16)|(uint16_t)x;gp0_cmd_buf[2]=palette<<16;}
 int main(){
- for(unsigned op : {0x64u,0x66u}) for(unsigned x : {80u,120u,200u,280u}) {
-  gp0_cmd_buf[0]=op<<24;gp0_cmd_buf[1]=(112u<<16)|x;
-  gp0_cmd_buf[2]=0x48730000u;
-  const unsigned f=nitrogen_gpu_ui_flags();
-  assert(f&0x10);assert(((f>>5)&3)==1);assert(((f>>7)&3)==1);
-  assert((f&0xfff0u)==((f|0x0fu)&0xfff0u));
-  gp0_cmd_buf[2]=0x5da30000u; // unrelated world sprite, even in front layer
-  assert(nitrogen_gpu_ui_flags()==0);
-  gp0_cmd_buf[2]=0x4cf30000u; // lens flare shares the font palette column
-  assert(nitrogen_gpu_ui_flags()==0);
- }
- gp0_cmd_buf[0]=0x64000000u;gp0_cmd_buf[1]=(24u<<16)|30;
- gp0_cmd_buf[2]=0x48730000u;gp0_ot_rank=440;
- assert(((nitrogen_gpu_ui_flags()>>5)&15)==0); // score widget: top left
- gp0_cmd_buf[1]=(21u<<16)|115;gp0_cmd_buf[2]=0x4d330000u;
- assert(((nitrogen_gpu_ui_flags()>>5)&15)==1); // complete centred progress bar
- gp0_cmd_buf[1]=(162u<<16)|8;gp0_cmd_buf[2]=0x7a270000u;
- assert(((nitrogen_gpu_ui_flags()>>5)&15)==8); // complete bottom-left frame
- gp0_cmd_buf[0]=0x2c000000u;gp0_cmd_buf[2]=0x6fe30000u;gp0_ot_rank=427;
- for(int i : {1,3,5,7})gp0_cmd_buf[i]=(200u<<16)|40u;
- assert(nitrogen_gpu_ui_flags()&0x10); // complete weapon widget
- gp0_cmd_buf[7]=(200u<<16)|200u;
- assert(nitrogen_gpu_ui_flags()==0); // ordinary geometry outside widget
- gp0_cmd_buf[0]=0x66000000u;gp0_cmd_buf[2]=0;
- assert((nitrogen_gpu_ui_flags()&0x70u)==0x60u); // dedicated backdrop, not UI
- gp0_state=GP0_POLYLINE_SHADED;draw_offset_y=256;
- assert(nitrogen_gpu_ui_flags()==0); // never reuse a stale polygon packet
+ // A menu phrase crossing the old score-region and centre boundary stays whole.
+ for(int x:{71,80,93,102,181,199,291}){sprite(x,40,0x4873);gp0_cmd_buf[0]=0x66000000u;assert(role()==0);}
+ gp0_ot_rank=877;
+ for(int x:{127,157,167,187,193,234}){sprite(x,208,0x4873);gp0_cmd_buf[0]=0x66000000u;assert(role()==0);}
+ gp0_ot_rank=440;sprite(24,16,0x4873);assert(role()==1);
+ sprite(191,12,0x4873);assert(role()==2);
+ sprite(115,21,0x4d33);assert(role()==2);
+ sprite(32,205,0x4db3);assert(role()==3);
+ sprite(317,205,0x4d73);assert(role()==4);
+ sprite(8,162,0x7a27);assert(role()==3);
+ for(unsigned p:{0x7a64u,0x7ba4u,0x4ba1u,0x4b73u}){sprite(60,201,p);assert(role()==3);}
+ sprite(100,100,0x4cf3);assert(nitrogen_gpu_ui_flags()==0); // lens flare
+ sprite(100,100,0x5da3);assert(nitrogen_gpu_ui_flags()==0); // world sprite
+ gp0_ot_rank=438;sprite(100,100,0x5ff7);assert(role()==0); // name-entry art
+ gp0_ot_rank=441;sprite(72,28,0x73b3);assert(role()==0);
+ source_height=240;assert((nitrogen_gpu_ui_flags()>>8)==240);
+ gp0_cmd_buf[0]=0x3a000000u;
+ for(int i:{1,3,5,7})gp0_cmd_buf[i]=(115u<<16)|64u;
+ assert(role()==0); // popup panel uses the same pivot as its text/icons
+ assert(nitrogen_gpu_line_flags(64,20,304,20)&0x10);
+ gp0_state=GP0_POLYLINE_SHADED;assert(nitrogen_gpu_ui_flags()==0);
+ gp0_ot_rank=427;draw_offset_y=256;
  assert(nitrogen_gpu_line_flags(30,456,50,466)&0x10);
  assert(nitrogen_gpu_line_flags(30,456,150,466)==0);
- gp0_ot_rank=9;
- assert(nitrogen_gpu_line_flags(30,456,50,466)==0);
 }
-'''
-        source='#include <initializer_list>\n'+source
-        with tempfile.TemporaryDirectory() as t:
-            p=Path(t);(p/'fixture.cpp').write_text(source)
-            r=subprocess.run(['c++','-std=c++17','-I',str(ROOT/'compat'),str(p/'fixture.cpp'),
-                              '-o',str(p/'fixture')],capture_output=True,text=True)
-            self.assertEqual(r.returncode,0,r.stdout+r.stderr)
-            r=subprocess.run([str(p/'fixture')],capture_output=True,text=True)
-            self.assertEqual(r.returncode,0,r.stdout+r.stderr)
+''')
 
     def test_adapter_rejects_changed_contract(self):
         spec=importlib.util.spec_from_file_location('window_adapter',ROOT/'tools/adapt_window_display.py')

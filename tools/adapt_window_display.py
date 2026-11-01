@@ -26,7 +26,7 @@ def adapt_gpu(text):
     text = replace(text, 'int gpu_ws_present_native_43(void) {',
         'int gpu_ws_present_native_43(void) {\n'
         '    GpuDisplayInfo nitrogen_di; gpu_get_display_info(&nitrogen_di);\n'
-        '    if (nitrogen_di.width == 364 && nitrogen_di.height == 238 &&\n'
+        '    if (nitrogen_di.width == 364 &&\n'
         '        !nitrogen_di.depth24) return 0;\n'
         '    if (nitrogen_di.width != 364) return 1;')
     return text + '\n#include "window_gpu.inc"\n'
@@ -40,8 +40,12 @@ def adapt_renderer(text):
     marker = 'static void gpu_geometry(GLenum mode, const int *xs, const int *ys,'
     helper = '''static void nitrogen_ui_vertex_flags(float *x, float *y, unsigned flags) {
     nitrogen_window_ui_vertex(x, y, flags, s_area_x1, s_area_y1,
-        (flags >> 9) == 91u ? 238 : s_area_y2 - s_area_y1 + 1,
+        s_area_y2 - s_area_y1 + 1,
         g_wide_cur ? g_wide_w : 0, g_wide_cur ? g_wide_off : 0);
+    if (flags & 0x10u) {
+        const float shift = g_wide_cur ? s_shift_hi : s_shift_hr;
+        *x -= shift; *y -= shift; /* UI targets physical pixel boundaries. */
+    }
 }
 static void nitrogen_ui_vertex(float *x, float *y) {
     nitrogen_ui_vertex_flags(x, y, rth_replaying() ? nitrogen_replay_ui : nitrogen_gpu_ui_flags());
@@ -82,6 +86,12 @@ static void nitrogen_ui_vertex(float *x, float *y) {
     # Nearest presentation also means no implicit supersampling area average.
     text = replace(text, 'if (src_scale > 1 && lw > 0 && lh > 0 && w > 0 && h > 0) {',
                    'if (linear && src_scale > 1 && lw > 0 && lh > 0 && w > 0 && h > 0) {')
+    # Nearest uses texel edges: a half-texel zoom defeats integer UI pixels.
+    text = replace(text,
+        'float in = src_scale > 1 ? 0.5f / (float)src_scale : 0.5f;',
+        'float in = linear ? (src_scale > 1 ? 0.5f / (float)src_scale : 0.5f) : 0.f;')
+    text = replace(text, 'float u0 = 0.5f / (float)src_w, v0 = 0.5f / (float)src_h;',
+        'float u0 = linear ? 0.5f / (float)src_w : 0.f, v0 = linear ? 0.5f / (float)src_h : 0.f;')
     text = replace(text,
         '    letterbox_rect_aspect(ww, wh, s_aspect_num, s_aspect_den, x, y, w, h);',
         '    extern void nitrogen_menu_world_letterbox(int,int,int,int,int*,int*,int*,int*);\n'

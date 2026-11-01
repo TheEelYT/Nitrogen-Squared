@@ -67,11 +67,12 @@ static void nitrogen_window_update()
         // for a new window instead of draining the worker on every frame.
         (void)gl_renderer_set_post_aa(0);
     }
-    int scale = std::max(1, (height + 239) / 240);
-    if ((int64_t)num * 3 > (int64_t)den * 4) {
-        GpuDisplayInfo display{}; gpu_get_display_info(&display);
-        if (display.width) scale = std::max(scale, (width + (int)display.width - 1) / (int)display.width);
-    }
+    GpuDisplayInfo display{}; gpu_get_display_info(&display);
+    const int source_h=std::max(1,(int)display.height);
+    const int source_w=std::max(1,(int)display.width);
+    const int viewport_w=(int64_t)num*3<(int64_t)den*4 ? height*4/3 : width;
+    const int scale=std::max({1,(height+source_h-1)/source_h,
+                            (viewport_w+source_w-1)/source_w});
     if (last_scale != scale) {
         (void)video_resolution_apply_live(std::min(scale * 240, PSX_IR_MAX_LINES), 0, 1000);
         last_scale = scale; // a refused request is retried on the next size step

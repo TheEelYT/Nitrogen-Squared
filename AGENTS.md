@@ -631,3 +631,20 @@
   is docs only; no VERSION bump, rebuild or repeat local checks are needed.
   Fresh n0024 Windows display/update/sharpness player checks remain pending.
   Preserve all earlier submitted reports. Coverage stays 38.4156% linked / 61.5844% outside.
+
+- The user reports 0.0.24 presentation regressions: split attract/menu phrases,
+  widescreen squashing, omitted bonus weapon/shield UI and broken help panels.
+  Earlier local checks did not cover those screens and do not supersede this
+  player report. Work on ui-coherence-025; do not replace published 0.0.24 assets.
+  The user now requests a 2x minimum and square-pixel output. UI steps use a
+  365x240 reference; 3D resolution/aspect still follows the window.
+- The candidate replaces per-glyph anchor thresholds with shared roles, records
+  actual scanout height, treats menu art and footer decorations as UI separately
+  from the ray field, and adds observed bonus-icon/count palettes. Opaque HUD
+  font packets distinguish the score stack from semi-transparent menu sentences.
+  Nearest presents remove their half-texel zoom and UI geometry compensates the
+  PS1 raster bias to target physical integer pixels. Qualification is ongoing;
+  no native selection changes or new coverage credit. Require expanded real-
+  window menu/help/bonus/level-end checks, pixel-grid evidence, worker on/off,
+  normal O3/no-hook smoke, source/dashboard and platform/public-asset checks.
+  Preserve submitted results byte-for-byte and work solo.
