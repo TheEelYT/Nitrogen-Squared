@@ -9,7 +9,13 @@ FetchContent_MakeAvailable(nitrogen_imgui)
 # The pinned presenter has no inset API. Adapt just its letterbox helper in a
 # private build copy; retain full-size framebuffers, captures and GL viewports.
 # Fail closed if the upstream contract changes. Never patch the checkout.
-file(READ "${_nitrogen_renderer}" _nitrogen_renderer_text)
+if(NITROGEN_WINDOW_DISPLAY)
+    set(_nitrogen_window_renderer "${CMAKE_CURRENT_BINARY_DIR}/nitrogen_window_renderer.c")
+    nitrogen_adapt_display(renderer "${_nitrogen_renderer}" "${_nitrogen_window_renderer}")
+    file(READ "${_nitrogen_window_renderer}" _nitrogen_renderer_text)
+else()
+    file(READ "${_nitrogen_renderer}" _nitrogen_renderer_text)
+endif()
 set(_nitrogen_letterbox [=[    int dw = ww, dh = (ww * den) / num;
     if (dh > wh) { dh = wh; dw = (wh * num) / den; }
     *x = (ww - dw) / 2;

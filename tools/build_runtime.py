@@ -69,6 +69,7 @@ def runtime_config(manifest: dict, installation: Path, generated: Path, controll
         'memcard_dir = "saves"\noverlay_cache = true\n'
         '\n[video]\nrenderer = "opengl"\naspect_ratio = "4:3"\n'
         'internal_resolution = "native"\nsupersampling = 1\ndynamic_resolution = false\n'
+        'antialiasing = false\ntexture_filtering = "nearest"\nfmv_filter = "nearest"\n'
         f'\n[controller]\ndefault_mode = "{controller_mode}"\np1_device = "auto"\np2_device = "none"\n'
     )
 

@@ -2,6 +2,10 @@
 #include "runtime_telemetry.h"
 #include "window_title.h"
 #include "psx_sdl.h"
+#ifdef NITROGEN_WINDOW_DISPLAY
+#include "window_display.h"
+static void nitrogen_window_update();
+#endif
 static const char *nitrogen_base_window_title(SDL_Window *window)
 {
     static NitrogenWindowTitle title;
@@ -18,6 +22,49 @@ static const char *nitrogen_base_window_title(SDL_Window *window)
 #undef spu_output_pop
 #undef debug_server_shutdown
 #undef SDL_GetWindowTitle
+#ifdef NITROGEN_WINDOW_DISPLAY
+extern "C" int nitrogen_menu_reserved_height(void);
+extern "C" void nitrogen_gpu_enable_ui(void);
+static void nitrogen_window_update()
+{
+    if (!g_gl_active || !sdl_window || g_headless) return;
+    int width = 0, height = 0;
+    SDL_GL_GetDrawableSize(sdl_window, &width, &height);
+    height -= nitrogen_menu_reserved_height();
+    if (width <= 0 || height <= 0) return; // minimized: keep the last valid frame
+    nitrogen_window_publish(width, height);
+    // The old title config may already exist after an update. Resolve the
+    // requested sharp presentation here, rather than requiring a reimport.
+    g_video_aa = false;
+    g_video_texfilter = 0;
+    g_video_fmv_filter = 0;
+    if (gr_texture_filter() != 0) gr_set_texture_filter(0);
+    if (gl_renderer_post_aa() != 0) (void)gl_renderer_set_post_aa(0);
+    nitrogen_gpu_enable_ui();
+    gpu_ws_set_auto_ui_in_place(0);
+    int num = width, den = height;
+    const int divisor = aspect_gcd(num, den);
+    num /= divisor; den /= divisor;
+    const bool native_wide = (int64_t)num * 3 >= (int64_t)den * 4;
+    if (native_wide) gl_renderer_fit_wide_aspect(gpu_ws_display_width(), &num, &den);
+    if (num != g_video_aspect_num || den != g_video_aspect_den ||
+        g_ws_native_wide != (int)native_wide) {
+        g_video_aspect_num = num; g_video_aspect_den = den;
+        g_ws_native_wide = native_wide;
+        gl_renderer_set_display_aspect(num, den);
+        g_ws_projection_mode = -1;
+        refresh_widescreen_projection();
+    }
+    // Integer internal raster surfaces round upward to cover the drawable;
+    // nearest presentation samples the result at the actual window size.
+    static int last_scale = 0;
+    const int scale = std::max(1, (height + 239) / 240);
+    if (last_scale != scale) {
+        if (video_resolution_apply_live(std::min(height, PSX_IR_MAX_LINES), 0, 1000))
+            last_scale = scale;
+    }
+}
+#endif
 extern "C" uint32_t spu_output_pop(int16_t *, uint32_t);
 extern "C" void debug_server_shutdown(void);
 #ifdef PSX_HAS_OVERLAY_DISPATCH
@@ -99,6 +146,9 @@ extern "C" int nitrogen_media_host_service(void)
     if (g_ovl_exit.load()) return -1;
 #ifndef PSX_NO_DEBUG_TOOLS
     debug_server_poll();
+#endif
+#ifdef NITROGEN_WINDOW_DISPLAY
+    nitrogen_window_update();
 #endif
     host_pause_service(); return psx_host_pause_depth() > 0 ? 1 : 0;
 }
