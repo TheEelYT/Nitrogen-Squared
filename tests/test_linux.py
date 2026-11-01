@@ -10,8 +10,20 @@ from linux_support import LinuxLayout
 from package_linux import stage
 from portable_support import Layout,extract_zip,write_json,sha256
 from portable_update import apply_update,read_manifest,verify_package
+from check_renderer import sdl_include_dir
 
 class LinuxPackageTests(unittest.TestCase):
+    def test_runtime_fixture_uses_configured_sdl_outside_build_with_spaces(self):
+        with tempfile.TemporaryDirectory() as t:
+            root=Path(t);build=root/'private work';build.mkdir()
+            source=root/'pinned SDL source';header=source/'include/SDL3/SDL.h'
+            header.parent.mkdir(parents=True);header.write_text('/* original fixture */')
+            (build/'CMakeCache.txt').write_text('SDL3_SOURCE_DIR:STATIC='+str(source)+'\n')
+            self.assertEqual(sdl_include_dir(build),source/'include')
+            header.unlink()
+            with self.assertRaisesRegex(ValueError,'Missing configured SDL3 headers'):
+                sdl_include_dir(build)
+
     def test_linux_environment_uses_host_tools_and_local_state(self):
         with tempfile.TemporaryDirectory() as t:
             l=LinuxLayout(Path(t));env=l.environment()

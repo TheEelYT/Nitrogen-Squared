@@ -5,15 +5,20 @@ import json
 import os
 from pathlib import Path
 import subprocess
-from route import ROOT, private_output
+from route import ROOT
 from selection import build_selection, selection_text
 
 
 def main():
     p=argparse.ArgumentParser(description=__doc__)
-    p.add_argument("--output",required=True,type=private_output)
+    # This fixture writes only original synthetic data. An extracted launcher's
+    # private work directory is beside app/, outside the source checkout's .local.
+    p.add_argument("--output",required=True,type=Path)
     p.add_argument("--framework",type=Path,default=ROOT/".local/psxrecomp")
-    args=p.parse_args();out=args.output;out.mkdir(parents=True,exist_ok=True)
+    args=p.parse_args();out=args.output.resolve()
+    if ".local" not in out.parts:
+        p.error("Synthetic qualification output requires a private .local directory")
+    out.mkdir(parents=True,exist_ok=True)
     binary=out/"qualification-controller-test"
     subprocess.run(["c++","-std=c++17","-O1","-I"+str(args.framework/"runtime/include"),
                     str(ROOT/"tools/qualification/compare.cpp"),str(ROOT/"tests/qualification_compare_smoke.cpp"),

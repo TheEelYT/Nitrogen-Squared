@@ -779,7 +779,7 @@ The actual extracted Linux first-run Tk window and copied-process update/restart
 pass locally, including changed version and save/cache sentinels. The pristine
 ZIP is created before test state and includes no game-derived binary or data.
 
-All 88 source tests pass without skips, including three Linux packaging,
+All 89 source tests pass without skips, including three Linux packaging,
 environment and platform/update tests. The 113-file source audit, Windows CRLF bounds and actual dashboard parser
 pass: three fresh n0028 checks, with all three reports/ten submitted checks
 unchanged. Both Windows/Linux package integration workflows gate publication. Linux first-setup
@@ -794,3 +794,12 @@ list now include XScreenSaver/XTest/Xext development files, along with udev,
 USB and D-Bus support from the pinned SDL Linux dependency guide. Publication
 was blocked; the corrected package must pass the complete final gates. This
 changes package instructions and CI prerequisites, not runtime code or coverage.
+
+The next unpublished Linux attempt compiled and passed the runtime smoke, then
+exposed helper assumptions about source-relative private output and SDL headers.
+The synthetic-only controller check now accepts the extracted package's .local;
+real-game qualification output restrictions stay unchanged. Renderer/header checks
+read the actual configured SDL source. Local external-path controller (11 cases),
+normal-controller syntax, renderer 1x/4x, queue and worker equivalence pass.
+The new configured-header regression and all 89 source tests pass without skips.
+These are test-helper fixes; no game implementation or tested binary changed.

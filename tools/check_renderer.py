@@ -17,6 +17,22 @@ from build_recompiler import verify_framework
 from n2o_disc import ROOT
 
 
+def sdl_include_dir(build: Path):
+    """Use the SDL source actually configured, including the launcher's pinned tree."""
+    cache = build / "CMakeCache.txt"
+    if cache.is_file():
+        for line in cache.read_text(encoding="utf-8").splitlines():
+            key, separator, value = line.partition("=")
+            if separator and key.split(":", 1)[0].lower() == "sdl3_source_dir":
+                include = Path(value) / "include"
+                if (include / "SDL3/SDL.h").is_file():
+                    return include
+    include = build / "_deps/sdl3-src/include"
+    if not (include / "SDL3/SDL.h").is_file():
+        raise ValueError("Missing configured SDL3 headers: " + str(include))
+    return include
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--framework", type=Path, default=ROOT / ".local/psxrecomp")
@@ -33,6 +49,7 @@ def main():
     library = sdl / "sdl3-build/libSDL3.a"
     if not library.is_file():
         p.error(f"Build the runtime first; missing SDL3 static library: {library}")
+    sdl_include = sdl_include_dir(build)
     out.mkdir(parents=True, exist_ok=True)
     env = os.environ.copy()
     env.update(SDL_VIDEODRIVER="offscreen", SDL_AUDIODRIVER="dummy", EGL_PLATFORM="surfaceless")
@@ -53,7 +70,7 @@ def main():
         "gpu_sw_renderer", "render_pass_plan", "psx_openxr", "render_thread",
         "present_thread", "frame_gen", "host_overlay")]
     includes = ["-I" + str(framework / "runtime/include"),
-                "-I" + str(framework / "runtime/src"), "-I" + str(sdl / "sdl3-src/include")]
+                "-I" + str(framework / "runtime/src"), "-I" + str(sdl_include)]
     objects = []
     for index, source in enumerate(sources):
         obj = out / f"fixture-{index}.o"
@@ -80,7 +97,7 @@ def main():
         raise RuntimeError("Render queue fixture did not complete")
     print(f"Render queue checks: {summary[0]}", flush=True)
     run([sys.executable, framework / "runtime/tests/run_gl_render_thread.py",
-         "--sdl-include", sdl / "sdl3-src/include", "--sdl-library", library,
+         "--sdl-include", sdl_include, "--sdl-library", library,
          "--output", out / "render-thread"])
     print("OpenGL render-worker equivalence passed at 1x and 4x", flush=True)
     return 0

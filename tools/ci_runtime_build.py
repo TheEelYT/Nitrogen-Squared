@@ -14,6 +14,7 @@ import subprocess
 
 from build_recompiler import build
 from build_runtime import find_binary, load_execution_manifest
+from check_renderer import sdl_include_dir
 from n2o_disc import ROOT
 from prepare_native import capture, emit
 
@@ -156,7 +157,7 @@ def main():
                         str(qualification / "compare.cpp"),
                         str(qualification / "replay.cpp")], check=True)
         subprocess.run(["c++", "-std=c++17", "-fsyntax-only", "-DPSX_SDL3=1",
-                        runtime_include, "-I" + str(work / "build/_deps/sdl3-src/include"),
+                        runtime_include, "-I" + str(sdl_include_dir(work / "build")),
                         str(qualification / "normal_controller.cpp")], check=True)
         print("Original qualification helper syntax checks passed", flush=True)
         subprocess.run(["python", str(ROOT / "tools/check_renderer.py"),
