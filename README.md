@@ -3,17 +3,16 @@
 A Windows-first recompilation project for **N2O: Nitrous Oxide (PlayStation)**,
 with a planned PS Vita port and optional remaster presentation.
 
-**Current status: 0.0.24 — window resolution, aspect and stepped interface.**
-The 3D view follows the usable window size without stretching. Game UI scales in
-whole steps: 1x between 1x–2x, 2x between 2x–3x, and so on. Texture, movie and
-presentation sampling are sharp/nearest. Movies retain their authored proportions.
-[Display policy and limits](docs/WINDOW_DISPLAY.md).
+**Current status: 0.0.25 candidate — coherent UI and square pixels, minimum 2x.**
+Repairs the split phrases, widescreen UI squashing, bonus-icon/count scaling and
+help-popup grouping reported in 0.0.24. UI uses whole square-pixel steps with a
+2x floor and a 365x240 reference; 3D resolution and aspect still follow the
+usable window. [Display policy](docs/WINDOW_DISPLAY.md).
 
-This host presentation update adds no native ranges. Coverage stays
-**38.4156% linked / 61.5844% outside**, 324,928 / 845,824 bytes. This payload-range
-metric includes data; it is not overall completion or a native CPU-time share.
-Real-window resize/HUD, movie sharpness and normal production/controller checks
-pass locally. Focused Windows 0.0.24 player checks are pending.
+This host-only update adds no native ranges. Coverage remains **38.4156% linked /
+61.5844% outside**, 324,928 / 845,824 bytes. The metric includes payload data and
+is not project completion or CPU time. Expanded display/production/platform
+qualification is in progress; focused 0.0.25 Windows player checks start fresh.
 
 The Windows release contains launcher.exe, supporting source and portable Python.
 First launch selects your USA CUE/BIN and privately verifies, extracts, generates,

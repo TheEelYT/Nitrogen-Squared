@@ -1,38 +1,41 @@
 # Window-driven presentation
 
-The 0.0.24 presentation follows the drawable game area, excluding the desktop
-menu bar. The game view uses the window's aspect. Wider windows use the toolkit's
-projection adjustment inside the game's authored viewport, so the original game
-clipper receives the expanded view before rejecting geometry. Narrower windows
-crop a proportion-correct 4:3 world. Authored movies/logo/image screens retain
-4:3 framing with bars where needed. The animated menu backdrop uses uniform
-cover/crop; its proportions remain intact.
+0.0.25 repairs split menu phrases, incomplete bonus widgets and help-panel
+scaling reported in 0.0.24. The 3D view follows the drawable game area, excluding
+the desktop menu. Wider views use the toolkit projection inside the authored
+viewport; portrait views crop a proportion-correct 4:3 world. Movies keep their
+authored framing. Simulation and video/audio clocks are unchanged.
 
-The interface scale is `max(1, floor(min(width / 320, height / 240)))`, using
-physical game-area pixels. Thus 480x360 and 608x456 use 1x; 640x480 and 800x600
-use 2x; 960x720 uses 3x. A portrait window also respects its available width.
-Original PS1 pixel proportions are retained across N2O's display modes. Menus,
-score widgets and the weapon preview have title-specific shared anchors.
-The System > Settings display readout reports the game area and interface step.
+UI uses square source pixels with a **2x minimum**. Its step is
+`max(2, floor(min(width / 365, height / 240)))`, using physical game-area pixels.
+A 730x480 or 800x600 game area uses 2x, 1095x720 uses 3x, and 1460x960 uses 4x.
+The menu bar is excluded; for example, a 720-pixel-tall window with its bar visible
+has less than 720 pixels for the game. Settings reports the usable area and step.
+Very small windows retain 2x and may crop UI instead of shrinking it further.
 
-The toolkit rasterizes at integer internal scales, rounded up from the game-area
-height with a 240-line reference, then presents at the actual drawable size.
-Texture, movie and presentation sampling use nearest-neighbor. Nearest presents
-also bypass the toolkit's implicit area resolve. Fractional sizes can have pixel
-phase differences; this is not a pixel-identical integer upscaler for every
-window size. Game update and video/audio clocks are unchanged.
+The reference is 365x240 as requested. The authored drawing canvas is 368x240;
+the pinned toolkit's CRTC rounding reports a 364-column scanout, with height
+varying with the game's screen-centre settings. Those are distinct from the
+physical window size. Primitive metadata records the actual scanout height.
+No non-square-pixel correction is applied to UI glyphs. Whole phrases, their
+shadows, icons and panel backing use shared transforms. The score/progress HUD,
+weapon/perk widget and footer controls have explicit shared roles. Individual
+glyphs do not pick anchors by crossing a screen-position threshold.
 
-Original build-time adapters operate on private copies of the pinned GPU,
-GTE, renderer and host main. Exact source contracts fail closed on upstream drift.
-The checkout is not modified. UI metadata recognizes the reviewed USA font/UI palettes and the bounded weapon-preview ordering layers and projection viewport, with guarded front-layer
-flat backing panels. Unrecognized world sprites are not classified as UI.
-Per-primitive tags travel with render-worker records; the worker never queries
-live guest packet state. CPU packet coordinates and UVs are not rewritten.
+Textures, movies and presents use nearest sampling. Nearest presents avoid area
+averaging and half-texel zoom. UI vertices compensate the native raster bias and
+use integer physical anchors; the internal raster covers the actual output in
+both dimensions. This supports whole square blocks for bitmap text at fractional
+window sizes. Rotating 3D geometry retains its normal rasterization.
 
-`-DNITROGEN_WINDOW_DISPLAY=OFF` retains the original fixed-aspect presentation
-path for diagnosis. Native slice selection and its linked-range metric are
-unchanged: 324,928 / 845,824 bytes, 38.4156% linked and 61.5844% outside.
+Original build-time adapters operate on private copies of the pinned GPU, GTE,
+renderer and host main. Exact source guards fail closed on drift. The framework
+checkout is unmodified. Render-worker records carry UI roles and source height;
+the worker never inspects live guest packet state. CPU packet coordinates and
+texture data remain intact. Menu ray sprites are distinct from footer particles.
+Unrecognized world sprites and the lens-flare palette stay outside UI handling.
 
-Validation must include real window surfaces. SDL 3.4.10's offscreen driver
-reports a resize without reallocating its EGL pbuffer; captures beyond its
-creation size are invalid evidence. Use Windows or X11/EGL for resize checks.
+`-DNITROGEN_WINDOW_DISPLAY=OFF` retains the original fixed-aspect diagnosis path.
+Native selection stays unchanged: 324,928 / 845,824 bytes, 38.4156% linked and
+61.5844% outside. Qualification must use real window surfaces: SDL 3.4.10's
+offscreen resize does not reallocate its EGL pbuffer.

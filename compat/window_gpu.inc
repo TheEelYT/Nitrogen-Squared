@@ -28,6 +28,7 @@ unsigned nitrogen_gpu_ui_flags(void)
         nitrogen_widget_vertices(op,-16,112,128,255)) return nitrogen_ui_role(3,1);
     if (polygon && gp0_ot_rank == 441u && !(op & 4u) &&
         nitrogen_widget_vertices(op,16,352,-32,160)) return nitrogen_ui_role(0,1);
+    if (op>=0x60u && op<=0x63u && gp0_ot_rank==441u) return nitrogen_ui_role(0,1);
     const int rect = op >= 0x64u && op <= 0x7fu && (op & 4u);
     const int textured_quad = op >= 0x2cu && op <= 0x2fu;
     const unsigned palette = (rect || textured_quad) ? gp0_cmd_buf[2] >> 16 : 0;
@@ -77,7 +78,6 @@ unsigned nitrogen_gpu_line_flags(int x0,int y0,int x1,int y1)
     if ((gp0_ot_rank==427u || gp0_ot_rank==428u) &&
         x0>=-16 && x0<=112 && x1>=-16 && x1<=112 &&
         y0>=128 && y0<=255 && y1>=128 && y1<=255) return nitrogen_ui_role(3,1);
-    if (gp0_ot_rank==441u && x0>=16 && x0<=352 && x1>=16 && x1<=352 &&
-        y0>=-32 && y0<=160 && y1>=-32 && y1<=160) return nitrogen_ui_role(0,1);
+    if (gp0_ot_rank==441u) return nitrogen_ui_role(0,1);
     return 0;
 }

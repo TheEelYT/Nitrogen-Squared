@@ -1,6 +1,23 @@
-# Windows release and development test — 0.0.24
+# Windows release and development test — 0.0.25
 
 ## Current acceptance and update checks
+
+**0.0.25 — UI grouping repairs; square pixels with a 2x minimum. Focused Windows checks pending.**
+Repairs the reported attract prompt, menu sentences, widescreen squashing,
+bonus weapon/shield widget and help-panel layout. UI now uses square pixels with
+`max(2, floor(min(game width / 365, game height / 240)))`. Settings reports the
+usable game area, excluding the desktop menu. Examples: 730x480/800x600 use 2x,
+1095x720 uses 3x. The 3D view still follows the window. Coverage is unchanged at
+**38.4156% linked / 61.5844% outside**, 324,928 / 845,824 bytes.
+
+Use Check for updates and let the private build refresh; preserve .local and saves.
+Check the attract prompt, ship and difficulty sentences as whole phrases. During
+a brief play, try wide and portrait windows and check the complete weapon panel.
+When naturally available, inspect bonus weapons/shields, the bonus help popup and
+level-end text. No new campaign, new upload, reimport or valued-save overwrite is
+requested. Very small windows keep 2x and may crop UI. Fresh n0025 checks do not
+inherit earlier passes. The 0.0.24 issues were reported in chat; this does not
+create or alter submitted dashboard results.
 
 **0.0.24 — window resolution/aspect, stepped interface and sharp sampling; focused Windows check pending.**
 The 3D view follows the usable window size without stretching. HUD/menu/text use
@@ -746,13 +763,13 @@ Instructions for future maintainers and assistants:
     "metricNote": "Linked emitted byte coverage, including payload data. Not project completion or CPU time."
   },
   "version": {
-    "id": "n0024",
-    "name": "v0.0.24",
-    "title": "Window aspect, stepped interface and sharp sampling",
+    "id": "n0025",
+    "name": "v0.0.25",
+    "title": "Complete UI groups and square pixels, minimum 2x",
     "runtime": "Windows · USA disc",
     "cart": "",
     "createdAt": "2026-11-01",
-    "description": "Focused Windows display/update checks pending. Window-driven resolution/aspect, integer HUD/menu/text plateaus and nearest sampling; native coverage unchanged. Preserve .local and saves."
+    "description": "Focused Windows repair checks pending: intact phrases/panels, wide/portrait HUD, bonus widgets and square pixels. Coverage unchanged. Preserve .local and saves."
   },
   "checks": [
     {
@@ -766,34 +783,48 @@ Instructions for future maintainers and assistants:
         "Allow the private build to refresh; preserve .local and existing saves."
       ],
       "expected": "Update completes and the launcher starts the refreshed build.",
-      "context": "Fresh v0.0.24 update check. Preserve .local and saves; no new import or campaign is needed."
+      "context": "Fresh v0.0.25 update check. Preserve .local and saves."
     },
     {
-      "id": "N2-WINDOW",
-      "title": "Resize menus and gameplay",
+      "id": "N2-UI-GROUPS",
+      "title": "Intact phrases, menu art and help panels",
+      "area": "Interface",
+      "required": true,
+      "priority": "high",
+      "steps": [
+        "Check the attract press-X-to-start prompt as one centred phrase.",
+        "Check the ship-selection and difficulty sentences, menu titles and footer controls.",
+        "When naturally available, check a help popup and level-end text; try wide and portrait windows."
+      ],
+      "expected": "Words, shadows, button icons and panel fills/borders stay together with no separated fragments or sideways squashing.",
+      "context": "These reproduce the 0.0.24 issues reported in chat. No repeat campaign is requested; record inaccessible screens as blocked with a reason."
+    },
+    {
+      "id": "N2-UI-PIXELS",
+      "title": "Square-pixel scaling with a 2x minimum",
       "area": "Display",
       "required": true,
       "priority": "high",
       "steps": [
-        "Resize menus and a short gameplay session across usable game areas near 480x360, 608x456, 640x480, 800x600 and 960x720; Settings shows game area and UI step.",
-        "Try a wide window and a portrait window, then return to a usual size.",
-        "Check score/lives/progress and the weapon widget together; move/fire, pause/resume and quit normally."
+        "Use Settings to see physical game-area size and interface step.",
+        "Try areas near 800x600 (2x) and 1095x720 (3x), plus a wide and portrait window.",
+        "Check score/high-score/progress text and the full weapon panel during brief movement/firing; pause/resume and quit."
       ],
-      "expected": "World proportions remain correct with no new missing tunnel wedges. Interface elements remain aligned: 1x below 640x480, 2x at 640x480/800x600, 3x at 960x720, limited by both available dimensions.",
-      "context": "Use physical drawable game-area size, excluding the desktop menu. Portrait crops the world. No new campaign or save overwrite requested."
+      "expected": "UI never drops below 2x, grows in whole steps and keeps square pixel proportions. World proportions, controls and normal quit remain correct.",
+      "context": "The desktop menu is excluded from game area. Small windows keep 2x and may crop UI. No exact FPS measurement is required."
     },
     {
-      "id": "N2-SHARP",
-      "title": "Sharp textures and proportion-correct movies",
-      "area": "Presentation",
-      "required": true,
+      "id": "N2-PERK-UI",
+      "title": "Bonus weapon and shield widget",
+      "area": "Gameplay UI",
+      "required": false,
       "priority": "normal",
       "steps": [
-        "Let opening movies play in a wide window; try another size.",
-        "Inspect menu text and gameplay textures at a comfortable size."
+        "When bonus weapons, shields or firewalls are naturally available, inspect their icons and counts beside the weapon panel.",
+        "Compare a usual window with a wide or portrait size."
       ],
-      "expected": "Movies retain their proportions with bars as needed. Textures/video use sharp nearest sampling rather than blur; fractional sizes may have uneven pixel widths.",
-      "context": "No exact FPS measurement or repeat campaign is needed. Movie and gameplay clocks are unchanged."
+      "expected": "The complete widget uses the same step and anchors; icons/counts do not stretch or detach from the panel.",
+      "context": "Do not start another campaign or overwrite a valued save just to reach this check. Earlier reports keep their version scope."
     }
   ]
 }

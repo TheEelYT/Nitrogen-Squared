@@ -519,3 +519,37 @@ Published code [6299190](https://github.com/TheEelYT/Nitrogen-Squared/commit/629
 The [0.0.24 release](https://github.com/TheEelYT/Nitrogen-Squared/releases/tag/v0.0.24) was downloaded and audited: all three assets, checksum/digests, 1,757-file owned manifest, x64 launcher, portable Python license and 106-file source inventory pass. Source contents match the release commit after Git line-ending normalization; no private game payload is included. Windows ZIP SHA-256: `053a1f3c8786636c31fe3004ad187c41e42118652aca56fc3b64ac174454daf7`.
 
 This receipt is documentation only. Preserve the published tag/assets; no VERSION bump or rebuild is needed. Fresh n0024 Windows display/update/sharpness checks remain pending. Earlier n0021/n0022/n0023 submissions retain their versions and exact contents. Native coverage remains 38.4156% linked / 61.5844% outside.
+
+
+## 0.0.24 player-reported presentation regressions
+
+The user reports split attract/menu sentences, widescreen UI squashing, bonus
+weapon/shield icon mismatches, a broken help popup and level-end text layout.
+These reports supersede the earlier limited local acceptance for those areas.
+Prior source/platform/package receipts remain valid for their stated scope;
+they did not establish correctness of all menu/help/bonus screens. Preserve the
+published release and all submitted version-scoped dashboard reports.
+
+## 0.0.25 UI repair candidate
+
+The owner additionally requests a 2x UI floor and square-pixel output. The new
+365x240 step reference applies to the usable drawable game area. Shared UI roles
+replace per-glyph edge thresholds. Opaque numeric HUD packets distinguish the
+score stack from semi-transparent menu sentences sharing its font palette.
+Observed bonus icon/count palettes join the weapon panel; menu artwork, footer
+particles, popup fills, borders and text receive coherent roles. The ray field
+uses a separate cover transform. Actual scanout height travels with each record,
+and the game-view predicate no longer requires exactly 238 lines.
+
+Nearest presentation removes its half-texel zoom; UI vertices compensate native
+raster bias and snap anchors to physical pixels. The internal raster covers the
+actual scanout/output dimensions. A real-X11/EGL capture check finds 392 bright
+score-font blocks per view, with zero inconsistent RGB blocks, at 800x600,
+2048x960, 900x1000 and 1280x720: 2x/3x/2x/2x with the 21-pixel desktop menu.
+The first mask check omitted that menu offset and is not credited.
+
+Expanded ordinary-input routes reproduce the old split phrases and reach menus,
+help, gameplay, weapon pickups, level completion and name entry. Complete final
+popup, bonus-widget, worker-off, normal-production, source/dashboard and platform/
+release checks before publication. Native inputs, exclusions and coverage remain
+unchanged; no new native-comparison credit is claimed for presentation work.

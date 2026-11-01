@@ -1,6 +1,6 @@
 # Native translation progress
 
-The unchanged 0.0.24 / 0.0.23 native selection verifies **38.4156% linked native translation
+The unchanged 0.0.25 / 0.0.23 native selection verifies **38.4156% linked native translation
 coverage**, with **61.5844% / 520,896 bytes** outside linked ranges.
 This payload-range metric includes data; it is not CPU time or project completion.
 
@@ -50,7 +50,7 @@ pre-0.0.7 receipt by rebuilding first.
 
 | Service | Current status |
 | --- | --- |
-| Desktop presentation and menu | 0.0.24 adds window aspect/resolution, stepped title UI and nearest sampling; local display qualification in VALIDATION.md; focused Windows player check pending |
+| Desktop presentation and menu | 0.0.25 repairs reported UI grouping/scaling and adds square pixels with a 2x floor; native ranges unchanged; qualification in VALIDATION.md |
 | Gameplay render scheduling | Bounded OpenGL worker; local pixel parity checked, user reports no issues with 0.0.9 on Windows |
 | Controller input | Host SDL input; analog gameplay verified by the user in 0.0.6 |
 | Gameplay angle-table lookups | Two native leaf translations in N2O.EXE; private comparisons passed and user verified first-level gameplay in 0.0.10 |

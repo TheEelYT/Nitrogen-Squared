@@ -98,7 +98,9 @@ int main(){
  gp0_cmd_buf[0]=0x3a000000u;
  for(int i:{1,3,5,7})gp0_cmd_buf[i]=(115u<<16)|64u;
  assert(role()==0); // popup panel uses the same pivot as its text/icons
+ gp0_cmd_buf[0]=0x62000000u;assert(role()==0); // translucent popup fill
  assert(nitrogen_gpu_line_flags(64,20,304,20)&0x10);
+ assert(nitrogen_gpu_line_flags(0,-40,368,180)&0x10); // complete popup border
  gp0_state=GP0_POLYLINE_SHADED;assert(nitrogen_gpu_ui_flags()==0);
  gp0_ot_rank=427;draw_offset_y=256;
  assert(nitrogen_gpu_line_flags(30,456,50,466)&0x10);
