@@ -26,6 +26,11 @@ unsigned nitrogen_gpu_ui_flags(void)
     const int rect = op >= 0x64u && op <= 0x7fu && (op & 4u);
     const int textured_quad = op >= 0x2cu && op <= 0x2fu;
     const unsigned palette = (rect || textured_quad) ? gp0_cmd_buf[2] >> 16 : 0;
+    // The menu ray field is a dedicated 16-bit sprite bank, not projected
+    // geometry. Cover the wider canvas uniformly; UI and world sprites keep
+    // their own transforms. 0x60 is the non-UI backdrop flag.
+    if (width == 364 && rect && palette == 0 && current_texpage() == 0x13cu)
+        return 0x60u | ((unsigned)(width / 4) << 9);
     int32_t packet_x = 0, packet_y = 0;
     if (rect || textured_quad) parse_vertex(gp0_cmd_buf[1], &packet_x, &packet_y);
     const int weapon_frame = rect && (palette == 0x7a27u || palette == 0x76e7u) &&
@@ -33,8 +38,9 @@ unsigned nitrogen_gpu_ui_flags(void)
         packet_y >= 128 && packet_y <= 255;
     const int tutorial_icon = rect && palette == 0x3ba0u && gp0_ot_rank == 441u &&
         packet_x >= 48 && packet_x <= 304 && packet_y >= 90 && packet_y <= 120;
-    const int atlas = ((rect || textured_quad) && (palette & 63u) == 51u) ||
-        weapon_frame || tutorial_icon;
+    const int ui_palette = palette == 0x4873u || palette == 0x4d33u ||
+        palette == 0x4d73u || palette == 0x4db3u || palette == 0x73b3u || palette == 0x73f3u;
+    const int atlas = ((rect || textured_quad) && ui_palette) || weapon_frame || tutorial_icon;
     const WsUiPrepassItem *it = atlas ? NULL : ws_auto_ui_item();
     // Unrecognized textured sprites may be world particles even in a front
     // layer. The fallback is only for a grouped flat UI backing panel.

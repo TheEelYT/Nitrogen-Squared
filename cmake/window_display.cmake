@@ -16,6 +16,12 @@ list(REMOVE_ITEM _nitrogen_sources "${_nitrogen_gpu}")
 set_property(TARGET nitrogen-runtime PROPERTY SOURCES ${_nitrogen_sources} "${_nitrogen_window_gpu}")
 set_property(SOURCE "${_nitrogen_window_gpu}" APPEND PROPERTY COMPILE_DEFINITIONS
     gpu_write_gp1=nitrogen_framework_gpu_write_gp1)
+set(_nitrogen_gte "${PSXRECOMP_ROOT}/runtime/src/gte.cpp")
+set(_nitrogen_window_gte "${CMAKE_CURRENT_BINARY_DIR}/nitrogen_window_gte.cpp")
+nitrogen_adapt_display(gte "${_nitrogen_gte}" "${_nitrogen_window_gte}")
+get_target_property(_nitrogen_sources nitrogen-runtime SOURCES)
+list(REMOVE_ITEM _nitrogen_sources "${_nitrogen_gte}")
+set_property(TARGET nitrogen-runtime PROPERTY SOURCES ${_nitrogen_sources} "${_nitrogen_window_gte}")
 set(_nitrogen_framework_main "${CMAKE_CURRENT_BINARY_DIR}/nitrogen_window_main.cpp")
 nitrogen_adapt_display(main "${PSXRECOMP_ROOT}/runtime/src/main.cpp" "${_nitrogen_framework_main}")
 target_include_directories(nitrogen-runtime PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/compat")
@@ -31,5 +37,6 @@ psxrecomp_add_implementation(nitrogen-runtime
         "${CMAKE_CURRENT_SOURCE_DIR}/compat/desktop_menu.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/cmake/desktop_menu.cmake"
         "${PSXRECOMP_ROOT}/runtime/src/gpu.c"
+        "${PSXRECOMP_ROOT}/runtime/src/gte.cpp"
         "${PSXRECOMP_ROOT}/runtime/src/gpu_gl_renderer.c"
         "${PSXRECOMP_ROOT}/runtime/src/main.cpp")

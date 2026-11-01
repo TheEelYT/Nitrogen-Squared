@@ -603,26 +603,20 @@
   VERSION or replace published release assets.
 
 
-- Active 0.0.24 is the user's window-aspect/resolution, stepped UI and nearest
-  sampling request, not a native conversion batch. Main remains accepted 0.0.23
-  at 38.4156%. Work solo. Preserve all submitted n0021/n0022/n0023 results.
-  Branch window-display-024 has original private-copy adapters and title UI
-  metadata. Source/geometry tests and real-input visual qualification are in
-  progress. Do not publish the initial partial-font classifier. The current
-  classifier includes the complete USA screen-font atlas and excludes unrelated
-  textured world sprites; weapon preview metadata is region/OT bounded.
-- SDL's offscreen window-size setter does not resize its EGL pbuffer. Larger
-  screenshot artifacts from the initial probe are invalid resize evidence.
-  Real-window X11/EGL validation uses private prerequisites and Xvfb over local
-  TCP, with SDL_VIDEO_FORCE_EGL=1. Keep builds and game sessions serialized, with
-  two compile jobs. Preserve private exact tested binaries/contracts and durable
-  receipts; no disc bytes, derived game C/guards or compiled game modules enter
-  public source/releases. Complete portrait crop, menu/gameplay, sharp movie,
-  worker on/off, source/platform/package/public-asset checks before promotion.
-
-- Active 0.0.24 is a presentation candidate only. Source tests pass 83 cases,
-  and complete HUD widgets have been reviewed. Native-wide gameplay still has
-  tunnel-culling gaps at outer edges. Do not promote until wide-view geometry,
-  worker-off behavior, normal production and platform/package checks qualify.
-  Keep private recovery references out of public files. Main remains 0.0.23;
-  preserve all submitted version-scoped dashboard results and work solo.
+- Active 0.0.24 implements the user's window-driven resolution/aspect, integer
+  UI plateaus and nearest sampling request. It is a host presentation update;
+  native selection stays at 796 records/all 48 exclusions and 38.4156% linked.
+  Work solo. Preserve submitted n0021/n0022/n0023 reports byte-for-byte.
+- Real-X11/EGL worker-on menus, first-level gameplay/firing and resizes pass.
+  Wider projection inside the authored viewport fixes observed tunnel-edge gaps;
+  portrait crops 4:3. Exact weapon projection metadata preserves the complete
+  widget. Dedicated menu ray sprites use uniform cover/crop. The earlier
+  native-wide-only candidate is superseded. All 83 source tests pass. Nearest
+  movie sampling is checked using the actual half-texel mapping.
+- Final worker-off menu checks pass. Complete normal diagnostics-OFF/O3, source/dashboard,
+  Windows/Linux/package and public-asset checks before promotion. Standing main
+  and release authorization applies once qualified. SDL offscreen resize is
+  invalid evidence; use actual window surfaces. Two compile jobs; serialize
+  builds/game sessions. Preserve private tested binaries/contracts and recovery
+  receipts. Never publish disc bytes, derived game C/guards, compiled game
+  modules or private recovery identifiers. The pinned framework stays unmodified.

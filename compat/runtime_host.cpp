@@ -45,12 +45,13 @@ static void nitrogen_window_update()
     int num = width, den = height;
     const int divisor = aspect_gcd(num, den);
     num /= divisor; den /= divisor;
-    const bool native_wide = (int64_t)num * 3 >= (int64_t)den * 4;
-    if (native_wide) gl_renderer_fit_wide_aspect(gpu_ws_display_width(), &num, &den);
+    // Project into the game's authored viewport, so its clipper receives
+    // the wider field before rejecting polygons. Unprojected menu backdrop
+    // sprites cover the drawable with a separate uniform transform.
     if (num != g_video_aspect_num || den != g_video_aspect_den ||
-        g_ws_native_wide != (int)native_wide) {
+        g_ws_native_wide != 0) {
         g_video_aspect_num = num; g_video_aspect_den = den;
-        g_ws_native_wide = native_wide;
+        g_ws_native_wide = 0;
         gl_renderer_set_display_aspect(num, den);
         g_ws_projection_mode = -1;
         refresh_widescreen_projection();
@@ -61,9 +62,13 @@ static void nitrogen_window_update()
     static Uint32 last_window = 0;
     const Uint32 window_id = SDL_GetWindowID(sdl_window);
     if (last_window != window_id) { last_window = window_id; last_scale = 0; }
-    const int scale = std::max(1, (height + 239) / 240);
+    int scale = std::max(1, (height + 239) / 240);
+    if ((int64_t)num * 3 > (int64_t)den * 4) {
+        GpuDisplayInfo display{}; gpu_get_display_info(&display);
+        if (display.width) scale = std::max(scale, (width + (int)display.width - 1) / (int)display.width);
+    }
     if (last_scale != scale) {
-        (void)video_resolution_apply_live(std::min(height, PSX_IR_MAX_LINES), 0, 1000);
+        (void)video_resolution_apply_live(std::min(scale * 240, PSX_IR_MAX_LINES), 0, 1000);
         last_scale = scale; // a refused request is retried on the next size step
     }
 }

@@ -108,9 +108,17 @@ def adapt_main(text):
     return text[:start] + 'static void update_adaptive_widescreen() { nitrogen_window_update(); }\n' + text[end:]
 
 
+def adapt_gte(text):
+    text = '#include "window_display.h"\n' + text
+    return replace(text,
+        '    bool do_squash = (s_ws_xnum != s_ws_xden) && !gpu_ws_present_native_43();',
+        '    bool do_squash = (s_ws_xnum != s_ws_xden) && !gpu_ws_present_native_43() &&\n'
+        '        !nitrogen_window_projection_is_ui(gte->OFX, gte->OFY, gte->H);')
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument('kind', choices=['gpu', 'renderer', 'main'])
+    p.add_argument('kind', choices=['gpu', 'renderer', 'main', 'gte'])
     p.add_argument('source', type=Path); p.add_argument('output', type=Path)
     a = p.parse_args()
     result = globals()['adapt_' + a.kind](a.source.read_text(encoding="utf-8"))

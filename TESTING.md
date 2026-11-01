@@ -1,6 +1,24 @@
-# Windows release and development test — 0.0.23
+# Windows release and development test — 0.0.24
 
 ## Current acceptance and update checks
+
+**0.0.24 — window resolution/aspect, stepped interface and sharp sampling; focused Windows check pending.**
+The 3D view follows the usable window size without stretching. HUD/menu/text use
+whole steps against a 320x240 game area: 480x360 and 608x456 stay at 1x;
+640x480 and 800x600 stay at 2x; 960x720 uses 3x. The desktop menu bar is excluded
+from the game area, and portrait windows also respect available width. System >
+Settings reports the game area and step. Movies remain proportion-correct with
+bars. Texture/movie/presentation smoothing is disabled; fractional sizes can have
+uneven pixel widths. Game timing is unchanged. Native coverage stays **38.4156%
+linked / 61.5844% outside**, 324,928 / 845,824 bytes.
+
+Use **Check for updates**, allow the private build to refresh, and preserve .local
+and saves. During menus and brief gameplay, resize across the example step
+boundaries and try wide/portrait sizes. Check that text/HUD stay together, world
+geometry keeps its proportions and the tunnel has no new missing wedges. Check
+opening movies and textures for sharp sampling. Move/fire, pause/resume and quit
+normally. No new campaign, new upload, reimport or deliberate save overwrite is
+requested. Earlier submitted reports retain their versions; n0024 starts fresh.
 
 **0.0.23 — 13 native save/load, gameplay and supporting entry roots; submitted Windows/dashboard checks accepted.**
 Adds 6,960 emitted bytes while preserving all 783 earlier input records.
@@ -728,13 +746,13 @@ Instructions for future maintainers and assistants:
     "metricNote": "Linked emitted byte coverage, including payload data. Not project completion or CPU time."
   },
   "version": {
-    "id": "n0023",
-    "name": "v0.0.23",
-    "title": "Saved-game, card and gameplay paths",
+    "id": "n0024",
+    "name": "v0.0.24",
+    "title": "Window aspect, stepped interface and sharp sampling",
     "runtime": "Windows · USA disc",
     "cart": "",
-    "createdAt": "2026-10-31",
-    "description": "All three submitted Windows checks accepted: update/private-build refresh, opening playback/menus/short gameplay and existing-save load. Preserve .local and saves; no repeat test requested."
+    "createdAt": "2026-11-01",
+    "description": "Focused Windows display/update checks pending. Window-driven resolution/aspect, integer HUD/menu/text plateaus and nearest sampling; native coverage unchanged. Preserve .local and saves."
   },
   "checks": [
     {
@@ -748,34 +766,34 @@ Instructions for future maintainers and assistants:
         "Allow the private build to refresh; preserve .local and existing saves."
       ],
       "expected": "Update completes and the launcher starts the refreshed build.",
-      "context": "Submitted v0.0.23 update/private-build refresh check accepted. Preserve .local and saves; no repeat requested."
+      "context": "Fresh v0.0.24 update check. Preserve .local and saves; no new import or campaign is needed."
     },
     {
-      "id": "N2-PLAY",
-      "title": "Opening playback, menus and short gameplay",
-      "area": "Gameplay",
+      "id": "N2-WINDOW",
+      "title": "Resize menus and gameplay",
+      "area": "Display",
       "required": true,
       "priority": "high",
       "steps": [
-        "Let opening movies play, then navigate the menus.",
-        "Play briefly with movement, firing and usual face buttons.",
-        "Pause/resume and quit normally."
+        "Resize menus and a short gameplay session across usable game areas near 480x360, 608x456, 640x480, 800x600 and 960x720; Settings shows game area and UI step.",
+        "Try a wide window and a portrait window, then return to a usual size.",
+        "Check score/lives/progress and the weapon widget together; move/fire, pause/resume and quit normally."
       ],
-      "expected": "Playback, menus, controls, presentation, pause/resume and quit behave normally.",
-      "context": "Submitted v0.0.23 opening playback/menu/short gameplay check accepted, including the defined controls/pause/quit scope. No repeat campaign or exact FPS measurement requested."
+      "expected": "World proportions remain correct with no new missing tunnel wedges. Interface elements remain aligned: 1x below 640x480, 2x at 640x480/800x600, 3x at 960x720, limited by both available dimensions.",
+      "context": "Use physical drawable game-area size, excluding the desktop menu. Portrait crops the world. No new campaign or save overwrite requested."
     },
     {
-      "id": "N2-LOAD",
-      "title": "Load a familiar existing saved slot",
-      "area": "Persistence",
-      "required": false,
+      "id": "N2-SHARP",
+      "title": "Sharp textures and proportion-correct movies",
+      "area": "Presentation",
+      "required": true,
       "priority": "normal",
       "steps": [
-        "If you normally use an existing saved slot, load it.",
-        "Play briefly and check the expected stage/progress and normal controls."
+        "Let opening movies play in a wide window; try another size.",
+        "Inspect menu text and gameplay textures at a comfortable size."
       ],
-      "expected": "Existing saved progress loads and gameplay behaves normally.",
-      "context": "Submitted v0.0.23 familiar existing-save load check accepted. This does not imply a new campaign or deliberate valued-save overwrite; no repeat requested."
+      "expected": "Movies retain their proportions with bars as needed. Textures/video use sharp nearest sampling rather than blur; fractional sizes may have uneven pixel widths.",
+      "context": "No exact FPS measurement or repeat campaign is needed. Movie and gameplay clocks are unchanged."
     }
   ]
 }

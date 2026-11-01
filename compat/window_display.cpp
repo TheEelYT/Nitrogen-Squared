@@ -19,11 +19,20 @@ extern "C" void nitrogen_window_ui_vertex(float *x, float *y, unsigned flags,
                                            int ox, int oy, int height,
                                            int wide_width, int wide_offset)
 {
-    if (!(flags & 0x10u)) return;
+    const bool ui = (flags & 0x10u) != 0;
+    const bool backdrop = (flags & 0x70u) == 0x60u;
+    if (!ui && !backdrop) return;
     const auto size = drawable.load(std::memory_order_acquire);
     const int dw = static_cast<int>(size >> 32), dh = static_cast<unsigned>(size);
     const int width = static_cast<int>(flags >> 9) * 4;
     if (dw < 1 || dh < 1 || width < 1 || height < 1) return;
+    if (backdrop) {
+        if (static_cast<long long>(dw) * 3 > static_cast<long long>(dh) * 4) {
+            const float cover = static_cast<float>(dw) * 3.f / (dh * 4.f);
+            *y = oy + height * .5f + (*y - oy - height * .5f) * cover;
+        }
+        return;
+    }
     const int step = nitrogen_window_ui_step(dw, dh);
     const float ax = static_cast<float>((flags >> 5) & 3u) * .5f;
     const float ay = static_cast<float>((flags >> 7) & 3u) * .5f;

@@ -1,15 +1,12 @@
 # Window-driven presentation
 
-The 0.0.24 candidate follows the drawable game area, excluding the desktop menu
-bar. Qualification is in progress; 0.0.23 remains the accepted public release.
-The current native-wide gameplay candidate has tunnel-culling gaps at outer
-edges and must not be promoted until that is resolved.
-
-The game view uses the window's aspect. Wider windows use the pinned toolkit's
-native-wide compositor, preserving the original projection and revealing side
-columns. Narrower windows crop a proportion-correct 4:3 world. They do not
-stretch the backdrop or change the projection. Authored movie/logo/image screens
-retain their 4:3 framing with bars where needed.
+The 0.0.24 presentation follows the drawable game area, excluding the desktop
+menu bar. The game view uses the window's aspect. Wider windows use the toolkit's
+projection adjustment inside the game's authored viewport, so the original game
+clipper receives the expanded view before rejecting geometry. Narrower windows
+crop a proportion-correct 4:3 world. Authored movies/logo/image screens retain
+4:3 framing with bars where needed. The animated menu backdrop uses uniform
+cover/crop; its proportions remain intact.
 
 The interface scale is `max(1, floor(min(width / 320, height / 240)))`, using
 physical game-area pixels. Thus 480x360 and 608x456 use 1x; 640x480 and 800x600
@@ -26,9 +23,8 @@ phase differences; this is not a pixel-identical integer upscaler for every
 window size. Game update and video/audio clocks are unchanged.
 
 Original build-time adapters operate on private copies of the pinned GPU,
-renderer and host main. Exact source contracts fail closed on upstream drift.
-The checkout is not modified. UI metadata recognizes the USA font/UI palette
-column and the bounded weapon-preview ordering layers, with guarded front-layer
+GTE, renderer and host main. Exact source contracts fail closed on upstream drift.
+The checkout is not modified. UI metadata recognizes the reviewed USA font/UI palettes and the bounded weapon-preview ordering layers and projection viewport, with guarded front-layer
 flat backing panels. Unrecognized world sprites are not classified as UI.
 Per-primitive tags travel with render-worker records; the worker never queries
 live guest packet state. CPU packet coordinates and UVs are not rewritten.

@@ -467,43 +467,40 @@ workflows so ordinary code releases keep their full required check set. This
 changes CI triggers only; game coverage, VERSION and published assets are unchanged.
 
 
-## 0.0.24 window-presentation candidate
+## 0.0.24 window presentation
 
-This host-only update keeps the accepted 0.0.23 native selection and
-324,928 / 845,824 = 38.4156% linked / 61.5844% outside. Prior native comparisons
-are not new 0.0.24 presentation evidence. Qualification remains in progress.
+This host-only update preserves the accepted 0.0.23 native selection: 796 input
+records, all 48 exclusions, 324,928 / 845,824 bytes = 38.4156% linked /
+61.5844% outside. Earlier native comparisons are history, not new display evidence.
 
-The candidate adapts private copies of the pinned renderer/GPU/host main.
-Drawable size excludes the desktop menu. Integer UI steps use the available
-320x240 physical reference canvas; landscape uses native-wide columns and
-portrait crops a proportion-correct 4:3 world. Font/UI palette metadata and
-bounded weapon model, frame and line metadata share widget transforms.
-Nearest sampling also disables implicit area resolves for nearest presents.
-The original fixed-aspect path is retained as a build option.
+Private-copy GPU/GTE/renderer/main adapters implement window-driven aspect and
+internal resolution, integer interface plateaus and nearest texture/movie/present
+sampling. UI flags include complete title font palettes, bounded weapon model,
+frame and actual polyline endpoints. The worker replays captured primitive flags
+without consulting live GPU packet state. Line quads transform after expansion.
+The verified weapon projection viewport retains its widget proportions.
 
-Initial generic front-layer classification missed menu glyphs. Title font
-metadata replaces that incomplete selection and excludes unrecognized world
-sprites. Further real-game review corrected score/lives and progress-bar anchors,
-weapon-frame grouping, and variable-length polyline handling: polylines do not
-populate the GPU command buffer, so line endpoints must be classified directly
-and their tags recorded for the worker. Line quads transform after expansion to
-keep their thickness with the widget. These are candidate fixes, pending final
-visual/production validation.
+Real X11/EGL qualification covers eight menu sizes (320x240, 480x360, 608x456,
+640x480, 800x600, 960x720, 1280x720 and 600x800), ordinary menu/controller inputs,
+first-level firing/gameplay and live landscape/portrait resizes. Native-wide-only
+exploration revealed tunnel-edge culling gaps. The final implementation uses the
+toolkit's wider projection within the original viewport; the tested route no
+longer has those gaps. Unprojected menu ray sprites use a bounded, dedicated-bank
+uniform cover transform. Portrait world rendering crops an authentic 4:3 view.
+Movies retain their authored framing, and the desktop menu reserves its own area.
 
-The first apparent large-resize corruption was invalid test evidence: SDL's
-pinned offscreen driver reports sizes without reallocating its EGL pbuffer.
-Real X11/EGL windows replaced that harness. The revised tests exercise eight
-menu sizes, ordinary menu/controller inputs, first-level firing and gameplay,
-and live landscape/portrait resizes. The final code, worker-off/normal build,
-sharp movies, source/platform/package checks and release audit remain pending.
-All prior Windows/dashboard submissions retain their original version scope.
+The worker-on route passes. Worker-off gameplay, portrait/wide movies and visible
+menu inset passed with the same gameplay transform; the final menu-backdrop
+refinement also passes its separate eight-size worker-off check. All 83 source tests pass,
+including compiled geometry/classifier fixtures and fail-closed pinned adapters.
+The movie screenshot's 76,800 source-texel groups have zero inconsistent output
+pixels under the pinned nearest/half-texel mapping. A preliminary exact-3x3-block
+assumption was invalid because of the UV inset and is not counted as evidence.
 
-
-Final candidate source tests pass 83 cases. Real-window worker-on review confirms
-complete score/lives/progress and weapon-frame/model/polyline transforms through
-4:3, fractional, wide and portrait sizes. This is not release qualification:
-native-wide gameplay exposes original tunnel culling at the newly revealed edges.
-No guessed cull overrides or automatic cull switches were enabled. A static
-paired-immediate scan did not find the framework's expected N2O signature.
-Worker-off captures and GTE projection metadata are being collected to evaluate
-a proportion-correct gameplay projection path. Promotion remains blocked.
+SDL 3.4.10's offscreen resize does not reallocate its EGL pbuffer. Initial
+oversized captures are invalid resize evidence; the real-window runs replace them.
+Nearest sampling can still have pixel-phase differences at fractional sizes.
+Simulation and video/audio clocks are unchanged. The original fixed-aspect build
+option is retained. Normal-production, platform/package and publication checks
+remain pending until their receipts are recorded. Fresh n0024 player checks do
+not inherit earlier passes; all submitted n0021/n0022/n0023 reports are preserved.

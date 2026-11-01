@@ -16,6 +16,10 @@ class WindowDisplayTests(unittest.TestCase):
 #include <cmath>
 bool near(float a, float b) { return std::fabs(a-b) < .001f; }
 int main() {
+    assert(nitrogen_window_projection_is_ui(40*65536,199*65536,320));
+    assert(!nitrogen_window_projection_is_ui(184*65536,130*65536,320));
+    assert(!nitrogen_window_projection_is_ui(184*65536,120*65536,320));
+    assert(!nitrogen_window_projection_is_ui(40*65536,199*65536,640));
     assert(nitrogen_window_ui_step(320,240)==1);
     assert(nitrogen_window_ui_step(480,360)==1);
     assert(nitrogen_window_ui_step(639,479)==1);
@@ -40,6 +44,10 @@ int main() {
         nitrogen_window_ui_vertex(&wx,&wy,0,0,0,238,wide,off);
         assert(wx==12 && wy==34);
     }
+    nitrogen_window_publish(1280,720);
+    float bx=100,by=60;
+    nitrogen_window_ui_vertex(&bx,&by,0x60u|(91u<<9),0,0,238,0,0);
+    assert(bx==100 && near(by,119+(60-119)*4.f/3));
     // A portrait window crops a 4:3 world; text still fits its visible width.
     nitrogen_window_publish(600,800);
     unsigned portrait=0x10 | (1<<5) | (1<<7) | (91<<9);
@@ -84,6 +92,7 @@ static WsUiPrepassItem item;
 static const WsUiPrepassItem *ws_auto_ui_item(){return &item;}
 static int ws_ui_untextured_op(unsigned op){return op==0x28 || op==0x60;}
 static int ws_disp_w(){return 364;}
+static unsigned current_texpage(){return 0x13c;}
 static void parse_vertex(uint32_t p,int32_t *x,int32_t *y){*x=(int16_t)p;*y=(int16_t)(p>>16);}
 #include "window_gpu.inc"
 int main(){
@@ -94,6 +103,8 @@ int main(){
   assert(f&0x10);assert(((f>>5)&3)==1);assert(((f>>7)&3)==1);
   assert((f&0xfff0u)==((f|0x0fu)&0xfff0u));
   gp0_cmd_buf[2]=0x5da30000u; // unrelated world sprite, even in front layer
+  assert(nitrogen_gpu_ui_flags()==0);
+  gp0_cmd_buf[2]=0x4cf30000u; // lens flare shares the font palette column
   assert(nitrogen_gpu_ui_flags()==0);
  }
  gp0_cmd_buf[0]=0x64000000u;gp0_cmd_buf[1]=(24u<<16)|30;
@@ -108,6 +119,8 @@ int main(){
  assert(nitrogen_gpu_ui_flags()&0x10); // complete weapon widget
  gp0_cmd_buf[7]=(200u<<16)|200u;
  assert(nitrogen_gpu_ui_flags()==0); // ordinary geometry outside widget
+ gp0_cmd_buf[0]=0x66000000u;gp0_cmd_buf[2]=0;
+ assert((nitrogen_gpu_ui_flags()&0x70u)==0x60u); // dedicated backdrop, not UI
  gp0_state=GP0_POLYLINE_SHADED;draw_offset_y=256;
  assert(nitrogen_gpu_ui_flags()==0); // never reuse a stale polygon packet
  assert(nitrogen_gpu_line_flags(30,456,50,466)&0x10);
