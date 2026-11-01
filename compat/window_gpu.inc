@@ -26,6 +26,9 @@ unsigned nitrogen_gpu_ui_flags(void)
     const int polygon = op >= 0x20u && op <= 0x3fu;
     if (polygon && (gp0_ot_rank == 427u || gp0_ot_rank == 428u) &&
         nitrogen_widget_vertices(op,-16,112,128,255)) return nitrogen_ui_role(3,1);
+    if (polygon && gp0_ot_rank == 3u && op == 0x3au &&
+        !(gp0_cmd_buf[0]&0xffffffu) && !(gp0_cmd_buf[2]&0xffffffu) &&
+        nitrogen_widget_vertices(op,16,352,-32,255)) return nitrogen_ui_role(0,1);
     if (polygon && gp0_ot_rank == 441u && !(op & 4u) &&
         nitrogen_widget_vertices(op,16,352,-32,160)) return nitrogen_ui_role(0,1);
     if (op>=0x60u && op<=0x63u && gp0_ot_rank==441u) return nitrogen_ui_role(0,1);
@@ -56,15 +59,23 @@ unsigned nitrogen_gpu_ui_flags(void)
     // art. No individual glyph chooses a different anchor by crossing mid-screen.
     unsigned role=0;
     if (palette == 0x4d33u) role=2;
-    // The opaque numeric HUD uses the shared font too. Menu sentences use
-    // semi-transparent packets; source position alone cannot identify a HUD.
-    if (palette == 0x4873u && rect && !(op & 2u)) {
-        if (y<=64) role=x<100 ? 1u : 2u;
-        else if (x>=0 && x<=160 && y>=160 && y<=239) role=3;
+    // HUD and opaque menu shadows share a palette and draw rank. Identify
+    // the HUD atlas cells, never arbitrary letters by their screen position.
+    const unsigned u=gp0_cmd_buf[2]&255u, v=(gp0_cmd_buf[2]>>8)&255u;
+    const unsigned w=rect ? gp0_cmd_buf[3]&65535u : 0u;
+    const unsigned h=rect ? gp0_cmd_buf[3]>>16 : 0u;
+    const int digits=(v==32u && u<80u && w==8u && h==16u) ||
+        (v==88u && u>=64u && u<124u && w==6u && h==8u);
+    const int hud_symbol=(v==60u && u>=80u && w<=16u && h<=16u) ||
+        (u==76u && v==54u && w==51u && h==6u);
+    if (palette==0x4873u && rect && (digits || hud_symbol)) {
+        if (y<=64) role=x<128 ? 1u : 2u;
+        else if (digits && x>=0 && x<=192 && y>=160 && y<=239) role=3;
     }
     if (weapon_frame || perk) role=3;
     // Dedicated footer rows: the centred attract prompt shares neither edge.
-    if (gp0_ot_rank == 440u && y>=200 && y<=239 &&
+    if (gp0_ot_rank == 440u &&
+        ((menu_marker && y>=160 && y<=255) || (!menu_marker && y>=200 && y<=239)) &&
         (palette==0x4873u || palette==0x4d73u || palette==0x4db3u || menu_marker)) {
         if (x>=0 && x<=112) role=3;
         else if (x>=244 && x<=368) role=4;

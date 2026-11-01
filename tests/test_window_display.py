@@ -77,14 +77,29 @@ static unsigned current_texpage(){return 0x13c;}
 static void parse_vertex(uint32_t p,int32_t*x,int32_t*y){*x=(int16_t)p;*y=(int16_t)(p>>16);}
 #include "window_gpu.inc"
 unsigned role(){unsigned f=nitrogen_gpu_ui_flags();assert(f&0x10);return(f>>5)&7;}
-void sprite(int x,int y,unsigned palette){gp0_cmd_buf[0]=0x64000000u;gp0_cmd_buf[1]=(uint32_t(y)<<16)|(uint16_t)x;gp0_cmd_buf[2]=palette<<16;}
+void sprite(int x,int y,unsigned palette){gp0_cmd_buf[0]=0x64000000u;gp0_cmd_buf[1]=(uint32_t(y)<<16)|(uint16_t)x;gp0_cmd_buf[2]=(palette<<16)|0x3000u;gp0_cmd_buf[3]=(15u<<16)|8u;}
+void digits(int x,int y,bool small=false){sprite(x,y,0x4873);gp0_cmd_buf[2]=(0x4873u<<16)|(small ? 0x5840u : 0x2000u);gp0_cmd_buf[3]=small ? (8u<<16)|6u : (16u<<16)|8u;}
 int main(){
  // A menu phrase crossing the old score-region and centre boundary stays whole.
  for(int x:{71,80,93,102,181,199,291}){sprite(x,40,0x4873);gp0_cmd_buf[0]=0x66000000u;assert(role()==0);}
  gp0_ot_rank=877;
  for(int x:{127,157,167,187,193,234}){sprite(x,208,0x4873);gp0_cmd_buf[0]=0x66000000u;assert(role()==0);}
- gp0_ot_rank=440;sprite(24,16,0x4873);assert(role()==1);
- sprite(191,12,0x4873);assert(role()==2);
+ gp0_ot_rank=440;digits(24,16);assert(role()==1);
+ digits(191,12,true);assert(role()==2);
+ // Opaque title/button glyphs and pause-menu shadows are complete centre UI.
+ for(int y:{20,58,60,61,160,162})for(int x:{145,155,160,183,202}){
+  sprite(x,y,0x4873);assert(role()==0);
+ }
+ // The complete pulsing rings share footer anchors above and below y=200.
+ for(int y:{176,198,212,244}){
+  sprite(32,y,0);assert(role()==3);sprite(317,y,0);assert(role()==4);
+ }
+ // Selected menu gradient quads are UI even outside the prepass's HUD rank.
+ gp0_ot_rank=3;gp0_cmd_buf[0]=0x3a000000u;gp0_cmd_buf[2]=0;
+ for(int i:{1,3,5,7})gp0_cmd_buf[i]=(180u<<16)|188u;
+ assert(role()==0);
+ gp0_ot_rank=22;assert(nitrogen_gpu_ui_flags()==0);
+ gp0_ot_rank=440;
  sprite(115,21,0x4d33);assert(role()==2);
  sprite(32,205,0x4db3);assert(role()==3);
  sprite(317,205,0x4d73);assert(role()==4);
