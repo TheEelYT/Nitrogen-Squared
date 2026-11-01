@@ -34,15 +34,17 @@ def adapt_gpu(text):
 
 
 def adapt_renderer(text):
-    text = '#include "window_display.h"\nextern unsigned nitrogen_gpu_ui_flags(void);\n' + text
+    text = '#include "window_display.h"\nextern unsigned nitrogen_gpu_ui_flags(void);\nextern unsigned nitrogen_gpu_line_flags(int,int,int,int);\n' + text
     text = replace(text, 'static int       s_rthx_tagged = 0, s_rthx_backdrop = 0;',
                    'static int       s_rthx_tagged = 0, s_rthx_backdrop = 0;\nstatic unsigned nitrogen_replay_ui;')
     marker = 'static void gpu_geometry(GLenum mode, const int *xs, const int *ys,'
-    helper = '''static void nitrogen_ui_vertex(float *x, float *y) {
-    unsigned flags = rth_replaying() ? nitrogen_replay_ui : nitrogen_gpu_ui_flags();
+    helper = '''static void nitrogen_ui_vertex_flags(float *x, float *y, unsigned flags) {
     nitrogen_window_ui_vertex(x, y, flags, s_area_x1, s_area_y1,
-        s_area_y2 - s_area_y1 + 1, g_wide_cur ? g_wide_w : 0,
-        g_wide_cur ? g_wide_off : 0);
+        (flags >> 9) == 91u ? 238 : s_area_y2 - s_area_y1 + 1,
+        g_wide_cur ? g_wide_w : 0, g_wide_cur ? g_wide_off : 0);
+}
+static void nitrogen_ui_vertex(float *x, float *y) {
+    nitrogen_ui_vertex_flags(x, y, rth_replaying() ? nitrogen_replay_ui : nitrogen_gpu_ui_flags());
 }
 
 '''
@@ -53,8 +55,23 @@ def adapt_renderer(text):
                          ('precise ? s_pc_x[i] : (float)xs[i]', 'precise ? s_pc_y[i] : (float)ys[i]', 'v['),
                          ('s_pc_valid ? s_pc_x[i] : (float)xs[i]', 's_pc_valid ? s_pc_y[i] : (float)ys[i]', 'vp[')]:
         old = f'{ptr}1] = {ys};'
-        new = old + f'\n            nitrogen_ui_vertex(&{ptr}0], &{ptr}1]);'
+        new = old + (f'\n            nitrogen_ui_vertex(&{ptr}0], &{ptr}1]);' if ptr == 'vp[' else f'\n            nitrogen_ui_vertex_flags(&{ptr}0], &{ptr}1], nitrogen_geometry_ui);')
         text = replace(text, old, new)
+    text = replace(text,
+        '    const int precise = s_pc_valid && mode == GL_TRIANGLES && n == 3;',
+        '    const int precise = s_pc_valid && mode == GL_TRIANGLES && n == 3;\n'
+        '    const unsigned nitrogen_geometry_ui = rth_replaying() ? nitrogen_replay_ui :\n'
+        '        mode == GL_LINES && n == 2 ? nitrogen_gpu_line_flags(xs[0],ys[0],xs[1],ys[1]) : nitrogen_gpu_ui_flags();')
+    text = replace(text, '            v[1] = (float)ys[i];',
+        '            v[1] = (float)ys[i];\n'
+        '            nitrogen_ui_vertex_flags(&v[0], &v[1], nitrogen_geometry_ui);')
+    text = replace(text, '        line_to_quad(lv, quad);',
+        '        line_to_quad(lv, quad);\n'
+        '        for (int i=0;i<6;i++) nitrogen_ui_vertex_flags(&quad[i*6], &quad[i*6+1], nitrogen_geometry_ui);\n'
+        '        for (int i=0;i<2;i++) nitrogen_ui_vertex_flags(&lv[i*6], &lv[i*6+1], nitrogen_geometry_ui);')
+    for record in ['RTH_REC(RTH_LINE, rth_prim_flags(),', 'RTH_REC(RTH_SHADED_LINE, rth_prim_flags(),']:
+        text = replace(text, record, record.replace('rth_prim_flags()',
+            '(rth_prim_flags() | nitrogen_gpu_line_flags(x0,y0,x1,y1))'))
     text = replace(text, 'if (s_rthm_wide_w <= 0 || !g_ws_bd_stretch_on) return 0;\n    uint16_t f = RTHF_PRIM;',
                    'uint16_t ui = (uint16_t)nitrogen_gpu_ui_flags();\n    if (s_rthm_wide_w <= 0 || !g_ws_bd_stretch_on) return ui;\n    uint16_t f = RTHF_PRIM | ui;')
     for field in ['h.flags', 'c->flags']:
@@ -96,9 +113,9 @@ def main():
     p.add_argument('kind', choices=['gpu', 'renderer', 'main'])
     p.add_argument('source', type=Path); p.add_argument('output', type=Path)
     a = p.parse_args()
-    result = globals()['adapt_' + a.kind](a.source.read_text())
-    if not a.output.exists() or a.output.read_text() != result:
-        a.output.write_text(result)
+    result = globals()['adapt_' + a.kind](a.source.read_text(encoding="utf-8"))
+    if not a.output.exists() or a.output.read_text(encoding="utf-8") != result:
+        a.output.write_text(result, encoding="utf-8")
 
 
 if __name__ == '__main__':

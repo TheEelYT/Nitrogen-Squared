@@ -2,6 +2,8 @@
 
 The 0.0.24 candidate follows the drawable game area, excluding the desktop menu
 bar. Qualification is in progress; 0.0.23 remains the accepted public release.
+The current native-wide gameplay candidate has tunnel-culling gaps at outer
+edges and must not be promoted until that is resolved.
 
 The game view uses the window's aspect. Wider windows use the pinned toolkit's
 native-wide compositor, preserving the original projection and revealing side

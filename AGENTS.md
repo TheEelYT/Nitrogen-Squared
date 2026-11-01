@@ -619,3 +619,10 @@
   receipts; no disc bytes, derived game C/guards or compiled game modules enter
   public source/releases. Complete portrait crop, menu/gameplay, sharp movie,
   worker on/off, source/platform/package/public-asset checks before promotion.
+
+- Active 0.0.24 is a presentation candidate only. Source tests pass 83 cases,
+  and complete HUD widgets have been reviewed. Native-wide gameplay still has
+  tunnel-culling gaps at outer edges. Do not promote until wide-view geometry,
+  worker-off behavior, normal production and platform/package checks qualify.
+  Keep private recovery references out of public files. Main remains 0.0.23;
+  preserve all submitted version-scoped dashboard results and work solo.

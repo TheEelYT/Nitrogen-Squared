@@ -78,6 +78,8 @@ struct WsUiPrepassItem {
 static uint32_t gp0_cmd_buf[12];
 static uint16_t gp0_ot_rank=3;
 static int ws_auto_ui_squash;
+static int gp0_state,draw_offset_x,draw_offset_y;
+enum {GP0_POLYLINE_MONO=4,GP0_POLYLINE_SHADED=5};
 static WsUiPrepassItem item;
 static const WsUiPrepassItem *ws_auto_ui_item(){return &item;}
 static int ws_ui_untextured_op(unsigned op){return op==0x28 || op==0x60;}
@@ -95,13 +97,23 @@ int main(){
   assert(nitrogen_gpu_ui_flags()==0);
  }
  gp0_cmd_buf[0]=0x64000000u;gp0_cmd_buf[1]=(24u<<16)|30;
- gp0_cmd_buf[2]=0x4d330000u;
+ gp0_cmd_buf[2]=0x48730000u;gp0_ot_rank=440;
  assert(((nitrogen_gpu_ui_flags()>>5)&15)==0); // score widget: top left
+ gp0_cmd_buf[1]=(21u<<16)|115;gp0_cmd_buf[2]=0x4d330000u;
+ assert(((nitrogen_gpu_ui_flags()>>5)&15)==1); // complete centred progress bar
+ gp0_cmd_buf[1]=(162u<<16)|8;gp0_cmd_buf[2]=0x7a270000u;
+ assert(((nitrogen_gpu_ui_flags()>>5)&15)==8); // complete bottom-left frame
  gp0_cmd_buf[0]=0x2c000000u;gp0_cmd_buf[2]=0x6fe30000u;gp0_ot_rank=427;
  for(int i : {1,3,5,7})gp0_cmd_buf[i]=(200u<<16)|40u;
  assert(nitrogen_gpu_ui_flags()&0x10); // complete weapon widget
  gp0_cmd_buf[7]=(200u<<16)|200u;
  assert(nitrogen_gpu_ui_flags()==0); // ordinary geometry outside widget
+ gp0_state=GP0_POLYLINE_SHADED;draw_offset_y=256;
+ assert(nitrogen_gpu_ui_flags()==0); // never reuse a stale polygon packet
+ assert(nitrogen_gpu_line_flags(30,456,50,466)&0x10);
+ assert(nitrogen_gpu_line_flags(30,456,150,466)==0);
+ gp0_ot_rank=9;
+ assert(nitrogen_gpu_line_flags(30,456,50,466)==0);
 }
 '''
         source='#include <initializer_list>\n'+source

@@ -465,3 +465,45 @@ including source/config/workflows, continues to trigger all three. Pull-request
 checks and manual portable workflow_dispatch are unchanged. The filters match across the release-gating
 workflows so ordinary code releases keep their full required check set. This
 changes CI triggers only; game coverage, VERSION and published assets are unchanged.
+
+
+## 0.0.24 window-presentation candidate
+
+This host-only update keeps the accepted 0.0.23 native selection and
+324,928 / 845,824 = 38.4156% linked / 61.5844% outside. Prior native comparisons
+are not new 0.0.24 presentation evidence. Qualification remains in progress.
+
+The candidate adapts private copies of the pinned renderer/GPU/host main.
+Drawable size excludes the desktop menu. Integer UI steps use the available
+320x240 physical reference canvas; landscape uses native-wide columns and
+portrait crops a proportion-correct 4:3 world. Font/UI palette metadata and
+bounded weapon model, frame and line metadata share widget transforms.
+Nearest sampling also disables implicit area resolves for nearest presents.
+The original fixed-aspect path is retained as a build option.
+
+Initial generic front-layer classification missed menu glyphs. Title font
+metadata replaces that incomplete selection and excludes unrecognized world
+sprites. Further real-game review corrected score/lives and progress-bar anchors,
+weapon-frame grouping, and variable-length polyline handling: polylines do not
+populate the GPU command buffer, so line endpoints must be classified directly
+and their tags recorded for the worker. Line quads transform after expansion to
+keep their thickness with the widget. These are candidate fixes, pending final
+visual/production validation.
+
+The first apparent large-resize corruption was invalid test evidence: SDL's
+pinned offscreen driver reports sizes without reallocating its EGL pbuffer.
+Real X11/EGL windows replaced that harness. The revised tests exercise eight
+menu sizes, ordinary menu/controller inputs, first-level firing and gameplay,
+and live landscape/portrait resizes. The final code, worker-off/normal build,
+sharp movies, source/platform/package checks and release audit remain pending.
+All prior Windows/dashboard submissions retain their original version scope.
+
+
+Final candidate source tests pass 83 cases. Real-window worker-on review confirms
+complete score/lives/progress and weapon-frame/model/polyline transforms through
+4:3, fractional, wide and portrait sizes. This is not release qualification:
+native-wide gameplay exposes original tunnel culling at the newly revealed edges.
+No guessed cull overrides or automatic cull switches were enabled. A static
+paired-immediate scan did not find the framework's expected N2O signature.
+Worker-off captures and GTE projection metadata are being collected to evaluate
+a proportion-correct gameplay projection path. Promotion remains blocked.
