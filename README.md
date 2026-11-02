@@ -75,7 +75,7 @@ inside .local. This is a source launcher package; no game binary or commercial
 assets are distributed. Local gameplay uses Linux OpenGL; broader desktop,
 Wayland and audio-device compatibility remain player checks.
 
-## Native progress — 0.0.28 (unchanged selection)
+## Native progress — 0.0.29 (unchanged selection)
 
 | Selected executable payloads | Bytes | Share |
 | --- | ---: | ---: |
@@ -84,7 +84,7 @@ Wayland and audio-device compatibility remain player checks.
 | Total | 845,824 | 100.00% |
 
 The retained 0.0.23 batch adds 13 N2O roots while preserving all 783 earlier
-input records; 0.0.26 adds no further native ranges.
+input records; 0.0.29 adds no further native ranges.
 N2O: 296,520 bytes (64.6362%), 645
 roots and 11,133 aliases. NEW: 10,500 bytes
 (3.1454%), 152 roots and 300 aliases.

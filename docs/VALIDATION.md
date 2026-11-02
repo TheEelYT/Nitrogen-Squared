@@ -42,10 +42,21 @@ the actual mode, emits one error for the request, and permits returning to
 windowed. This is not verification of all three modes on Windows or a Linux
 window manager; that remains a fresh player check.
 
-The final diagnostic is staged with the pinned shared stager. Normal production,
-platform workflows, package/public-asset checks and final publication receipts
-are still pending at this checkpoint. No claim is made that intermittent Windows
-level-entry stutter is fixed, or that simulation/render/audio clocks are separated.
+The final diagnostic and normal binaries are staged with the pinned shared
+stager, including the matching execution sidecars and bundled OpenBIOS/license.
+Normal production has diagnostics disabled, both Release flags at -O3 -DNDEBUG,
+an empty qualification include and no qualification wrappers or instrumentation.
+Its selected source/range manifest matches the qualified diagnostic build.
+The separately linked normal controller fixture completes all three native movies,
+samples analog input and firing, sends the existing Start inputs and exits cleanly
+at frame 4500. Sending Start does not establish that the pause menu was observed.
+The normal binary SHA-256 is
+8486988a8c265777ef15fa0815e68422d0d29181439335b12aa52b9fd488356c.
+The 123-file reviewed text audit, Windows CRLF size bounds and submitted-result
+preservation checks pass. Platform workflows, actual public assets and final
+publication receipts remain pending until recorded below. No claim is made that
+intermittent Windows level-entry stutter is fixed, or that simulation/render/audio
+clocks are separated.
 
 ## 0.0.23 saved-game, card and gameplay paths
 

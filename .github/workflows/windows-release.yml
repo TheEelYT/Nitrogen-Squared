@@ -174,11 +174,11 @@ jobs:
           Extract the complete **Nitrogen-Squared** folder and run **launcher.exe**.
           Select the supported USA CUE with its matching BIN beside it. Preparation verifies/imports/generates/compiles your private game; no separate Python or Visual Studio installation is required.
 
-          **Bonus HUD repairs:** keeps the full bonus-star row beside the score, including stars after the sixth, and anchors the bonus speed readout and its backing with the bottom-left HUD. The other reported UI fixes retain their tested behavior. Square pixels, a 2x minimum and the 365x240 UI reference remain unchanged.
+          **In-game options:** Game Options now offers Video, Audio, Controls and Extras. Video replaces Center screen, with display offsets locked to zero. Desktop video modes are Windowed, Borderless fullscreen and Fullscreen. HUD scale defaults to AUTO, with 2X/3X/4X/6X choices and the existing 2X minimum. A 25–200 percent scene-resolution slider changes the world raster independently of sharp UI. Audio adds Master volume; the duplicate F1 volume control is removed. Preferences persist under .local across restarts and private rebuilds.
 
           **Linux x86_64 launcher:** extract the Linux ZIP and run `sh launcher.sh`. Install the system Python/Tk, compiler and graphics/audio prerequisites listed in README-FIRST.txt once. The launcher selects your CUE/BIN, prepares your private game and handles updates. Windows continues to bundle portable Python and preparation tools; use separate folders for each platform.
 
-          Native coverage stays 38.4156% linked / 61.5844% outside. Fresh Test Dashboard n0028 checks cover updating, the full bonus-star row, bonus speed display and optional Linux setup/play/update. Earlier submitted results retain their versions. No new campaign, upload or valued-save overwrite is requested. Audio/game clocks are unchanged; the earlier level-entry hitch still needs explicit Windows feedback.
+          Native coverage stays 38.4156% linked / 61.5844% outside. Fresh Test Dashboard n0029 checks cover updating, Video modes, HUD scale/scene resolution, Master volume, brief gameplay and the carried optional Linux setup/play/update check. Earlier submitted results retain their versions. No new campaign, upload or valued-save overwrite is requested. Audio/game clocks are unchanged; the earlier level-entry hitch still needs explicit Windows feedback.
 
           **Asset folders** remains optional: original containers, raw movie streams and ten PCM WAV tracks are preserved under .local/game. Runtime still uses the original USA disc. Folder-backed loading, mod packs and EU language import remain future work.
 

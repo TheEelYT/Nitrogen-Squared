@@ -25,5 +25,6 @@ other executable occupants retain the original dispatch path. No game strings,
 font pixels, instruction guards or compiled game modules are distributed.
 
 The presentation enhancement changes no native-range selection or coverage
-credit. Qualification still needs real-window menu/controller, persistence,
-world/UI separation and normal production checks before promotion or release.
+credit. Local menu/controller, persistence and world/UI renderer checks pass.
+Normal production and platform/package receipts are recorded in
+[validation](VALIDATION.md); fresh player checks remain version-specific.
