@@ -2,7 +2,7 @@
 
 ## Current acceptance and update checks
 
-**0.0.28 — complete bonus-star row, bonus speed display and Linux launcher. Focused checks pending.**
+**0.0.28 — complete bonus-star row, bonus speed display and Linux launcher. Update and bonus-HUD checks passed; Linux player check pending.**
 Keeps every bonus star with the score, including those beyond the sixth. The
 bonus speed readout and its backing follow the bottom-left HUD. Square pixels,
 2x minimum and the 365x240 UI reference remain unchanged. The Linux x86_64 ZIP
@@ -15,19 +15,25 @@ Use Check for updates, preserving .local and saves. When naturally available,
 inspect a bonus-star row longer than six and the bonus-level speed display in
 usual, wide and portrait windows. No new campaign, upload or valued-save
 replacement is requested. Linux checks are optional for Windows-only testers.
-Fresh n0028 checks start untested; all submitted reports remain intact.
+Submitted n0028 update and bonus-HUD checks pass. The optional Linux check has no
+submitted result and remains untested. No repeat of the passed checks is requested;
+all version-scoped reports, notes and timestamps remain intact.
+For future updates, carry untested/blocked checks and their notes forward;
+passed/failed results stay with the version tested.
 
 **0.0.27 — password, shield/boost animation and interpreter overhead.**
-The user reports the other UI failures fixed and identifies the two remaining
-bonus HUD cases above. Accept that reported UI scope; it does not constitute
-explicit confirmation that the half-second level-entry hitch is resolved.
-Audio/game clocks remain unchanged. Earlier dashboard submissions keep their
-original versions and exact contents.
+Submitted n0027 checks pass for update, password/code UI and active shield/boost
+animation. The level-entry check fails: stutter remains during level transitions,
+although not every time. Keep this performance issue open; the measured CPU
+lookup reduction did not fully resolve the reported symptom. Audio/game clocks
+remain unchanged. Earlier dashboard submissions keep their original versions
+and exact contents.
 
 **0.0.26 — menu layers, shield/firewall and high-score UI repairs.**
-Repaired title/selection backing, button outlines/rings, pause shadows and perk
-icons. Later chat reports identified the password and animated-HUD failures
-addressed above. Dashboard submissions retain their original scope and version.
+All five submitted n0026 checks pass: menu plates/button layers, pause shadows,
+shield/firewall and weapon widget, high-score UI, and update. Later password and
+animated-HUD failures are covered by the accepted n0027 UI checks above.
+Dashboard submissions retain their original scope and version.
 
 **0.0.25 — UI grouping repairs; square pixels with a 2x minimum. Focused Windows checks pending.**
 Repairs the reported attract prompt, menu sentences, widescreen squashing,
@@ -46,7 +52,7 @@ requested. Very small windows keep 2x and may crop UI. Fresh n0025 checks do not
 inherit earlier passes. The 0.0.24 issues were reported in chat; this does not
 create or alter submitted dashboard results.
 
-**0.0.24 — window resolution/aspect, stepped interface and sharp sampling; focused Windows check pending.**
+**0.0.24 — window resolution/aspect, stepped interface and sharp sampling; submitted window, sharpness and update checks accepted.**
 The 3D view follows the usable window size without stretching. HUD/menu/text use
 whole steps against a 320x240 game area: 480x360 and 608x456 stay at 1x;
 640x480 and 800x600 stay at 2x; 960x720 uses 3x. The desktop menu bar is excluded
@@ -62,7 +68,9 @@ boundaries and try wide/portrait sizes. Check that text/HUD stay together, world
 geometry keeps its proportions and the tunnel has no new missing wedges. Check
 opening movies and textures for sharp sampling. Move/fire, pause/resume and quit
 normally. No new campaign, new upload, reimport or deliberate save overwrite is
-requested. Earlier submitted reports retain their versions; n0024 starts fresh.
+requested. All three submitted n0024 checks pass: resizing, sharp textures/proportion-correct
+movies, and update. Reports retain their versions; later UI repairs are recorded
+under their own release checks.
 
 **0.0.23 — 13 native save/load, gameplay and supporting entry roots; submitted Windows/dashboard checks accepted.**
 Adds 6,960 emitted bytes while preserving all 783 earlier input records.

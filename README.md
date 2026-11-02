@@ -12,9 +12,10 @@ their tested behavior. Square pixels, 2x floor and 365x240 reference remain.
 Native coverage stays **38.4156% linked / 61.5844% outside**, 324,928 / 845,824
 bytes. This host/launcher update adds no native ranges. The metric includes
 payload data and is not project completion or CPU time. Windows/Linux runtime
-and both package checks pass; all five published assets are audited. Fresh focused
-player checks are pending.
-The previous level-entry hitch still needs explicit Windows confirmation.
+and both package checks pass; all five published assets are audited. Submitted
+0.0.28 update and bonus-HUD checks pass; the optional Linux player check is untested.
+Level-transition stutter is confirmed to persist intermittently in the submitted
+0.0.27 results and remains open. The submitted 0.0.24/0.0.26/0.0.27 UI checks pass.
 
 The Windows release contains launcher.exe, supporting source and portable Python.
 First launch selects your USA CUE/BIN and privately verifies, extracts, generates,

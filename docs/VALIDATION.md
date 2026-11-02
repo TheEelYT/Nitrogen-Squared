@@ -839,3 +839,42 @@ no VERSION bump or runtime rebuild. All 89 source tests pass without skips.
 Fresh n0028 player checks remain pending; earlier submitted reports stay unchanged.
 The Windows level-entry hitch still lacks explicit resolution confirmation.
 Native selection/clocks remain unchanged: 38.4156% linked / 61.5844% outside.
+
+## Dashboard player acceptance after 0.0.28
+
+The owner submitted version-scoped results in
+[67650e5b643b1b39f16c2a2fe898b425968ce0a6](https://github.com/TheEelYT/Nitrogen-Squared/commit/67650e5b643b1b39f16c2a2fe898b425968ce0a6).
+These results supersede pending player status only for the checks below.
+
+| Report | Submitted result | Scope |
+| --- | --- | --- |
+| 0.0.24 | 3 pass | Window resizing, sharp textures/proportion-correct movies, update |
+| 0.0.26 | 5 pass | Menu/button layers, pause shadows, perk widget, high-score UI, update |
+| 0.0.27 | 3 pass, 1 fail | Animated HUD, password/code UI and update pass; level-entry stutter fails |
+| 0.0.28 | 2 pass | Update/private-build refresh and bonus stars/speed display |
+
+The level-entry failure note is: "Stutter is still present during level transitions,
+although not every time." Keep the intermittent Windows transition hitch open.
+The earlier measured removal of interpreter debug-enrichment overhead remains
+valid, but it did not fully resolve the reported symptom. Do not substitute an
+audio workaround or mark this failure passed because the UI checks succeeded.
+Audio/game clocks remain unchanged.
+
+The optional n0028 Linux setup/play/update check has no submitted result and
+remains untested. Local/CI Linux qualification above is separate evidence, not a
+player pass. Accept the submitted UI/update scope without inferring a new campaign,
+separate replays of every historical build, exhaustive branch coverage or exact FPS.
+No repeat of passed checks, new upload or valued-save overwrite is requested.
+
+This acceptance update changes documentation only: no runtime VERSION bump,
+rebuild, renewed qualification or replacement of published release assets/tag.
+All seven reports and 24 submitted check entries (23 pass, one fail), including
+older n0021/n0022/n0023 results, notes, timestamps and markers remain byte-identical.
+The dashboard definition IDs, steps and expected results are unchanged. Verification
+compares both fenced JSON blocks and the complete submitted-results section against
+the submission commit. Native selection and coverage stay unchanged at
+38.4156% linked / 61.5844% outside; this adds no native execution credit.
+
+Future dashboard imports carry untested/blocked checks and their notes into the
+next update. Passed and failed evidence stays with its tested version; no pass is
+inherited by a replacement release. Existing submitted reports are not rewritten.
