@@ -34,7 +34,7 @@ psxrecomp_add_implementation(nitrogen-runtime
         "${CMAKE_CURRENT_SOURCE_DIR}/compat/game_options.cpp"
     CONTRACT_FILES "${_nitrogen_display_adapter}"
         "${CMAKE_CURRENT_SOURCE_DIR}/compat/window_display.h"
-        "${CMAKE_CURRENT_SOURCE_DIR}/compat/game_options.h"
+        "${CMAKE_CURRENT_SOURCE_DIR}/compat/nitrogen_options.h"
         "${CMAKE_CURRENT_SOURCE_DIR}/compat/window_gpu.inc"
         "${CMAKE_CURRENT_SOURCE_DIR}/compat/world_raster.inc"
         "${CMAKE_CURRENT_SOURCE_DIR}/cmake/window_display.cmake"

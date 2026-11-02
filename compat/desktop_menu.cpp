@@ -5,7 +5,7 @@
 #include "runtime_telemetry.h"
 #ifdef NITROGEN_WINDOW_DISPLAY
 #include "window_display.h"
-#include "game_options.h"
+#include "nitrogen_options.h"
 #endif
 #include "../native/movie_player.h"
 #include <SDL3/SDL.h>

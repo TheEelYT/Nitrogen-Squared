@@ -2,7 +2,7 @@
 #include "psx_menu_host.h"
 #include "desktop_menu.h"
 #ifdef NITROGEN_WINDOW_DISPLAY
-#include "../compat/game_options.h"
+#include "../compat/nitrogen_options.h"
 #endif
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_opengl.h>

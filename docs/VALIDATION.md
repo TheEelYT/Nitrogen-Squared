@@ -59,6 +59,9 @@ former host video callback. The fixture is updated to verify both requests witho
 claiming an offscreen fullscreen transition. The corrected fixture passes locally
 against the actual provider/SDL/GL objects, including composition, F1/F11, pause,
 input capture, Escape and reattach; no production source changed for this repair.
+A subsequent Windows MSVC compile found that the project header's former name
+collided with the SDK game_options.h through nested include lookup. The project
+header is renamed nitrogen_options.h, leaving the SDK declarations unambiguous.
 Platform workflows, actual public assets and final
 publication receipts remain pending until recorded below. No claim is made that
 intermittent Windows level-entry stutter is fixed, or that simulation/render/audio

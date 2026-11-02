@@ -1,7 +1,7 @@
 /* Original menu enhancements; fonts and artwork stay in the user's import. */
 #include "options_contract.h"
 #include NITROGEN_OPTIONS_BINDING_HEADER
-#include "../compat/game_options.h"
+#include "../compat/nitrogen_options.h"
 #include "cpu_state.h"
 #include "func_override.h"
 #include "mod_plugins.h"

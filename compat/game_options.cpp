@@ -1,4 +1,4 @@
-#include "game_options.h"
+#include "nitrogen_options.h"
 #include <array>
 #include <atomic>
 #include <cstdlib>

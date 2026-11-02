@@ -4,7 +4,7 @@
 #include "psx_sdl.h"
 #ifdef NITROGEN_WINDOW_DISPLAY
 #include "window_display.h"
-#include "game_options.h"
+#include "nitrogen_options.h"
 static void nitrogen_window_update();
 #endif
 static const char *nitrogen_base_window_title(SDL_Window *window)

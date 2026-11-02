@@ -15,7 +15,7 @@ class GameOptionsTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temp:
             p=Path(temp)
             (p/'fixture.cpp').write_text('''
-#include "game_options.h"
+#include "nitrogen_options.h"
 #include <cassert>
 int main(int argc,char**argv){
  nitrogen_options_init(argv[1]);
@@ -61,7 +61,7 @@ extern "C" void func_override_call_original(CPUState*);
             (p/'fixture.cpp').write_text(r'''
 #include "cpu_state.h"
 #include "func_override.h"
-#include "game_options.h"
+#include "nitrogen_options.h"
 #include <cassert>
 #include <cstring>
 static uint8_t ram[0x200000];
@@ -121,7 +121,7 @@ int main(){
         with tempfile.TemporaryDirectory() as temp:
             p = Path(temp)
             (p/'fixture.cpp').write_text(r'''
-#include "game_options.h"
+#include "nitrogen_options.h"
 #include <cassert>
 #include <cstdlib>
 int main(int argc,char**argv){
