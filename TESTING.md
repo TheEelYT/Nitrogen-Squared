@@ -945,6 +945,132 @@ These are version-scoped player results, separate from the check definitions and
           "updatedAt": "2026-10-31T23:48:49.923Z"
         }
       ]
+    },
+    {
+      "versionId": "nitrogen:n0028",
+      "version": "v0.0.28",
+      "notes": "",
+      "checks": [
+        {
+          "id": "nitrogen:n0028:N2-BONUS-HUD",
+          "title": "Bonus stars and speed display",
+          "status": "pass",
+          "notes": "",
+          "updatedAt": "2026-11-02T00:30:47.136Z"
+        },
+        {
+          "id": "nitrogen:n0028:N2-UPDATE",
+          "title": "Update and refresh the private build",
+          "status": "pass",
+          "notes": "",
+          "updatedAt": "2026-11-02T00:30:26.803Z"
+        }
+      ]
+    },
+    {
+      "versionId": "nitrogen:n0027",
+      "version": "v0.0.27",
+      "notes": "",
+      "checks": [
+        {
+          "id": "nitrogen:n0027:N2-ANIMATED-HUD",
+          "title": "Active shield and boost gauge",
+          "status": "pass",
+          "notes": "",
+          "updatedAt": "2026-11-02T00:29:52.043Z"
+        },
+        {
+          "id": "nitrogen:n0027:N2-LEVEL-ENTRY",
+          "title": "Playable tunnel entry stutter",
+          "status": "fail",
+          "notes": "Stutter is still present during level transitions, although not every time. ",
+          "updatedAt": "2026-11-02T00:30:16.541Z"
+        },
+        {
+          "id": "nitrogen:n0027:N2-PASSWORD-UI",
+          "title": "Complete code label and eight buttons",
+          "status": "pass",
+          "notes": "",
+          "updatedAt": "2026-11-02T00:30:20.374Z"
+        },
+        {
+          "id": "nitrogen:n0027:N2-UPDATE",
+          "title": "Update and refresh the private build",
+          "status": "pass",
+          "notes": "",
+          "updatedAt": "2026-11-02T00:30:22.782Z"
+        }
+      ]
+    },
+    {
+      "versionId": "nitrogen:n0026",
+      "version": "v0.0.26",
+      "notes": "",
+      "checks": [
+        {
+          "id": "nitrogen:n0026:N2-PAUSE-UI",
+          "title": "Pause-menu text and shadows",
+          "status": "pass",
+          "notes": "",
+          "updatedAt": "2026-11-02T00:29:43.049Z"
+        },
+        {
+          "id": "nitrogen:n0026:N2-PERK-UI",
+          "title": "Shield/firewall and weapon widget",
+          "status": "pass",
+          "notes": "",
+          "updatedAt": "2026-11-02T00:29:44.783Z"
+        },
+        {
+          "id": "nitrogen:n0026:N2-SCORE-UI",
+          "title": "High-score plate, rows and save prompt",
+          "status": "pass",
+          "notes": "",
+          "updatedAt": "2026-11-02T00:29:47.094Z"
+        },
+        {
+          "id": "nitrogen:n0026:N2-UI-GROUPS",
+          "title": "Menu plates, button outlines and pulse rings",
+          "status": "pass",
+          "notes": "",
+          "updatedAt": "2026-11-02T00:29:40.122Z"
+        },
+        {
+          "id": "nitrogen:n0026:N2-UPDATE",
+          "title": "Update and refresh the private build",
+          "status": "pass",
+          "notes": "",
+          "updatedAt": "2026-11-02T00:29:37.777Z"
+        }
+      ]
+    },
+    {
+      "versionId": "nitrogen:n0024",
+      "version": "v0.0.24",
+      "notes": "",
+      "checks": [
+        {
+          "id": "nitrogen:n0024:N2-SHARP",
+          "title": "Sharp textures and proportion-correct movies",
+          "status": "pass",
+          "notes": "",
+          "updatedAt": "2026-11-02T00:29:33.752Z"
+        },
+        {
+          "id": "nitrogen:n0024:N2-UPDATE",
+          "title": "Update and refresh the private build",
+          "status": "pass",
+          "notes": "",
+          "updatedAt": "2026-11-02T00:29:27.391Z"
+        },
+        {
+          "id": "nitrogen:n0024:N2-WINDOW",
+          "title": "Resize menus and gameplay",
+          "status": "pass",
+          "notes": "",
+          "updatedAt": "2026-11-02T00:29:31.197Z"
+        }
+      ]
     }
   ]
 }
