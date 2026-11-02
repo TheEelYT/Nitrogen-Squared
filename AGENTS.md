@@ -673,3 +673,31 @@
   assets and tag; this receipt is documentation only, with no rebuild or VERSION
   bump. Fresh n0025 player checks remain pending. Preserve all earlier submitted
   reports exactly. Native coverage stays 38.4156% linked / 61.5844% outside.
+
+
+- Published 0.0.29 code/tag 36ff596c54cf13c7ac48f4ecf789ac41d3f1bae0 adds original guarded
+  in-game Video/Audio extensions: zero centering, desktop modes, AUTO/2X/3X/4X/6X
+  HUD, independent 25–200% world raster and persisted Master volume. Controls,
+  Audio and Extras are renamed; F1 no longer duplicates Master volume. This is
+  host/product work: all 796 native records/48 exclusions and 38.4156% linked /
+  61.5844% outside stay unchanged. Work solo and keep the pinned SDK unmodified.
+- All 92 source tests, 123-file text/CRLF audit, SDK and actual adapted renderer
+  synthetic world/UI proofs, render queue/worker checks, ordinary X11 worker-on/off
+  menus/gameplay and final normal O3/diagnostics-OFF/no-hook fixture pass. Renamed-
+  header diagnostic and normal checks are repeated; exact private binaries,
+  execution contracts and BIOS/license are saved privately. Keep raw game inputs,
+  derived C/guards, compiled game, captures and cards out of Git/releases.
+- Do not name the project options header game_options.h: MSVC nested include lookup
+  shadows the SDK header. Use compat/nitrogen_options.h. F11 now changes the shared
+  Video preference; the provider test must not expect the former host callback or
+  claim an offscreen fullscreen transition. Runtime matrix jobs finish independently.
+- Main source CI41395518250, Windows/Linux runtime/renderer CI41395518219 and
+  portable Windows/Linux CI41395518236 pass, including publication. All five actual
+  public assets, tag/latest/SHA/digests, Windows 1774-file manifest/x64 launcher/
+  Python license, Linux 125-file manifest and 123-file source equality are audited.
+  Preserve published v0.0.29 assets/tag. This receipt is docs only; no rebuild or
+  VERSION bump is needed. Fresh n0029 player checks remain pending. Carry the
+  unresolved optional Linux check; preserve all earlier result bodies exactly.
+  Virtual X11 cannot verify real desktop mode transitions; pause-options was not
+  observed locally. Intermittent Windows level-entry stutter remains OPEN and
+  clocks remain unchanged. No unrelated campaign, upload or save overwrite is needed.

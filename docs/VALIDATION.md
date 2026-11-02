@@ -51,7 +51,7 @@ The separately linked normal controller fixture completes all three native movie
 samples analog input and firing, sends the existing Start inputs and exits cleanly
 at frame 4500. Sending Start does not establish that the pause menu was observed.
 The normal binary SHA-256 is
-8486988a8c265777ef15fa0815e68422d0d29181439335b12aa52b9fd488356c.
+33f6edb619ee354eeff378477a9cd82d5a83819dbcca826bfcce9decbd6da42a.
 The 123-file reviewed text audit, Windows CRLF size bounds and submitted-result
 preservation checks pass. The first platform run caught an obsolete provider-test
 expectation: F11 now changes the shared Video preference, rather than calling the
@@ -62,10 +62,39 @@ input capture, Escape and reattach; no production source changed for this repair
 A subsequent Windows MSVC compile found that the project header's former name
 collided with the SDK game_options.h through nested include lookup. The project
 header is renamed nitrogen_options.h, leaving the SDK declarations unambiguous.
-Platform workflows, actual public assets and final
-publication receipts remain pending until recorded below. No claim is made that
+The renamed-header diagnostic repeats the ordinary-controller Video/Confirm and
+Audio/Master route; settings persist. The rebuilt normal fixture and actual menu
+provider checks pass again. Final platform and publication receipts follow. No claim is made that
 intermittent Windows level-entry stutter is fixed, or that simulation/render/audio
 clocks are separated.
+
+## 0.0.29 publication
+
+Published code/tag 36ff596c54cf13c7ac48f4ecf789ac41d3f1bae0 passes final main source checks
+41395518250, Windows/Linux runtime and renderer checks 41395518219, and portable
+package/update/publication checks 41395518236. All required jobs pass, including
+both platform preparation/update fixtures and publication. Earlier attempts were
+blocked by the obsolete F11 fixture and MSVC header collision described above;
+these are corrected, not waived or retried unchanged.
+
+All five actual public release assets are downloaded and audited. Tag, latest,
+release target, SHA sidecars and GitHub asset digests match. Windows has 1774
+owned files, a verified x64 launcher and Python license; Linux has 125 owned
+original-source/launcher files. Both packages contain the same 123 reviewed source
+files as the release commit after Git line-ending normalization. The source ZIP
+matches both packages. No imported game data, generated game code, prepared game
+executable or private captures are distributed.
+
+Windows ZIP SHA-256: c0d70a7a221ba75384696034ca7deceb8d244a3e515a16b4a43193cb946f4fe7.
+Linux ZIP SHA-256: 86c70c79ae3e82ecfee45373b0aaadac71511842b82076808589c054a9b9e7d2.
+
+Fresh n0029 Video/Audio/brief-play player checks remain pending. The unresolved
+optional Linux check is carried forward; submitted earlier reports retain their
+exact contents and version scope. Real desktop modes and the pause-options screen
+retain the local-check limits above. Native coverage remains 38.4156% linked /
+61.5844% outside; intermittent Windows level-entry stutter remains open. This
+publication receipt changes documentation only, with no rebuild, VERSION bump or
+replacement of the immutable published assets.
 
 ## 0.0.23 saved-game, card and gameplay paths
 
