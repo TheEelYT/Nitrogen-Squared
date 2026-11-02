@@ -7,6 +7,9 @@
 #include <mutex>
 #include <sstream>
 #include <string>
+#if defined(__APPLE__)
+#include <TargetConditionals.h>
+#endif
 
 namespace {
 std::array<std::atomic<int>, 4> values{{NITROGEN_WINDOWED, 0, 100, 100}};
@@ -34,7 +37,7 @@ bool valid(int key, int value)
 }
 extern "C" int nitrogen_options_desktop(void)
 {
-#if defined(__ANDROID__) || defined(__IPHONEOS__) || defined(__vita__) || defined(__PSP2__)
+#if defined(__ANDROID__) || defined(__IPHONEOS__) || defined(__vita__) || defined(__PSP2__) || (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE)
     return 0;
 #else
     return 1;

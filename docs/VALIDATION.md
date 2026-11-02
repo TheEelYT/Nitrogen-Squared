@@ -4,6 +4,49 @@ Reports through 0.0.20 are preserved in
 [the validation history](VALIDATION_THROUGH_0.0.20.md). Historical claims retain
 their tested version and scope.
 
+## 0.0.29 in-game options and independent world raster
+
+This is a product/presentation update, with no new linked game ranges. All 796
+native records and 48 exclusions remain unchanged: 324,928 / 845,824 = 38.4156%
+linked, 61.5844% outside. Complete imported-function hashes and private entry guards
+protect the original menu extensions; other occupants retain dispatch fallback.
+
+All 92 source tests pass without skips. New fixtures cover settings migration,
+restart with a moved build directory, malformed preferences, fixed-fullscreen
+platform behavior, manual HUD steps, fractional scene size, menu exit fading,
+Cross/Confirm and caller-saved argument clobbers around the Audio wrapper.
+The submitted dashboard result tail is preserved byte-for-byte; six current
+checks include the carried optional Linux check, with historical passes/failures
+remaining scoped to their original reports.
+
+The SDK OpenGL oracle passes 331/340 checks at 1x/4x. A private copy using the
+actual title renderer adapter passes 343/352 checks. Added synthetic world/UI
+checks prove that 50 versus 100 percent changes scene raster sampling, leaves
+interface pixels identical and preserves texture/CLUT storage outside the drawn
+rectangle. Render queue checks pass 8,843 cases. SDK worker on/off comparisons
+at 1x/4x, including dynamic internal-resolution changes, pass. A missing local
+libGL development link and missing offscreen environment were corrected for the
+worker-only rerun; these were fixture-environment failures, not waived checks.
+
+Real X11/EGL tests use disposable cards and ordinary controller input. Worker-on
+and worker-off runs cover all three opening clips, renamed Game Options, Video,
+the original Audio controls plus Master, Back/Confirm transitions and persistent
+settings. Manual 2X/3X/4X/6X and AUTO, wide/portrait resizes and 50 percent scenes
+are inspected. Worker-off first-level play shows movement, firing, scoring,
+HUD and help panels. Injected pause inputs did not expose the pause-options
+screen in this route, so that screen remains a focused player check.
+
+The virtual X11 display has no window manager and refuses exclusive modes.
+The final diagnostic test verifies refusal returns the preference and menu to
+the actual mode, emits one error for the request, and permits returning to
+windowed. This is not verification of all three modes on Windows or a Linux
+window manager; that remains a fresh player check.
+
+The final diagnostic is staged with the pinned shared stager. Normal production,
+platform workflows, package/public-asset checks and final publication receipts
+are still pending at this checkpoint. No claim is made that intermittent Windows
+level-entry stutter is fixed, or that simulation/render/audio clocks are separated.
+
 ## 0.0.23 saved-game, card and gameplay paths
 
 The accepted 0.0.22 O3 baseline was reproduced with identical guarded manifest

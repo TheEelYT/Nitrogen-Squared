@@ -3,19 +3,20 @@
 A Windows-first recompilation project for **N2O: Nitrous Oxide (PlayStation)**,
 with a planned PS Vita port and optional remaster presentation.
 
-**Current status: 0.0.28 — bonus HUD anchors and a Linux launcher package.**
-All bonus stars stay beside the score, and the bonus-level speed readout and
-backing share the bottom-left HUD transform. Other reported UI fixes retain
-their tested behavior. Square pixels, 2x floor and 365x240 reference remain.
-[Display policy](docs/WINDOW_DISPLAY.md).
+**Current status: 0.0.29 — in-game Video and Audio options.**
+Game options now contains Video, Audio, Controls and Extras. Video replaces
+Center screen and keeps its offsets at zero. Choose desktop window mode,
+AUTO/2X/3X/4X/6X HUD scale and scene resolution from 25 to 200 percent of the
+window's game area. Scene quality changes independently of sharp interface
+pixels. Audio adds persistent Master volume; the F1 duplicate is removed.
+[Game options](docs/GAME_OPTIONS.md) · [Display policy](docs/WINDOW_DISPLAY.md).
 
 Native coverage stays **38.4156% linked / 61.5844% outside**, 324,928 / 845,824
-bytes. This host/launcher update adds no native ranges. The metric includes
-payload data and is not project completion or CPU time. Windows/Linux runtime
-and both package checks pass; all five published assets are audited. Submitted
-0.0.28 update and bonus-HUD checks pass; the optional Linux player check is untested.
-Level-transition stutter is confirmed to persist intermittently in the submitted
-0.0.27 results and remains open. The submitted 0.0.24/0.0.26/0.0.27 UI checks pass.
+bytes. This presentation/menu update adds no native ranges. The metric includes
+payload data and is not project completion or CPU time. Fresh 0.0.29 player
+checks are pending. Submitted 0.0.28 update/bonus-HUD checks remain accepted;
+the optional Linux check is carried forward. Intermittent level-transition
+stutter remains open. Logic, rendering and game-audio clocks remain unchanged.
 
 The Windows release contains launcher.exe, supporting source and portable Python.
 First launch selects your USA CUE/BIN and privately verifies, extracts, generates,
@@ -35,8 +36,8 @@ separation remain future work.
 
 ## Play on Windows
 
-1. Download [Nitrogen-Squared-Windows-x64.zip](https://github.com/TheEelYT/Nitrogen-Squared/releases/download/v0.0.28/Nitrogen-Squared-Windows-x64.zip)
-   from the [0.0.28 release](https://github.com/TheEelYT/Nitrogen-Squared/releases/tag/v0.0.28).
+1. Download [Nitrogen-Squared-Windows-x64.zip](https://github.com/TheEelYT/Nitrogen-Squared/releases/download/v0.0.29/Nitrogen-Squared-Windows-x64.zip)
+   from the [0.0.29 release](https://github.com/TheEelYT/Nitrogen-Squared/releases/tag/v0.0.29).
 2. Extract the complete **Nitrogen-Squared** folder somewhere you can write to,
    then run **launcher.exe**. Windows 10/11 x64 is supported.
 3. Select your supported USA **CUE** sheet, keeping its matching BIN beside it.
@@ -60,7 +61,7 @@ routines and interpreter fallback, with the pinned PSXRecomp framework still in 
 
 ## Play on Linux x86_64
 
-Download [Nitrogen-Squared-Linux-x64.zip](https://github.com/TheEelYT/Nitrogen-Squared/releases/download/v0.0.28/Nitrogen-Squared-Linux-x64.zip),
+Download [Nitrogen-Squared-Linux-x64.zip](https://github.com/TheEelYT/Nitrogen-Squared/releases/download/v0.0.29/Nitrogen-Squared-Linux-x64.zip),
 extract the whole folder and run `sh launcher.sh`. Select the same supported USA
 CUE/BIN. The shared launcher verifies/imports/generates/builds/plays and handles
 updates, keeping all project state and saves in .local. Keep Windows and Linux

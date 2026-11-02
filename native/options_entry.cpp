@@ -145,7 +145,7 @@ int presentation(CPUState *c)
             if (row==2) changed=nitrogen_option_set(row,std::clamp(nitrogen_option_get(row)+direction*5,25,200))!=0;
             if(changed) sound(c);
         }
-        if (edge&0x3000) {
+        if (edge&0x7000) { // Back or the original footer's Cross/Confirm action
             c->write_word(page,29); c->write_word(next_page,1); c->write_word(old_page,9); c->write_word(fade,0);
             sound(c);
         }

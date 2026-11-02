@@ -1,6 +1,24 @@
-# Windows and Linux release tests — 0.0.28
+# Windows and Linux release tests — 0.0.29
 
 ## Current acceptance and update checks
+
+**0.0.29 — in-game Video and Audio options. Fresh focused checks pending.**
+Game options now offers Video, Audio, Controls and Extras. Center screen is
+removed and the imported game's display offsets remain zero. Video includes
+windowed, borderless fullscreen and fullscreen on desktop; other targets keep
+fullscreen. HUD scale defaults to AUTO, with 2X/3X/4X/6X overrides and the existing
+2X floor. The scene-resolution slider runs from 25 to 200 percent of the game
+area in five-point steps, independently of sharp UI. Audio adds Master volume;
+the duplicate F1 volume control is removed. Settings persist under .local across
+restarts and private rebuilds. Original audio mix and track controls remain.
+
+Use Check for updates and preserve .local and saves. Check the new menus,
+window modes, HUD sizes, scene percentage and Master volume, then restart once
+to confirm persistence. Brief gameplay/help/pause checks cover the changed
+renderer. No new campaign, disc upload or valued-save overwrite is requested.
+Earlier passed checks stay historical. The unresolved optional Linux check is
+carried forward; intermittent level-transition stutter remains open.
+Coverage stays **38.4156% linked / 61.5844% outside**, 324,928 / 845,824 bytes.
 
 **0.0.28 — complete bonus-star row, bonus speed display and Linux launcher. Update and bonus-HUD checks passed; Linux player check pending.**
 Keeps every bonus star with the score, including those beyond the sixth. The
@@ -798,13 +816,13 @@ Instructions for future maintainers and assistants:
     "metricNote": "Linked emitted byte coverage, including payload data. Not project completion or CPU time."
   },
   "version": {
-    "id": "n0028",
-    "name": "v0.0.28",
-    "title": "Bonus HUD anchors and Linux launcher",
+    "id": "n0029",
+    "name": "v0.0.29",
+    "title": "In-game Video and Audio options",
     "runtime": "Windows / Linux x64 \u00b7 USA disc",
     "cart": "",
-    "createdAt": "2026-11-01",
-    "description": "Fresh checks: full bonus-star row, bonus speed readout and optional Linux setup/play/update. Preserve .local and saves; coverage and clocks unchanged."
+    "createdAt": "2026-11-02",
+    "description": "Fresh focused checks for Video modes, independent HUD/world scales and Master volume. Optional untested Linux check carried forward; preserve .local and saves. Coverage and clocks unchanged."
   },
   "checks": [
     {
@@ -818,21 +836,65 @@ Instructions for future maintainers and assistants:
         "Allow the private build to refresh; preserve .local and existing saves."
       ],
       "expected": "Update completes and the launcher starts the refreshed build.",
-      "context": "Fresh v0.0.28 update check. Preserve .local and saves."
+      "context": "Fresh v0.0.29 update check. Preserve .local and saves."
     },
     {
-      "id": "N2-BONUS-HUD",
-      "title": "Bonus stars and speed display",
-      "area": "Gameplay UI",
-      "required": false,
-      "priority": "normal",
+      "id": "N2-VIDEO-MENU",
+      "title": "Video menu and desktop window modes",
+      "area": "Game options",
+      "required": true,
+      "priority": "high",
       "steps": [
-        "When naturally reached, inspect a bonus-star row containing more than six stars.",
-        "In a bonus level, compare the speed readout and backing with the bottom-left HUD.",
-        "Try usual, wide and portrait windows."
+        "Open Game options; confirm Video, Audio, Controls and Extras replace the old labels.",
+        "In Video, try windowed, borderless fullscreen and fullscreen, then return to the preferred mode.",
+        "Use Triangle/Back and Cross/Confirm to leave Video."
       ],
-      "expected": "Every star stays beside the score; the complete speed display stays with the bottom-left HUD at the same UI step.",
-      "context": "No new campaign or valued-save overwrite is requested just to reach these cases."
+      "expected": "Center screen is absent. Supported desktop modes apply without a stuck menu; unsupported modes return to the actual mode.",
+      "context": "Fresh v0.0.29 check; no campaign, new upload or valued-save overwrite required."
+    },
+    {
+      "id": "N2-VIDEO-SCALE",
+      "title": "HUD scale and independent scene resolution",
+      "area": "Video",
+      "required": true,
+      "priority": "high",
+      "steps": [
+        "Try AUTO and manual 2X/3X/4X, and 6X in a window large enough to fit it.",
+        "Resize a usual, wide and portrait window; compare AUTO with a fixed HUD scale.",
+        "Lower scene resolution from 100 to 50 percent, then restore it to 100.",
+        "Choose the preferred values, quit normally and restart."
+      ],
+      "expected": "HUD/menu/text retain whole square pixels and at least 2X. Lower scene resolution changes the world while UI stays sharp. Preferences survive restart.",
+      "context": "Fresh v0.0.29 check; no campaign, new upload or valued-save overwrite required."
+    },
+    {
+      "id": "N2-AUDIO-MASTER",
+      "title": "Master volume in the original Audio menu",
+      "area": "Audio",
+      "required": true,
+      "priority": "high",
+      "steps": [
+        "Open Audio and try Master volume at low, zero and high values.",
+        "Check both game sound and music; confirm the existing mix, speaker and track controls still work.",
+        "Leave a comfortable master level and restart; check the level persists.",
+        "Confirm the F1 settings no longer have a duplicate master slider."
+      ],
+      "expected": "Master volume affects all output, zero mutes it, original audio controls still work, and the chosen master level persists.",
+      "context": "Fresh v0.0.29 check; no campaign, new upload or valued-save overwrite required."
+    },
+    {
+      "id": "N2-VIDEO-PLAY",
+      "title": "Brief gameplay with the new video settings",
+      "area": "Gameplay UI",
+      "required": true,
+      "priority": "high",
+      "steps": [
+        "During a brief normal play, move/fire and open/close pause or help.",
+        "Compare 50 and 100 percent scene resolution, keeping the HUD scale fixed.",
+        "Return to AUTO/100 percent or the preferred settings and quit normally."
+      ],
+      "expected": "Gameplay controls and UI remain coherent. Scene quality changes independently of the HUD; pause/help text and layers remain aligned.",
+      "context": "Fresh v0.0.29 check; no campaign, new upload or valued-save overwrite required."
     },
     {
       "id": "N2-LINUX",

@@ -1,11 +1,11 @@
-# In-game options development
+# In-game options
 
-The next update replaces Center screen with Video, locks the game's display
+Version 0.0.29 replaces Center screen with Video, locks the game's display
 offsets to zero, and renames the other option entries to Audio, Controls and
-Extras. This document describes the working branch; it is not a release receipt.
+Extras. Focused player checks are listed in TESTING.md; qualification receipts live in docs/VALIDATION.md.
 
 Video provides desktop window mode, AUTO/2X/3X/4X/6X HUD scale and a world render
-percentage. AUTO keeps the existing square-pixel formula and 2X minimum. The
+percentage (25–200 in five-point steps). AUTO keeps the existing square-pixel formula and 2X minimum. The
 world target follows the drawable dimensions, while tagged interface primitives
 retain their separate resolution and transform. Movie framing remains unchanged.
 

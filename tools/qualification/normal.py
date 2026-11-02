@@ -6,7 +6,10 @@ import os
 from pathlib import Path
 import shlex
 import subprocess
+import sys
 from route import ROOT, private_output
+sys.path.insert(0, str(ROOT / "tools"))
+from check_renderer import sdl_include_dir
 
 
 def main():
@@ -27,7 +30,7 @@ def main():
     obj = args.output / "normal_controller.o"
     subprocess.run(["g++", "-std=c++17", "-O2", "-DPSX_SDL3=1",
                     "-I" + str(ROOT / ".local/psxrecomp/runtime/include"),
-                    "-I" + str(build / "_deps/sdl3-src/include"), "-c",
+                    "-I" + str(sdl_include_dir(build)), "-c",
                     str(Path(__file__).with_name("normal_controller.cpp")), "-o", str(obj)], check=True)
     command = shlex.split((build / "CMakeFiles/nitrogen-runtime.dir/link.txt").read_text())
     if any("qualification/" in x or "--wrap=" in x for x in command):

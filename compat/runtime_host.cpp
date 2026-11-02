@@ -40,6 +40,10 @@ static void nitrogen_window_update()
         if (psx_window_fullscreen_set(sdl_window, &s_window_fullscreen, mode) == 0) {
             g_fullscreen = mode;
             applied_mode = mode;
+        } else {
+            std::fprintf(stderr,"nitrogen: video mode %d unavailable (%s); keeping mode %d\n",mode,SDL_GetError(),s_window_fullscreen.mode);
+            applied_mode=s_window_fullscreen.mode;
+            (void)nitrogen_option_set(NITROGEN_VIDEO_MODE,applied_mode);
         }
     }
     int width = 0, height = 0;

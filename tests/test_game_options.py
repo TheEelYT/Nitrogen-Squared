@@ -11,6 +11,27 @@ ROOT = Path(__file__).resolve().parents[1]
 
 @unittest.skipUnless(shutil.which('c++'), 'C++ compiler required')
 class GameOptionsTests(unittest.TestCase):
+    def test_fixed_fullscreen_platform_keeps_hud_and_volume_options(self):
+        with tempfile.TemporaryDirectory() as temp:
+            p=Path(temp)
+            (p/'fixture.cpp').write_text('''
+#include "game_options.h"
+#include <cassert>
+int main(int argc,char**argv){
+ nitrogen_options_init(argv[1]);
+ assert(!nitrogen_options_desktop());
+ assert(nitrogen_option_get(NITROGEN_VIDEO_MODE)==NITROGEN_BORDERLESS);
+ assert(!nitrogen_option_set(NITROGEN_VIDEO_MODE,NITROGEN_WINDOWED));
+ assert(nitrogen_option_set(NITROGEN_HUD_SCALE,3));
+ assert(nitrogen_option_set(NITROGEN_MASTER_VOLUME,40));
+}
+''')
+            subprocess.run(['c++','-std=c++17','-D__vita__','-I',str(ROOT/'compat'),
+                            str(p/'fixture.cpp'),str(ROOT/'compat/game_options.cpp'),
+                            '-o',str(p/'fixture')],check=True)
+            subprocess.run([str(p/'fixture'),str(p)+'/'],check=True,
+                           env=dict(os.environ,NITROGEN_OPTIONS_FILE=str(p/'nitrogen-options.ini')))
+
     def test_video_exit_transition_and_audio_wrapper_arguments(self):
         # A synthetic guest exercises the real extension callbacks, including
         # volatile argument clobbers and the exit fade that previously stalled.
@@ -80,6 +101,8 @@ int main(){
  for(int i=0;i<26 && rw(0x80090624)==29;++i)assert(video(&c));
  assert(rw(0x80090624)==30 && rw(0x80090630)==255);
  assert(!video(&c)); // original presenter now owns the return to Game Options
+ ww(0x80090624,9);ww(0x80090628,9);ww(0x80090630,0);ww(0x8011b170,0x4000);
+ assert(video(&c));assert(rw(0x80090624)==29); // footer Confirm also leaves Video
  c.gpr[4]=0x8011b160;c.gpr[5]=0x80160000;c.gpr[6]=0x80132000;c.gpr[7]=0;
  ww(0x80090b60,0);ww(0x8011b170,0x10);
  assert(audio(&c));assert(rw(0x80090b60)==5);assert(rw(0x8011b170)==0x10);

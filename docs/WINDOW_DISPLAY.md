@@ -1,5 +1,14 @@
 # Window-driven presentation
 
+0.0.29 adds the in-game Video menu. AUTO retains the formula below; manual
+2X/3X/4X/6X overrides keep square UI pixels. The world has a separate fractional
+raster surface sized to 25–200 percent of the drawable game area, with nearest
+ordered resolves into the full-resolution surface before interface draws,
+reads, copies or uploads. Resolves touch the active drawing rectangle, preserving
+texture and CLUT storage elsewhere in VRAM. Movies retain their own framing.
+Window modes use the pinned desktop fullscreen helper; refused changes return
+to the actual mode. Center-screen offsets stay zero. No clock separation occurs.
+
 0.0.28 assigns the bonus-star atlas cell to the score anchor independently of
 its screen x coordinate. Exact bonus speed-digit/backing cells share the weapon
 panel role; other menu art using those palettes stays centred. No clock changes.
