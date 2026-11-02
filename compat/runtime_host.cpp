@@ -4,6 +4,7 @@
 #include "psx_sdl.h"
 #ifdef NITROGEN_WINDOW_DISPLAY
 #include "window_display.h"
+#include "game_options.h"
 static void nitrogen_window_update();
 #endif
 static const char *nitrogen_base_window_title(SDL_Window *window)
@@ -28,6 +29,19 @@ extern "C" void nitrogen_gpu_enable_ui(void);
 static void nitrogen_window_update()
 {
     if (!g_gl_active || !sdl_window || g_headless) return;
+    nitrogen_options_init(SDL_GetBasePath());
+    nitrogen_window_ui_scale(nitrogen_option_get(NITROGEN_HUD_SCALE));
+    static int applied_volume = -1;
+    const int volume = nitrogen_option_get(NITROGEN_MASTER_VOLUME);
+    if (applied_volume != volume) { host_volume_set(volume); applied_volume = volume; }
+    static int applied_mode = -1;
+    const int mode = nitrogen_option_get(NITROGEN_VIDEO_MODE);
+    if (applied_mode != mode) {
+        if (psx_window_fullscreen_set(sdl_window, &s_window_fullscreen, mode) == 0) {
+            g_fullscreen = mode;
+            applied_mode = mode;
+        }
+    }
     int width = 0, height = 0;
     SDL_GL_GetDrawableSize(sdl_window, &width, &height);
     height -= nitrogen_menu_reserved_height();
@@ -70,6 +84,7 @@ static void nitrogen_window_update()
     GpuDisplayInfo display{}; gpu_get_display_info(&display);
     const int source_h=std::max(1,(int)display.height);
     const int source_w=std::max(1,(int)display.width);
+    nitrogen_window_world_raster(width,height,source_w,source_h,nitrogen_option_get(NITROGEN_RENDER_PERCENT));
     const int viewport_w=(int64_t)num*3<(int64_t)den*4 ? height*4/3 : width;
     const int scale=std::max({1,(height+source_h-1)/source_h,
                             (viewport_w+source_w-1)/source_w});

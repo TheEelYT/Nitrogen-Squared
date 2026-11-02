@@ -33,6 +33,14 @@ int main(){
  assert(nitrogen_window_ui_step(800,600)==2);
  assert(nitrogen_window_ui_step(1094,720)==2);
  assert(nitrogen_window_ui_step(1095,720)==3);
+ for(int step:{2,3,4,6}){
+  nitrogen_window_ui_scale(step);
+  assert(nitrogen_window_ui_step(730,480)==step);
+  assert(nitrogen_window_ui_step(2560,1440)==step);
+  nitrogen_window_ui_scale(1); // an invalid manual value cannot shrink text
+  assert(nitrogen_window_ui_step(730,480)==step);
+ }
+ nitrogen_window_ui_scale(0);
  for(int dw:{600,801,1280,2048})for(int dh:{480,675,720,1000})for(int sh:{236,238,240}){
   nitrogen_window_publish(dw,dh);int step=nitrogen_window_ui_step(dw,dh);
   int vw=(long long)dw*3<(long long)dh*4?dh*4/3:dw;

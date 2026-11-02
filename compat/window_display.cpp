@@ -5,6 +5,8 @@
 namespace {
 // One atomic pair: a render worker never sees half of a resize.
 std::atomic<unsigned long long> drawable{0};
+std::atomic<int> ui_scale{0};
+std::atomic<unsigned long long> world_size{0};
 }
 extern "C" void nitrogen_window_publish(int width, int height)
 {
@@ -13,8 +15,28 @@ extern "C" void nitrogen_window_publish(int width, int height)
 }
 extern "C" int nitrogen_window_ui_step(int width, int height)
 {
+    const int manual = ui_scale.load(std::memory_order_acquire);
+    if (manual) return manual;
     // Square source pixels, with the owner's requested 2x minimum.
     return std::max(2, std::min(width / 365, height / 240));
+}
+extern "C" void nitrogen_window_ui_scale(int step)
+{
+    if (step == 0 || step == 2 || step == 3 || step == 4 || step == 6)
+        ui_scale.store(step, std::memory_order_release);
+}
+extern "C" void nitrogen_window_world_raster(int width,int height,int sw,int sh,int percent)
+{
+    if (sw!=364 || sh<1 || width<1 || height<1) { world_size=0; return; }
+    const int viewport_w=static_cast<long long>(width)*3<static_cast<long long>(height)*4?height*4/3:width;
+    const unsigned w=static_cast<unsigned>((static_cast<long long>(viewport_w)*percent*1024+100*sw-1)/(100*sw));
+    const unsigned h=static_cast<unsigned>((static_cast<long long>(height)*percent*512+100*sh-1)/(100*sh));
+    world_size.store((static_cast<unsigned long long>(w)<<32)|h,std::memory_order_release);
+}
+extern "C" void nitrogen_window_world_size(int *width,int *height)
+{
+    const auto size=world_size.load(std::memory_order_acquire);
+    *width=static_cast<int>(size>>32); *height=static_cast<unsigned>(size);
 }
 extern "C" void nitrogen_window_ui_vertex(float *x, float *y, unsigned flags,
                                            int ox, int oy, int height,

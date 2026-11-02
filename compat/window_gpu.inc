@@ -55,9 +55,11 @@ unsigned nitrogen_gpu_ui_flags(void)
         ((palette >= 0x5837u && palette <= 0x5ff7u) || palette == 0x5765u) &&
         (gp0_ot_rank == 438u || gp0_ot_rank == 440u);
     const int menu_marker = rect && palette == 0 && current_texpage() == 0x13cu && gp0_ot_rank == 440u;
+    const int audio_art = rect && gp0_ot_rank==439u &&
+        (palette==0x47adu || palette==0x47edu || palette==0x482du || palette==0x486du);
     if (rect && palette == 0 && current_texpage() == 0x13cu && gp0_ot_rank == 2u)
         return nitrogen_ui_role(6,0); // ray field only, never footer decorations
-    const int atlas = ((rect || textured_quad) && font) || weapon_frame || weapon_flash || perk || tutorial_icon || menu_art || menu_marker;
+    const int atlas = ((rect || textured_quad) && font) || weapon_frame || weapon_flash || perk || tutorial_icon || menu_art || menu_marker || audio_art;
     const WsUiPrepassItem *it = atlas ? NULL : ws_auto_ui_item();
     if (!atlas && (!it || !it->full_draw_area || !ws_ui_untextured_op(it->op))) return 0;
     // Centre is one transform for complete phrases, shadows, panels and menu

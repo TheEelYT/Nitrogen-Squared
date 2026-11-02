@@ -37,6 +37,18 @@ def adapt_renderer(text):
     text = '#include "window_display.h"\nextern unsigned nitrogen_gpu_ui_flags(void);\nextern unsigned nitrogen_gpu_line_flags(int,int,int,int);\n' + text
     text = replace(text, 'static int       s_rthx_tagged = 0, s_rthx_backdrop = 0;',
                    'static int       s_rthx_tagged = 0, s_rthx_backdrop = 0;\nstatic unsigned nitrogen_replay_ui;')
+    text = replace(text, 'static void hr_begin(int clip_to_draw_area) {',
+        '#include "world_raster.inc"\nstatic void hr_begin(int clip_to_draw_area) {\n'
+        '    if (nitrogen_world_begin(clip_to_draw_area)) return;')
+    text = replace(text, 'static void free_hr_targets(void) {',
+        'static void free_hr_targets(void) {\n    nitrogen_world_delete();')
+    text = replace(text, 'static int init_gpu_raster(void) {',
+        'static int init_gpu_raster(void) {\n'
+        '    nitrogen_world_fbo=nitrogen_world_tex=nitrogen_world_rb=0;\n'
+        '    nitrogen_world_width=nitrogen_world_height=nitrogen_world_pending=0;\n')
+    text = replace(text, '    /* PS1 dithering: texture-modulated polygons only (never raw texels or',
+        '    nitrogen_world_select(rth_replaying() ? nitrogen_replay_ui : nitrogen_gpu_ui_flags());\n'
+        '    /* PS1 dithering: texture-modulated polygons only (never raw texels or')
     marker = 'static void gpu_geometry(GLenum mode, const int *xs, const int *ys,'
     helper = '''static void nitrogen_ui_vertex_flags(float *x, float *y, unsigned flags) {
     nitrogen_window_ui_vertex(x, y, flags, s_area_x1, s_area_y1,
@@ -65,7 +77,8 @@ static void nitrogen_ui_vertex(float *x, float *y) {
         '    const int precise = s_pc_valid && mode == GL_TRIANGLES && n == 3;',
         '    const int precise = s_pc_valid && mode == GL_TRIANGLES && n == 3;\n'
         '    const unsigned nitrogen_geometry_ui = rth_replaying() ? nitrogen_replay_ui :\n'
-        '        mode == GL_LINES && n == 2 ? nitrogen_gpu_line_flags(xs[0],ys[0],xs[1],ys[1]) : nitrogen_gpu_ui_flags();')
+        '        mode == GL_LINES && n == 2 ? nitrogen_gpu_line_flags(xs[0],ys[0],xs[1],ys[1]) : nitrogen_gpu_ui_flags();\n'
+        '    nitrogen_world_select(nitrogen_geometry_ui);')
     text = replace(text, '            v[1] = (float)ys[i];',
         '            v[1] = (float)ys[i];\n'
         '            nitrogen_ui_vertex_flags(&v[0], &v[1], nitrogen_geometry_ui);')

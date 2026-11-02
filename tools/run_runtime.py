@@ -30,6 +30,9 @@ def runtime_environment(work: Path, display_ring: bool = False, show_fps: bool =
     env["PSX_OVERLAY_AUTOCOMPILE_OFF"] = "1"
     env["PSX_OVERLAY_CAPTURES"] = str(work / "overlay_captures.json")
     env["PSX_OVERLAY_CAPTURE_ROOT"] = str(work / "overlay-private")
+    # Portable builds replace runtime-dev during preparation; preferences live
+    # alongside that directory so launcher updates/rebuilds retain them.
+    env["NITROGEN_OPTIONS_FILE"] = str(work.parent / "nitrogen-options.ini")
     return env
 
 

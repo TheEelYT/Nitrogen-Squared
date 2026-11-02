@@ -5,6 +5,7 @@
 #include "runtime_telemetry.h"
 #ifdef NITROGEN_WINDOW_DISPLAY
 #include "window_display.h"
+#include "game_options.h"
 #endif
 #include "../native/movie_player.h"
 #include <SDL3/SDL.h>
@@ -30,8 +31,6 @@ struct DesktopMenu {
     bool visible = true, autohide = false, settings = false, about = false;
     bool performance = false, audio = false, reset = false;
     bool escape = false, close_requested = false;
-    int volume = 100, unmuted = 100;
-    Uint32 volume_event = 0;
     float bar_height = 24.0f, performance_height = 0;
     std::string preferences;
     double rate_time = 0, sample_rate = 0;
@@ -46,16 +45,20 @@ void save_preferences(DesktopMenu &m)
     std::ofstream out(m.preferences, std::ios::trunc);
     if (!out) { std::fprintf(stderr, "nitrogen: could not save menu preferences\n"); return; }
     out << "visible " << m.visible << "\nautohide " << m.autohide
-        << "\nvolume " << m.volume << "\nperformance " << m.performance
+        << "\nperformance " << m.performance
         << "\naudio " << m.audio << '\n';
 }
 
 void fullscreen(DesktopMenu &m)
 {
+#ifdef NITROGEN_WINDOW_DISPLAY
+    nitrogen_option_set(NITROGEN_VIDEO_MODE, nitrogen_option_get(NITROGEN_VIDEO_MODE) == NITROGEN_WINDOWED ? NITROGEN_BORDERLESS : NITROGEN_WINDOWED);
+#else
     PsxHostVideoSettings v{};
     m.host->video_get(&v);
     v.fullscreen = v.fullscreen ? 0 : 1;
     m.host->video_apply(&v);
+#endif
 }
 
 int attach(void *context, void *window, void *gl, const PsxMenuHost *host)
@@ -64,26 +67,24 @@ int attach(void *context, void *window, void *gl, const PsxMenuHost *host)
     std::lock_guard<std::mutex> lock(m.mutex);
     if (!host || host->abi_version != PSX_MENU_ABI_VERSION) return 0;
     m.host = host;
-    m.volume_event = SDL_RegisterEvents(1);
-    if (!m.volume_event) return 0;
     m.window = static_cast<SDL_Window *>(window);
     m.settings = m.about = m.reset = m.escape = m.close_requested = false;
     m.open = false;
     const char *base = SDL_GetBasePath();
     m.preferences = base ? std::string(base) + "nitrogen-menu.ini" : "";
-    m.volume = host_volume_get();
+#ifdef NITROGEN_WINDOW_DISPLAY
+    nitrogen_options_init(base);
+    host_volume_set(nitrogen_option_get(NITROGEN_MASTER_VOLUME));
+#endif
     std::ifstream in(m.preferences);
     std::string name;
     int value;
     while (in >> name >> value) {
         if (name == "visible") m.visible = value != 0;
         else if (name == "autohide") m.autohide = value != 0;
-        else if (name == "volume") m.volume = std::clamp(value, 0, 100);
         else if (name == "performance") m.performance = value != 0;
         else if (name == "audio") m.audio = value != 0;
     }
-    host_volume_set(m.volume);
-    if (m.volume) m.unmuted = m.volume;
     IMGUI_CHECKVERSION();
     m.imgui = ImGui::CreateContext();
     ImGui::SetCurrentContext(m.imgui);
@@ -134,7 +135,6 @@ int event(void *context, const void *input)
     ImGui::SetCurrentContext(m.imgui);
     const auto &ev = *static_cast<const SDL_Event *>(input);
     ImGui_ImplSDL3_ProcessEvent(&ev);
-    if (ev.type == m.volume_event) { host_volume_set(ev.user.code); return 1; }
     if (ev.type == SDL_EVENT_KEY_DOWN && !ev.key.repeat) {
         if (ev.key.key == SDLK_F1) {
             m.visible = !m.visible;
@@ -260,21 +260,9 @@ void draw(void *context, int, int)
             const int area_w = (int)(io.DisplaySize.x * io.DisplayFramebufferScale.x);
             const int area_h = std::max(1, (int)(io.DisplaySize.y * io.DisplayFramebufferScale.y) - reserved.load());
             ImGui::Text("Game area: %d x %d", area_w, area_h);
-            ImGui::Text("Interface scale: %dx (automatic)", nitrogen_window_ui_step(area_w, area_h));
+            ImGui::Text("Interface scale: %dx", nitrogen_window_ui_step(area_w, area_h));
             ImGui::TextUnformatted("Sharp textures and video. Movies retain their proportions.");
 #endif
-            ImGui::SeparatorText("Audio");
-            if (ImGui::SliderInt("Volume", &m.volume, 0, 100, "%d%%")) {
-                SDL_Event volume{}; volume.type = m.volume_event; volume.user.code = m.volume;
-                SDL_PushEvent(&volume); changed = true;
-                if (m.volume) m.unmuted = m.volume;
-            }
-            bool mute = m.volume == 0;
-            if (ImGui::Checkbox("Mute", &mute)) {
-                m.volume = mute ? 0 : m.unmuted;
-                SDL_Event volume{}; volume.type = m.volume_event; volume.user.code = m.volume;
-                SDL_PushEvent(&volume); changed = true;
-            }
             ImGui::SeparatorText("Menu");
             changed |= ImGui::Checkbox("Show menu bar (F1)", &m.visible);
             changed |= ImGui::Checkbox("Autohide menu bar", &m.autohide);
