@@ -41,6 +41,15 @@ int main(){
   assert(nitrogen_window_ui_step(730,480)==step);
  }
  nitrogen_window_ui_scale(0);
+ int rw=0,rh=0;
+ nitrogen_window_world_raster(1280,720,364,238,50);
+ nitrogen_window_world_size(&rw,&rh);
+ assert(std::abs(rw*364.f/1024-640)<1);
+ assert(std::abs(rh*238.f/512-360)<1);
+ assert(nitrogen_window_ui_step(1280,720)==3); // world percentage cannot change HUD scale
+ nitrogen_window_world_raster(1280,720,320,240,50);
+ nitrogen_window_world_size(&rw,&rh);
+ assert(rw==0&&rh==0); // original movie/image modes keep their presentation
  for(int dw:{600,801,1280,2048})for(int dh:{480,675,720,1000})for(int sh:{236,238,240}){
   nitrogen_window_publish(dw,dh);int step=nitrogen_window_ui_step(dw,dh);
   int vw=(long long)dw*3<(long long)dh*4?dh*4/3:dw;

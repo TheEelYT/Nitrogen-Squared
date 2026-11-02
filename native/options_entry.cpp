@@ -1,7 +1,7 @@
 /* Original menu enhancements; fonts and artwork stay in the user's import. */
 #include "options_contract.h"
 #include NITROGEN_OPTIONS_BINDING_HEADER
-#include "game_options.h"
+#include "../compat/game_options.h"
 #include "cpu_state.h"
 #include "func_override.h"
 #include "mod_plugins.h"
@@ -43,8 +43,11 @@ bool storage(CPUState *c)
 void labels(CPUState *c)
 {
     for (auto field : {0x80090600u,0x8008ec94u}) c->write_word(field,arena+64);
-    for (auto field : {0x80090608u,0x8008eca8u,0x8008ea08u}) c->write_word(field,arena+96);
+    // 8ea08 is the presenter's current-title cache, not a language binding.
+    // Leave it owned by the original header routine so its width can settle.
+    for (auto field : {0x80090608u,0x8008eca8u}) c->write_word(field,arena+96);
     c->write_word(0x80090610,arena+128);
+    c->write_word(0x8008ecac,arena+128);
     c->write_word(0x80090618,arena+160);
 }
 uint32_t call(CPUState *c,uint32_t function,uint32_t a,uint32_t b,uint32_t d,uint32_t e,uint32_t fifth=0)
@@ -58,6 +61,7 @@ uint32_t text(CPUState *c,uint32_t packet,uint32_t view,const char *s,int y,int 
 {
     const uint32_t style=arena+224, buffer=arena+256;
     string(c,buffer,s);
+    if (x==-10000) x=-40-static_cast<int>(call(c,0x800280a0,buffer,0,0,0))/2;
     c->write_word(style,y); c->write_word(style+4,x);
     c->write_word(style+8,selected?0x202030:0x101010);
     c->write_word(style+12,selected?0xe0e0ff:0x606060);
@@ -76,6 +80,9 @@ uint32_t slider(CPUState *c,uint32_t packet,uint32_t view,int y,int value,int ma
         c->write_word(packet+16,(12u<<16)|5u);
         head=packet&0xffffffu; packet+=20;
     }
+    c->write_word(packet,(1u<<24)|(head&0xffffffu));
+    c->write_word(packet+4,0xe100023bu);
+    head=packet&0xffffffu; packet+=8;
     c->write_word(view+0x7c,head);
     return packet;
 }
@@ -84,6 +91,15 @@ void center(CPUState *c,uint32_t context)
 {
     c->write_word(0x800908d8,0); c->write_word(0x800908dc,0);
     for (unsigned offset : {0x16050u,0x16052u,0x16e8cu,0x16e8eu}) c->write_half(context+offset,0);
+}
+int slider_direction(CPUState *c,uint32_t buttons,uint32_t edge,uint32_t counter)
+{
+    const uint32_t held=buttons&0xa0u;
+    if(!held || held==0xa0u) {c->write_word(counter,0);return 0;}
+    if(edge&0xa0u) {c->write_word(counter,15);return held==0x20?1:-1;}
+    const uint32_t delay=c->read_word(counter);
+    c->write_word(counter,delay?delay-1:2);
+    return delay?0:held==0x20?1:-1;
 }
 int presentation(CPUState *c)
 {
@@ -98,6 +114,11 @@ int presentation(CPUState *c)
     std::copy(c->gpr,c->gpr+32,registers.begin());
     c->gpr[29]-=512;
     unsigned opacity=0;
+    if (phase==29) {
+        opacity=std::min(255u,c->read_word(fade)+10);
+        c->write_word(fade,opacity);
+        if (opacity==255) c->write_word(page,30);
+    }
     if (phase==30) {
         opacity=c->read_word(fade);
         opacity=opacity>10?opacity-10:0;
@@ -112,7 +133,8 @@ int presentation(CPUState *c)
     if (!opacity) {
         if (edge&0x10) { row=row==first?2:row-1; sound(c); }
         if (edge&0x40) { row=row==2?first:row+1; sound(c); }
-        const int direction=(edge&0x20)?1:(edge&0x80)?-1:0;
+        const int direction=row==2?slider_direction(c,buttons,edge,arena+8):
+            (edge&0x20)?1:(edge&0x80)?-1:0;
         if (direction) {
             if (row==0) changed=nitrogen_option_set(row,(nitrogen_option_get(row)+direction+3)%3)!=0;
             if (row==1) {
@@ -123,7 +145,7 @@ int presentation(CPUState *c)
             if (row==2) changed=nitrogen_option_set(row,std::clamp(nitrogen_option_get(row)+direction*5,25,200))!=0;
             if(changed) sound(c);
         }
-        if (edge&0x1000) {
+        if (edge&0x3000) {
             c->write_word(page,29); c->write_word(next_page,1); c->write_word(old_page,9); c->write_word(fade,0);
             sound(c);
         }
@@ -140,7 +162,7 @@ int presentation(CPUState *c)
     if(scale) std::snprintf(line,sizeof(line),"HUD scale - %dX",scale);
     else std::snprintf(line,sizeof(line),"HUD scale - AUTO");
     packet=text(c,packet,view,line,118,0,row==1,opacity);
-    std::snprintf(line,sizeof(line),"render resolution - %d%%",nitrogen_option_get(2));
+    std::snprintf(line,sizeof(line),"render resolution - %d percent",nitrogen_option_get(2));
     packet=text(c,packet,view,line,148,0,row==2,opacity);
     packet=slider(c,packet,view,168,nitrogen_option_get(2),200,88);
     packet=text(c,packet,view,"left / right to change",192,0,false,opacity);
@@ -161,7 +183,7 @@ int audio(CPUState *c)
     if(edge&0x40) {row=(row+1)%6;sound(c);}
     c->write_word(audio_selection,row);
     if(row==5 && !opacity) {
-        int delta=(edge&0x20)?5:(edge&0x80)?-5:0;
+        const int delta=5*slider_direction(c,buttons,edge,arena+12);
         if(delta) {nitrogen_option_set(3,std::clamp(nitrogen_option_get(3)+delta,0,100));sound(c);}
     }
     // Preserve all existing audio behavior, including speaker mode and track
@@ -172,7 +194,7 @@ int audio(CPUState *c)
     func_override_call_original(c);
     c->write_word(context+0x10,buttons);
     const uint32_t sp=c->gpr[29]; c->gpr[29]-=256;
-    uint32_t packet=text(c,c->gpr[2],view,"master volume",190,-82,row==5,opacity);
+    uint32_t packet=text(c,c->gpr[2],view,"master volume",190,-10000,row==5,opacity);
     packet=slider(c,packet,view,192,nitrogen_option_get(3),100);
     c->gpr[29]=sp; c->gpr[2]=packet;
     return 1;

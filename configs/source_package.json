@@ -85,6 +85,7 @@
   "tests/test_qualification.py",
   "tests/test_runtime.py",
   "tests/test_window_display.py",
+  "tests/world_raster_smoke.inc",
   "third_party/COPYING.LGPLv2.1",
   "tools/adapt_window_display.py",
   "tools/build_recompiler.py",

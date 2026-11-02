@@ -5,6 +5,7 @@
 static GLuint nitrogen_world_fbo, nitrogen_world_tex, nitrogen_world_rb;
 static int nitrogen_world_width, nitrogen_world_height;
 static int nitrogen_world_selected, nitrogen_world_pending;
+static int nitrogen_world_x1,nitrogen_world_y1,nitrogen_world_x2,nitrogen_world_y2;
 
 static void nitrogen_world_blit(GLuint from,GLuint to,int fw,int fh,int tw,int th)
 {
@@ -18,8 +19,16 @@ static void nitrogen_world_resolve(void)
 {
     if (!nitrogen_world_pending) return;
     nitrogen_world_pending=0;
-    nitrogen_world_blit(nitrogen_world_fbo,s_hr_fbo,nitrogen_world_width,nitrogen_world_height,
-                        VRAM_W*s_hr_scale,VRAM_H*s_hr_scale);
+    glDisable(GL_SCISSOR_TEST);
+    p_glBindFramebuffer(PSXGL_READ_FRAMEBUFFER,nitrogen_world_fbo);
+    p_glBindFramebuffer(PSXGL_DRAW_FRAMEBUFFER,s_hr_fbo);
+    p_glBlitFramebuffer(nitrogen_world_x1*nitrogen_world_width/VRAM_W,
+        nitrogen_world_y1*nitrogen_world_height/VRAM_H,
+        nitrogen_world_x2*nitrogen_world_width/VRAM_W,
+        nitrogen_world_y2*nitrogen_world_height/VRAM_H,
+        nitrogen_world_x1*s_hr_scale,nitrogen_world_y1*s_hr_scale,
+        nitrogen_world_x2*s_hr_scale,nitrogen_world_y2*s_hr_scale,
+        GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT|GL_STENCIL_BUFFER_BIT,GL_NEAREST);
 }
 static void nitrogen_world_delete(void)
 {
@@ -35,7 +44,8 @@ static int nitrogen_world_begin(int clip)
     int width=0,height=0;
     nitrogen_window_world_size(&width,&height);
     if(!clip || !nitrogen_world_selected || width<1 || height<1 || s_hiw ||
-       g_wide_cur || s_pass_active || s_cpu_auth_dual || s_hd_native_authority) return 0;
+       g_wide_cur || s_pass_active || s_cpu_auth_dual || s_hd_native_authority ||
+       s_area_x2-s_area_x1+1<360 || s_area_y2-s_area_y1+1<200) return 0;
     if(width!=nitrogen_world_width || height!=nitrogen_world_height) {
         GLint limit=0;
         glGetIntegerv(GL_MAX_TEXTURE_SIZE,&limit);
@@ -51,8 +61,13 @@ static int nitrogen_world_begin(int clip)
         }
         nitrogen_world_width=width; nitrogen_world_height=height;
     }
+    if(nitrogen_world_pending &&
+       (nitrogen_world_x1!=s_area_x1 || nitrogen_world_y1!=s_area_y1 ||
+        nitrogen_world_x2!=s_area_x2+1 || nitrogen_world_y2!=s_area_y2+1)) nitrogen_world_resolve();
     if(!nitrogen_world_pending) {
         nitrogen_world_blit(s_hr_fbo,nitrogen_world_fbo,VRAM_W*s_hr_scale,VRAM_H*s_hr_scale,width,height);
+        nitrogen_world_x1=s_area_x1; nitrogen_world_y1=s_area_y1;
+        nitrogen_world_x2=s_area_x2+1; nitrogen_world_y2=s_area_y2+1;
         nitrogen_world_pending=1;
     }
     p_glBindFramebuffer(PSXGL_FRAMEBUFFER,nitrogen_world_fbo);

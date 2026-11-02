@@ -15,6 +15,7 @@ import sys
 
 from build_recompiler import verify_framework
 from n2o_disc import ROOT
+from adapt_window_display import adapt_renderer
 
 
 def sdl_include_dir(build: Path):
@@ -87,6 +88,31 @@ def main():
         if not summary or int(summary[1]) == 0 or "FAIL " in result.stderr:
             raise RuntimeError("Renderer fixture did not report a complete passing result")
         print(f"OpenGL LLE/HLE equivalence at {scale}x: {lines[-1]}", flush=True)
+    # Exercise the actual title adapter too: the SDK oracle alone cannot catch
+    # a world resolve overwriting texture storage or downscaling interface art.
+    adapted = out / "nitrogen-fixture-renderer.c"
+    adapted.write_text(adapt_renderer((framework/'runtime/src/gpu_gl_renderer.c').read_text(encoding='utf-8')),encoding='utf-8')
+    fixture = (framework/'runtime/tests/test_gl_readback_region.c').read_text(encoding='utf-8')
+    marker = ' printf("checks=%d failures=%d\\n",checks,failures);'
+    if fixture.count('#include "gpu_gl_renderer.c"')!=1 or fixture.count(marker)!=1:
+        raise ValueError('Pinned synthetic renderer fixture contract changed')
+    fixture=fixture.replace('#include "gpu_gl_renderer.c"','#include "'+adapted.as_posix()+'"')
+    fixture=fixture.replace('int main(int argc,char **argv){',
+        '#include "'+(ROOT/'tests/world_raster_smoke.inc').as_posix()+'"\nint main(int argc,char **argv){')
+    fixture=fixture.replace(marker,' nitrogen_world_smoke();\n'+marker)
+    source=out/'world-raster-fixture.c';source.write_text(fixture,encoding='utf-8')
+    world_obj=out/'world-raster.o';policy_obj=out/'world-policy.o'
+    run([args.cc,'-std=c11','-O2','-flto','-D_GNU_SOURCE=1','-pthread','-DPSX_SDL3=1','-DPSX_NO_DEBUG_TOOLS=1',
+         *includes,'-I'+str(framework/'runtime/tests'),'-I'+str(ROOT/'compat'),'-c',source,'-o',world_obj])
+    run([args.cxx,'-std=c++17','-O2','-flto','-I'+str(ROOT/'compat'),'-c',ROOT/'compat/window_display.cpp','-o',policy_obj])
+    world_test=out/'world-raster-check'
+    run([args.cxx,'-O2','-flto',world_obj,policy_obj,*objects[1:],library,'-l:libGL.so.1','-lm','-ldl','-lpthread','-lrt','-o',world_test])
+    for scale in (1,4):
+        result=run([world_test,scale])
+        summary=re.search(r'checks=(\d+) failures=0',result.stdout)
+        if not summary or 'FAIL ' in result.stderr:
+            raise RuntimeError('Adapted renderer/world/UI checks did not complete')
+        print(f'Adapted world/UI checks at {scale}x: {summary[0]}',flush=True)
     queue = out / "render-queue-check"
     run([args.cc, "-std=c11", "-O2", "-D_GNU_SOURCE=1", "-pthread", *includes,
          framework / "runtime/tests/test_render_thread.c", framework / "runtime/src/render_thread.c",
