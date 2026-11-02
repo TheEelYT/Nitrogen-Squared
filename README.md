@@ -195,8 +195,8 @@ source dependencies on the first build. Keep the original CUE/BIN in place.
 from your own disc. The public source package still contains no game inputs,
 generated game C, compiled game modules, captures, or assets. The portable release above automates this private build using downloaded tools.
 
-See [Windows testing steps](TESTING.md). The current baseline uses original 4:3
-presentation; remaster features follow gameplay validation. Vita remains planned.
+See [player testing steps](TESTING.md). World resolution and aspect follow the
+window; the interface uses AUTO or a selected whole-number scale. Vita remains planned.
 The OpenGL window now has **System** and **Debug** menus. **F1** hides/restores
 the bar; **F11** toggles fullscreen. Settings and dropdowns pause the guest and
 audio, while passive performance/audio overlays allow gameplay to continue.

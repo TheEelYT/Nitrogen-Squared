@@ -53,7 +53,13 @@ at frame 4500. Sending Start does not establish that the pause menu was observed
 The normal binary SHA-256 is
 8486988a8c265777ef15fa0815e68422d0d29181439335b12aa52b9fd488356c.
 The 123-file reviewed text audit, Windows CRLF size bounds and submitted-result
-preservation checks pass. Platform workflows, actual public assets and final
+preservation checks pass. The first platform run caught an obsolete provider-test
+expectation: F11 now changes the shared Video preference, rather than calling the
+former host video callback. The fixture is updated to verify both requests without
+claiming an offscreen fullscreen transition. The corrected fixture passes locally
+against the actual provider/SDL/GL objects, including composition, F1/F11, pause,
+input capture, Escape and reattach; no production source changed for this repair.
+Platform workflows, actual public assets and final
 publication receipts remain pending until recorded below. No claim is made that
 intermittent Windows level-entry stutter is fixed, or that simulation/render/audio
 clocks are separated.

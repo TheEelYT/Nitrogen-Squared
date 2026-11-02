@@ -1,6 +1,9 @@
 /* Exercise the actual provider and OpenGL/SDL backends with original pixels. */
 #include "psx_menu_host.h"
 #include "desktop_menu.h"
+#ifdef NITROGEN_WINDOW_DISPLAY
+#include "../compat/game_options.h"
+#endif
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_opengl.h>
 #include "imgui.h"
@@ -94,10 +97,23 @@ void nitrogen_menu_smoke()
     check(nitrogen_menu_reserved_height() == 0, "hide and reclaim viewport");
     key(SDLK_F1); frame();
     check(nitrogen_menu_reserved_height() > 0, "restore hidden menu");
+#ifdef NITROGEN_WINDOW_DISPLAY
+    // F11 shares the in-game Video preference. The runtime applies it later;
+    // this provider-only fixture has no live runtime window or mode support.
+    check(nitrogen_option_set(NITROGEN_VIDEO_MODE, NITROGEN_WINDOWED) != 0,
+          "start shortcut check windowed");
+    key(SDLK_F11);
+    check(video_calls == 0 && nitrogen_option_get(NITROGEN_VIDEO_MODE) == NITROGEN_BORDERLESS,
+          "F11 requests borderless through shared Video preference");
+    key(SDLK_F11);
+    check(video_calls == 0 && nitrogen_option_get(NITROGEN_VIDEO_MODE) == NITROGEN_WINDOWED,
+          "F11 requests windowed through shared Video preference");
+#else
     key(SDLK_F11);
     check(video_calls == 1 && video.fullscreen == 1, "apply fullscreen through host");
     key(SDLK_F11);
     check(video_calls == 2 && video.fullscreen == 0, "return to windowed mode");
+#endif
     p->set_open(p->ctx, 1); frame();
     check(p->is_open(p->ctx) && paused, "pause guest for settings");
     SDL_Event cross{}; cross.type = SDL_EVENT_GAMEPAD_BUTTON_DOWN; cross.gbutton.button = SDL_GAMEPAD_BUTTON_SOUTH;
