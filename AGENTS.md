@@ -718,3 +718,12 @@
   Platform/publication receipts must still be recorded; fresh n0030 player
   checks remain pending. Keep a private recovery with the final production build,
   execution contract, compiler cache and scalar qualification receipts.
+
+- Published 0.0.30 code/tag ed3cdb686e6c0af1d1300394a0e3dacae2242ebe passes source CI
+  41569591629, Windows/Linux runtime/renderer 41569591595 and portable
+  package/publication 41569591582. All five actual public assets/tag/latest/
+  checksums/digests, Windows 1774-file and Linux 125-file owned manifests,
+  x64 launcher/Python license and 123-file source equality are audited.
+  Preserve immutable tag/assets. Receipt is docs only: no VERSION bump/rebuild.
+  Fresh n0030 player checks remain pending; Linux is carried unchanged, submitted
+  results preserved. Coverage 38.4156%/61.5844%, transition stutter OPEN, clocks unchanged.

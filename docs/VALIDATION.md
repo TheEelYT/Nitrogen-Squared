@@ -1027,3 +1027,28 @@ Platform workflows and actual public-asset receipts remain pending until recorde
 Software X11/dummy audio do not verify physical Windows audio quality or real
 fullscreen transitions. Fresh focused player menu checks remain pending; no new
 campaign, upload or valued-save overwrite is requested.
+
+
+## 0.0.30 publication receipt
+
+The [0.0.30 release](https://github.com/TheEelYT/Nitrogen-Squared/releases/tag/v0.0.30) is published at immutable code/tag
+`ed3cdb686e6c0af1d1300394a0e3dacae2242ebe`. Source checks 41569591629, Windows/Linux runtime and renderer
+checks 41569591595, and portable package/publication checks 41569591582
+all pass. This supersedes pending platform/publication status above.
+
+All five actual public assets were downloaded and audited: tag/latest target,
+asset digests, checksum files and package-owned manifests pass. Windows has
+1774 owned files, an x64 launcher and portable Python license. Linux has
+125 owned files plus its manifest and executable launcher. Both apps and
+the source ZIP contain exactly 123 reviewed text files, matching the release
+commit after Git line-ending normalization. No private payload is included.
+
+- Windows ZIP SHA-256: `d9e68ec6b159bd57061d079ae9212073a630e48ad015edac450642045c444496`.
+- Linux ZIP SHA-256: `d4e322dc857054f86b55e24aaa3e9f4af23bdd1edd73d0539b6367e28ab1953d`.
+- Source ZIP SHA-256: `f116771f99bef04e18f8861b4182bc3ce9556dbfb193af9f8ca1debf108fefb5`.
+
+This receipt changes documentation only; preserve the published tag and assets.
+No VERSION bump or repeated runtime build is needed. Fresh n0030 menu checks
+remain pending; optional Linux stays carried. Submitted reports remain unchanged.
+Coverage stays 38.4156% linked / 61.5844% outside. The intermittent Windows
+level-entry stutter remains OPEN; clocks remain unchanged.
