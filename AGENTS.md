@@ -737,3 +737,8 @@
   Actual X11 with the worker ON/OFF title/logo, usual/wide/portrait and Main/Audio/Controls
   help routes pass. Normal/platform/publication qualification is still required.
   Coverage 38.4156%/61.5844% unchanged, level-entry stutter OPEN, clocks unchanged.
+- The final 0.0.31 normal O3 build matches the diagnostic identity and accepted
+  native manifest; diagnostics OFF, empty qualification include and no hooks
+  are verified. The three-movie/controller/SDL_QUIT fixture passes at frame4500.
+  Platform checks/publication audit are pending; fresh n0031 player checks remain
+  untested and unsubmitted n0030 checks are carried unchanged.

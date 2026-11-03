@@ -1086,7 +1086,12 @@ The staged O3 diagnostic execution identity is
 `c7827c32f1e3c74510a4966981bdf1b4139dd3282fd9defd4b13f6a7d6c60640`,
 with binary SHA-256
 `68983b829d497b943addf0663fdd65699ab72e62f4c9ead68910c6ee97af55ec`.
-The pinned SDK remains unmodified. Final normal-production, platform and public-
-asset receipts are pending until recorded below. Fresh player title checks remain
+The pinned SDK remains unmodified. The final O3 production build matches the diagnostic execution identity and
+exact native manifest. Diagnostics are OFF, the qualification include is empty
+and comparison/replay hooks are absent. The separate normal fixture passes
+three movie completions, analog/fire input samples and clean SDL_QUIT at frame
+4500. Production binary SHA-256 is
+`ddb9120aaba181730be4c2973578ceffa3ba5edfeb555c54fdf9e759272af7c6`.
+Platform workflows and actual public-asset receipts are pending until recorded below. Fresh player title checks remain
 pending; intermittent Windows level-entry stutter remains OPEN. No new campaign,
 disc upload or valued-save overwrite is requested.
