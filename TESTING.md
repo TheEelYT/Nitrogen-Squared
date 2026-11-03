@@ -1141,6 +1141,48 @@ These are version-scoped player results, separate from the check definitions and
           "updatedAt": "2026-11-02T00:29:31.197Z"
         }
       ]
+    },
+    {
+      "versionId": "nitrogen:n0029",
+      "version": "v0.0.29",
+      "notes": "",
+      "checks": [
+        {
+          "id": "nitrogen:n0029:N2-AUDIO-MASTER",
+          "title": "Master volume in the original Audio menu",
+          "status": "fail",
+          "notes": "No partial pass button, but this would be a partial pass. the Master Volume bar works, but the audio screen isn't rendered correctly now, and master volume should be right above sfx volume, not at the bottom of the list. ",
+          "updatedAt": "2026-11-03T00:55:25.664Z"
+        },
+        {
+          "id": "nitrogen:n0029:N2-UPDATE",
+          "title": "Update and refresh the private build",
+          "status": "pass",
+          "notes": "",
+          "updatedAt": "2026-11-03T00:53:23.926Z"
+        },
+        {
+          "id": "nitrogen:n0029:N2-VIDEO-MENU",
+          "title": "Video menu and desktop window modes",
+          "status": "pass",
+          "notes": "",
+          "updatedAt": "2026-11-03T00:56:27.090Z"
+        },
+        {
+          "id": "nitrogen:n0029:N2-VIDEO-PLAY",
+          "title": "Brief gameplay with the new video settings",
+          "status": "pass",
+          "notes": "Hud scale and render scale controls work as expected. ",
+          "updatedAt": "2026-11-03T00:55:58.883Z"
+        },
+        {
+          "id": "nitrogen:n0029:N2-VIDEO-SCALE",
+          "title": "HUD scale and independent scene resolution",
+          "status": "pass",
+          "notes": "",
+          "updatedAt": "2026-11-03T00:54:03.391Z"
+        }
+      ]
     }
   ]
 }
