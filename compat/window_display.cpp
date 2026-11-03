@@ -8,9 +8,22 @@ std::atomic<unsigned long long> drawable{0};
 std::atomic<int> ui_scale{0};
 std::atomic<unsigned long long> world_size{0};
 std::atomic<unsigned> menu_page{0};
+std::atomic<uint64_t> host_frame{0}, menu_frame{0};
 }
-extern "C" void nitrogen_window_menu_page(unsigned page) { menu_page.store(page, std::memory_order_release); }
-extern "C" int nitrogen_window_controls_view(void) { return menu_page.load(std::memory_order_acquire)==8; }
+extern "C" void nitrogen_window_frame(uint64_t frame) { host_frame.store(frame,std::memory_order_release); }
+extern "C" void nitrogen_window_menu_page(unsigned page)
+{
+    menu_frame.store(host_frame.load(std::memory_order_relaxed),std::memory_order_relaxed);
+    menu_page.store(page,std::memory_order_release);
+}
+extern "C" int nitrogen_window_controls_view(void)
+{
+    if(menu_page.load(std::memory_order_acquire)!=8) return 0;
+    const auto now=host_frame.load(std::memory_order_acquire),at=menu_frame.load(std::memory_order_relaxed);
+    // A GPU DMA may consume the previous guest frame. Expire the title-owned
+    // context if a reset/restore/other occupant stops calling its presenter.
+    return now>=at && now-at<=1;
+}
 extern "C" int nitrogen_window_projection_is_ui(int32_t ofx,int32_t ofy,int h)
 {
     if(ofx==40*65536 && ofy==199*65536 && h==320) return 1;

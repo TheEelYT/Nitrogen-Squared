@@ -35,6 +35,11 @@ int main(){
  assert(!nitrogen_window_projection_is_ui(184*65536,130*65536,320));
  nitrogen_window_menu_page(1);
  assert(!nitrogen_window_projection_is_ui(184*65536,120*65536,320));
+ nitrogen_window_frame(20);nitrogen_window_menu_page(8);
+ nitrogen_window_frame(21);assert(nitrogen_window_controls_view());
+ nitrogen_window_frame(22);assert(!nitrogen_window_controls_view());
+ nitrogen_window_frame(19);assert(!nitrogen_window_controls_view());
+ nitrogen_window_menu_page(1);
  assert(nitrogen_window_ui_step(320,240)==2);
  assert(nitrogen_window_ui_step(800,600)==2);
  assert(nitrogen_window_ui_step(1094,720)==2);
@@ -193,6 +198,8 @@ int main(){
  gp0_ot_rank=439;gp0_cmd_buf[0]=0x3a404040u;
  for(int i:{1,3,5,7})gp0_cmd_buf[i]=(118u<<16)|244u;
  assert(role()==0); // native/new Audio gradient and tick track stay aligned
+ gp0_ot_rank=440;sprite(136,192,0x5765);gp0_cmd_buf[2]=0x5765ba64u;
+ gp0_cmd_buf[3]=0x000e000eu;assert(role()==0); // Video help-atlas hint
  gp0_ot_rank=441;
  assert(nitrogen_gpu_line_flags(64,20,304,20)&0x10);
  assert(nitrogen_gpu_line_flags(0,-40,368,180)&0x10); // complete popup border
@@ -202,7 +209,9 @@ int main(){
  assert(nitrogen_gpu_line_flags(30,456,150,466)==0);
  controls_view=true;draw_offset_y=0;gp0_state=0;
  gp0_ot_rank=400;gp0_cmd_buf[0]=0x38000000u;assert(role()==0);
+ gp0_ot_rank=427;gp0_cmd_buf[0]=0x38000000u;assert(role()==0);
  gp0_ot_rank=440;digits(24,16);assert(role()==0); // not a gameplay score
+ gp0_cmd_buf[0]=0x62808080u;gp0_cmd_buf[1]=(150u<<16)|177u;assert(role()==0); // flat callout backing
  sprite(130,150,0x5fe3);assert(role()==0); // controller callout art
  sprite(32,205,0x4db3);assert(role()==3);sprite(317,205,0x4d73);assert(role()==4);
  assert((nitrogen_gpu_line_flags(30,80,150,120)&0x10)!=0);

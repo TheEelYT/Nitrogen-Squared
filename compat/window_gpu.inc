@@ -28,6 +28,8 @@ unsigned nitrogen_gpu_ui_flags(void)
     /* Rank 441 belongs to complete help cards, including arrow atlas cells
      * and bevels that extend above/below the inner text rectangle. */
     if (gp0_ot_rank==441u && op>=0x20u && op<=0x7fu) return nitrogen_ui_role(0,1);
+    if (nitrogen_window_controls_view() && gp0_ot_rank>3u && gp0_ot_rank<440u &&
+        op>=0x20u && op<=0x7fu) return nitrogen_ui_role(0,1);
     if (polygon && gp0_ot_rank==439u && !(op&4u) &&
         nitrogen_widget_vertices(op,0,368,48,239)) return nitrogen_ui_role(0,1);
     if (polygon && (gp0_ot_rank == 427u || gp0_ot_rank == 428u) &&
@@ -45,7 +47,7 @@ unsigned nitrogen_gpu_ui_flags(void)
     if (rect || textured_quad) parse_vertex(gp0_cmd_buf[1],&x,&y);
     const int menu_marker = rect && palette == 0 && current_texpage() == 0x13cu && gp0_ot_rank == 440u;
     if (nitrogen_window_controls_view() && gp0_ot_rank>3u && gp0_ot_rank<=440u &&
-        (polygon || rect)) {
+        op>=0x20u && op<=0x7fu) {
         const int footer=gp0_ot_rank==440u &&
             ((menu_marker && y>=160 && y<=255) || (!menu_marker && y>=205 && y<=239)) &&
             (palette==0x4873u || palette==0x4d73u || palette==0x4db3u || menu_marker) &&
@@ -71,9 +73,12 @@ unsigned nitrogen_gpu_ui_flags(void)
         (gp0_ot_rank == 438u || gp0_ot_rank == 440u);
     const int audio_art = rect && gp0_ot_rank==439u &&
         (palette==0x47adu || palette==0x47edu || palette==0x482du || palette==0x486du);
+    const int direction_hint = rect && gp0_ot_rank==440u && palette==0x5765u &&
+        ((gp0_cmd_buf[2]&65535u)==0xba64u || (gp0_cmd_buf[2]&65535u)==0xba72u) &&
+        gp0_cmd_buf[3]==0x000e000eu;
     if (rect && palette == 0 && current_texpage() == 0x13cu && gp0_ot_rank == 2u)
         return nitrogen_ui_role(6,0); // ray field only, never footer decorations
-    const int atlas = ((rect || textured_quad) && font) || weapon_frame || weapon_flash || perk || tutorial_icon || menu_art || menu_marker || audio_art;
+    const int atlas = ((rect || textured_quad) && font) || weapon_frame || weapon_flash || perk || tutorial_icon || menu_art || menu_marker || audio_art || direction_hint;
     const WsUiPrepassItem *it = atlas ? NULL : ws_auto_ui_item();
     if (!atlas && (!it || !it->full_draw_area || !ws_ui_untextured_op(it->op))) return 0;
     // Centre is one transform for complete phrases, shadows, panels and menu

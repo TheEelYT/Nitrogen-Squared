@@ -1,5 +1,13 @@
 # Window-driven presentation
 
+0.0.30 groups all help-card draw layers, including bevels and arrow icons, and
+keeps Audio gradient fills aligned with their tick tracks. Controls publishes a
+fresh page-scoped context before presenting its authored camera: model polygons,
+flat label backings, text and outlines share the centred UI transform. Footer
+controls keep their corner roles. Context expires when its presenter stops, so
+other executable occupants and ordinary gameplay retain their own projection.
+No toolkit source or clock is changed.
+
 0.0.29 adds the in-game Video menu. AUTO retains the formula below; manual
 2X/3X/4X/6X overrides keep square UI pixels. The world has a separate fractional
 raster surface sized to 25–200 percent of the drawable game area, with nearest

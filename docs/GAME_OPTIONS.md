@@ -1,5 +1,12 @@
 # In-game options
 
+Version 0.0.30 places Master immediately above SFX and keeps Play in order's
+song title text only, even when selected. Master, effects, ambient and music
+sliders share the original additive luminous fill and aligned tick tracks. The
+bottom Audio arrow clears the last row. Video uses the original help-atlas
+left/right icons and the same slider fill. Complete help-card layers and the
+Controls model/callouts keep a shared UI transform across window shapes.
+
 Version 0.0.29 replaces Center screen with Video, locks the game's display
 offsets to zero, and renames the other option entries to Audio, Controls and
 Extras. Focused player checks are listed in TESTING.md; qualification receipts live in docs/VALIDATION.md.

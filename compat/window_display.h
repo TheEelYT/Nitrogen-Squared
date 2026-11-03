@@ -10,6 +10,7 @@ extern "C" {
 int nitrogen_window_projection_is_ui(int32_t ofx, int32_t ofy, int h);
 /* Published by the identity-guarded title presenter, before its GTE calls. */
 void nitrogen_window_menu_page(unsigned page);
+void nitrogen_window_frame(uint64_t frame);
 int nitrogen_window_controls_view(void);
 /* Measured in drawable pixels, excluding the desktop menu. */
 void nitrogen_window_publish(int width, int height);

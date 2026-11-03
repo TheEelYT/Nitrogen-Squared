@@ -1,6 +1,6 @@
 # Native translation progress
 
-The unchanged 0.0.28 / 0.0.23 native selection verifies **38.4156% linked native translation
+The unchanged 0.0.30 / 0.0.23 native selection verifies **38.4156% linked native translation
 coverage**, with **61.5844% / 520,896 bytes** outside linked ranges.
 This payload-range metric includes data; it is not CPU time or project completion.
 
@@ -59,7 +59,7 @@ This changes host overhead, not linked coverage or game/audio clocks.
 
 | Service | Current status |
 | --- | --- |
-| Desktop presentation and menu | 0.0.29 adds guarded original Video/Audio menu extensions, persistent HUD/window/world-resolution/Master settings and an independent world raster; square UI pixels and the 2x floor remain; no linked-byte credit |
+| Desktop presentation and menu | 0.0.30 repairs complete help/Controls layers and Audio layout/fills; 0.0.29 adds guarded original Video/Audio menu extensions, persistent HUD/window/world-resolution/Master settings and an independent world raster; square UI pixels and the 2x floor remain; no linked-byte credit |
 | Interpreter debug attribution | 0.0.27 normal builds omit diagnostic-only resident-occupant scans; entry counters and actual native guards remain; no linked-byte credit |
 | Gameplay render scheduling | Bounded OpenGL worker; local pixel parity checked, user reports no issues with 0.0.9 on Windows |
 | Controller input | Host SDL input; analog gameplay verified by the user in 0.0.6 |
