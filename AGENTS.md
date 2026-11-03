@@ -701,3 +701,12 @@
   Virtual X11 cannot verify real desktop mode transitions; pause-options was not
   observed locally. Intermittent Windows level-entry stutter remains OPEN and
   clocks remain unchanged. No unrelated campaign, upload or save overwrite is needed.
+
+- 0.0.30 repairs complete help/Controls layers and Audio layout/fills. Master is
+  immediately above SFX; Play in order's song title stays text only even selected.
+  Volume/render tracks use the original luminous fill; Audio's bottom arrow clears
+  the last row and Video uses help-atlas direction icons. Controls context expires
+  when its presenter stops. Work solo, keep SDK unchanged, preserve submitted
+  results and carry the unresolved Linux check. Four n0029 passes remain historical;
+  Audio fails for graphics/order despite working volume. Coverage remains
+  38.4156%/61.5844%; level-entry stutter remains OPEN and clocks unchanged.

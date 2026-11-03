@@ -970,3 +970,55 @@ the submission commit. Native selection and coverage stay unchanged at
 Future dashboard imports carry untested/blocked checks and their notes into the
 next update. Passed and failed evidence stays with its tested version; no pass is
 inherited by a replacement release. Existing submitted reports are not rewritten.
+
+## 0.0.29 Dashboard feedback and 0.0.30 menu repairs
+
+The n0029 report passes update, desktop Video modes, HUD/scene scales and brief
+play. Audio fails: the owner confirms Master changes volume, but reports misplaced
+rows and mismatched menu layers. Keep that failure and every submitted report,
+note and timestamp unchanged. The optional Linux check carries forward unchanged.
+The intermittent n0027 Windows level-entry stutter remains OPEN; clocks are unchanged.
+
+0.0.30 places Master immediately above SFX. A bounded two-pass parser validates
+and moves original Audio DMA primitives as whole rows, preserving original mix,
+speaker and track controls. New sliders use imported tick cells with two additive
+Gouraud fill halves matching original Audio bars. Play in order's song title is
+text only, including when selected. Audio's bottom arrow clears the final row;
+Video uses original left/right help-atlas icons alongside To change.
+
+Complete help groups now share one UI transform, including outer bevels and
+arrow/button cells. Controls publishes a fresh page-scoped context before its
+authored projection. Model polygons, flat label backings, text and outlines share
+the centred transform; footer controls keep corner anchors. Context expires if
+the title presenter stops. Ordinary gameplay and other executable occupants keep
+their projection. The pinned SDK remains unmodified. Native selection is unchanged:
+796 records/48 exclusions; 324,928 / 845,824 = 38.4156% linked, 61.5844% outside.
+This adds no native credit.
+
+Qualification observed on the checkpointed source before workspace cleanup:
+
+- Visible X11 routes with worker OFF and ON finish all three native intro clips.
+  Main, Audio and Controls help layers are inspected; ordinary input returns to
+  first-level help and movement/fire without changing personal saves.
+- Controls remains coherent in both configurations at 960x720, 1408x1144,
+  1828x1094 and 730x800 windows, including consecutive presents and help overlays.
+- Master zero/half/full has no/half/full fill with the tick track unchanged.
+  Track selection stays text only. Native SFX left/right works. Video 25/100/200
+  fill and arrow cells align. Scalar packet checks confirm fill widths 0/90/186
+  for Master and 18/90/186 for Video, with no gradient at the song-title row.
+- SDK renderer checks pass 331 at 1x, 340 at 4x; the actual adapted world/UI
+  fixture passes 343/352. Queue 8,843 and worker ON/OFF equivalence pass at 1x/4x.
+- All 92 source tests pass without skips. The 123-file text/CRLF audit and actual
+  Dashboard parser/merge preview pass. Six fresh n0030 checks are untested; the
+  submitted-results tail and carried Linux check remain unchanged.
+
+Workspace maintenance removed the local build/capture folder during the normal
+build. Source checkpoint 736e214fa22d5ca06c9fa71fbef9dad06e5f12f0 was recovered from
+Git, with the accepted private cache and original USA input restored from saved
+recovery. Source 92 tests pass again. The observed diagnostic execution identity
+is edf0a48659cacf222538ec4a36b19c202995fded5e5854cff860c46cdfafdf9b;
+rebuilt final binaries must match it and the exact native manifest before release.
+Normal production, platform and public-asset receipts follow when complete.
+Software X11/dummy audio do not verify physical Windows audio quality or real
+fullscreen transitions. Fresh focused player menu checks remain pending; no new
+campaign, upload or valued-save overwrite is requested.
