@@ -2,6 +2,7 @@
 #include "options_contract.h"
 #include NITROGEN_OPTIONS_BINDING_HEADER
 #include "../compat/nitrogen_options.h"
+#include "../compat/window_display.h"
 #include "cpu_state.h"
 #include "func_override.h"
 #include "mod_plugins.h"
@@ -74,17 +75,111 @@ uint32_t slider(CPUState *c,uint32_t packet,uint32_t view,int y,int value,int ma
     uint32_t head=c->read_word(view+0x7c);
     for (int i=0;i<32;++i) {
         c->write_word(packet,(4u<<24)|(head&0xffffffu));
-        c->write_word(packet+4,i*maximum<value*32?0x66805c44u:0x66201c18u);
+        c->write_word(packet+4,0x66805c44u);
         c->write_word(packet+8,static_cast<uint16_t>(x+i*6)|(static_cast<uint32_t>(y)<<16));
         c->write_word(packet+12,0x47adf0f8u);
         c->write_word(packet+16,(12u<<16)|5u);
         head=packet&0xffffffu; packet+=20;
+    }
+    // Match the original Audio fill: two additive Gouraud halves behind the
+    // fixed tick track, rather than changing the tick texture's modulation.
+    const int ticks=std::clamp((value*32+maximum/2)/maximum,0,32);
+    if(ticks) for(int edge : {-5,5}) {
+        const int left=x+2,right=x+ticks*6-4,mid=y+6;
+        const auto xy=[](int px,int py){return static_cast<uint16_t>(px)|(static_cast<uint32_t>(py)<<16);};
+        c->write_word(packet,(8u<<24)|(head&0xffffffu));
+        c->write_word(packet+4,0x3a404040u); c->write_word(packet+8,xy(left,mid));
+        c->write_word(packet+12,0x00ffffffu); c->write_word(packet+16,xy(right,mid));
+        c->write_word(packet+20,0x00890000u); c->write_word(packet+24,xy(left,mid+edge));
+        c->write_word(packet+28,0); c->write_word(packet+32,xy(right,mid+edge));
+        head=packet&0xffffffu; packet+=36;
     }
     c->write_word(packet,(1u<<24)|(head&0xffffffu));
     c->write_word(packet+4,0xe100023bu);
     head=packet&0xffffffu; packet+=8;
     c->write_word(view+0x7c,head);
     return packet;
+}
+uint32_t arrow_hint(CPUState *c,uint32_t packet,uint32_t view)
+{
+    const uint32_t buffer=arena+256;
+    string(c,buffer,"to change");
+    const int width=static_cast<int>(call(c,0x800280a0,buffer,0,0,0));
+    const int left=(368-(36+width))/2;
+    packet=text(c,packet,view,"to change",192,left+36+width/2-184);
+    uint32_t head=c->read_word(view+0x78);
+    // Original help-atlas left/right cells, from the player's imported art.
+    for(int i=0;i<2;++i) {
+        c->write_word(packet,(4u<<24)|(head&0xffffffu));
+        c->write_word(packet+4,0x64808080u);
+        c->write_word(packet+8,static_cast<uint16_t>(left+i*18)|(192u<<16));
+        c->write_word(packet+12,(0x5765u<<16)|(186u<<8)|(100u+i*14u));
+        c->write_word(packet+16,(14u<<16)|14u);
+        head=packet&0xffffffu; packet+=20;
+    }
+    c->write_word(packet,(1u<<24)|(head&0xffffffu));
+    c->write_word(packet+4,0xe1000219u);
+    c->write_word(view+0x78,packet&0xffffffu);
+    return packet+8;
+}
+// Move complete original Audio primitives, not individual glyph vertices.
+// First validate the private DMA span, then edit positions in a second pass.
+bool audio_rows(CPUState *c,uint32_t begin,uint32_t end,bool apply)
+{
+    begin&=0x1fffffu; end&=0x1fffffu;
+    if((begin|end)&3u || end<begin || end-begin>65536u) return false;
+    for(uint32_t p=begin;p<end;) {
+        const unsigned count=c->read_word(p)>>24;
+        if(p+4u*(count+1)>end) return false;
+        for(unsigned i=0;i<count;) {
+            const uint32_t command=p+4+4*i;
+            const unsigned op=c->read_word(command)>>24;
+            unsigned words=1,n=0,stride=1;
+            if(op>=0x20 && op<=0x3f) {
+                n=(op&8)?4:3; stride=1+!!(op&4)+!!(op&16);
+                words=1+n+((op&4)?n:0)+((op&16)?n-1:0);
+            } else if(op>=0x60 && op<=0x7f) {
+                n=1; words=2+!!(op&4)+((op&0x18)?0:1);
+            } else if(op>=0x40 && op<=0x5f) {
+                stride=(op&16)?2:1; n=2; words=3+!!(op&16);
+                if(op&8) {
+                    words=0;
+                    for(unsigned k=1;k<count-i;++k)
+                        if((c->read_word(command+4*k)&0xf000f000u)==0x50005000u) {words=k+1;break;}
+                    if(!words) return false;
+                    n=(op&16)?(words-1)/2:words-2;
+                }
+            } else if(op==2) words=3;
+            else if(op==0x80) words=4;
+            else if(op!=0 && op!=1 && !(op>=0xe1 && op<=0xe6)) return false;
+            if(i+words>count) return false;
+            int ylo=32767;
+            for(unsigned v=0;v<n;++v) ylo=std::min(ylo,static_cast<int>(static_cast<int16_t>(c->read_word(command+4*(1+v*stride))>>16)));
+            if(apply && n && ylo>=100) for(unsigned v=0;v<n;++v) {
+                const uint32_t at=command+4*(1+v*stride),xy=c->read_word(at);
+                const int y=static_cast<int16_t>(xy>>16)+20;
+                c->write_word(at,(xy&65535u)|(static_cast<uint32_t>(static_cast<uint16_t>(y))<<16));
+            }
+            i+=words;
+        }
+        p+=4u*(count+1);
+    }
+    return true;
+}
+void audio_down_arrow(CPUState *c,uint32_t view)
+{
+    uint32_t head=c->read_word(view+0x78)&0xffffffu;
+    for(unsigned i=0;i<4096 && head<0x200000u-20 && !(head&3u);++i) {
+        const uint32_t tag=c->read_word(head);
+        if((tag>>24)==4 && (c->read_word(head+4)>>24)==0x64 &&
+           c->read_word(head+12)==0x73f342b0u && c->read_word(head+16)==0x000b0011u) {
+            const uint32_t xy=c->read_word(head+8);
+            if((xy>>16)==194) c->write_word(head+8,(xy&65535u)|(214u<<16));
+        }
+        const uint32_t next=tag&0xffffffu;
+        if(next==head) break;
+        head=next;
+    }
 }
 void sound(CPUState *c) { (void)call(c,0x8004c4e0,0x2c,0,0,0); }
 void center(CPUState *c,uint32_t context)
@@ -109,6 +204,7 @@ int presentation(CPUState *c)
     labels(c); center(c,context);
     const uint32_t phase=c->read_word(page);
     const uint32_t effective=(phase==29?c->read_word(old_page):phase==30?c->read_word(next_page):phase);
+    nitrogen_window_menu_page(effective);
     if (effective!=9) return 0;
     std::array<uint32_t,32> registers{};
     std::copy(c->gpr,c->gpr+32,registers.begin());
@@ -165,7 +261,7 @@ int presentation(CPUState *c)
     std::snprintf(line,sizeof(line),"render resolution - %d percent",nitrogen_option_get(2));
     packet=text(c,packet,view,line,148,0,row==2,opacity);
     packet=slider(c,packet,view,168,nitrogen_option_get(2),200,88);
-    packet=text(c,packet,view,"left / right to change",192,0,false,opacity);
+    packet=arrow_hint(c,packet,view);
     // The original menu ray field stays guest-timed behind our new controls.
     packet=call(c,0x80061ec0,packet,view+0x750,8,context,9);
     std::copy(registers.begin(),registers.end(),c->gpr); c->gpr[2]=packet;
@@ -181,21 +277,25 @@ int audio(CPUState *c)
     int row=std::clamp(static_cast<int>(c->read_word(audio_selection)),0,5);
     if(edge&0x10) {row=(row+5)%6;sound(c);}
     if(edge&0x40) {row=(row+1)%6;sound(c);}
-    c->write_word(audio_selection,row);
-    if(row==5 && !opacity) {
+    c->write_word(audio_selection,row==1?5:row>1?row-1:0);
+    if(row==1 && !opacity) {
         const int delta=5*slider_direction(c,buttons,edge,arena+12);
         if(delta) {nitrogen_option_set(3,std::clamp(nitrogen_option_get(3)+delta,0,100));sound(c);}
     }
     // Preserve all existing audio behavior, including speaker mode and track
     // selection. Only navigation expands from five to six authored rows.
-    c->write_word(context+0x10,buttons&~(row==5?0xf0u:0x50u));
+    c->write_word(context+0x10,buttons&~(row==1?0xf0u:0x50u));
     // Helpers above may clobber argument registers; restore this call's ABI.
     std::copy(arguments.begin(),arguments.end(),c->gpr);
     func_override_call_original(c);
+    const uint32_t end=c->gpr[2];
+    const bool reflow=audio_rows(c,arguments[5],end,false);
+    if(reflow) { (void)audio_rows(c,arguments[5],end,true); audio_down_arrow(c,view); }
+    c->write_word(audio_selection,row);
     c->write_word(context+0x10,buttons);
     const uint32_t sp=c->gpr[29]; c->gpr[29]-=256;
-    uint32_t packet=text(c,c->gpr[2],view,"master volume",190,-10000,row==5,opacity);
-    packet=slider(c,packet,view,192,nitrogen_option_get(3),100);
+    uint32_t packet=text(c,end,view,"master volume",reflow?110:190,-10000,row==1,opacity);
+    packet=slider(c,packet,view,reflow?112:192,nitrogen_option_get(3),100);
     c->gpr[29]=sp; c->gpr[2]=packet;
     return 1;
 }

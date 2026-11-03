@@ -16,6 +16,7 @@ class GameOptionsTests(unittest.TestCase):
             p=Path(temp)
             (p/'fixture.cpp').write_text('''
 #include "nitrogen_options.h"
+#include "window_display.h"
 #include <cassert>
 int main(int argc,char**argv){
  nitrogen_options_init(argv[1]);
@@ -64,6 +65,7 @@ extern "C" void func_override_call_original(CPUState*);
 #include "nitrogen_options.h"
 #include <cassert>
 #include <cstring>
+#include <initializer_list>
 static uint8_t ram[0x200000];
 extern "C" {uint8_t *g_psx_ram=ram;}
 static FuncOverrideFn video,audio;
@@ -79,14 +81,23 @@ extern "C" int func_override_add_guarded(const char*,uint32_t a,FuncOverrideFn f
 }
 extern "C" void func_override_guest_call(CPUState*c,uint32_t f,uint32_t){
  uint32_t packet=f==0x80062a28?c->gpr[5]:c->gpr[4];
- c->gpr[2]=packet+32;
+ c->gpr[2]=f==0x800280a0?60:packet+32;
  for(int i=4;i<=7;++i)c->gpr[i]=0xdeadbeef; // caller-saved registers
 }
 extern "C" void func_override_call_original(CPUState*c){
  assert(c->gpr[4]==0x8011b160 && c->gpr[5]==0x80160000);
  assert(c->gpr[6]==0x80132000 && c->gpr[7]==0);
  assert(!(rw(0x8011b170)&0x50));
- c->gpr[2]=0x80160020;
+ // Original synthetic Audio packets: a font row and a shaded highlight.
+ const uint32_t p=0x80160000;
+ ww(p,(4u<<24)|0xffffffu);ww(p+4,0x64808080);ww(p+8,(110u<<16)|80u);
+ ww(p+12,0x48733000);ww(p+16,(15u<<16)|8u);
+ ww(p+20,(8u<<24)|0xffffffu);ww(p+24,0x3a404040);
+ for(int k:{1,3,5,7})ww(p+24+4*k,((k<5?118u:123u)<<16)|154u);
+ ww(0x80150000,(4u<<24)|0xffffffu);ww(0x80150004,0x64808080);
+ ww(0x80150008,(194u<<16)|124u);ww(0x8015000c,0x73f342b0);ww(0x80150010,0x000b0011);
+ ww(0x80132078,0x00150000);
+ c->gpr[2]=p+56;
 }
 int main(){
  assert(video && audio);
@@ -104,8 +115,11 @@ int main(){
  ww(0x80090624,9);ww(0x80090628,9);ww(0x80090630,0);ww(0x8011b170,0x4000);
  assert(video(&c));assert(rw(0x80090624)==29); // footer Confirm also leaves Video
  c.gpr[4]=0x8011b160;c.gpr[5]=0x80160000;c.gpr[6]=0x80132000;c.gpr[7]=0;
- ww(0x80090b60,0);ww(0x8011b170,0x10);
- assert(audio(&c));assert(rw(0x80090b60)==5);assert(rw(0x8011b170)==0x10);
+ ww(0x80090b60,0);ww(0x8011b170,0x40);
+ assert(audio(&c));assert(rw(0x80090b60)==1);assert(rw(0x8011b170)==0x40);
+ assert((rw(0x80160008)>>16)==130); // complete original font row moves down
+ assert((rw(0x8016001c)>>16)==138); // both gradient halves use the same shift
+ assert((rw(0x80150008)>>16)==214); // arrow clears the last Audio item
  c.gpr[4]=0x8011b160;c.gpr[5]=0x80160000;c.gpr[6]=0x80132000;c.gpr[7]=0;
  ww(0x8011b170,0x80);
  assert(audio(&c));assert(nitrogen_option_get(NITROGEN_MASTER_VOLUME)==95);
@@ -114,7 +128,7 @@ int main(){
             subprocess.run(['c++','-std=c++17','-I',str(p),'-I',str(ROOT/'compat'),'-I',str(ROOT/'native'),
                             '-DNITROGEN_OPTIONS_BINDING_HEADER="'+str(p/'binding.h')+'"',
                             str(p/'fixture.cpp'),str(ROOT/'native/options_entry.cpp'),
-                            str(ROOT/'compat/game_options.cpp'),'-o',str(p/'fixture')],check=True)
+                            str(ROOT/'compat/game_options.cpp'),str(ROOT/'compat/window_display.cpp'),'-o',str(p/'fixture')],check=True)
             subprocess.run([str(p/'fixture')],check=True)
 
     def test_load_migration_validation_and_restart(self):

@@ -9,6 +9,7 @@ static unsigned nitrogen_ui_role(unsigned role, int ui)
     if (di.width != 364 || !di.height || di.height > 255) return 0;
     return (ui ? 0x10u : 0u) | (role << 5) | (di.height << 8);
 }
+extern int nitrogen_window_controls_view(void);
 static int nitrogen_widget_vertices(unsigned op, int xlo, int xhi, int ylo, int yhi)
 {
     const int n = (op & 8u) ? 4 : 3;
@@ -24,6 +25,11 @@ unsigned nitrogen_gpu_ui_flags(void)
     if (gp0_state == GP0_POLYLINE_MONO || gp0_state == GP0_POLYLINE_SHADED) return 0;
     const unsigned op = gp0_cmd_buf[0] >> 24;
     const int polygon = op >= 0x20u && op <= 0x3fu;
+    /* Rank 441 belongs to complete help cards, including arrow atlas cells
+     * and bevels that extend above/below the inner text rectangle. */
+    if (gp0_ot_rank==441u && op>=0x20u && op<=0x7fu) return nitrogen_ui_role(0,1);
+    if (polygon && gp0_ot_rank==439u && !(op&4u) &&
+        nitrogen_widget_vertices(op,0,368,48,239)) return nitrogen_ui_role(0,1);
     if (polygon && (gp0_ot_rank == 427u || gp0_ot_rank == 428u) &&
         nitrogen_widget_vertices(op,-16,112,128,255)) return nitrogen_ui_role(3,1);
     if (polygon && gp0_ot_rank == 3u && op == 0x3au &&
@@ -37,6 +43,15 @@ unsigned nitrogen_gpu_ui_flags(void)
     const unsigned palette = (rect || textured_quad) ? gp0_cmd_buf[2] >> 16 : 0;
     int32_t x=0,y=0;
     if (rect || textured_quad) parse_vertex(gp0_cmd_buf[1],&x,&y);
+    const int menu_marker = rect && palette == 0 && current_texpage() == 0x13cu && gp0_ot_rank == 440u;
+    if (nitrogen_window_controls_view() && gp0_ot_rank>3u && gp0_ot_rank<=440u &&
+        (polygon || rect)) {
+        const int footer=gp0_ot_rank==440u &&
+            ((menu_marker && y>=160 && y<=255) || (!menu_marker && y>=205 && y<=239)) &&
+            (palette==0x4873u || palette==0x4d73u || palette==0x4db3u || menu_marker) &&
+            ((x>=0 && x<=112) || (x>=244 && x<=368));
+        if(!footer) return nitrogen_ui_role(0,1);
+    }
     const int weapon_frame = rect && (palette == 0x7a27u || palette == 0x76e7u || palette == 0x7667u) &&
         gp0_ot_rank == 440u && x>=-16 && x<=112 && y>=128 && y<=255;
     // The bonus-weapon atlas and the shield/firewall atlas are distinct.
@@ -54,7 +69,6 @@ unsigned nitrogen_gpu_ui_flags(void)
         (palette == 0x5765u && gp0_ot_rank == 438u)) &&
         ((palette >= 0x5837u && palette <= 0x5ff7u) || palette == 0x5765u) &&
         (gp0_ot_rank == 438u || gp0_ot_rank == 440u);
-    const int menu_marker = rect && palette == 0 && current_texpage() == 0x13cu && gp0_ot_rank == 440u;
     const int audio_art = rect && gp0_ot_rank==439u &&
         (palette==0x47adu || palette==0x47edu || palette==0x482du || palette==0x486du);
     if (rect && palette == 0 && current_texpage() == 0x13cu && gp0_ot_rank == 2u)
@@ -106,6 +120,8 @@ void nitrogen_gpu_enable_ui(void) { ws_auto_ui_squash = 1; }
 unsigned nitrogen_gpu_line_flags(int x0,int y0,int x1,int y1)
 {
     x0-=draw_offset_x; x1-=draw_offset_x; y0-=draw_offset_y; y1-=draw_offset_y;
+    if(nitrogen_window_controls_view() && gp0_ot_rank>3u && gp0_ot_rank<=440u)
+        return nitrogen_ui_role(0,1);
     if ((gp0_ot_rank==427u || gp0_ot_rank==428u) &&
         x0>=-16 && x0<=112 && x1>=-16 && x1<=112 &&
         y0>=128 && y0<=255 && y1>=128 && y1<=255) return nitrogen_ui_role(3,1);

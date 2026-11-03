@@ -29,6 +29,12 @@ bool near(float a,float b){return std::fabs(a-b)<.001f;}
 int main(){
  assert(nitrogen_window_projection_is_ui(40*65536,199*65536,320));
  assert(!nitrogen_window_projection_is_ui(184*65536,130*65536,320));
+ assert(!nitrogen_window_projection_is_ui(184*65536,120*65536,320));
+ nitrogen_window_menu_page(8);
+ assert(nitrogen_window_projection_is_ui(184*65536,120*65536,320));
+ assert(!nitrogen_window_projection_is_ui(184*65536,130*65536,320));
+ nitrogen_window_menu_page(1);
+ assert(!nitrogen_window_projection_is_ui(184*65536,120*65536,320));
  assert(nitrogen_window_ui_step(320,240)==2);
  assert(nitrogen_window_ui_step(800,600)==2);
  assert(nitrogen_window_ui_step(1094,720)==2);
@@ -86,6 +92,8 @@ static void gpu_get_display_info(GpuDisplayInfo*p){p->width=364;p->height=source
 struct WsUiPrepassItem{int full_draw_area=1;unsigned op=0x66;};
 static uint32_t gp0_cmd_buf[12];static uint16_t gp0_ot_rank=440;
 static int ws_auto_ui_squash,gp0_state,draw_offset_x,draw_offset_y;
+static bool controls_view;
+int nitrogen_window_controls_view(){return controls_view;}
 enum{GP0_POLYLINE_MONO=4,GP0_POLYLINE_SHADED=5};
 static WsUiPrepassItem item;
 static const WsUiPrepassItem*ws_auto_ui_item(){return &item;}
@@ -177,12 +185,28 @@ int main(){
  for(int i:{1,3,5,7})gp0_cmd_buf[i]=(115u<<16)|64u;
  assert(role()==0); // popup panel uses the same pivot as its text/icons
  gp0_cmd_buf[0]=0x62000000u;assert(role()==0); // translucent popup fill
+ // Help bevels extend beyond the inner text and use the same centre transform.
+ gp0_cmd_buf[0]=0x3a404040u;
+ for(int i:{1,3,5,7})gp0_cmd_buf[i]=(179u<<16)|335u;
+ assert(role()==0);
+ sprite(92,62,0x5765);assert(role()==0); // help-atlas left/right arrows
+ gp0_ot_rank=439;gp0_cmd_buf[0]=0x3a404040u;
+ for(int i:{1,3,5,7})gp0_cmd_buf[i]=(118u<<16)|244u;
+ assert(role()==0); // native/new Audio gradient and tick track stay aligned
+ gp0_ot_rank=441;
  assert(nitrogen_gpu_line_flags(64,20,304,20)&0x10);
  assert(nitrogen_gpu_line_flags(0,-40,368,180)&0x10); // complete popup border
  gp0_state=GP0_POLYLINE_SHADED;assert(nitrogen_gpu_ui_flags()==0);
  gp0_ot_rank=427;draw_offset_y=256;
  assert(nitrogen_gpu_line_flags(30,456,50,466)&0x10);
  assert(nitrogen_gpu_line_flags(30,456,150,466)==0);
+ controls_view=true;draw_offset_y=0;gp0_state=0;
+ gp0_ot_rank=400;gp0_cmd_buf[0]=0x38000000u;assert(role()==0);
+ gp0_ot_rank=440;digits(24,16);assert(role()==0); // not a gameplay score
+ sprite(130,150,0x5fe3);assert(role()==0); // controller callout art
+ sprite(32,205,0x4db3);assert(role()==3);sprite(317,205,0x4d73);assert(role()==4);
+ assert((nitrogen_gpu_line_flags(30,80,150,120)&0x10)!=0);
+ controls_view=false;assert(nitrogen_gpu_line_flags(30,80,150,120)==0);
 }
 ''')
 

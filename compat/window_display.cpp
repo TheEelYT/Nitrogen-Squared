@@ -7,6 +7,14 @@ namespace {
 std::atomic<unsigned long long> drawable{0};
 std::atomic<int> ui_scale{0};
 std::atomic<unsigned long long> world_size{0};
+std::atomic<unsigned> menu_page{0};
+}
+extern "C" void nitrogen_window_menu_page(unsigned page) { menu_page.store(page, std::memory_order_release); }
+extern "C" int nitrogen_window_controls_view(void) { return menu_page.load(std::memory_order_acquire)==8; }
+extern "C" int nitrogen_window_projection_is_ui(int32_t ofx,int32_t ofy,int h)
+{
+    if(ofx==40*65536 && ofy==199*65536 && h==320) return 1;
+    return nitrogen_window_controls_view() && ofx==184*65536 && ofy==120*65536 && h==320;
 }
 extern "C" void nitrogen_window_publish(int width, int height)
 {

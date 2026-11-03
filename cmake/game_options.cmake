@@ -18,6 +18,8 @@ psxrecomp_add_implementation(nitrogen-runtime
     CONTRACT_FILES "${_nitrogen_options_header}"
         "${CMAKE_CURRENT_SOURCE_DIR}/native/options_contract.h"
         "${CMAKE_CURRENT_SOURCE_DIR}/compat/nitrogen_options.h"
+        "${CMAKE_CURRENT_SOURCE_DIR}/compat/window_display.h"
+        "${CMAKE_CURRENT_SOURCE_DIR}/compat/window_display.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/compat/game_options.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/tools/prepare_options.py"
         "${CMAKE_CURRENT_SOURCE_DIR}/cmake/game_options.cmake")
