@@ -194,7 +194,22 @@ int main(){
  gp0_cmd_buf[0]=0x3a404040u;
  for(int i:{1,3,5,7})gp0_cmd_buf[i]=(179u<<16)|335u;
  assert(role()==0);
- sprite(92,62,0x5765);assert(role()==0); // help-atlas left/right arrows
+ for(unsigned uv:{0xba64u,0xba72u,0xba80u,0xba8eu}){
+  sprite(92,62,0x5765);gp0_cmd_buf[2]=(0x5765u<<16)|uv;
+  gp0_cmd_buf[3]=0x000e000eu;assert(role()==0); // four imported help arrows
+ }
+ // The title's segmented preview frame shares help's draw rank. It remains
+ // perspective geometry, including segments inside the card's screen bounds.
+ for(int y:{24,72,120,168}){
+  gp0_cmd_buf[0]=0x2c574040u;gp0_cmd_buf[2]=0;
+  gp0_cmd_buf[1]=(uint32_t(y)<<16)|40u;
+  gp0_cmd_buf[3]=(uint32_t(y+24)<<16)|40u;
+  gp0_cmd_buf[5]=(uint32_t(y+16)<<16)|67u;
+  gp0_cmd_buf[7]=(uint32_t(y+36)<<16)|67u;
+  assert(nitrogen_gpu_ui_flags()==0);
+ }
+ sprite(92,62,0x5765);gp0_cmd_buf[3]=0x000e000eu;
+ assert(nitrogen_gpu_ui_flags()==0); // unrelated atlas cell is not a help arrow
  gp0_ot_rank=439;gp0_cmd_buf[0]=0x3a404040u;
  for(int i:{1,3,5,7})gp0_cmd_buf[i]=(118u<<16)|244u;
  assert(role()==0); // native/new Audio gradient and tick track stay aligned

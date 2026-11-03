@@ -1,8 +1,24 @@
-# Windows and Linux release tests — 0.0.30
+# Windows and Linux release tests — 0.0.31
 
 ## Current acceptance and update checks
 
-**0.0.30 — complete menu layers and aligned Audio controls. Fresh focused checks pending.**
+**0.0.31 — title-preview regression repair. Fresh focused checks pending.**
+The title's textured 3D preview frame shares a draw layer with help cards.
+0.0.30 mistakenly classified those polygons as UI, creating nested frames and
+black gaps. The help repair now recognizes bevels and the four exact arrow
+cells separately, leaving the preview geometry on its original world transform.
+Audio placement/fills, Controls alignment and the other 0.0.30 repairs remain.
+
+Use Check for updates, preserving .local and saves. Watch the title logo and
+animated preview at usual, wide and portrait sizes; open menu help once to check
+that its layers remain aligned. Unsubmitted n0030 checks, including optional
+Linux, carry forward unchanged. No new campaign, upload or save overwrite is
+requested. The title regression is reported in chat, not an edited Dashboard
+submission. Earlier result bodies/notes/timestamps remain unchanged.
+Coverage stays **38.4156% linked / 61.5844% outside**; clocks are unchanged and
+intermittent level-entry stutter remains open.
+
+**0.0.30 — menu and Audio repairs; title regression reported in chat. Unsubmitted checks carried to 0.0.31.**
 Help cards keep their text, button/arrow icons, fill and bevels together. Master
 volume sits immediately above SFX. All four volume sliders and Video's scene
 slider use the original luminous fill aligned with their tick tracks; the song
@@ -824,13 +840,13 @@ Instructions for future maintainers and assistants:
     "metricNote": "Linked emitted byte coverage, including payload data. Not project completion or CPU time."
   },
   "version": {
-    "id": "n0030",
-    "name": "v0.0.30",
-    "title": "Menu layers and Audio layout repairs",
+    "id": "n0031",
+    "name": "v0.0.31",
+    "title": "Title preview regression repair",
     "runtime": "Windows / Linux x64 \u00b7 USA disc",
     "cart": "",
     "createdAt": "2026-11-03",
-    "description": "Fresh focused checks for help-card layers, Audio layout/fills, Video icons/slider and Controls alignment. Optional untested Linux check carried forward. Preserve .local and saves; clocks and coverage unchanged."
+    "description": "Fresh title/attract preview check; unsubmitted n0030 menu checks and optional Linux carry forward unchanged. Preserve .local and saves. Coverage and clocks unchanged."
   },
   "checks": [
     {
@@ -845,6 +861,19 @@ Instructions for future maintainers and assistants:
       ],
       "expected": "Update completes and starts the refreshed build.",
       "context": "Fresh v0.0.30 check. No new campaign, disc upload or valued-save overwrite required."
+    },
+    {
+      "id": "N2-TITLE",
+      "title": "Title logo and animated preview frame",
+      "area": "Title / attract",
+      "required": true,
+      "priority": "high",
+      "steps": [
+        "After updating, watch the title logo and animated gameplay preview at a usual, wide and portrait window size.",
+        "Let the preview animate, then enter the main menu and open/close its help card."
+      ],
+      "expected": "The title preview has one coherent frame, with no nested black gaps or displaced segments. Text stays sharp and help layers remain aligned.",
+      "context": "Fresh v0.0.31 regression check. No new campaign, disc upload or valued-save overwrite required."
     },
     {
       "id": "N2-HELP",

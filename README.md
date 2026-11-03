@@ -3,20 +3,19 @@
 A Windows-first recompilation project for **N2O: Nitrous Oxide (PlayStation)**,
 with a planned PS Vita port and optional remaster presentation.
 
-**Current status: 0.0.30 — menu layers and Audio layout repairs.**
-Master volume now sits above SFX. Volume and scene-resolution sliders use aligned
-luminous fills; the song title beside Play in order has no highlight. Help cards
-keep all their layers together, Video uses left/right arrow icons, and Controls
-keeps its model and callouts aligned across window shapes.
+**Current status: 0.0.31 — title-preview regression repair.**
+The title's 3D preview frame keeps its original transform. Help cards recognize
+their bevels and exact arrow cells separately, preventing the nested frames and
+black gaps introduced in 0.0.30. Master remains above SFX, the song title stays
+text only, and the Audio/Video sliders and Controls repairs are retained.
 [Game options](docs/GAME_OPTIONS.md) · [Display policy](docs/WINDOW_DISPLAY.md).
 
 Native coverage stays **38.4156% linked / 61.5844% outside**, 324,928 / 845,824
-bytes. This menu repair adds no native ranges. The metric includes payload data
-and is not project completion or CPU time. Fresh 0.0.30 player checks are pending.
-The submitted 0.0.29 update, desktop modes, scales and brief-play checks pass;
-Audio's reported graphics/order failure motivates this repair. Optional Linux
-remains carried forward. Intermittent level-transition stutter remains open.
-Logic, rendering and game-audio clocks remain unchanged.
+bytes. This repair adds no native ranges. The metric includes payload data and
+is not project completion or CPU time. Fresh title checks and unsubmitted
+0.0.30 menu checks are in the Dashboard; optional Linux is carried unchanged.
+Previous submitted results remain historical. Intermittent level-transition
+stutter remains open. Logic, rendering and game-audio clocks remain unchanged.
 
 The Windows release contains launcher.exe, supporting source and portable Python.
 First launch selects your USA CUE/BIN and privately verifies, extracts, generates,
@@ -36,8 +35,8 @@ separation remain future work.
 
 ## Play on Windows
 
-1. Download [Nitrogen-Squared-Windows-x64.zip](https://github.com/TheEelYT/Nitrogen-Squared/releases/download/v0.0.30/Nitrogen-Squared-Windows-x64.zip)
-   from the [0.0.30 release](https://github.com/TheEelYT/Nitrogen-Squared/releases/tag/v0.0.30).
+1. Download [Nitrogen-Squared-Windows-x64.zip](https://github.com/TheEelYT/Nitrogen-Squared/releases/download/v0.0.31/Nitrogen-Squared-Windows-x64.zip)
+   from the [0.0.31 release](https://github.com/TheEelYT/Nitrogen-Squared/releases/tag/v0.0.31).
 2. Extract the complete **Nitrogen-Squared** folder somewhere you can write to,
    then run **launcher.exe**. Windows 10/11 x64 is supported.
 3. Select your supported USA **CUE** sheet, keeping its matching BIN beside it.
@@ -61,7 +60,7 @@ routines and interpreter fallback, with the pinned PSXRecomp framework still in 
 
 ## Play on Linux x86_64
 
-Download [Nitrogen-Squared-Linux-x64.zip](https://github.com/TheEelYT/Nitrogen-Squared/releases/download/v0.0.30/Nitrogen-Squared-Linux-x64.zip),
+Download [Nitrogen-Squared-Linux-x64.zip](https://github.com/TheEelYT/Nitrogen-Squared/releases/download/v0.0.31/Nitrogen-Squared-Linux-x64.zip),
 extract the whole folder and run `sh launcher.sh`. Select the same supported USA
 CUE/BIN. The shared launcher verifies/imports/generates/builds/plays and handles
 updates, keeping all project state and saves in .local. Keep Windows and Linux
@@ -75,7 +74,7 @@ inside .local. This is a source launcher package; no game binary or commercial
 assets are distributed. Local gameplay uses Linux OpenGL; broader desktop,
 Wayland and audio-device compatibility remain player checks.
 
-## Native progress — 0.0.30 (unchanged selection)
+## Native progress — 0.0.31 (unchanged selection)
 
 | Selected executable payloads | Bytes | Share |
 | --- | ---: | ---: |
@@ -84,7 +83,7 @@ Wayland and audio-device compatibility remain player checks.
 | Total | 845,824 | 100.00% |
 
 The retained 0.0.23 batch adds 13 N2O roots while preserving all 783 earlier
-input records; 0.0.30 adds no further native ranges.
+input records; 0.0.31 adds no further native ranges.
 N2O: 296,520 bytes (64.6362%), 645
 roots and 11,133 aliases. NEW: 10,500 bytes
 (3.1454%), 152 roots and 300 aliases.

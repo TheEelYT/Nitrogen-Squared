@@ -1,5 +1,11 @@
 # Window-driven presentation
 
+0.0.31 fixes the title-preview regression introduced by the 0.0.30 help grouping.
+OT rank 441 is shared by help and the textured 3D preview frame; rank alone is
+not UI ownership. Only untextured bevel quads and the four exact help-arrow
+cells extend the existing help rules. Preview polygons retain world projection.
+Audio fills, Controls context, square pixels and the 2X floor are unchanged.
+
 0.0.30 groups all help-card draw layers, including bevels and arrow icons, and
 keeps Audio gradient fills aligned with their tick tracks. Controls publishes a
 fresh page-scoped context before presenting its authored camera: model polygons,

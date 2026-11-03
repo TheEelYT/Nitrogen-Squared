@@ -25,9 +25,11 @@ unsigned nitrogen_gpu_ui_flags(void)
     if (gp0_state == GP0_POLYLINE_MONO || gp0_state == GP0_POLYLINE_SHADED) return 0;
     const unsigned op = gp0_cmd_buf[0] >> 24;
     const int polygon = op >= 0x20u && op <= 0x3fu;
-    /* Rank 441 belongs to complete help cards, including arrow atlas cells
-     * and bevels that extend above/below the inner text rectangle. */
-    if (gp0_ot_rank==441u && op>=0x20u && op<=0x7fu) return nitrogen_ui_role(0,1);
+    /* Help bevels share rank 441 with the title's textured 3D preview frame.
+     * Only the untextured bevel quads extend the card's old inner bounds;
+     * fonts, fills and the exact arrow cells are recognized separately. */
+    if (gp0_ot_rank==441u && op==0x3au &&
+        nitrogen_widget_vertices(op,16,352,-32,272)) return nitrogen_ui_role(0,1);
     if (nitrogen_window_controls_view() && gp0_ot_rank>3u && gp0_ot_rank<440u &&
         op>=0x20u && op<=0x7fu) return nitrogen_ui_role(0,1);
     if (polygon && gp0_ot_rank==439u && !(op&4u) &&
@@ -73,8 +75,11 @@ unsigned nitrogen_gpu_ui_flags(void)
         (gp0_ot_rank == 438u || gp0_ot_rank == 440u);
     const int audio_art = rect && gp0_ot_rank==439u &&
         (palette==0x47adu || palette==0x47edu || palette==0x482du || palette==0x486du);
-    const int direction_hint = rect && gp0_ot_rank==440u && palette==0x5765u &&
-        ((gp0_cmd_buf[2]&65535u)==0xba64u || (gp0_cmd_buf[2]&65535u)==0xba72u) &&
+    const unsigned direction_uv=gp0_cmd_buf[2]&65535u;
+    const int direction_hint = rect && palette==0x5765u &&
+        ((gp0_ot_rank==440u && (direction_uv==0xba64u || direction_uv==0xba72u)) ||
+         (gp0_ot_rank==441u && (direction_uv==0xba64u || direction_uv==0xba72u ||
+                               direction_uv==0xba80u || direction_uv==0xba8eu))) &&
         gp0_cmd_buf[3]==0x000e000eu;
     if (rect && palette == 0 && current_texpage() == 0x13cu && gp0_ot_rank == 2u)
         return nitrogen_ui_role(6,0); // ray field only, never footer decorations
