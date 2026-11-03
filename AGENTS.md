@@ -742,3 +742,12 @@
   are verified. The three-movie/controller/SDL_QUIT fixture passes at frame4500.
   Platform checks/publication audit are pending; fresh n0031 player checks remain
   untested and unsubmitted n0030 checks are carried unchanged.
+
+- Published 0.0.31 code/tag 513bde19318764125c742782cf6e8df7e7c6243a passes source CI
+  41639675693, Windows/Linux runtime/renderer 41639675754 and portable
+  package/publication 41639675731. All five actual public assets/tag/latest/
+  checksums/digests, Windows 1774-file and Linux 125-file owned manifests,
+  x64 launcher/Python license and 123-file source equality are audited.
+  Preserve immutable tag/assets. Receipt is docs only: no VERSION bump/rebuild.
+  Fresh n0031 player checks remain pending; Linux is carried unchanged, submitted
+  results preserved. Coverage 38.4156%/61.5844%, transition stutter OPEN, clocks unchanged.

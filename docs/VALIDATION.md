@@ -1095,3 +1095,28 @@ three movie completions, analog/fire input samples and clean SDL_QUIT at frame
 Platform workflows and actual public-asset receipts are pending until recorded below. Fresh player title checks remain
 pending; intermittent Windows level-entry stutter remains OPEN. No new campaign,
 disc upload or valued-save overwrite is requested.
+
+
+## 0.0.31 publication receipt
+
+The [0.0.31 release](https://github.com/TheEelYT/Nitrogen-Squared/releases/tag/v0.0.31) is published at immutable code/tag
+`513bde19318764125c742782cf6e8df7e7c6243a`. Source checks 41639675693, Windows/Linux runtime and renderer
+checks 41639675754, and portable package/publication checks 41639675731
+all pass. This supersedes pending platform/publication status above.
+
+All five actual public assets were downloaded and audited: tag/latest target,
+asset digests, checksum files and package-owned manifests pass. Windows has
+1774 owned files, an x64 launcher and portable Python license. Linux has
+125 owned files plus its manifest and executable launcher. Both apps and
+the source ZIP contain exactly 123 reviewed text files, matching the release
+commit after Git line-ending normalization. No private payload is included.
+
+- Windows ZIP SHA-256: `e53f2768f62ca1c3cda5e322df12acfc228f52bc26d6e40f4f46e5c3f2b55712`.
+- Linux ZIP SHA-256: `dcd7af832aeea22f449635391397a47e93d63396aaa7b4893114000020fe3be2`.
+- Source ZIP SHA-256: `321dadf013c875199f6e67a8128d1bbb06cbc3a73a593792f69de0187fd5827c`.
+
+This receipt changes documentation only; preserve the published tag and assets.
+No VERSION bump or repeated runtime build is needed. Fresh n0031 menu checks
+remain pending; optional Linux stays carried. Submitted reports remain unchanged.
+Coverage stays 38.4156% linked / 61.5844% outside. The intermittent Windows
+level-entry stutter remains OPEN; clocks remain unchanged.
