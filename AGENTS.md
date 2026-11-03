@@ -727,3 +727,13 @@
   Preserve immutable tag/assets. Receipt is docs only: no VERSION bump/rebuild.
   Fresh n0030 player checks remain pending; Linux is carried unchanged, submitted
   results preserved. Coverage 38.4156%/61.5844%, transition stutter OPEN, clocks unchanged.
+
+- 0.0.31 repairs the 0.0.30 title-preview regression. Rank 441 is shared by help
+  and 32 textured preview-frame quads; rank alone is not UI ownership. Recognize
+  bevel quads and four exact help-arrow cells separately. Keep preview polygons
+  on their world transform and retain Audio/Controls repairs. The negative
+  preview-segment fixture fails on 0.0.30 and passes on 0.0.31; all 92 final source tests without
+  skips, the 123-file audit, Dashboard parser and exact results/check carry pass.
+  Actual X11 with the worker ON/OFF title/logo, usual/wide/portrait and Main/Audio/Controls
+  help routes pass. Normal/platform/publication qualification is still required.
+  Coverage 38.4156%/61.5844% unchanged, level-entry stutter OPEN, clocks unchanged.

@@ -1052,3 +1052,41 @@ No VERSION bump or repeated runtime build is needed. Fresh n0030 menu checks
 remain pending; optional Linux stays carried. Submitted reports remain unchanged.
 Coverage stays 38.4156% linked / 61.5844% outside. The intermittent Windows
 level-entry stutter remains OPEN; clocks remain unchanged.
+
+## 0.0.31 title-preview regression repair
+
+The owner reports nested black frames on the 0.0.30 title screen. Actual reference
+GPU traces identify 32 textured 0x2C preview-frame polygons at OT rank 441, the
+same rank used by help cards. The 0.0.30 blanket UI tag incorrectly gave those
+perspective polygons the square-pixel UI transform. An original synthetic
+preview-segment regression case fails the 0.0.30 rule and passes the narrower rule.
+
+The repair identifies untextured help bevel quads and the four exact 14x14
+help-arrow atlas cells separately. Title preview polygons keep their original
+world transform. Audio fills/placement, Controls context and the other 0.0.30
+repairs are retained. Only the window-display execution family changes. There
+is no native-range selection or clock change: all 796 records/48 exclusions,
+324,928 / 845,824 = 38.4156% linked, 61.5844% outside remain unchanged.
+
+All 92 final source tests pass without skips; the 123-file text/CRLF audit passes.
+The actual Dashboard parser/merge accepts seven checks. All six prior unsubmitted
+check objects, including optional Linux, carry unchanged; the complete submitted-
+results tail remains byte-identical. The title report is chat feedback and does
+not rewrite any submitted Dashboard body, notes or timestamps.
+
+Visible X11 qualification with render worker ON and OFF confirms a coherent
+animated preview frame. Logo frames 1750–1950 are inspected with worker OFF;
+usual 730x501/960x720, wide 1600x900 and portrait 730x800 windows are inspected.
+Main, Audio and Controls help cards stay aligned. Master remains above SFX and
+the song title stays text only; Controls model/callouts and Video arrow/slider
+layers are inspected. Ordinary input returns to first-level help. All three
+native intro clips finish in both worker routes. Personal saves are untouched.
+
+The staged O3 diagnostic execution identity is
+`c7827c32f1e3c74510a4966981bdf1b4139dd3282fd9defd4b13f6a7d6c60640`,
+with binary SHA-256
+`68983b829d497b943addf0663fdd65699ab72e62f4c9ead68910c6ee97af55ec`.
+The pinned SDK remains unmodified. Final normal-production, platform and public-
+asset receipts are pending until recorded below. Fresh player title checks remain
+pending; intermittent Windows level-entry stutter remains OPEN. No new campaign,
+disc upload or valued-save overwrite is requested.
