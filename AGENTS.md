@@ -710,3 +710,11 @@
   results and carry the unresolved Linux check. Four n0029 passes remain historical;
   Audio fails for graphics/order despite working volume. Coverage remains
   38.4156%/61.5844%; level-entry stutter remains OPEN and clocks unchanged.
+- The recovered 0.0.30 normal O3 build matches the observed diagnostic execution
+  identity and accepted native manifest. Diagnostics OFF, empty qualification
+  include and no comparison/replay hooks are checked; the normal three-movie/
+  controller/SDL_QUIT fixture passes at frame 4500. All 92 source tests without skips, the 123-file
+  audit and Dashboard parser/unchanged submitted tail pass after recovery.
+  Platform/publication receipts must still be recorded; fresh n0030 player
+  checks remain pending. Keep a private recovery with the final production build,
+  execution contract, compiler cache and scalar qualification receipts.

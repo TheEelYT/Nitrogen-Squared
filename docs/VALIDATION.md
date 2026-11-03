@@ -1015,10 +1015,15 @@ Qualification observed on the checkpointed source before workspace cleanup:
 Workspace maintenance removed the local build/capture folder during the normal
 build. Source checkpoint 736e214fa22d5ca06c9fa71fbef9dad06e5f12f0 was recovered from
 Git, with the accepted private cache and original USA input restored from saved
-recovery. Source 92 tests pass again. The observed diagnostic execution identity
+recovery. All 92 source tests pass again. The observed diagnostic execution identity
 is edf0a48659cacf222538ec4a36b19c202995fded5e5854cff860c46cdfafdf9b;
-rebuilt final binaries must match it and the exact native manifest before release.
-Normal production, platform and public-asset receipts follow when complete.
+The rebuilt O3 production executable matches that identity and the exact native
+manifest. Diagnostics are OFF, the qualification include is empty and the
+production link contains no comparison/replay interposition. The separate normal
+controller fixture passes all three movie completions, analog/fire samples and
+clean SDL_QUIT at frame 4500. Production binary SHA-256 is
+`fd6f73542e24cb4b37366766527c76495776172891355e159512ab8729011940`.
+Platform workflows and actual public-asset receipts remain pending until recorded.
 Software X11/dummy audio do not verify physical Windows audio quality or real
 fullscreen transitions. Fresh focused player menu checks remain pending; no new
 campaign, upload or valued-save overwrite is requested.
