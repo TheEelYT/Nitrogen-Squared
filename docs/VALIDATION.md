@@ -1184,3 +1184,49 @@ No VERSION bump or repeated runtime build is needed. Fresh n0031 menu checks
 remain pending; optional Linux stays carried. Submitted reports remain unchanged.
 Coverage stays 38.4156% linked / 61.5844% outside. The intermittent Windows
 level-entry stutter remains OPEN; clocks remain unchanged.
+
+
+## 0.1.0 publication receipt
+
+The [0.1.0 release](https://github.com/TheEelYT/Nitrogen-Squared/releases/tag/v0.1.0) is published at immutable code/tag
+`de0866abaeeb1b33ca4aa11990224b66f190a527`. Source checks 42325757345, Windows/Linux runtime and renderer
+checks 42325757942, and portable package/publication checks 42325757319
+all pass. This supersedes pending platform/publication status above.
+
+All five actual public assets were downloaded and audited: tag/latest target,
+asset digests, checksum files and package-owned manifests pass. Windows has
+1775 owned files, an x64 launcher and portable Python license. Linux has
+126 owned files plus its manifest and executable launcher. Both apps and
+the source ZIP contain exactly 124 reviewed text files, matching the release
+commit after Git line-ending normalization. No private payload is included.
+
+- Windows ZIP SHA-256: `3e8a271bd7eab32ffeb3f0d0e4c356fa67c0d3d3cadfeb64ae88d1121816df26`.
+- Linux ZIP SHA-256: `1eda9456ec479c26a0e65abeae75e9249922bc2a6183afee9fd928f396c263b6`.
+- Source ZIP SHA-256: `2115f1cdd01c78a0bb04b14b3d7f840c65fa3a8dfc6250d7b3df034cd752e390`.
+
+All 27 reviewed retired work branches are removed; only main and release/0.1.0
+remain. The release branch points at the same immutable code as the tag. Future
+releases preserve release/x.y.z, including patch versions.
+
+This receipt changes documentation only; preserve the published tag, release branch and assets.
+No VERSION bump or repeated runtime build is needed. Fresh n0100 menu checks
+remain pending; optional Linux stays carried. Submitted reports remain unchanged.
+Coverage stays 38.4156% linked / 61.5844% outside. The intermittent Windows
+level-entry stutter remains OPEN; clocks remain unchanged.
+
+- Active 0.1.1 corrects the owner's clarified exit gesture: TITLE SCREEN only,
+  two monotonic seconds; closing... fades over the first second at the top third.
+  Main-menu Back retains its original behavior. The guarded small title prompt
+  and its complete caller identity own the caption, not the frame-yielding parent.
+  It adds combined SHA256SUMS.txt reading/publication, removes redundant source ZIP
+  uploads and preserves old sidecars through 0.1.x. From 0.2.0 publish only platform
+  ZIPs and SUMS; old clients skipping the bridge may need a manual launcher download.
+  Preserve v0.1.0 code/tag/release branch/platform ZIPs. Its metadata cleanup verifies
+  original ZIPs and hashes before adding SUMS/removing only the extra source ZIP.
+  Native selection/coverage and clocks unchanged; source/runtime/platform/public
+  validation is pending. Carry unresolved Dashboard checks and preserve result tails.
+
+- The owner requests source and runtime/renderer workflows on release/x.y.z,
+  with portable package construction/publication only from main after promotion.
+  Main still gates on the exact commit's source/runtime checks; preserve release
+  branches at final code. Do not run duplicate portable packages for release branches.

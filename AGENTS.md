@@ -792,3 +792,30 @@
   final Windows/Linux CI, actual public-asset audit and retired-branch cleanup;
   then retain release/0.1.0 at the immutable release code and record receipts on
   main only. All fresh n0100 player checks remain untested until reported.
+
+- Published 0.1.0 code/tag de0866abaeeb1b33ca4aa11990224b66f190a527 passes source CI
+  42325757345, Windows/Linux runtime/renderer 42325757942 and portable
+  package/publication 42325757319. All five actual public assets/tag/latest/
+  checksums/digests, Windows 1775-file and Linux 126-file owned manifests,
+  x64 launcher/Python license and 124-file source equality are audited.
+  The 27 retired merged work branches are removed; main and release/0.1.0 remain.
+  Preserve immutable tag/release branch/assets. Receipt is docs only: no VERSION bump/rebuild.
+  Fresh n0100 player checks remain pending; Linux is carried unchanged, submitted
+  results preserved. Coverage 38.4156%/61.5844%, transition stutter OPEN, clocks unchanged.
+
+- Active 0.1.1 corrects the owner's clarified exit gesture: TITLE SCREEN only,
+  two monotonic seconds; closing... fades over the first second at the top third.
+  Main-menu Back retains its original behavior. The guarded small title prompt
+  and its complete caller identity own the caption, not the frame-yielding parent.
+  It adds combined SHA256SUMS.txt reading/publication, removes redundant source ZIP
+  uploads and preserves old sidecars through 0.1.x. From 0.2.0 publish only platform
+  ZIPs and SUMS; old clients skipping the bridge may need a manual launcher download.
+  Preserve v0.1.0 code/tag/release branch/platform ZIPs. Its metadata cleanup verifies
+  original ZIPs and hashes before adding SUMS/removing only the extra source ZIP.
+  Native selection/coverage and clocks unchanged; source/runtime/platform/public
+  validation is pending. Carry unresolved Dashboard checks and preserve result tails.
+
+- The owner requests source and runtime/renderer workflows on release/x.y.z,
+  with portable package construction/publication only from main after promotion.
+  Main still gates on the exact commit's source/runtime checks; preserve release
+  branches at final code. Do not run duplicate portable packages for release branches.

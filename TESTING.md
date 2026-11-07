@@ -1,6 +1,24 @@
-# Windows and Linux release tests — 0.1.0
+# Windows and Linux release tests — 0.1.1
 
 ## Current acceptance and update checks
+
+**0.1.1 — title-screen exit correction and combined checksums. Fresh checks pending.**
+Hold Back on the title screen for two continuous seconds to close. The closing...
+caption fades in over the first second near the top third; release cancels and
+resets the timer. Main-menu Back again returns to the title screen normally.
+The 0.1.0 main-menu placement followed the original request; the owner clarified
+its intended title-screen location during testing and shortened the hold to two
+seconds. Earlier Audio/Tab repairs remain unchanged.
+
+Use Check for updates, preserving .local and saves. Check title hold/cancel and
+ordinary main-menu Back. Both platform ZIPs now share SHA256SUMS.txt; legacy
+sidecars stay through 0.1.x for old launchers, then disappear from 0.2.0 releases.
+The new updater reads combined or legacy checksums. GitHub's automatic source
+archives replace the extra source ZIP. Old clients that skip this bridge may
+need a manual launcher download while retaining .local. Unsubmitted checks and
+blocked notes carry forward; submitted pass/fail history remains unchanged.
+Coverage stays **38.4156% linked / 61.5844% outside**; clocks are unchanged and
+intermittent level-entry stutter remains open. No new campaign or upload is needed.
 
 **0.1.0 — main-menu hold to close and Audio track-title repair. Fresh checks pending.**
 Hold Back on the main menu for three continuous seconds to close. The closing...
@@ -853,13 +871,13 @@ Instructions for future maintainers and assistants:
     "metricNote": "Linked emitted byte coverage, including payload data. Not project completion or CPU time."
   },
   "version": {
-    "id": "n0100",
-    "name": "v0.1.0",
-    "title": "Main-menu hold to close and complete Audio track titles",
+    "id": "n0101",
+    "name": "v0.1.1",
+    "title": "Title-screen two-second exit and combined checksums",
     "runtime": "Windows / Linux x64 \u00b7 USA disc",
     "cart": "",
     "createdAt": "2026-11-07",
-    "description": "Fresh hold-to-close, Tab and two-line Audio track checks; unsubmitted n0031 checks and optional Linux carry forward unchanged. Preserve .local and saves. Coverage and clocks unchanged."
+    "description": "Fresh title-screen hold/cancel, restored main-menu Back and updater checks. Other unsubmitted checks and optional Linux carry forward unchanged; preserve .local, saves and submitted history."
   },
   "checks": [
     {
@@ -873,7 +891,7 @@ Instructions for future maintainers and assistants:
         "Allow the private build to refresh; preserve .local and existing saves."
       ],
       "expected": "Update completes and starts the refreshed build.",
-      "context": "Fresh v0.0.30 check. No new campaign, disc upload or valued-save overwrite required."
+      "context": "Fresh v0.1.1 updater-bridge check. The launcher accepts SHA256SUMS.txt and legacy sidecars; preserve .local and saves. No new campaign or upload required."
     },
     {
       "id": "N2-TITLE",
@@ -962,15 +980,16 @@ Instructions for future maintainers and assistants:
       "required": true,
       "priority": "high",
       "id": "N2-CLOSE",
-      "title": "Hold Back on the main menu to close",
-      "area": "Main menu",
+      "title": "Hold Back on the title screen to close",
+      "area": "Title screen",
       "steps": [
-        "On the main menu, hold Back for roughly one second, then release.",
-        "Confirm closing... fades in around the top third, disappears on release and the game stays open.",
-        "Hold Back again continuously for three seconds. Restart and use Back in a submenu."
+        "On the title screen, hold Back for roughly one second, then release.",
+        "Confirm closing... fades in near the top third, disappears on release and the game stays open.",
+        "Enter the main menu and use Back normally to return to the title screen.",
+        "Hold Back on the title screen again continuously for two seconds."
       ],
-      "expected": "The new hold starts fresh after release and closes cleanly after three seconds; submenu Back retains its usual behavior.",
-      "context": "Fresh v0.1.0 check. Closing ends this game session; preserve existing saves."
+      "expected": "The hold starts fresh after release and closes cleanly after two seconds. Main-menu and submenu Back retain their original behavior.",
+      "context": "Fresh v0.1.1 correction. Closing ends this game session; preserve existing saves."
     },
     {
       "required": true,

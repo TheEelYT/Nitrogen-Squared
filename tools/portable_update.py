@@ -15,6 +15,7 @@ import urllib.request
 
 from portable_support import (ASSET_NAME, REPOSITORY, Layout, beneath, download,
                               extract_zip, relative_path, sha256, write_json)
+from release_checksums import CHECKSUM_NAME, MAX_CHECKSUM_BYTES, checksum_for
 
 
 def version_tuple(value):
@@ -86,22 +87,21 @@ def latest_release(current,asset_name=ASSET_NAME):
         return None
     assets={a["name"]:a for a in value["assets"]}
     asset=assets.get(asset_name)
-    checksum=assets.get(asset_name+".sha256")
+    checksum_name=CHECKSUM_NAME if CHECKSUM_NAME in assets else asset_name+".sha256"
+    checksum=assets.get(checksum_name)
     if not asset or not checksum:
         raise ValueError("The published release has no complete package for this platform")
     prefix=f"https://github.com/{REPOSITORY}/releases/download/{value['tag_name']}/"
-    if asset["browser_download_url"]!=prefix+asset_name or checksum["browser_download_url"]!=prefix+asset_name+".sha256":
+    if asset["browser_download_url"]!=prefix+asset_name or checksum["browser_download_url"]!=prefix+checksum_name:
         raise ValueError("Unexpected release download location")
-    return dict(version=version,url=asset["browser_download_url"],checksum=checksum["browser_download_url"],digest=asset.get("digest"))
+    return dict(version=version,url=asset["browser_download_url"],checksum=checksum["browser_download_url"],
+                checksum_format="sums" if checksum_name==CHECKSUM_NAME else "legacy",digest=asset.get("digest"))
 
 
 def stage_release(layout: Layout, release, progress=print):
     with urllib.request.urlopen(release["checksum"],timeout=30) as response:
-        checksum=response.read(513)
-    match=re.fullmatch(rb"([0-9a-f]{64})[ \t]+\*?"+re.escape(layout.asset_name.encode())+rb"\r?\n?",checksum)
-    if not match:
-        raise ValueError("Invalid release checksum file")
-    digest=match[1].decode()
+        checksum=response.read(MAX_CHECKSUM_BYTES+1)
+    digest=checksum_for(checksum,layout.asset_name,release.get("checksum_format")=="sums")
     if release.get("digest") and release["digest"]!="sha256:"+digest:
         raise ValueError("Release checksum disagrees with GitHub's asset digest")
     archive=beneath(layout.root,".local/updates/"+release["version"]+"-"+digest[:16]+".zip")

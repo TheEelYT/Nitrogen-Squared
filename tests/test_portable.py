@@ -12,8 +12,8 @@ from unittest.mock import patch
 import zipfile
 
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"tools"))
-from portable_support import Layout,beneath,download,extract_zip,relative_path,sha256,write_json
-from portable_update import apply_update,owned_path,read_manifest,rollback,verify_package,version_tuple
+from portable_support import ASSET_NAME,LINUX_ASSET_NAME,REPOSITORY,Layout,beneath,download,extract_zip,relative_path,sha256,write_json
+from portable_update import apply_update,latest_release,stage_release,owned_path,read_manifest,rollback,verify_package,version_tuple
 from portable_launcher import Backend,select_cue
 from test_disc import fixture
 
@@ -38,6 +38,52 @@ class PortableTests(unittest.TestCase):
         self.layout=Layout(self.root)
 
     def tearDown(self):self.temp.cleanup()
+
+    def test_release_discovery_prefers_combined_checksums_and_accepts_legacy(self):
+        prefix=f"https://github.com/{REPOSITORY}/releases/download/v0.1.1/"
+        for name in [ASSET_NAME,LINUX_ASSET_NAME]:
+            for combined in [False,True]:
+                names=[name,name+".sha256"]+(["SHA256SUMS.txt"] if combined else [])
+                value=dict(tag_name="v0.1.1",assets=[dict(name=n,browser_download_url=prefix+n) for n in names])
+                with patch("portable_update.api_json",return_value=value):
+                    release=latest_release("0.1.0",name)
+                expected="SHA256SUMS.txt" if combined else name+".sha256"
+                self.assertEqual(release["checksum"],prefix+expected)
+                self.assertEqual(release["checksum_format"],"sums" if combined else "legacy")
+                value["assets"][-1]["browser_download_url"]="https://example.invalid/redirect"
+                with patch("portable_update.api_json",return_value=value),self.assertRaises(ValueError):
+                    latest_release("0.1.0",name)
+
+    def test_checksum_formats_stage_verified_package_without_installing(self):
+        old=package(self.root,"0.1.0")
+        card=self.root/".local/saves/card.mcd";card.parent.mkdir(parents=True);card.write_bytes(b"preserved card")
+        source=self.base/"new/Nitrogen-Squared";package(source,"0.1.1")
+        buffer=io.BytesIO()
+        with zipfile.ZipFile(buffer,"w") as archive:
+            for path in source.rglob("*"):
+                if path.is_file():archive.writestr("Nitrogen-Squared/"+path.relative_to(source).as_posix(),path.read_bytes())
+        data=buffer.getvalue();digest=hashlib.sha256(data).hexdigest()
+        for fmt in ["legacy","sums"]:
+            checksum=(digest+"  "+ASSET_NAME+"\n").encode()
+            if fmt=="sums":checksum+=("a"*64+"  "+LINUX_ASSET_NAME+"\n").encode()
+            def open_url(url,*args,**kw):
+                return io.BytesIO(checksum if url=="checksum" else data)
+            release=dict(version="0.1.1",url="https://example.invalid/archive",checksum="checksum",checksum_format=fmt,digest="sha256:"+digest)
+            with patch("urllib.request.urlopen",side_effect=open_url):
+                staged=stage_release(self.layout,release,lambda _:None)
+            self.assertEqual(verify_package(staged)["version"],"0.1.1")
+            for name,content in old.items():self.assertEqual((self.root/name).read_bytes(),content)
+            self.assertEqual(card.read_bytes(),b"preserved card")
+
+    def test_bad_combined_checksums_stop_before_package_download(self):
+        valid=("a"*64+"  "+ASSET_NAME+"\n").encode()
+        for checksum,digest in [(valid+valid,None),(b"x"*65537,None),
+                                (("b"*64+"  "+LINUX_ASSET_NAME+"\n").encode(),None),
+                                (valid,"sha256:"+"b"*64)]:
+            release=dict(version="0.1.1",url="https://example.invalid/archive",checksum="checksum",checksum_format="sums",digest=digest)
+            with patch("urllib.request.urlopen",return_value=io.BytesIO(checksum)),patch("portable_update.download") as fetch,self.assertRaises(ValueError):
+                stage_release(self.layout,release)
+            fetch.assert_not_called()
 
     def test_paths_are_contained_and_windows_reserved_names_fail(self):
         for path in ["../saves","/outside","a/../b","a\\b","C:/x","a:b","a//b","a/CON.txt","aux","x.","x ","a/./b","a\x00b","x?y"]:

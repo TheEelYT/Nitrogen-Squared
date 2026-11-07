@@ -47,12 +47,13 @@ int main(){
  assert(nitrogen_window_close_hold(1,10)==255);
  assert(nitrogen_window_close_hold(1,10.5)==127);
  assert(nitrogen_window_close_hold(1,11)==0);
- assert(nitrogen_window_close_hold(1,12.999)==0);assert(!nitrogen_window_take_close());
- assert(nitrogen_window_close_hold(0,13)==256);assert(!nitrogen_window_take_close());
+ assert(nitrogen_window_close_hold(1,11.999)==0);assert(!nitrogen_window_take_close());
+ assert(nitrogen_window_close_hold(0,12)==256);assert(!nitrogen_window_take_close());
  assert(nitrogen_window_close_hold(1,20)==255);assert(!nitrogen_window_take_close());
- assert(nitrogen_window_close_hold(1,23)==0);assert(nitrogen_window_take_close());
+ assert(nitrogen_window_close_hold(1,22)==0);assert(nitrogen_window_take_close());
  assert(!nitrogen_window_take_close());nitrogen_window_close_hold(1,24);assert(!nitrogen_window_take_close());
  nitrogen_window_close_hold(0,25);assert(nitrogen_window_close_hold(1,30)==255);
+ nitrogen_window_frame(40);assert(nitrogen_window_close_hold(1,40)==255);assert(!nitrogen_window_take_close());
  assert(nitrogen_window_ui_step(320,240)==2);
  assert(nitrogen_window_ui_step(800,600)==2);
  assert(nitrogen_window_ui_step(1094,720)==2);

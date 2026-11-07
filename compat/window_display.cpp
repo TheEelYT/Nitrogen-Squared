@@ -12,6 +12,7 @@ std::atomic<uint64_t> host_frame{0}, menu_frame{0};
 std::atomic<bool> close_requested{false};
 bool closing=false, close_sent=false;
 double close_start=0;
+uint64_t close_frame=0;
 }
 extern "C" void nitrogen_window_frame(uint64_t frame) { host_frame.store(frame,std::memory_order_release); }
 extern "C" void nitrogen_window_menu_page(unsigned page)
@@ -32,9 +33,12 @@ extern "C" int nitrogen_window_audio_view(void) { return menu_view(19); }
 extern "C" unsigned nitrogen_window_close_hold(int held,double seconds)
 {
     if(!held || !std::isfinite(seconds)) {closing=false;close_sent=false;return 256;}
+    const uint64_t frame=host_frame.load(std::memory_order_acquire);
+    if(frame<close_frame || frame-close_frame>2) closing=false;
+    close_frame=frame;
     if(!closing || seconds<close_start) {closing=true;close_start=seconds;}
     const double elapsed=seconds-close_start;
-    if(elapsed>=3 && !close_sent) {close_requested.store(true,std::memory_order_release);close_sent=true;}
+    if(elapsed>=2 && !close_sent) {close_requested.store(true,std::memory_order_release);close_sent=true;}
     return static_cast<unsigned>(255*(1-std::min(1.0,elapsed)));
 }
 extern "C" int nitrogen_window_take_close(void)

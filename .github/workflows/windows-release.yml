@@ -1,9 +1,9 @@
 name: Portable Windows launcher
 on:
   push:
+    branches: [main]
     paths-ignore:
       - 'TESTING.md'
-  pull_request:
   workflow_dispatch:
 concurrency:
   group: portable-${{ github.ref }}
@@ -25,7 +25,7 @@ jobs:
         run: |
           python -m unittest discover -s tests -p test_portable.py -v
           if ($LASTEXITCODE -ne 0) { throw 'Portable unit tests failed' }
-          python tools/package_source.py --check-tracked --output dist/Nitrogen-Squared-source.zip
+          python tools/package_source.py --check-tracked
           if ($LASTEXITCODE -ne 0) { throw 'Source package audit failed' }
           python tools/package_windows.py
           if ($LASTEXITCODE -ne 0) { throw 'Windows package construction failed' }
@@ -71,7 +71,6 @@ jobs:
           path: |
             dist/Nitrogen-Squared-Windows-x64.zip
             dist/Nitrogen-Squared-Windows-x64.zip.sha256
-            dist/Nitrogen-Squared-source.zip
           if-no-files-found: error
           retention-days: 7
   linux-package:
@@ -162,7 +161,10 @@ jobs:
           if gh release view "v$version" --json isDraft,targetCommitish > "$RUNNER_TEMP/existing-release.json" 2>/dev/null; then
             existing=1
             if [ "$(python -c "import json;print(json.load(open('$RUNNER_TEMP/existing-release.json'))['isDraft'])")" != True ]; then
-              echo "Release v$version is already public; preserving its immutable assets."
+              echo "Release v$version is already public; preserving its platform ZIPs and tag."
+              if [ "$version" = '0.1.0' ]; then
+                python tools/release_checksums.py --maintain-release v0.1.0 --expected-commit de0866abaeeb1b33ca4aa11990224b66f190a527
+              fi
               exit 0
             fi
             if [ "$(python -c "import json;print(json.load(open('$RUNNER_TEMP/existing-release.json'))['targetCommitish'])")" != "$GITHUB_SHA" ]; then
@@ -174,20 +176,31 @@ jobs:
           Extract the complete **Nitrogen-Squared** folder and run **launcher.exe**.
           Select the supported USA CUE with its matching BIN beside it. Preparation verifies/imports/generates/compiles your private game; no separate Python or Visual Studio installation is required.
 
-          **0.1.0:** hold Back on the main menu for three seconds to close. “closing...” fades in over the first second near the top third of the game area; release Back to cancel. Holding Tab no longer speeds up the game. Complete two-line Audio track titles, including remix names, stay together. Prior title/help/Controls and slider repairs are retained. Each release now preserves its final source at `release/x.y.z`; retired merged work branches are removed.
+          **0.1.1:** hold Back on the title screen for two seconds to close. “closing...” fades in over the first second near the top third of the game area; release Back to cancel. Main-menu Back again returns to the title screen normally. The 0.1.0 Audio track-title and Tab repairs are retained.
+
+          **Checksums:** SHA256SUMS.txt covers both platform ZIPs. This release's launcher accepts combined and legacy checksums. Individual .sha256 sidecars stay through 0.1.x for older launchers; from 0.2.0 new releases contain only the two ZIPs and SHA256SUMS.txt. Older launchers that skip this bridge may need a manual launcher download, preserving .local. GitHub's automatic source archives replace the redundant uploaded source ZIP. Each release preserves its final source at release/x.y.z.
 
           **Linux x86_64 launcher:** extract the Linux ZIP and run `sh launcher.sh`. Install the system Python/Tk, compiler and graphics/audio prerequisites listed in README-FIRST.txt once. The launcher selects your CUE/BIN, prepares your private game and handles updates. Windows continues to bundle portable Python and preparation tools; use separate folders for each platform.
 
-          Native coverage stays 38.4156% linked / 61.5844% outside. Fresh Test Dashboard n0100 adds hold-to-close, Tab and complete track-title checks and carries unsubmitted menu checks, including optional Linux, unchanged. Earlier submitted results retain their versions. No new campaign, upload or valued-save overwrite is requested. Audio/game clocks are unchanged; intermittent level-entry stutter remains open.
+          Native coverage stays 38.4156% linked / 61.5844% outside. Fresh Test Dashboard n0101 checks title-screen hold/cancel, normal main-menu Back and the updater bridge and carries unsubmitted menu checks, including optional Linux, unchanged. Earlier submitted results retain their versions. No new campaign, upload or valued-save overwrite is requested. Audio/game clocks are unchanged; intermittent level-entry stutter remains open.
 
           **Asset folders** remains optional: original containers, raw movie streams and ten PCM WAV tracks are preserved under .local/game. Runtime still uses the original USA disc. Folder-backed loading, mod packs and EU language import remain future work.
 
           Updates preserve .local, including saves and extracted edits. Keep the original disc available. Windows 10/11 x64; internet is needed for initial preparation and updates. No commercial game data, generated game C or prepared game executable is included.
           NOTES
+          if [[ "$version" == "0.1.1" ]]; then
+            python tools/release_checksums.py --maintain-release v0.1.0 --expected-commit de0866abaeeb1b33ca4aa11990224b66f190a527
+          fi
+          python tools/release_checksums.py --output dist/SHA256SUMS.txt dist/Nitrogen-Squared-Windows-x64.zip dist/Nitrogen-Squared-Linux-x64.zip
+          # Keep sidecars through the updater bridge, then only ZIPs + SUMS.
+          python tools/release_checksums.py --asset-list-version "$version" > "$RUNNER_TEMP/release-assets.txt"
+          mapfile -t names < "$RUNNER_TEMP/release-assets.txt"
+          assets=()
+          for name in "${names[@]}"; do assets+=("dist/$name"); done
           if [ "$existing" -eq 0 ]; then
-            gh release create "v$version" --draft --target "$GITHUB_SHA" --title "Nitrogen Squared $version — Windows and Linux launchers" --notes-file "$RUNNER_TEMP/release-notes.md" dist/Nitrogen-Squared-Windows-x64.zip dist/Nitrogen-Squared-Windows-x64.zip.sha256 dist/Nitrogen-Squared-source.zip dist/Nitrogen-Squared-Linux-x64.zip dist/Nitrogen-Squared-Linux-x64.zip.sha256
+            gh release create "v$version" --draft --target "$GITHUB_SHA" --title "Nitrogen Squared $version — Windows and Linux launchers" --notes-file "$RUNNER_TEMP/release-notes.md" "${assets[@]}"
           else
-            gh release upload "v$version" --clobber dist/Nitrogen-Squared-Windows-x64.zip dist/Nitrogen-Squared-Windows-x64.zip.sha256 dist/Nitrogen-Squared-source.zip dist/Nitrogen-Squared-Linux-x64.zip dist/Nitrogen-Squared-Linux-x64.zip.sha256
+            gh release upload "v$version" --clobber "${assets[@]}"
           fi
           gh release edit "v$version" --draft=false --latest
       - name: Preserve final release branch and prune retired work branches

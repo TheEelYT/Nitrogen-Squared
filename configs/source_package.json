@@ -109,6 +109,7 @@
   "tools/prepare_media.py",
   "tools/prepare_native.py",
   "tools/prepare_options.py",
+  "tools/release_checksums.py",
   "tools/probe_runtime.py",
   "tools/qualification/README.md",
   "tools/qualification/check.py",

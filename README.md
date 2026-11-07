@@ -3,11 +3,10 @@
 A Windows-first recompilation project for **N2O: Nitrous Oxide (PlayStation)**,
 with a planned PS Vita port and optional remaster presentation.
 
-**Current status: 0.1.0 — hold Back to close; complete Audio track titles.**
-Hold Back on the main menu for three seconds to close. The “closing...” caption
-fades in over the first second near the top third; release to cancel. Holding Tab
-no longer speeds up the game. Multi-line Audio track names and their shadows
-stay together. Existing title, help, Controls and slider repairs are retained.
+**Current status: 0.1.1 — hold Back on the title screen for two seconds to close.**
+The “closing...” caption fades in over the first second near the top third;
+release to cancel. Main-menu Back has its original behavior. Holding Tab no
+longer speeds up the game; complete Audio track-title repairs are retained.
 [Game options](docs/GAME_OPTIONS.md) · [Display policy](docs/WINDOW_DISPLAY.md).
 
 Native coverage stays **38.4156% linked / 61.5844% outside**, 324,928 / 845,824
@@ -17,6 +16,12 @@ unsubmitted menu/Linux checks are in the Dashboard. Previous submitted results
 remain historical. Intermittent level-transition stutter remains open. Logic,
 rendering and game-audio clocks remain unchanged. Each release preserves its
 final tested code on `release/x.y.z` alongside its immutable version tag.
+
+Both platform ZIPs share `SHA256SUMS.txt`. GitHub supplies the source archives;
+there is no extra uploaded source ZIP. This updater bridge keeps legacy checksum
+sidecars through 0.1.x. From 0.2.0 releases use only the two ZIPs and the combined
+checksums. Older launchers that skip 0.1.1 may need a manual launcher download;
+retain `.local` and existing saves.
 
 The Windows release contains launcher.exe, supporting source and portable Python.
 First launch selects your USA CUE/BIN and privately verifies, extracts, generates,
@@ -36,8 +41,8 @@ separation remain future work.
 
 ## Play on Windows
 
-1. Download [Nitrogen-Squared-Windows-x64.zip](https://github.com/TheEelYT/Nitrogen-Squared/releases/download/v0.1.0/Nitrogen-Squared-Windows-x64.zip)
-   from the [0.1.0 release](https://github.com/TheEelYT/Nitrogen-Squared/releases/tag/v0.1.0).
+1. Download [Nitrogen-Squared-Windows-x64.zip](https://github.com/TheEelYT/Nitrogen-Squared/releases/download/v0.1.1/Nitrogen-Squared-Windows-x64.zip)
+   from the [0.1.1 release](https://github.com/TheEelYT/Nitrogen-Squared/releases/tag/v0.1.1).
 2. Extract the complete **Nitrogen-Squared** folder somewhere you can write to,
    then run **launcher.exe**. Windows 10/11 x64 is supported.
 3. Select your supported USA **CUE** sheet, keeping its matching BIN beside it.
@@ -61,7 +66,7 @@ routines and interpreter fallback, with the pinned PSXRecomp framework still in 
 
 ## Play on Linux x86_64
 
-Download [Nitrogen-Squared-Linux-x64.zip](https://github.com/TheEelYT/Nitrogen-Squared/releases/download/v0.1.0/Nitrogen-Squared-Linux-x64.zip),
+Download [Nitrogen-Squared-Linux-x64.zip](https://github.com/TheEelYT/Nitrogen-Squared/releases/download/v0.1.1/Nitrogen-Squared-Linux-x64.zip),
 extract the whole folder and run `sh launcher.sh`. Select the same supported USA
 CUE/BIN. The shared launcher verifies/imports/generates/builds/plays and handles
 updates, keeping all project state and saves in .local. Keep Windows and Linux
@@ -75,7 +80,7 @@ inside .local. This is a source launcher package; no game binary or commercial
 assets are distributed. Local gameplay uses Linux OpenGL; broader desktop,
 Wayland and audio-device compatibility remain player checks.
 
-## Native progress — 0.1.0 (unchanged selection)
+## Native progress — 0.1.1 (unchanged selection)
 
 | Selected executable payloads | Bytes | Share |
 | --- | ---: | ---: |

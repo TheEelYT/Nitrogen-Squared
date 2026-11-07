@@ -58,7 +58,7 @@ extern "C" void func_override_call_original(CPUState*);
             h=14695981039346656037
             for _ in range(4): h=(h*1099511628211)&((1<<64)-1)
             (p/'binding.h').write_text('#include "options_contract.h"\nnamespace nitrogen::options { constexpr Binding binding{true,'
-                f'{{0x80000100,4,{h}ull,{{0}}}},{{0x80000200,4,{h}ull,{{0}}}},{{0x80000300,4,{h}ull,{{0}}}}'+'};}\n')
+                f'{{0x80000100,4,{h}ull,{{0}}}},{{0x80000200,4,{h}ull,{{0}}}},{{0x80000300,4,{h}ull,{{0}}}},{{0x80000400,4,{h}ull,{{0}}}}'+'};}\n')
             (p/'fixture.cpp').write_text(r'''
 #include "cpu_state.h"
 #include "func_override.h"
@@ -70,7 +70,7 @@ extern "C" void func_override_call_original(CPUState*);
 #include <initializer_list>
 static uint8_t ram[0x200000];
 extern "C" {uint8_t *g_psx_ram=ram;}
-static FuncOverrideFn video,audio,header;
+static FuncOverrideFn video,audio,title;
 static bool font_ready=false,caption=false;
 static uint32_t rw(uint32_t a){uint32_t v;std::memcpy(&v,ram+(a&0x1fffff),4);return v;}
 static void ww(uint32_t a,uint32_t v){std::memcpy(ram+(a&0x1fffff),&v,4);}
@@ -80,7 +80,7 @@ static uint8_t rb(uint32_t a){return ram[a&0x1fffff];}
 static void wb(uint32_t a,uint8_t v){ram[a&0x1fffff]=v;}
 extern "C" uint32_t psx_mod_alloc_guest_memory(uint32_t,uint32_t){return 0x801f0000;}
 extern "C" int func_override_add_guarded(const char*,uint32_t a,FuncOverrideFn f,const uint32_t*,int,int32_t){
- if(a==0x80000100)video=f;else if(a==0x80000200)audio=f;else header=f;return FO_OK;
+ if(a==0x80000100)video=f;else if(a==0x80000200)audio=f;else title=f;return FO_OK;
 }
 extern "C" void func_override_guest_call(CPUState*c,uint32_t f,uint32_t){
  if(f==0x80029744)font_ready=true;
@@ -100,8 +100,8 @@ extern "C" void func_override_guest_call(CPUState*c,uint32_t f,uint32_t){
  for(int i=4;i<=7;++i)c->gpr[i]=0xdeadbeef; // caller-saved registers
 }
 extern "C" void func_override_call_original(CPUState*c){
- if(c->gpr[4]==0x80160000 && c->gpr[5]==0x8011b160 && c->gpr[6]==0x80132000){
-  font_ready=true;ww(c->gpr[4]+4,0x66abcdef);c->gpr[2]=c->gpr[4]+32;return;
+ if(c->gpr[5]==0x80160000 && c->gpr[6]==0x80132078 && c->gpr[7]==0x8011b160){
+  font_ready=true;ww(c->gpr[5]+4,0x66abcdef);c->gpr[2]=c->gpr[5]+32;return;
  }
  if(c->gpr[5]==0x80132000){
   assert(false && "Main presenter must retain its outer frame pump");
@@ -121,30 +121,30 @@ extern "C" void func_override_call_original(CPUState*c){
  c->gpr[2]=p+56;
 }
 int main(){
- assert(video && audio && header);
+ assert(video && audio && title);
  CPUState c{};c.read_word=rw;c.write_word=ww;c.read_half=rh;c.write_half=wh;c.read_byte=rb;c.write_byte=wb;
  c.gpr[4]=0x8011b160;c.gpr[5]=0x80132000;c.gpr[6]=0x80160000;c.gpr[29]=0x801ee000;
  ww(0x80090624,0);ww(0x8011b170,0x1000);
  c.pc=0x80000100;
- assert(!video(&c));assert(rw(0x80090624)==0 && rw(0x8011b170)==0);
+ assert(!video(&c));assert(rw(0x80090624)==0 && rw(0x8011b170)==0x1000); // Main Back unmodified
  assert(c.gpr[6]==0x80160000 && c.gpr[29]==0x801ee000 && c.pc==0x80000100 && !caption);
- c.gpr[4]=0x80160000;c.gpr[5]=0x8011b160;c.gpr[6]=0x80132000;
- assert(header(&c));assert(caption && c.gpr[2]==0x80160050 && c.gpr[29]==0x801ee000);
- assert(rw(0x80160024)==0x66000000 && rw(0x80160038)==0x66000000); // first frame: both passes invisible
- assert(rw(0x80160004)==0x66abcdef); // original menu is outside the caption span
- assert(rw(0x8016004c)==0xe100023c); // preserve the imported blend state
- // Seed a held interval without sleeping: at two seconds both font passes
- // retain their full color, while the request is still below the 3s close.
+ auto title_call=[&](){c.gpr[4]=1;c.gpr[5]=0x80160000;c.gpr[6]=0x80132078;c.gpr[7]=0x8011b160;c.gpr[31]=0x80000460;return title(&c);};
+ wh(0x8011b160+0x23c,4);
+ assert(title_call());assert(caption && c.gpr[2]==0x80160050 && c.gpr[29]==0x801ee000);
+ assert(rw(0x80160024)==0x66000000 && rw(0x80160038)==0x66000000);
+ assert(rw(0x80160004)==0x66abcdef); // original prompt untouched
+ assert(rw(0x8016004c)==0xe100023c);
  nitrogen_window_close_hold(0,0);
  const double now=std::chrono::duration<double>(std::chrono::steady_clock::now().time_since_epoch()).count();
- nitrogen_window_close_hold(1,now-2);
- c.gpr[4]=0x8011b160;c.gpr[5]=0x80132000;c.gpr[6]=0x80160000;ww(0x8011b170,0x1000);assert(!video(&c));
- c.gpr[4]=0x80160000;c.gpr[5]=0x8011b160;c.gpr[6]=0x80132000;assert(header(&c));
+ nitrogen_window_close_hold(1,now-1.25);
+ assert(title_call());
  assert(rw(0x80160024)==0x6670707f && rw(0x80160038)==0x66202020);
  assert(!nitrogen_window_take_close());
+ ww(0x8011b170,0);assert(!title_call()); // release hides caption
+ ww(0x8011b170,0x1000);wh(0x8011b160+0x23c,0);assert(!title_call()); // no title flag
+ wh(0x8011b160+0x23c,4);title_call();c.gpr[31]=0;assert(!title(&c)); // shared helper's other callers
+ ram[0x400]=1;assert(!title_call());ram[0x400]=0; // complete caller identity required
  c.gpr[4]=0x8011b160;c.gpr[5]=0x80132000;c.gpr[6]=0x80160000;
- c.gpr[6]=0x80160000;ww(0x8011b170,0);assert(!video(&c));assert(c.gpr[6]==0x80160000);
- assert(!header(&c)); // no caption after release
  ww(0x80090624,1);ww(0x8011b170,0x1000);assert(!video(&c));
  assert(rw(0x8011b170)==0x1000); // ordinary submenu Back stays original
  ww(0x80090624,9);ww(0x80090628,9);ww(0x8011b170,0x1000);
