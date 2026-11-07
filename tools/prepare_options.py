@@ -15,7 +15,8 @@ def prepare_options(installation: Path, output: Path) -> Path:
         raise ValueError('Game options require the verified USA N2O.EXE')
     base = exe_header(data)['load_address']
     rows = []
-    for address, end in [(0x8006761c, 0x8006c30c), (0x80066b58, 0x800674cc)]:
+    for address, end in [(0x8006761c, 0x8006c30c), (0x80066b58, 0x800674cc),
+                         (0x80029744, 0x80029ed0)]:
         offset = 2048 + address-base
         body = data[offset:offset+end-address]
         if offset < 2048 or len(body) != end-address:

@@ -18,6 +18,8 @@ namespace {
 constexpr uint32_t page = 0x80090624, next_page = page+4, old_page = page+8, fade = page+12;
 constexpr uint32_t audio_selection = 0x80090b60;
 uint32_t arena; // immutable address; every mutable cursor lives in guest memory
+unsigned close_feedback=256;
+uint32_t close_context=0,close_view=0;
 bool resident(const Function &f)
 {
     const uint32_t physical = f.address & 0x1fffffff;
@@ -208,21 +210,14 @@ int presentation(CPUState *c)
     nitrogen_window_menu_page(effective);
     const uint32_t buttons=c->read_word(context+0x10);
     const double seconds=std::chrono::duration<double>(std::chrono::steady_clock::now().time_since_epoch()).count();
-    const unsigned closing=nitrogen_window_close_hold(phase==0 && (buttons&0x1000u),seconds);
+    close_feedback=nitrogen_window_close_hold(phase==0 && (buttons&0x1000u),seconds);
+    close_context=context;close_view=view;
     if(effective==0) {
-        // Main Back is now a cancellable hold. Keep the original presenter
-        // and its guest-timed art/navigation, suppressing only its Back action.
+        // Keep the original presenter on its normal dispatch/yield path.
+        // Unlike the small Audio helper, this root can wait for a frame:
+        // synchronously wrapping it would prevent the outer frame pump.
         c->write_word(context+0x10,buttons&~0x1000u);
-        func_override_call_original(c);
-        c->write_word(context+0x10,buttons);
-        if(closing<256) {
-            std::array<uint32_t,32> saved{};
-            std::copy(c->gpr,c->gpr+32,saved.begin());
-            c->gpr[29]-=256;
-            const uint32_t packet=text(c,c->gpr[2],view,"closing...",nitrogen_window_close_y(),-10000,true,closing);
-            std::copy(saved.begin(),saved.end(),c->gpr);c->gpr[2]=packet;
-        }
-        return 1;
+        return 0;
     }
     if (effective!=9) return 0;
     std::array<uint32_t,32> registers{};
@@ -318,12 +313,27 @@ int audio(CPUState *c)
     c->gpr[29]=sp; c->gpr[2]=packet;
     return 1;
 }
+int header(CPUState *c)
+{
+    if(close_feedback>=256 || c->gpr[5]!=close_context || c->gpr[6]!=close_view ||
+       !resident(binding.header) || !storage(c)) return 0;
+    // This small decoration helper establishes the font's UI projection.
+    // Append after it, while the frame-yielding parent stays on normal dispatch.
+    func_override_call_original(c);
+    std::array<uint32_t,32> saved{};
+    std::copy(c->gpr,c->gpr+32,saved.begin());
+    const uint32_t pc=c->pc;c->gpr[29]-=256;
+    const uint32_t packet=text(c,c->gpr[2],close_view,"closing...",nitrogen_window_close_y(),0,true,close_feedback);
+    std::copy(saved.begin(),saved.end(),c->gpr);c->gpr[2]=packet;c->pc=pc;
+    return 1;
+}
 struct Install {
     Install() {
         if(!binding.enabled) return;
         const int a=func_override_add_guarded("n2o-game-options",binding.presentation.address,presentation,binding.presentation.guard,4,FO_CREDIT_SELF);
         const int b=func_override_add_guarded("n2o-audio-options",binding.audio.address,audio,binding.audio.guard,4,FO_CREDIT_SELF);
-        if(a!=FO_OK || b!=FO_OK) std::fprintf(stderr,"nitrogen: game options binding registration failed (%d,%d)\n",a,b);
+        const int d=func_override_add_guarded("n2o-menu-header",binding.header.address,header,binding.header.guard,4,FO_CREDIT_SELF);
+        if(a!=FO_OK || b!=FO_OK || d!=FO_OK) std::fprintf(stderr,"nitrogen: game options binding registration failed (%d,%d,%d)\n",a,b,d);
     }
 } install;
 }

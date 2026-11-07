@@ -40,7 +40,7 @@ int main(int argc,char**argv){
             p=Path(temp)
             (p/'cpu_state.h').write_text('''#pragma once
 #include <cstdint>
-struct CPUState {uint32_t gpr[32]; uint32_t(*read_word)(uint32_t);
+struct CPUState {uint32_t gpr[32]; uint32_t pc; uint32_t(*read_word)(uint32_t);
 void(*write_word)(uint32_t,uint32_t); uint16_t(*read_half)(uint32_t);
 void(*write_half)(uint32_t,uint16_t); uint8_t(*read_byte)(uint32_t);
 void(*write_byte)(uint32_t,uint8_t);};
@@ -58,7 +58,7 @@ extern "C" void func_override_call_original(CPUState*);
             h=14695981039346656037
             for _ in range(4): h=(h*1099511628211)&((1<<64)-1)
             (p/'binding.h').write_text('#include "options_contract.h"\nnamespace nitrogen::options { constexpr Binding binding{true,'
-                f'{{0x80000100,4,{h}ull,{{0}}}},{{0x80000200,4,{h}ull,{{0}}}}'+'};}\n')
+                f'{{0x80000100,4,{h}ull,{{0}}}},{{0x80000200,4,{h}ull,{{0}}}},{{0x80000300,4,{h}ull,{{0}}}}'+'};}\n')
             (p/'fixture.cpp').write_text(r'''
 #include "cpu_state.h"
 #include "func_override.h"
@@ -68,7 +68,8 @@ extern "C" void func_override_call_original(CPUState*);
 #include <initializer_list>
 static uint8_t ram[0x200000];
 extern "C" {uint8_t *g_psx_ram=ram;}
-static FuncOverrideFn video,audio;
+static FuncOverrideFn video,audio,header;
+static bool font_ready=false,caption=false;
 static uint32_t rw(uint32_t a){uint32_t v;std::memcpy(&v,ram+(a&0x1fffff),4);return v;}
 static void ww(uint32_t a,uint32_t v){std::memcpy(ram+(a&0x1fffff),&v,4);}
 static uint16_t rh(uint32_t a){return uint16_t(rw(a));}
@@ -77,17 +78,25 @@ static uint8_t rb(uint32_t a){return ram[a&0x1fffff];}
 static void wb(uint32_t a,uint8_t v){ram[a&0x1fffff]=v;}
 extern "C" uint32_t psx_mod_alloc_guest_memory(uint32_t,uint32_t){return 0x801f0000;}
 extern "C" int func_override_add_guarded(const char*,uint32_t a,FuncOverrideFn f,const uint32_t*,int,int32_t){
- if(a==0x80000100)video=f;else audio=f;return FO_OK;
+ if(a==0x80000100)video=f;else if(a==0x80000200)audio=f;else header=f;return FO_OK;
 }
 extern "C" void func_override_guest_call(CPUState*c,uint32_t f,uint32_t){
+ if(f==0x80029744)font_ready=true;
+ if(f==0x80062a28 && !std::strcmp(reinterpret_cast<const char*>(ram+(c->gpr[4]&0x1fffff)),"closing...")){
+  assert(font_ready);caption=true;
+  assert(rw(rw(c->gpr[29]+16)+4)==0); // centred, not Audio's right-aligned label
+ }
  uint32_t packet=f==0x80062a28?c->gpr[5]:c->gpr[4];
  c->gpr[2]=f==0x800280a0?60:packet+32;
+ c->pc=0xdeadbeef;
  for(int i=4;i<=7;++i)c->gpr[i]=0xdeadbeef; // caller-saved registers
 }
 extern "C" void func_override_call_original(CPUState*c){
+ if(c->gpr[4]==0x80160000 && c->gpr[5]==0x8011b160 && c->gpr[6]==0x80132000){
+  font_ready=true;c->gpr[2]=c->gpr[4]+32;return;
+ }
  if(c->gpr[5]==0x80132000){
-  assert(c->gpr[4]==0x8011b160 && c->gpr[6]==0x80160000);
-  assert(!(rw(0x8011b170)&0x1000));c->gpr[2]=c->gpr[6]+32;return;
+  assert(false && "Main presenter must retain its outer frame pump");
  }
  assert(c->gpr[4]==0x8011b160 && c->gpr[5]==0x80160000);
  assert(c->gpr[6]==0x80132000 && c->gpr[7]==0);
@@ -104,14 +113,20 @@ extern "C" void func_override_call_original(CPUState*c){
  c->gpr[2]=p+56;
 }
 int main(){
- assert(video && audio);
+ assert(video && audio && header);
  CPUState c{};c.read_word=rw;c.write_word=ww;c.read_half=rh;c.write_half=wh;c.read_byte=rb;c.write_byte=wb;
  c.gpr[4]=0x8011b160;c.gpr[5]=0x80132000;c.gpr[6]=0x80160000;c.gpr[29]=0x801ee000;
  ww(0x80090624,0);ww(0x8011b170,0x1000);
- assert(video(&c));assert(rw(0x80090624)==0 && rw(0x8011b170)==0x1000);
- assert(c.gpr[2]>0x80160020 && c.gpr[29]==0x801ee000);
- ww(0x8011b170,0);assert(video(&c));assert(c.gpr[2]==0x80160020);
- ww(0x80090624,1);assert(!video(&c)); // ordinary submenu Back stays original
+ c.pc=0x80000100;
+ assert(!video(&c));assert(rw(0x80090624)==0 && rw(0x8011b170)==0);
+ assert(c.gpr[6]==0x80160000 && c.gpr[29]==0x801ee000 && c.pc==0x80000100 && !caption);
+ c.gpr[4]=0x80160000;c.gpr[5]=0x8011b160;c.gpr[6]=0x80132000;
+ assert(header(&c));assert(caption && c.gpr[2]==0x80160040 && c.gpr[29]==0x801ee000);
+ c.gpr[4]=0x8011b160;c.gpr[5]=0x80132000;c.gpr[6]=0x80160000;
+ c.gpr[6]=0x80160000;ww(0x8011b170,0);assert(!video(&c));assert(c.gpr[6]==0x80160000);
+ assert(!header(&c)); // no caption after release
+ ww(0x80090624,1);ww(0x8011b170,0x1000);assert(!video(&c));
+ assert(rw(0x8011b170)==0x1000); // ordinary submenu Back stays original
  ww(0x80090624,9);ww(0x80090628,9);ww(0x8011b170,0x1000);
  ww(0x8008ea08,0x12345678); // original presenter's current-title cache
  assert(video(&c));assert(rw(0x80090624)==29);assert(rw(0x80090628)==1);
