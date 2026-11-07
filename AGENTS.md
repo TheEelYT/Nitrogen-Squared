@@ -832,3 +832,16 @@
   without it and passes with it, using no application PYTHONPATH. Runtime code
   and qualified private binaries are unchanged; repeat source and platform CI
   on the corrected exact release commit before publishing.
+
+- Published 0.1.1 code/tag/release branch 3c806ae8788653e455ea6213019777b5ae86983e passes source
+  42330340563, Windows/Linux runtime/renderer 42330340586 on its release
+  branch, then Release 42330636415 on main at the identical SHA. All five public
+  assets, combined/legacy hashes, owned manifests and 125-file source equality
+  pass. The 0.1.0 redundant source ZIP is removed after verification; original
+  platform ZIPs/tag/branch remain intact. Sidecars bridge through 0.1.x, then
+  two ZIPs plus SUMS from 0.2.0. Local 101 tests/no skips, copied-updater negative/
+  positive test, Dashboard carry/result tail, worker ON/OFF and normal O3/no-hook
+  frame4500 smoke pass. Title-only Back holds for TWO seconds with first-second
+  fade; ordinary Main Back is restored. Native coverage/clocks unchanged;
+  level-entry stutter OPEN. This receipt is docs-only; preserve release code.
+  Fresh n0101 player checks pending; future 0.2.0 reuse policy remains planned.

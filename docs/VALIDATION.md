@@ -1243,3 +1243,48 @@ level-entry stutter remains OPEN; clocks remain unchanged.
   without it and passes with it, using no application PYTHONPATH. Runtime code
   and qualified private binaries are unchanged; repeat source and platform CI
   on the corrected exact release commit before publishing.
+
+
+## 0.1.1 publication receipt
+
+[0.1.1](https://github.com/TheEelYT/Nitrogen-Squared/releases/tag/v0.1.1) is published at immutable code/tag/release branch
+`3c806ae8788653e455ea6213019777b5ae86983e`. The two-second Back hold now belongs to the title screen;
+main-menu Back retains its original action. The first-second caption fade,
+release cancellation, existing Audio fixes and Tab removal are retained.
+
+Source CI 42330340563 and Windows/Linux runtime/renderer CI 42330340586
+pass on release/0.1.1. The Release workflow 42330636415 packages/publishes
+from main at that exact checked commit; no duplicate branch package run occurs.
+All 101 local source tests without skips, 125-file source audit, actual Dashboard
+parser/carry/result-tail checks and worker ON/OFF title/Main/Audio routes pass.
+The normal O3, diagnostics-OFF, no-hook production build matches the diagnostic
+execution contract; its three-movie/controller/fire/quit fixture passes frame4500.
+The copied-updater import regression fails before and passes after adding the
+checksum reader to both platform runners.
+
+All five public assets are downloaded/audited: platform ZIPs, SHA256SUMS.txt and
+temporary legacy sidecars. Owned manifests and asset hashes/digests pass; both
+apps contain exactly 125 reviewed source files matching the release commit after
+Git line-ending normalization. Windows owns 1776 files, with x64 bootstrap
+and portable Python license; Linux owns 127, with executable launcher.
+There is no redundant uploaded source ZIP; GitHub's source archives remain.
+Legacy sidecars stay through 0.1.x; from 0.2.0 publish only the two platform ZIPs
+and SUMS. Old launchers that skip the bridge may need a manual launcher download,
+preserving .local and saves.
+
+- Windows ZIP SHA-256: `a33e3d5b19bcb605437f9366fd491c8277fe2f952f883454bf74fec0e4f79819`.
+- Linux ZIP SHA-256: `25937acae00406b184315df82eb99ff029d351ac620458014ee25c62d89dabcf`.
+
+The 0.1.0 metadata cleanup verifies its original packages before adding combined
+checksums and deleting only its redundant source ZIP. Its two platform ZIPs,
+legacy sidecars, immutable tag and release branch remain unchanged. Historical
+0.1.0 audit/source-ZIP receipts above describe their state at publication.
+
+This documentation-only receipt supersedes pending qualification/publication
+status above. Preserve both released code branches/tags; no VERSION bump or
+rebuild is needed for this receipt. Fresh n0101 player checks remain pending;
+carry untested/blocked checks and preserve submitted pass/fail bodies, notes
+and timestamps. Coverage remains 38.4156% linked / 61.5844% outside, with all
+796 native records and 48 exclusions unchanged. Level-entry stutter remains
+OPEN and clocks unchanged. The planned 0.2.0 compilation-reuse/version policy
+is recorded; it is not implemented by this patch.
