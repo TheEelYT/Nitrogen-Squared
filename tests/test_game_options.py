@@ -63,6 +63,8 @@ extern "C" void func_override_call_original(CPUState*);
 #include "cpu_state.h"
 #include "func_override.h"
 #include "nitrogen_options.h"
+#include "window_display.h"
+#include <chrono>
 #include <cassert>
 #include <cstring>
 #include <initializer_list>
@@ -83,8 +85,14 @@ extern "C" int func_override_add_guarded(const char*,uint32_t a,FuncOverrideFn f
 extern "C" void func_override_guest_call(CPUState*c,uint32_t f,uint32_t){
  if(f==0x80029744)font_ready=true;
  if(f==0x80062a28 && !std::strcmp(reinterpret_cast<const char*>(ram+(c->gpr[4]&0x1fffff)),"closing...")){
-  assert(font_ready);caption=true;
+  assert(font_ready && c->gpr[7]==0);caption=true; // no ghost transition or selected gradient
   assert(rw(rw(c->gpr[29]+16)+4)==0); // centred, not Audio's right-aligned label
+  const uint32_t p=c->gpr[5];
+  for(int k:{0,20}){
+   ww(p+k,(4u<<24)|0xffffffu);ww(p+k+4,k?0x66202020:0x6470707f);
+   ww(p+k+8,0);ww(p+k+12,0x48733000);ww(p+k+16,0x000f0008);
+  }
+  ww(p+40,(1u<<24)|0xffffffu);ww(p+44,0xe100023c);c->gpr[2]=p+48;return;
  }
  uint32_t packet=f==0x80062a28?c->gpr[5]:c->gpr[4];
  c->gpr[2]=f==0x800280a0?60:packet+32;
@@ -93,7 +101,7 @@ extern "C" void func_override_guest_call(CPUState*c,uint32_t f,uint32_t){
 }
 extern "C" void func_override_call_original(CPUState*c){
  if(c->gpr[4]==0x80160000 && c->gpr[5]==0x8011b160 && c->gpr[6]==0x80132000){
-  font_ready=true;c->gpr[2]=c->gpr[4]+32;return;
+  font_ready=true;ww(c->gpr[4]+4,0x66abcdef);c->gpr[2]=c->gpr[4]+32;return;
  }
  if(c->gpr[5]==0x80132000){
   assert(false && "Main presenter must retain its outer frame pump");
@@ -121,7 +129,19 @@ int main(){
  assert(!video(&c));assert(rw(0x80090624)==0 && rw(0x8011b170)==0);
  assert(c.gpr[6]==0x80160000 && c.gpr[29]==0x801ee000 && c.pc==0x80000100 && !caption);
  c.gpr[4]=0x80160000;c.gpr[5]=0x8011b160;c.gpr[6]=0x80132000;
- assert(header(&c));assert(caption && c.gpr[2]==0x80160040 && c.gpr[29]==0x801ee000);
+ assert(header(&c));assert(caption && c.gpr[2]==0x80160050 && c.gpr[29]==0x801ee000);
+ assert(rw(0x80160024)==0x66000000 && rw(0x80160038)==0x66000000); // first frame: both passes invisible
+ assert(rw(0x80160004)==0x66abcdef); // original menu is outside the caption span
+ assert(rw(0x8016004c)==0xe100023c); // preserve the imported blend state
+ // Seed a held interval without sleeping: at two seconds both font passes
+ // retain their full color, while the request is still below the 3s close.
+ nitrogen_window_close_hold(0,0);
+ const double now=std::chrono::duration<double>(std::chrono::steady_clock::now().time_since_epoch()).count();
+ nitrogen_window_close_hold(1,now-2);
+ c.gpr[4]=0x8011b160;c.gpr[5]=0x80132000;c.gpr[6]=0x80160000;ww(0x8011b170,0x1000);assert(!video(&c));
+ c.gpr[4]=0x80160000;c.gpr[5]=0x8011b160;c.gpr[6]=0x80132000;assert(header(&c));
+ assert(rw(0x80160024)==0x6670707f && rw(0x80160038)==0x66202020);
+ assert(!nitrogen_window_take_close());
  c.gpr[4]=0x8011b160;c.gpr[5]=0x80132000;c.gpr[6]=0x80160000;
  c.gpr[6]=0x80160000;ww(0x8011b170,0);assert(!video(&c));assert(c.gpr[6]==0x80160000);
  assert(!header(&c)); // no caption after release

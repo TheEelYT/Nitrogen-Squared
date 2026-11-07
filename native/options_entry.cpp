@@ -61,15 +61,41 @@ uint32_t call(CPUState *c,uint32_t function,uint32_t a,uint32_t b,uint32_t d,uin
     func_override_guest_call(c,function,binding.presentation.address);
     return c->gpr[2];
 }
-uint32_t text(CPUState *c,uint32_t packet,uint32_t view,const char *s,int y,int x,bool selected=false,unsigned opacity=0)
+uint32_t text(CPUState *c,uint32_t packet,uint32_t view,const char *s,int y,int x,bool selected=false,unsigned opacity=0,bool bright=false)
 {
     const uint32_t style=arena+224, buffer=arena+256;
     string(c,buffer,s);
     if (x==-10000) x=-40-static_cast<int>(call(c,0x800280a0,buffer,0,0,0))/2;
     c->write_word(style,y); c->write_word(style+4,x);
     c->write_word(style+8,selected?0x202030:0x101010);
-    c->write_word(style+12,selected?0xe0e0ff:0x606060);
+    c->write_word(style+12,(selected||bright)?0xe0e0ff:0x606060);
     return call(c,0x80062a28,buffer,packet,view+0x78,(opacity>>3)|(selected?0x8000u:0),style);
+}
+bool caption_fade(CPUState *c,uint32_t begin,uint32_t end,unsigned light,bool apply)
+{
+    begin&=0x1fffffu;end&=0x1fffffu;
+    if((begin|end)&3u || end<begin || end-begin>65536u) return false;
+    for(uint32_t p=begin;p<end;) {
+        const unsigned count=c->read_word(p)>>24;
+        if(!count || p+4u*(count+1)>end) return false;
+        for(unsigned i=0;i<count;) {
+            const uint32_t at=p+4+4*i,command=c->read_word(at);
+            const unsigned op=command>>24;
+            const bool rect=op==0x64u || op==0x66u,quad=op==0x2cu || op==0x2eu;
+            const bool glyph=rect || quad;
+            const unsigned words=rect?4:quad?9:
+                (op>=0xe1u && op<=0xe6u)?1:0;
+            if(!words || i+words>count) return false;
+            if(apply && glyph) {
+                uint32_t rgb=(command&0xff000000u)|0x02000000u;
+                for(unsigned shift : {0u,8u,16u}) rgb|=(((command>>shift)&255u)*light/255u)<<shift;
+                c->write_word(at,rgb);
+            }
+            i+=words;
+        }
+        p+=4u*(count+1);
+    }
+    return true;
 }
 // The same tick cell used by the original Audio sliders, with a fresh
 // parameterized packet builder. No texture pixels or font data are bundled.
@@ -317,13 +343,21 @@ int header(CPUState *c)
 {
     if(close_feedback>=256 || c->gpr[5]!=close_context || c->gpr[6]!=close_view ||
        !resident(binding.header) || !storage(c)) return 0;
-    // This small decoration helper establishes the font's UI projection.
+    // This small decoration helper establishes the menu's font context.
     // Append after it, while the frame-yielding parent stays on normal dispatch.
     func_override_call_original(c);
     std::array<uint32_t,32> saved{};
     std::copy(c->gpr,c->gpr+32,saved.begin());
     const uint32_t pc=c->pc;c->gpr[29]-=256;
-    const uint32_t packet=text(c,c->gpr[2],close_view,"closing...",nitrogen_window_close_y(),0,true,close_feedback);
+    // The imported menu's transition parameter separates ghost copies rather
+    // than fading alpha. Its normal additive/subtractive font passes can fade
+    // by brightness instead, with no positional trail or selection gradient.
+    const uint32_t begin=c->gpr[2];
+    const uint32_t packet=text(c,begin,close_view,"closing...",nitrogen_window_close_y(),0,false,0,true);
+    // Fade both the additive foreground and subtractive shadow. Validate our
+    // entire newly appended span first; never recolor the original menu.
+    if(caption_fade(c,begin,packet,255-close_feedback,false))
+        (void)caption_fade(c,begin,packet,255-close_feedback,true);
     std::copy(saved.begin(),saved.end(),c->gpr);c->gpr[2]=packet;c->pc=pc;
     return 1;
 }
