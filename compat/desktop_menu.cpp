@@ -145,7 +145,12 @@ int event(void *context, const void *input)
         if (ev.key.key == SDLK_F11) { fullscreen(m); return 1; }
         if (ev.key.key == SDLK_ESCAPE && m.open.load()) { m.escape = true; return 1; }
     }
-    if (ev.type == SDL_EVENT_WINDOW_FOCUS_LOST) m.close_requested = true;
+    if (ev.type == SDL_EVENT_WINDOW_FOCUS_LOST) {
+        m.close_requested = true;
+#ifdef NITROGEN_WINDOW_DISPLAY
+        (void)nitrogen_window_close_hold(0,0);
+#endif
+    }
     const bool key = ev.type == SDL_EVENT_KEY_DOWN || ev.type == SDL_EVENT_KEY_UP ||
                      ev.type == SDL_EVENT_TEXT_INPUT || ev.type == SDL_EVENT_TEXT_EDITING;
     const bool mouse = ev.type == SDL_EVENT_MOUSE_MOTION || ev.type == SDL_EVENT_MOUSE_BUTTON_DOWN ||

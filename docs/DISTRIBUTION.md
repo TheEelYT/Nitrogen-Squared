@@ -88,3 +88,27 @@ The shared GUI imports the supported CUE/BIN and privately prepares the game und
 .local; saves and extracted edits remain there. Updates select the Linux asset,
 validate its checksum/platform/inventory and use a copied runner with rollback.
 The Windows and Linux package jobs both gate release publication.
+
+## Release branches (0.1.0 onward)
+
+Each release preserves its final tested source commit at `release/x.y.z`, alongside
+its immutable `vx.y.z` tag. Main continues development and receives documentation
+receipts. The publication job verifies an existing release branch rather than
+moving it. The 0.1.0 job removes the 27 reviewed older work branches only if their
+heads remain unchanged, no pull requests are open and all their commits are
+already contained in the tested release. Changed or unmerged work is preserved.
+
+## Update compatibility and version policy from 0.2.0
+
+Major game-code updates increment the middle component (`0.2.0`, `0.3.0`, ...).
+Patches and launcher updates increment the final component (`0.2.1`, `0.2.2`, ...).
+Use this policy until the owner declares version 1.0.0. Every complete version
+gets its own `release/x.y.z` branch.
+
+Starting with 0.2.0, the launcher must compare compiled-game inputs separately
+from the public release version. Changed game/runtime code or other inputs to
+the prepared game require recompilation, including a game-code patch. A launcher
+or documentation-only update reuses the current compatible compilation. Preserve
+private builds and saves during either update path. Tests must cover both paths
+and prove that a changed build input cannot reuse a stale executable. This policy
+is scheduled for 0.2.0; 0.1.0 retains the existing build-refresh behavior.

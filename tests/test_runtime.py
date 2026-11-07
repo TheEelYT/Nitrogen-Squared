@@ -1,6 +1,8 @@
 import json
 from pathlib import Path
 import tempfile
+import shutil
+import subprocess
 import unittest
 from unittest.mock import patch
 
@@ -88,6 +90,40 @@ class RuntimePreparationTests(unittest.TestCase):
                 sidecar.unlink()
                 with self.assertRaises(FileNotFoundError):
                     build_runtime.load_execution_manifest(executable)
+
+    @unittest.skipUnless(shutil.which('c++'), 'C++ compiler required for hotkey policy')
+    def test_tab_cannot_trigger_hold_turbo_and_other_input_survives(self):
+        with tempfile.TemporaryDirectory() as temp:
+            p=Path(temp)
+            (p/'psx_sdl.h').write_text('#pragma once\n#define SDL_NUM_SCANCODES 512\n#define SDL_SCANCODE_TAB 43\n')
+            (p/'host_keymap.h').write_text('#pragma once\n#include <stdint.h>\nenum HostKeymapAction {HOST_KEYMAP_TURBO,OTHER};\nint host_keymap_down(HostKeymapAction,const uint8_t*,int);\n')
+            (p/'fixture.cpp').write_text(r'''
+#include "host_hotkeys.h"
+#include <cassert>
+static const uint8_t *original;
+int host_keymap_down(HostKeymapAction a,const uint8_t*k,int mod){
+ assert(mod==7);if(!k)return 0;
+ if(a==OTHER){assert(k==original);return k[SDL_SCANCODE_TAB];}
+ return k[SDL_SCANCODE_TAB] || k[44]; // default/saved Tab and another Turbo binding
+}
+int main(){
+ uint8_t keys[SDL_NUM_SCANCODES]{};original=keys;
+ keys[SDL_SCANCODE_TAB]=1;
+ assert(!nitrogen_host_keymap_down(HOST_KEYMAP_TURBO,keys,7));
+ assert(keys[SDL_SCANCODE_TAB]==1); // never mutate SDL keyboard state
+ assert(nitrogen_host_keymap_down(OTHER,keys,7));
+ keys[44]=1;assert(nitrogen_host_keymap_down(HOST_KEYMAP_TURBO,keys,7));
+ keys[SDL_SCANCODE_TAB]=0;assert(nitrogen_host_keymap_down(HOST_KEYMAP_TURBO,keys,7));
+ keys[44]=0;assert(!nitrogen_host_keymap_down(HOST_KEYMAP_TURBO,keys,7));
+ assert(!nitrogen_host_keymap_down(HOST_KEYMAP_TURBO,nullptr,7));
+}
+''')
+            root=Path(__file__).resolve().parents[1]
+            subprocess.run(['c++','-std=c++17','-I',str(p),'-I',str(root/'compat'),str(p/'fixture.cpp'),'-o',str(p/'fixture')],check=True)
+            subprocess.run([str(p/'fixture')],check=True)
+            host=(root/'compat/runtime_host.cpp').read_text()
+            self.assertLess(host.index('#define host_keymap_down nitrogen_host_keymap_down'),host.index('#include NITROGEN_FRAMEWORK_MAIN'))
+            self.assertGreater(host.index('#undef host_keymap_down'),host.index('#include NITROGEN_FRAMEWORK_MAIN'))
 
     def test_play_environment_disables_frame_history_without_changing_parent(self):
         with patch.dict(run_runtime.os.environ, {"PSX_DISPLAY_RING": "1"}):

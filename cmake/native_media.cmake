@@ -38,5 +38,5 @@ psxrecomp_add_implementation(nitrogen-runtime
         "${CMAKE_CURRENT_SOURCE_DIR}/native/movie_player.h" "${CMAKE_CURRENT_SOURCE_DIR}/native/mpeg_tables.h"
         "${CMAKE_CURRENT_SOURCE_DIR}/compat/window_title.h"
         "${CMAKE_CURRENT_SOURCE_DIR}/compat/runtime_telemetry.h"
-        "${CMAKE_CURRENT_SOURCE_DIR}/compat/runtime_host.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/compat/n2o_gpu_mode.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/compat/runtime_host.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/compat/host_hotkeys.h" "${CMAKE_CURRENT_SOURCE_DIR}/compat/n2o_gpu_mode.c"
         "${PSXRECOMP_ROOT}/runtime/src/mdec.c")

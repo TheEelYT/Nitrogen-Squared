@@ -12,6 +12,12 @@ int nitrogen_window_projection_is_ui(int32_t ofx, int32_t ofy, int h);
 void nitrogen_window_menu_page(unsigned page);
 void nitrogen_window_frame(uint64_t frame);
 int nitrogen_window_controls_view(void);
+int nitrogen_window_audio_view(void);
+/* Main-menu hold feedback: 256 means hidden, 255..0 fades in. The caller
+ * supplies monotonic seconds, independently of guest speed/frame count. */
+unsigned nitrogen_window_close_hold(int held, double seconds);
+int nitrogen_window_take_close(void);
+int nitrogen_window_close_y(void);
 /* Measured in drawable pixels, excluding the desktop menu. */
 void nitrogen_window_publish(int width, int height);
 void nitrogen_window_ui_vertex(float *x, float *y, unsigned flags,

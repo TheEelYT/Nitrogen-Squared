@@ -2,6 +2,7 @@
 #include "runtime_telemetry.h"
 #include "window_title.h"
 #include "psx_sdl.h"
+#include "host_hotkeys.h"
 #ifdef NITROGEN_WINDOW_DISPLAY
 #include "window_display.h"
 #include "nitrogen_options.h"
@@ -19,7 +20,9 @@ static const char *nitrogen_base_window_title(SDL_Window *window)
 // Observe the existing host drain, preserving the guest DSP's sole owner.
 #define spu_output_pop nitrogen_runtime_spu_output_pop
 #define debug_server_shutdown nitrogen_runtime_shutdown
+#define host_keymap_down nitrogen_host_keymap_down
 #include NITROGEN_FRAMEWORK_MAIN
+#undef host_keymap_down
 #undef spu_output_pop
 #undef debug_server_shutdown
 #undef SDL_GetWindowTitle
@@ -28,6 +31,9 @@ extern "C" int nitrogen_menu_reserved_height(void);
 extern "C" void nitrogen_gpu_enable_ui(void);
 static void nitrogen_window_update()
 {
+    if(nitrogen_window_take_close()) {
+        SDL_Event event{};event.type=SDL_EVENT_QUIT;SDL_PushEvent(&event);
+    }
     if (!g_gl_active || !sdl_window || g_headless) return;
     nitrogen_window_frame(s_frame_count);
     nitrogen_options_init(SDL_GetBasePath());

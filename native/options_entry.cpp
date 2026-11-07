@@ -10,6 +10,7 @@
 #include <array>
 #include <cstdio>
 #include <cstring>
+#include <chrono>
 
 extern "C" uint8_t *g_psx_ram;
 namespace nitrogen::options {
@@ -205,6 +206,24 @@ int presentation(CPUState *c)
     const uint32_t phase=c->read_word(page);
     const uint32_t effective=(phase==29?c->read_word(old_page):phase==30?c->read_word(next_page):phase);
     nitrogen_window_menu_page(effective);
+    const uint32_t buttons=c->read_word(context+0x10);
+    const double seconds=std::chrono::duration<double>(std::chrono::steady_clock::now().time_since_epoch()).count();
+    const unsigned closing=nitrogen_window_close_hold(phase==0 && (buttons&0x1000u),seconds);
+    if(effective==0) {
+        // Main Back is now a cancellable hold. Keep the original presenter
+        // and its guest-timed art/navigation, suppressing only its Back action.
+        c->write_word(context+0x10,buttons&~0x1000u);
+        func_override_call_original(c);
+        c->write_word(context+0x10,buttons);
+        if(closing<256) {
+            std::array<uint32_t,32> saved{};
+            std::copy(c->gpr,c->gpr+32,saved.begin());
+            c->gpr[29]-=256;
+            const uint32_t packet=text(c,c->gpr[2],view,"closing...",nitrogen_window_close_y(),-10000,true,closing);
+            std::copy(saved.begin(),saved.end(),c->gpr);c->gpr[2]=packet;
+        }
+        return 1;
+    }
     if (effective!=9) return 0;
     std::array<uint32_t,32> registers{};
     std::copy(c->gpr,c->gpr+32,registers.begin());
@@ -222,7 +241,7 @@ int presentation(CPUState *c)
         if (!opacity) c->write_word(page,9);
     }
     c->write_half(context+0x3c2,9);
-    const uint32_t buttons=c->read_word(context+0x10), edge=buttons&~c->read_word(context+0x14);
+    const uint32_t edge=buttons&~c->read_word(context+0x14);
     const int first=nitrogen_options_desktop()?0:1;
     int row=std::clamp(static_cast<int>(c->read_word(arena+4)),first,2);
     bool changed=false;

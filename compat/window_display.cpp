@@ -9,6 +9,9 @@ std::atomic<int> ui_scale{0};
 std::atomic<unsigned long long> world_size{0};
 std::atomic<unsigned> menu_page{0};
 std::atomic<uint64_t> host_frame{0}, menu_frame{0};
+std::atomic<bool> close_requested{false};
+bool closing=false, close_sent=false;
+double close_start=0;
 }
 extern "C" void nitrogen_window_frame(uint64_t frame) { host_frame.store(frame,std::memory_order_release); }
 extern "C" void nitrogen_window_menu_page(unsigned page)
@@ -16,13 +19,32 @@ extern "C" void nitrogen_window_menu_page(unsigned page)
     menu_frame.store(host_frame.load(std::memory_order_relaxed),std::memory_order_relaxed);
     menu_page.store(page,std::memory_order_release);
 }
-extern "C" int nitrogen_window_controls_view(void)
+static int menu_view(unsigned page)
 {
-    if(menu_page.load(std::memory_order_acquire)!=8) return 0;
+    if(menu_page.load(std::memory_order_acquire)!=page) return 0;
     const auto now=host_frame.load(std::memory_order_acquire),at=menu_frame.load(std::memory_order_relaxed);
     // A GPU DMA may consume the previous guest frame. Expire the title-owned
     // context if a reset/restore/other occupant stops calling its presenter.
     return now>=at && now-at<=1;
+}
+extern "C" int nitrogen_window_controls_view(void) { return menu_view(8); }
+extern "C" int nitrogen_window_audio_view(void) { return menu_view(19); }
+extern "C" unsigned nitrogen_window_close_hold(int held,double seconds)
+{
+    if(!held || !std::isfinite(seconds)) {closing=false;close_sent=false;return 256;}
+    if(!closing || seconds<close_start) {closing=true;close_start=seconds;}
+    const double elapsed=seconds-close_start;
+    if(elapsed>=3 && !close_sent) {close_requested.store(true,std::memory_order_release);close_sent=true;}
+    return static_cast<unsigned>(255*(1-std::min(1.0,elapsed)));
+}
+extern "C" int nitrogen_window_take_close(void)
+{ return close_requested.exchange(false,std::memory_order_acq_rel); }
+extern "C" int nitrogen_window_close_y(void)
+{
+    const auto size=drawable.load(std::memory_order_acquire);
+    const int w=static_cast<int>(size>>32),h=static_cast<unsigned>(size);
+    // Centre the 16-pixel font at one third of the actual game area.
+    return h>0 ? 112-h/(6*nitrogen_window_ui_step(w,h)) : 72;
 }
 extern "C" int nitrogen_window_projection_is_ui(int32_t ofx,int32_t ofy,int h)
 {

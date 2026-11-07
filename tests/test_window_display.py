@@ -39,7 +39,20 @@ int main(){
  nitrogen_window_frame(21);assert(nitrogen_window_controls_view());
  nitrogen_window_frame(22);assert(!nitrogen_window_controls_view());
  nitrogen_window_frame(19);assert(!nitrogen_window_controls_view());
- nitrogen_window_menu_page(1);
+ nitrogen_window_frame(30);nitrogen_window_menu_page(19);assert(nitrogen_window_audio_view());
+ nitrogen_window_frame(31);assert(nitrogen_window_audio_view());
+ nitrogen_window_frame(32);assert(!nitrogen_window_audio_view());
+ nitrogen_window_menu_page(1);assert(!nitrogen_window_audio_view());
+ assert(nitrogen_window_close_hold(0,0)==256);
+ assert(nitrogen_window_close_hold(1,10)==255);
+ assert(nitrogen_window_close_hold(1,10.5)==127);
+ assert(nitrogen_window_close_hold(1,11)==0);
+ assert(nitrogen_window_close_hold(1,12.999)==0);assert(!nitrogen_window_take_close());
+ assert(nitrogen_window_close_hold(0,13)==256);assert(!nitrogen_window_take_close());
+ assert(nitrogen_window_close_hold(1,20)==255);assert(!nitrogen_window_take_close());
+ assert(nitrogen_window_close_hold(1,23)==0);assert(nitrogen_window_take_close());
+ assert(!nitrogen_window_take_close());nitrogen_window_close_hold(1,24);assert(!nitrogen_window_take_close());
+ nitrogen_window_close_hold(0,25);assert(nitrogen_window_close_hold(1,30)==255);
  assert(nitrogen_window_ui_step(320,240)==2);
  assert(nitrogen_window_ui_step(800,600)==2);
  assert(nitrogen_window_ui_step(1094,720)==2);
@@ -97,7 +110,8 @@ static void gpu_get_display_info(GpuDisplayInfo*p){p->width=364;p->height=source
 struct WsUiPrepassItem{int full_draw_area=1;unsigned op=0x66;};
 static uint32_t gp0_cmd_buf[12];static uint16_t gp0_ot_rank=440;
 static int ws_auto_ui_squash,gp0_state,draw_offset_x,draw_offset_y;
-static bool controls_view;
+static bool controls_view,audio_view;
+int nitrogen_window_audio_view(){return audio_view;}
 int nitrogen_window_controls_view(){return controls_view;}
 enum{GP0_POLYLINE_MONO=4,GP0_POLYLINE_SHADED=5};
 static WsUiPrepassItem item;
@@ -157,6 +171,15 @@ int main(){
  }
  sprite(50,208,0x4873);assert(role()==3);
  sprite(286,208,0x4873);assert(role()==4);
+ // Audio's two-line track value has no right footer. Both shadow and
+ // foreground stay together even where the actual "remix" crosses x=244.
+ audio_view=true;
+ for(int y:{205,206,208,214})for(int x:{235,243,244,250,268,290})for(unsigned p:{0x4873u,0x4d73u,0x4db3u}){
+  sprite(x,y,p);assert(role()==0);
+ }
+ sprite(32,205,0x4db3);assert(role()==3); // Audio Back stays bottom left
+ audio_view=false;
+ sprite(286,208,0x4873);assert(role()==4); // other screens keep right footer
  sprite(8,162,0x7a27);assert(role()==3);
  for(int y:{162,178,188,200,214}){sprite(19,y,0x7667);assert(role()==3);}
  sprite(100,100,0x7667);assert(nitrogen_gpu_ui_flags()==0);

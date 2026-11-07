@@ -19,6 +19,7 @@
   "compat/desktop_menu.cpp",
   "compat/desktop_menu.h",
   "compat/game_options.cpp",
+  "compat/host_hotkeys.h",
   "compat/nitrogen_options.h",
   "compat/gl_batch_enhanced.c",
   "compat/gl_batch_reference.c",

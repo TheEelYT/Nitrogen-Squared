@@ -751,3 +751,26 @@
   Preserve immutable tag/assets. Receipt is docs only: no VERSION bump/rebuild.
   Fresh n0031 player checks remain pending; Linux is carried unchanged, submitted
   results preserved. Coverage 38.4156%/61.5844%, transition stutter OPEN, clocks unchanged.
+
+- Starting with 0.1.0, each release gets `release/x.y.z` at its final tested
+  code commit. Preserve that branch and the matching public tag/assets; later
+  documentation receipts remain on main. Remove retired unused work branches
+  only after confirming no open PR and that their commits are already in main.
+  The owner explicitly authorizes this cleanup; preserve changed/unmerged work.
+- Active 0.1.0 repairs multi-line Audio track-name anchoring, adds cancellable
+  main-menu Back hold (3 monotonic seconds; closing... fades in over the first
+  second at the game area's top third), and removes Tab hold Turbo through the
+  title host bridge. Preserve Tab for ordinary UI and pinned SDK unchanged.
+  Native selection/coverage stay 796 records, 48 exclusions, 38.4156%/61.5844%.
+  Final runtime/normal/platform/publication qualification is still pending.
+
+- Starting at 0.2.0, release updates must distinguish compiled-game inputs from
+  launcher-only changes. Require recompilation when game/runtime build inputs
+  change; otherwise reuse the current compatible compilation. A release VERSION
+  bump or launcher/docs-only edit must not by itself invalidate that compilation.
+  Implement and qualify this behavior for 0.2.0, not the current 0.1.0 release.
+- Until the owner explicitly declares 1.0.0, major game-code updates increment
+  the middle version component (0.x.0); patches and launcher updates increment
+  the final component (for example 0.2.0 -> 0.2.1). A game-code patch still
+  requires rebuilding when its compiled inputs change. Release branches use the
+  complete version, including patches, such as release/0.2.1.

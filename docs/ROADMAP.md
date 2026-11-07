@@ -279,3 +279,13 @@ but its final reduced O3 qualification was interrupted by an unavailable executi
 environment. Keep these candidates unselected until fresh strict live/replay,
 exact-frame and normal-production checks pass. Asset extraction can continue
 incrementally without waiting for full code linkage or clock separation.
+
+## 0.2.0 launcher build reuse and pre-1.0 versioning
+
+Separate the public release version from the compiled-game compatibility key.
+Recompile after game/runtime build inputs change; reuse the compatible game for
+launcher-only updates. Qualify unchanged-input reuse and changed-input rebuilds
+without losing private files or saves. From 0.2.0 until the owner declares 1.0.0,
+major game-code releases advance the middle number and patches/launcher updates
+advance the last number (for example 0.2.0 -> 0.2.1). Keep a final release branch
+for each complete version. This work follows the current 0.1.0 release.

@@ -1,6 +1,19 @@
-# Windows and Linux release tests — 0.0.31
+# Windows and Linux release tests — 0.1.0
 
 ## Current acceptance and update checks
+
+**0.1.0 — main-menu hold to close and Audio track-title repair. Fresh checks pending.**
+Hold Back on the main menu for three continuous seconds to close. The closing...
+caption fades in over the first second around the top third of the game area;
+release Back to cancel and reset the timer. Submenu Back retains its normal use.
+Holding Tab no longer speeds up the game. Long and two-line Audio track names,
+including remix text and shadows, retain one centred transform.
+
+Use Check for updates, preserving .local and saves. Focus on the three new checks
+below. All unsubmitted n0031 definitions, including optional Linux, carry forward
+unchanged; earlier pass/fail reports and notes retain their original versions.
+Coverage stays **38.4156% linked / 61.5844% outside**; clocks are unchanged and
+intermittent level-entry stutter remains open. No new campaign or upload is needed.
 
 **0.0.31 — title-preview regression repair. Fresh focused checks pending.**
 The title's textured 3D preview frame shares a draw layer with help cards.
@@ -840,13 +853,13 @@ Instructions for future maintainers and assistants:
     "metricNote": "Linked emitted byte coverage, including payload data. Not project completion or CPU time."
   },
   "version": {
-    "id": "n0031",
-    "name": "v0.0.31",
-    "title": "Title preview regression repair",
+    "id": "n0100",
+    "name": "v0.1.0",
+    "title": "Main-menu hold to close and complete Audio track titles",
     "runtime": "Windows / Linux x64 \u00b7 USA disc",
     "cart": "",
-    "createdAt": "2026-11-03",
-    "description": "Fresh title/attract preview check; unsubmitted n0030 menu checks and optional Linux carry forward unchanged. Preserve .local and saves. Coverage and clocks unchanged."
+    "createdAt": "2026-11-07",
+    "description": "Fresh hold-to-close, Tab and two-line Audio track checks; unsubmitted n0031 checks and optional Linux carry forward unchanged. Preserve .local and saves. Coverage and clocks unchanged."
   },
   "checks": [
     {
@@ -944,6 +957,45 @@ Instructions for future maintainers and assistants:
       ],
       "expected": "The Linux launcher prepares and starts the private game; updates preserve .local. Report update as blocked until a newer release exists.",
       "context": "Optional for Windows-only testers. Linux uses system Python/Tk and build tools; the release includes no prepared game executable."
+    },
+    {
+      "required": true,
+      "priority": "high",
+      "id": "N2-CLOSE",
+      "title": "Hold Back on the main menu to close",
+      "area": "Main menu",
+      "steps": [
+        "On the main menu, hold Back for roughly one second, then release.",
+        "Confirm closing... fades in around the top third, disappears on release and the game stays open.",
+        "Hold Back again continuously for three seconds. Restart and use Back in a submenu."
+      ],
+      "expected": "The new hold starts fresh after release and closes cleanly after three seconds; submenu Back retains its usual behavior.",
+      "context": "Fresh v0.1.0 check. Closing ends this game session; preserve existing saves."
+    },
+    {
+      "required": true,
+      "priority": "high",
+      "id": "N2-TAB",
+      "title": "Tab no longer speeds up play",
+      "area": "Host input",
+      "steps": [
+        "During brief menus or ordinary gameplay, hold and release Tab."
+      ],
+      "expected": "Holding Tab does not speed up the game or its audio; ordinary menu input remains usable.",
+      "context": "Fresh v0.1.0 check; no new campaign required."
+    },
+    {
+      "required": true,
+      "priority": "high",
+      "id": "N2-AUDIO-TITLES",
+      "title": "Complete long and two-line track names",
+      "area": "Audio",
+      "steps": [
+        "Cycle through the complete Audio track list in usual, wide and portrait windows.",
+        "Inspect busy child / uberzone remix and other long or two-line titles, including their shadows."
+      ],
+      "expected": "Every title stays together beneath its track label; no letters move to the bottom-right corner. Song titles stay text only, and Back remains bottom left.",
+      "context": "Fresh v0.1.0 repair check for the split remix title reported in chat."
     }
   ]
 }

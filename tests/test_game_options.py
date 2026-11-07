@@ -85,6 +85,10 @@ extern "C" void func_override_guest_call(CPUState*c,uint32_t f,uint32_t){
  for(int i=4;i<=7;++i)c->gpr[i]=0xdeadbeef; // caller-saved registers
 }
 extern "C" void func_override_call_original(CPUState*c){
+ if(c->gpr[5]==0x80132000){
+  assert(c->gpr[4]==0x8011b160 && c->gpr[6]==0x80160000);
+  assert(!(rw(0x8011b170)&0x1000));c->gpr[2]=c->gpr[6]+32;return;
+ }
  assert(c->gpr[4]==0x8011b160 && c->gpr[5]==0x80160000);
  assert(c->gpr[6]==0x80132000 && c->gpr[7]==0);
  assert(!(rw(0x8011b170)&0x50));
@@ -103,6 +107,11 @@ int main(){
  assert(video && audio);
  CPUState c{};c.read_word=rw;c.write_word=ww;c.read_half=rh;c.write_half=wh;c.read_byte=rb;c.write_byte=wb;
  c.gpr[4]=0x8011b160;c.gpr[5]=0x80132000;c.gpr[6]=0x80160000;c.gpr[29]=0x801ee000;
+ ww(0x80090624,0);ww(0x8011b170,0x1000);
+ assert(video(&c));assert(rw(0x80090624)==0 && rw(0x8011b170)==0x1000);
+ assert(c.gpr[2]>0x80160020 && c.gpr[29]==0x801ee000);
+ ww(0x8011b170,0);assert(video(&c));assert(c.gpr[2]==0x80160020);
+ ww(0x80090624,1);assert(!video(&c)); // ordinary submenu Back stays original
  ww(0x80090624,9);ww(0x80090628,9);ww(0x8011b170,0x1000);
  ww(0x8008ea08,0x12345678); // original presenter's current-title cache
  assert(video(&c));assert(rw(0x80090624)==29);assert(rw(0x80090628)==1);

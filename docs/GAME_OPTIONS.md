@@ -1,5 +1,12 @@
 # In-game options
 
+Version 0.1.0 keeps complete two-line Audio track names, including remix names
+and their shadows, centred together. Audio has only a bottom-left Back footer;
+low text on its right side must not be classified as a right footer. Hold Back
+on the main menu for three seconds to close; closing... fades in over the first
+second at the game area's top third. Release cancels, and submenu Back is unchanged.
+Holding Tab no longer triggers Turbo. Ordinary Tab UI input is retained.
+
 Version 0.0.30 places Master immediately above SFX and keeps Play in order's
 song title text only, even when selected. Master, effects, ambient and music
 sliders share the original additive luminous fill and aligned tick tracks. The

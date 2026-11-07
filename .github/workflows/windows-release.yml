@@ -174,11 +174,11 @@ jobs:
           Extract the complete **Nitrogen-Squared** folder and run **launcher.exe**.
           Select the supported USA CUE with its matching BIN beside it. Preparation verifies/imports/generates/compiles your private game; no separate Python or Visual Studio installation is required.
 
-          **Title-preview repair:** the title's textured 3D preview frame retains its original projection, fixing the nested frames and black gaps introduced in 0.0.30. Help cards identify their bevels and exact direction-arrow cells separately. Master stays above SFX; Play in order's song title stays text only. The aligned slider fills, Controls model/callouts and existing Video settings are retained.
+          **0.1.0:** hold Back on the main menu for three seconds to close. “closing...” fades in over the first second near the top third of the game area; release Back to cancel. Holding Tab no longer speeds up the game. Complete two-line Audio track titles, including remix names, stay together. Prior title/help/Controls and slider repairs are retained. Each release now preserves its final source at `release/x.y.z`; retired merged work branches are removed.
 
           **Linux x86_64 launcher:** extract the Linux ZIP and run `sh launcher.sh`. Install the system Python/Tk, compiler and graphics/audio prerequisites listed in README-FIRST.txt once. The launcher selects your CUE/BIN, prepares your private game and handles updates. Windows continues to bundle portable Python and preparation tools; use separate folders for each platform.
 
-          Native coverage stays 38.4156% linked / 61.5844% outside. Fresh Test Dashboard n0031 adds a title/attract preview check and carries unsubmitted n0030 menu checks, including optional Linux, unchanged. Earlier submitted results retain their versions. No new campaign, upload or valued-save overwrite is requested. Audio/game clocks are unchanged; intermittent level-entry stutter remains open.
+          Native coverage stays 38.4156% linked / 61.5844% outside. Fresh Test Dashboard n0100 adds hold-to-close, Tab and complete track-title checks and carries unsubmitted menu checks, including optional Linux, unchanged. Earlier submitted results retain their versions. No new campaign, upload or valued-save overwrite is requested. Audio/game clocks are unchanged; intermittent level-entry stutter remains open.
 
           **Asset folders** remains optional: original containers, raw movie streams and ten PCM WAV tracks are preserved under .local/game. Runtime still uses the original USA disc. Folder-backed loading, mod packs and EU language import remain future work.
 
@@ -190,3 +190,42 @@ jobs:
             gh release upload "v$version" --clobber dist/Nitrogen-Squared-Windows-x64.zip dist/Nitrogen-Squared-Windows-x64.zip.sha256 dist/Nitrogen-Squared-source.zip dist/Nitrogen-Squared-Linux-x64.zip dist/Nitrogen-Squared-Linux-x64.zip.sha256
           fi
           gh release edit "v$version" --draft=false --latest
+      - name: Preserve final release branch and prune retired work branches
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          python - <<'PY_BRANCHES'
+          import json,os,subprocess
+          from pathlib import Path
+          repo=os.environ['GH_REPO'];sha=os.environ['GITHUB_SHA']
+          def api(method,path,**fields):
+              args=['gh','api','-X',method,'repos/'+repo+'/'+path]
+              for key,value in fields.items(): args+=['-f',key+'='+value]
+              return subprocess.check_output(args,text=True)
+          version=Path('VERSION').read_text().strip()
+          branch='release/'+version
+          refs=json.loads(api('GET','git/matching-refs/heads/'+branch))
+          exact=[r for r in refs if r['ref']=='refs/heads/'+branch]
+          if exact:
+              if exact[0]['object']['sha']!=sha:
+                  raise SystemExit('Release branch already identifies different code; refusing to move it.')
+          else: api('POST','git/refs',ref='refs/heads/'+branch,sha=sha)
+          print('Preserved '+branch+' at '+sha)
+          # One-time retirement of the reviewed pre-0.1.0 branches. Never prune
+          # future release branches or newly created work by a naming heuristic.
+          retired={'bonus-hud-linux-028': 'a9bac0a15faea8fcc9f50c3aeae5ea60cd7ff024', 'codex/project-foundation': 'c8852f7ceed4f4f08fd65db7d6f350718e4c20c5', 'feature/desktop-menu-007': '935d1507847010aefe0f2002d65045d014f75889', 'fix/menu-batching-006': '3a2d27d967b68642259bad054495eea4cff6bfef', 'fix/windows-playback-005': '449b115da26fb353800bd68488ff6e350d21e32d', 'gameplay-render-worker': '4d7160887d506477b1ca880e6a50548bc35345e9', 'in-game-options-029': '9b2739d1092876c359d5975d2dd408cacfe4eb66', 'menu-coherence-030': '3dc44829782894eba3e035bc66435290cae80df0', 'native-assets-batch': '580e2c23de047778fd8b69d7c0c747cb5a024d58', 'native-boundary-qualification': 'ad8d998cb1bad848f3fbe0e7d868683338083b8b', 'native-card-control': '6cf056b7c528f326e05c0589a0c7da51fdfdfc0b', 'native-combat-inputs-022': '72c055409cfdfe1d3be079788dbf5232af1e26ad', 'native-frontend-library-batch': '7197e97f863a37169cbaf9df01f57e1689145ba1', 'native-game-code-map-batch': '5ace72d09c51d72f43de5f1eb6e2a6b4b1d45427', 'native-game-presentation-batch': 'b783c4a57e4d8af2673d386affe566dccd964662', 'native-game-slices': '4cf19de40f824f6e8b721f79069af164ede572de', 'native-gameplay-batch': '587c3d4f85eb4db2d2b2b456fcac8afa3649fa88', 'native-geometry-batch': 'e328b2a0ea78c1b6105f2af67e66701de11ec567', 'native-larger-paths-023': 'e53f763331029b59dee7143f99c10dcbbf73830e', 'native-later-game-021': 'bf01228485ae9084cf937770e0fed951aafe3bf4', 'native-opening-movies': '38708c41f9bffa50fdc1ddcbd46f50dd9875f017', 'native-packet-batch': '564c8a7bc3572831970672884972bf491810c242', 'title-preview-031': '2f03f0beb2507bcb88c9aa91eb76a32073bd5933', 'ui-coherence-025': 'b3284dd039417181819c716738d1ee65ec6b9c32', 'ui-followup-026': 'c56db08694a5a8e3cbd08f936f3f5248e37bc991', 'ui-load-followup-027': '85c499ec8d8c34b78ace98d097d839d86aa14bbb', 'window-display-024': '629919092801b45dae27d3787b59a81b1506f0b0'}
+          if version=='0.1.0':
+              if json.loads(api('GET','pulls?state=open&per_page=100')):
+                  raise SystemExit('Open pull requests appeared; preserving work branches for review.')
+              current={r['name']:r for r in json.loads(api('GET','branches?per_page=100'))}
+              for name,expected in retired.items():
+                  if name not in current: continue
+                  if current[name]['commit']['sha']!=expected or current[name]['protected']:
+                      raise SystemExit('Branch changed or is protected; preserving '+name)
+                  comparison=json.loads(api('GET','compare/'+sha+'...'+expected))
+                  if comparison['status'] not in ('identical','behind'):
+                      raise SystemExit('Branch contains work outside the release; preserving '+name)
+                  api('DELETE','git/refs/heads/'+name)
+                  print('Removed merged branch '+name)
+          PY_BRANCHES

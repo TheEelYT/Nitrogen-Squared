@@ -10,6 +10,7 @@ static unsigned nitrogen_ui_role(unsigned role, int ui)
     return (ui ? 0x10u : 0u) | (role << 5) | (di.height << 8);
 }
 extern int nitrogen_window_controls_view(void);
+extern int nitrogen_window_audio_view(void);
 static int nitrogen_widget_vertices(unsigned op, int xlo, int xhi, int ylo, int yhi)
 {
     const int n = (op & 8u) ? 4 : 3;
@@ -122,7 +123,9 @@ unsigned nitrogen_gpu_ui_flags(void)
         ((menu_marker && y>=160 && y<=255) || (!menu_marker && y>=205 && y<=239)) &&
         (palette==0x4873u || palette==0x4d73u || palette==0x4db3u || menu_marker)) {
         if (x>=0 && x<=112) role=3;
-        else if (x>=244 && x<=368) role=4;
+        // Audio's long, two-line track titles can reach footer height. That
+        // screen has no right footer; its complete value stays centred.
+        else if (x>=244 && x<=368 && !nitrogen_window_audio_view()) role=4;
     }
     return nitrogen_ui_role(role,1);
 }
