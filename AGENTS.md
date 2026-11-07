@@ -825,3 +825,10 @@
   the exact checked SHA, so main reuses its successful release-branch checks.
   A different merge SHA must receive its own passing checks before publication.
   The user requested the workflow name Release for its cross-platform role.
+
+- A copied-updater dependency regression was caught before publication: the new
+  release_checksums.py must accompany portable_update.py in both Windows and
+  Linux runners. The new real copied-script fixture fails for both platforms
+  without it and passes with it, using no application PYTHONPATH. Runtime code
+  and qualified private binaries are unchanged; repeat source and platform CI
+  on the corrected exact release commit before publishing.

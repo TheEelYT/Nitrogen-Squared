@@ -2,6 +2,7 @@
 import hashlib
 import io
 import json
+import os
 from pathlib import Path, PureWindowsPath
 import shutil
 import subprocess
@@ -13,7 +14,7 @@ import zipfile
 
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"tools"))
 from portable_support import ASSET_NAME,LINUX_ASSET_NAME,REPOSITORY,Layout,beneath,download,extract_zip,relative_path,sha256,write_json
-from portable_update import apply_update,latest_release,stage_release,owned_path,read_manifest,rollback,verify_package,version_tuple
+from portable_update import apply_update,latest_release,stage_release,start_updater,owned_path,read_manifest,rollback,verify_package,version_tuple
 from portable_launcher import Backend,select_cue
 from test_disc import fixture
 
@@ -84,6 +85,25 @@ class PortableTests(unittest.TestCase):
             with patch("urllib.request.urlopen",return_value=io.BytesIO(checksum)),patch("portable_update.download") as fetch,self.assertRaises(ValueError):
                 stage_release(self.layout,release)
             fetch.assert_not_called()
+
+    def test_copied_updaters_import_without_the_application_tree(self):
+        from linux_support import LinuxLayout
+        package(self.root,"0.1.0")
+        for layout in [self.layout,LinuxLayout(self.root)]:
+            with self.subTest(platform=layout.platform):
+                with patch("subprocess.Popen") as launch:
+                    start_updater(layout,None,0)
+                command=launch.call_args.args[0]
+                script_index=command.index("-B")+1
+                # Run the actual copied script with an isolated working folder
+                # and no inherited application search path. --help imports the
+                # complete runner without applying an update or rollback.
+                command=[sys.executable]+command[1:script_index+1]+["--help"]
+                env=dict(os.environ)
+                env.pop("PYTHONPATH",None);env.pop("PYTHONHOME",None)
+                result=subprocess.run(command,cwd=self.base,env=env,capture_output=True,text=True)
+                self.assertEqual(result.returncode,0,result.stderr)
+                self.assertIn("--rollback",result.stdout)
 
     def test_paths_are_contained_and_windows_reserved_names_fail(self):
         for path in ["../saves","/outside","a/../b","a\\b","C:/x","a:b","a//b","a/CON.txt","aux","x.","x ","a/./b","a\x00b","x?y"]:

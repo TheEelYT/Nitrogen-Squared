@@ -57,7 +57,7 @@ def bootstrap_linux(layout, progress=print):
 def start_linux_updater(layout, staged, launcher_pid, *, restart_report=None):
     runner=beneath(layout.root,".local/updates/runner-"+str(time.time_ns()))
     runner.mkdir(parents=True)
-    for name in ("portable_update.py","portable_support.py","linux_support.py"):
+    for name in ("portable_update.py","portable_support.py","release_checksums.py","linux_support.py"):
         shutil.copy2(Path(__file__).with_name(name),runner/name)
     command=[str(layout.python),"-X","utf8","-E","-s","-B",str(runner/"portable_update.py"),
              "--root",str(layout.root),"--wait-pid",str(os.getpid())]
