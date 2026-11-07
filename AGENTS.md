@@ -774,3 +774,21 @@
   the final component (for example 0.2.0 -> 0.2.1). A game-code patch still
   requires rebuilding when its compiled inputs change. Release branches use the
   complete version, including patches, such as release/0.2.1.
+
+- 0.1.0 final local presentation/source checks pass: complete Audio track values,
+  normal title/Main and Audio help, worker on/off, usual/wide/portrait resizes,
+  main-only hold cancellation/clean quit and physical X11 Tab without Turbo.
+  The parent presenter must stay on normal dispatch; only the guarded small
+  header helper is wrapped. Its caption uses brightness on both font passes,
+  not the imported menu's positional ghost-transition parameter or highlight.
+  All 93 source tests without skips, 124-file audit and actual Dashboard parser/
+  carry/result-tail checks pass. Normal/platform/publication checks remain pending.
+  Future 0.2.0 policy remains scheduled; preserve SDK, native selection and clocks.
+
+- The final 0.1.0 normal production build matches the diagnostic execution
+  identity and accepted native manifest. Diagnostics OFF, empty qualification
+  include, no comparison/replay hooks and both O3 Release flag sets are checked.
+  Its three-movie/analog/fire/SDL_QUIT fixture passes at frame 4500. Complete
+  final Windows/Linux CI, actual public-asset audit and retired-branch cleanup;
+  then retain release/0.1.0 at the immutable release code and record receipts on
+  main only. All fresh n0100 player checks remain untested until reported.

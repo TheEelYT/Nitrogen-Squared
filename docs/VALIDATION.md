@@ -4,6 +4,70 @@ Reports through 0.0.20 are preserved in
 [the validation history](VALIDATION_THROUGH_0.0.20.md). Historical claims retain
 their tested version and scope.
 
+## 0.1.0 main-menu close, Audio titles and release branches
+
+This host/product update changes no selected native ranges: all 796 records and
+48 exclusions remain, with 324,928 / 845,824 = 38.4156% linked / 61.5844% outside.
+Game/audio clocks are unchanged; intermittent Windows level-entry stutter remains
+open. The 0.2.0 compilation-reuse and version policy is recorded in DISTRIBUTION.md
+and ROADMAP.md; 0.1.0 keeps the existing build-refresh behavior.
+
+Audio's fresh page context prevents the right side of its two-line track value
+from being classified as a footer. That screen retains its bottom-left Back
+footer. The old 0.0.31 packet fixture fails for the low remix glyphs; the repair
+passes with foreground and shadows together. Other screens retain their right
+footer and the title preview's world polygons remain outside help tagging.
+
+Main-menu Back uses monotonic time: release resets the hold; three seconds queues
+normal SDL quit. The caption sits near the game area's top third and reaches full
+brightness during the first second. Its additive foreground and subtractive
+shadow fade together, with no position trail or selection gradient. Only the new
+caption packet span is recolored, after validation; original menu packets and
+blend-state commands stay unchanged. The frame-yielding parent presenter stays
+on normal dispatch; a guarded small header helper appends the caption after the
+menu's font context is established. Imported fonts/guards remain private.
+
+Tab is masked only for host hold-Turbo polling, including saved Tab bindings.
+Other Turbo bindings and ordinary Tab input remain available. Both polling sites
+use the original title bridge, with no pinned SDK edits.
+
+All 93 final source tests pass without skips and the 124-file text/CRLF audit
+passes. Fixtures cover hold thresholds/cancellation, submenu scope, header ABI,
+font initialization, foreground/shadow fade endpoints, original-packet isolation,
+normal blend state, and Tab filtering without modifying the input array. Existing
+Video, Audio, Controls, title-preview and native-boundary regressions remain.
+The actual Dashboard parser accepts ten n0100 checks; all seven prior definitions
+and submitted result bytes are unchanged. Its merge test preserves completed
+history, blocked notes/timestamps and repeated-import idempotency.
+
+Final real X11/EGL runs use disposable cards and ordinary controller input.
+Worker-on checks include the three opening clips, title/attract, Main, a 3.7-second
+Back hold on the title screen without closing, a cancelled main-menu hold, and a
+fresh full hold ending in clean shutdown. Captures show one stationary caption;
+its ten foreground and ten shadow glyphs share the expected positions/colors.
+Worker-off checks cycle sixteen Audio track choices, open/close Audio help, resize
+through 1600x900, 730x501 and 600x900, return through normal submenu Back, cancel the
+hold and close cleanly. Both close runs exit normally about 3.4 seconds after the
+script begins the hold, including input pickup and shutdown. The state fixture
+checks the close request at exactly three seconds; this is not a hardware timing
+benchmark. A physical X11 Tab press is verified registered; it advances 15 frames
+in about 0.83 seconds versus 14 in about 0.81 without Tab, with no Turbo observed.
+Dummy audio counters are not a physical audio-device or performance measurement.
+
+The release-branch job preserves release/x.y.z at final tested source and refuses
+to move an existing branch identifying other code. The 27 retired branch heads
+were reviewed as ancestors of main, with no open PRs. Its local dry run checks
+creation, idempotency and conflict/open-PR/changed-head/unmerged guards. Actual
+cleanup is gated behind successful release publication; tags/history remain.
+
+Normal production is staged with the same execution identity as the diagnostic
+build. Its native manifest matches the accepted SHA; diagnostics are OFF, both
+Release flags are -O3 -DNDEBUG, the qualification include is empty and comparison/
+replay interposition is absent. The separate production-object fixture passes all
+three opening movies, analog/fire input and clean SDL_QUIT at frame 4500.
+Platform and publication receipts will be recorded on main without moving the
+final release branch or replacing published assets.
+
 ## 0.0.29 in-game options and independent world raster
 
 This is a product/presentation update, with no new linked game ranges. All 796

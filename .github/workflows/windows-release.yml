@@ -205,6 +205,12 @@ jobs:
               return subprocess.check_output(args,text=True)
           version=Path('VERSION').read_text().strip()
           branch='release/'+version
+          # An ordinary later main commit may keep an already published VERSION.
+          # Preserve that release's branch just as we preserve its tag/assets.
+          tag=json.loads(api('GET','git/ref/tags/v'+version))
+          if tag['object']['sha']!=sha:
+              print('Published version belongs to earlier code; preserving its release branch.')
+              raise SystemExit(0)
           refs=json.loads(api('GET','git/matching-refs/heads/'+branch))
           exact=[r for r in refs if r['ref']=='refs/heads/'+branch]
           if exact:
