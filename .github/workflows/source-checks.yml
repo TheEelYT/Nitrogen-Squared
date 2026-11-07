@@ -1,6 +1,7 @@
 name: Source checks
 on:
   push:
+    branches: ['release/**']
     paths-ignore:
       - 'TESTING.md'
   pull_request:

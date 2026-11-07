@@ -819,3 +819,9 @@
   with portable package construction/publication only from main after promotion.
   Main still gates on the exact commit's source/runtime checks; preserve release
   branches at final code. Do not run duplicate portable packages for release branches.
+
+- CI scheduling: Source checks and Runtime and renderer checks run on release/**
+  pushes (and PRs); Release packages Windows/Linux only on main. Promotion keeps
+  the exact checked SHA, so main reuses its successful release-branch checks.
+  A different merge SHA must receive its own passing checks before publication.
+  The user requested the workflow name Release for its cross-platform role.
