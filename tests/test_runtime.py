@@ -72,6 +72,10 @@ class RuntimePreparationTests(unittest.TestCase):
         self.assertIn('default_mode = "digital"', digital)
         with self.assertRaises(ValueError):
             build_runtime.runtime_config(manifest, self.installation, self.root / "generated", "invalid")
+        from runtime_paths import load_toml
+        shared = self.root / 'portable folder/.local/saves'
+        configured = build_runtime.runtime_config(manifest, self.installation, self.root / 'generated', save_dir=shared)
+        self.assertEqual(load_toml(configured)['runtime']['memcard_dir'], shared.resolve().as_posix())
 
     def test_execution_manifest_matches_cmake_basename_for_both_layouts(self):
         for rel in ("Release/NitrogenSquared-dev.exe", "NitrogenSquared-dev"):

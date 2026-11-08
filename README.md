@@ -139,7 +139,7 @@ Holding Tab does not speed up the game.
 
 ## Updating
 
-Use **Check for updates** in the launcher. Keep the complete installation folder together and preserve **`.local`**; it holds your saves, settings and private build. Moving the folder may require a fresh build cache while retaining saves. Do not delete `.local` to update.
+Use **Check for updates** in the launcher. **After installing 0.1.2, open the launcher once** to repair save paths for existing direct EXE shortcuts; the repair itself needs no recompilation. Keep the complete installation folder together and preserve **`.local`**; it holds your saves, settings and private build. Moving the folder may require a fresh build cache while retaining saves. Do not delete `.local` to update.
 
 If an older launcher cannot install an update, get the latest platform ZIP from **Releases** and follow its release notes. Both ZIPs have checksums in **SHA256SUMS.txt**. GitHub provides source archives automatically.
 
@@ -157,7 +157,7 @@ Paths below are relative to the extracted **Nitrogen-Squared** folder.
 | Optional extracted asset folders | `.local/game` |
 | Private build and caches | `.local/runtime-dev` and other folders inside `.local` |
 
-Developer builds use their own save location; see [development](docs/DEVELOPMENT.md). Back up your saves before experimenting with builds or moving them between installations.
+Portable direct EXE launches and launcher play share `.local/saves` after the launcher repairs their configuration. If an older direct launch created `.local/runtime-dev/saves`, that folder is preserved; when both folders exist, cards are not merged or overwritten. Developer builds use their own save location; see [development](docs/DEVELOPMENT.md). Back up your saves before experimenting with builds or moving them between installations.
 
 ## Current status and known issues
 

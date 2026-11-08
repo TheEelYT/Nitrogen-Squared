@@ -15,6 +15,10 @@ Extract the complete Nitrogen-Squared folder somewhere writable, then run:
 Select your USA CUE sheet with its matching BIN beside it. The launcher verifies,
 imports, generates and compiles your private game, then starts it. Preparation
 needs internet access; all downloaded/generated files and saves stay in .local.
+Open the updated launcher once to repair existing direct-EXE save paths.
+Launcher and direct execution then share .local/saves; old runtime-dev/saves
+are preserved if present. The configuration repair needs no recompilation.
+
 Use Check for updates; keep .local and the original disc available.
 
 Requires a graphical Linux x86_64 desktop, Python 3.11+ with Tk, Git, CMake 3.20+,

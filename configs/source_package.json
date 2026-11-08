@@ -88,6 +88,7 @@
   "tests/test_probe.py",
   "tests/test_qualification.py",
   "tests/test_runtime.py",
+  "tests/test_runtime_paths.py",
   "tests/test_window_display.py",
   "tests/world_raster_smoke.inc",
   "third_party/COPYING.LGPLv2.1",
@@ -125,6 +126,7 @@
   "tools/qualification/route.py",
   "tools/qualification/selection.py",
   "tools/run_runtime.py",
+  "tools/runtime_paths.py",
   "tools/test_portable_update_linux.py",
   "tools/test_portable_update_windows.py"
 ]

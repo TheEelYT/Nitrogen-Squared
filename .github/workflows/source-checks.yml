@@ -21,7 +21,7 @@ jobs:
       - name: Configuration regression prerequisites
         run: |
           cmake --version
-          python -m pip install ninja
+          python -m pip install ninja tomli
       - name: Synthetic tests (no game files)
         run: python -m unittest discover -s tests -v
       - name: Reject game content in source package

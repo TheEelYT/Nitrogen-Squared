@@ -1,6 +1,6 @@
 # Native translation progress
 
-The unchanged 0.0.31 / 0.0.23 native selection verifies **38.4156% linked native translation
+The unchanged 0.1.2 / 0.0.23 native selection verifies **38.4156% linked native translation
 coverage**, with **61.5844% / 520,896 bytes** outside linked ranges.
 This payload-range metric includes data; it is not CPU time or project completion.
 
@@ -56,6 +56,11 @@ the selected wrapper has its own execution-identity implementation family.
 This changes host overhead, not linked coverage or game/audio clocks.
 
 ## Native services tracked separately
+
+0.1.2 repairs launcher-generated save paths and existing memory-card settings for
+direct shortcuts. It changes no compiled runtime implementation or native-range
+selection. The configuration repair itself requires no game compilation; the
+existing 0.1.x version-triggered Prepare & play refresh remains in place.
 
 | Service | Current status |
 | --- | --- |

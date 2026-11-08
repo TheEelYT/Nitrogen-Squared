@@ -72,9 +72,35 @@ static void runtime_status_and_title_smoke()
     std::puts("Runtime status/title smoke passed: exact SPU drain, coherent snapshot, six pause cycles, new window");
 }
 
-int main()
+static void runtime_save_paths_smoke(const char *argv0)
+{
+    namespace fs = std::filesystem;
+    const char *expected = std::getenv("NITROGEN_EXPECTED_SAVE_DIR");
+    require_input(expected && *expected, "save-path fixture supplies the shared directory");
+    const auto config = resolve_existing_runtime_path(PSX_DEFAULT_GAME_CONFIG_PATH, argv0);
+    require_input(!config.empty(), "direct shortcut discovers game.toml above the executable");
+    const auto game = PSXRecompV4::load_game_config(config);
+    const fs::path shared = fs::path(expected).lexically_normal();
+    require_input(game.runtime.has_memcard_dir && game.runtime.memcard_dir.lexically_normal() == shared,
+                  "actual game config parser selects portable shared saves");
+    const auto settings = PSXRecompV4::load_user_settings(exe_dir_from_argv(argv0) / "settings.toml");
+    require_input(settings.has_memcard_dir && settings.memcard_dir.lexically_normal() == shared,
+                  "settings cannot redirect a direct launch to legacy saves");
+    require_input(!settings.has_memcard1_path && !settings.has_memcard2_path,
+                  "stale per-card paths are cleared");
+    require_input(settings.has_memcard2_enabled && !settings.memcard2_enabled,
+                  "unrelated card enable preference survives repair");
+    std::ifstream card(shared / "card1.mcd", std::ios::binary);
+    const std::string bytes((std::istreambuf_iterator<char>(card)), std::istreambuf_iterator<char>());
+    require_input(bytes == "original shared-save sentinel", "direct launch sees the existing shared save");
+    require_input(!fs::exists(config.parent_path() / "saves"), "no legacy save directory is created");
+    std::puts("Runtime save paths smoke passed: direct discovery, actual parsers, unrelated cwd, preserved shared card");
+}
+
+int main(int argc, char **argv)
 {
     std::setvbuf(stdout, nullptr, _IONBF, 0);
+    runtime_save_paths_smoke(argv[0]);
     SDL_SetHint(SDL_HINT_JOYSTICK_ALLOW_BACKGROUND_EVENTS, "1");
     require_input(psx_sdl_init(SDL_INIT_GAMEPAD | SDL_INIT_EVENTS) == 0, "initialize SDL input");
     SDL_VirtualJoystickDesc desc;

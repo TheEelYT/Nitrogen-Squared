@@ -73,6 +73,23 @@ After building, measure linked native translations with
 `python tools/native_progress.py`. See [native progress](NATIVE_PROGRESS.md)
 for the denominator and the distinction between native game code and host services.
 
+## Direct-launch save paths
+
+Portable preparation supplies `--save-dir` to build_runtime.py, which persists an
+absolute save directory in game.toml. The portable launcher also repairs existing
+configs and stale settings.toml memory-card overrides at startup and before play.
+It backs up changed configuration and leaves the compiled executable untouched.
+Both Ninja/Make and Visual Studio Release/ layouts are covered. Standalone
+run_runtime.py follows the generated save directory unless --save-dir overrides it.
+Older developer configurations retain their work-directory saves default.
+
+The current 0.1.x launcher still refreshes a build when its public version changes;
+this patch does not bring forward the general compilation-reuse work planned for
+0.2.0. Opening the updated launcher alone applies this configuration repair without
+running preparation. Direct launches still lack the environment setup supplied by
+the launcher, including the native-movie disc binding; launcher play remains the
+qualified route for the full startup/audio setup.
+
 ## Checks
 
 ```powershell

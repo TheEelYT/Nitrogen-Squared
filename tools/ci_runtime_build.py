@@ -11,19 +11,41 @@ import os
 from pathlib import Path
 import struct
 import subprocess
+import shutil
+import tempfile
 
 from build_recompiler import build
 from build_runtime import find_binary, load_execution_manifest
 from check_renderer import sdl_include_dir
 from n2o_disc import ROOT
 from prepare_native import capture, emit
+from portable_support import Layout, write_json
+from runtime_paths import repair_portable_saves
 
 
 def run_smoke(binary: Path, work: Path):
+    # Use the real parser and executable-relative discovery from an unrelated
+    # cwd, including the Windows Release/ multi-config layout. No guest boots.
+    layout = Layout(Path(tempfile.mkdtemp(prefix="Direct shortcut with spaces ", dir=work)))
+    target_dir = layout.work / "build"
+    if binary.parent.name == "Release":
+        target_dir /= "Release"
+    target_dir.mkdir(parents=True)
+    executable = target_dir / binary.name
+    shutil.copy2(binary, executable)
+    for library in binary.parent.glob("*.dll"):
+        shutil.copy2(library, target_dir / library.name)
+    (layout.work / "game.toml").write_bytes((work / "synthetic.toml").read_bytes())
+    (target_dir / "settings.toml").write_text('[memcard]\ndir = "saves"\ncard1 = "old/card1.mcd"\ncard2 = "old/card2.mcd"\nenable2 = false\n')
+    write_json(layout.work / "runtime-build.json", dict(build_succeeded=True, public_distribution_allowed=False))
+    repair_portable_saves(layout)
+    (layout.local / "saves/card1.mcd").write_bytes(b"original shared-save sentinel")
+    env = os.environ.copy()
+    env["NITROGEN_EXPECTED_SAVE_DIR"] = str(layout.local / "saves")
     # The combined SDL/GL, audio and dispatcher fixture can cold-start slowly
     # on shared runners. Keep a bounded timeout and preserve phase receipts.
     try:
-        result = subprocess.run([str(binary)], cwd=work, timeout=60,
+        result = subprocess.run([str(executable)], cwd=work, timeout=60, env=env,
                                 capture_output=True, text=True)
     except subprocess.TimeoutExpired as exc:
         def decoded(value):
@@ -140,7 +162,8 @@ def main():
             "Runtime media smoke passed:" not in result.stdout or
             "Runtime native slice smoke passed:" not in result.stdout or
             "Runtime native boundary smoke passed:" not in result.stdout or
-            "Runtime status/title smoke passed:" not in result.stdout):
+            "Runtime status/title smoke passed:" not in result.stdout or
+            "Runtime save paths smoke passed:" not in result.stdout):
         raise RuntimeError("Virtual input test exited without its success receipt: " + result.stdout + result.stderr)
     print(result.stdout, end="", flush=True)
     enhanced = load_execution_manifest(find_binary(work / "build", "NitrogenSquared-input-test"))

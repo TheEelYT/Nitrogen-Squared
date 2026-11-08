@@ -178,13 +178,15 @@ jobs:
           Extract the complete **Nitrogen-Squared** folder and run **launcher.exe**.
           Select the supported USA CUE with its matching BIN beside it. Preparation verifies/imports/generates/compiles your private game; no separate Python or Visual Studio installation is required.
 
-          **0.1.1:** hold Back on the title screen for two seconds to close. “closing...” fades in over the first second near the top third of the game area; release Back to cancel. Main-menu Back again returns to the title screen normally. The 0.1.0 Audio track-title and Tab repairs are retained.
+          **0.1.2:** fixes different save folders when starting the prepared game directly. Open the updated launcher once; it repairs the existing game configuration and stale memory-card path settings so direct EXE shortcuts use .local/saves too. The repair itself does not recompile the game. If both save folders already exist, the launcher's cards stay authoritative and runtime-dev/saves is preserved without merging or overwriting. Configuration backups are kept beside the repaired files.
+
+          This patch changes launcher/setup configuration, not compiled game logic. The existing 0.1.x Prepare & play version policy can still refresh a build; version-independent compilation reuse remains scheduled for 0.2.0. Title-screen two-second exit, Audio track-title and Tab repairs remain unchanged.
 
           **Checksums:** SHA256SUMS.txt covers both platform ZIPs. This release's launcher accepts combined and legacy checksums. Individual .sha256 sidecars stay through 0.1.x for older launchers; from 0.2.0 new releases contain only the two ZIPs and SHA256SUMS.txt. Older launchers that skip this bridge may need a manual launcher download, preserving .local. GitHub's automatic source archives replace the redundant uploaded source ZIP. Each release preserves its final source at release/x.y.z.
 
           **Linux x86_64 launcher:** extract the Linux ZIP and run `sh launcher.sh`. Install the system Python/Tk, compiler and graphics/audio prerequisites listed in README-FIRST.txt once. The launcher selects your CUE/BIN, prepares your private game and handles updates. Windows continues to bundle portable Python and preparation tools; use separate folders for each platform.
 
-          Native coverage stays 38.4156% linked / 61.5844% outside. Fresh Test Dashboard n0101 checks title-screen hold/cancel, normal main-menu Back and the updater bridge and carries unsubmitted menu checks, including optional Linux, unchanged. Earlier submitted results retain their versions. No new campaign, upload or valued-save overwrite is requested. Audio/game clocks are unchanged; intermittent level-entry stutter remains open.
+          Native coverage stays 38.4156% linked / 61.5844% outside. Fresh Test Dashboard n0102 checks launcher configuration repair and shared saves between direct shortcuts and launcher play and carries unsubmitted menu checks, including optional Linux, unchanged. Earlier submitted results retain their versions. No new campaign, upload or valued-save overwrite is requested. Audio/game clocks are unchanged; intermittent level-entry stutter remains open.
 
           **Asset folders** remains optional: original containers, raw movie streams and ten PCM WAV tracks are preserved under .local/game. Runtime still uses the original USA disc. Folder-backed loading, mod packs and EU language import remain future work.
 

@@ -53,7 +53,8 @@ def load_installation(installation: Path) -> dict:
     return current
 
 
-def runtime_config(manifest: dict, installation: Path, generated: Path, controller_mode: str = "analog") -> str:
+def runtime_config(manifest: dict, installation: Path, generated: Path, controller_mode: str = "analog",
+                   save_dir: Path | None = None) -> str:
     if controller_mode not in ("analog", "digital"):
         raise ValueError("Controller mode must be analog or digital")
     boot = next(e for e in manifest["executables"] if e["path"] == "SLUS_006.37")
@@ -67,7 +68,7 @@ def runtime_config(manifest: dict, installation: Path, generated: Path, controll
         + '\n[recompiler]\nstrict = true\ndiscovery = "reachable"\n'
         f'seeds = {q(generated / "entry.txt")}\nout_dir = {q(generated)}\n'
         '\n[runtime]\nwindow_title = "Nitrogen Squared development"\n'
-        'memcard_dir = "saves"\noverlay_cache = true\n'
+        f'memcard_dir = {q(save_dir.resolve().as_posix() if save_dir else "saves")}\noverlay_cache = true\n'
         '\n[video]\nrenderer = "opengl"\naspect_ratio = "4:3"\n'
         'internal_resolution = "native"\nsupersampling = 1\ndynamic_resolution = false\n'
         'antialiasing = false\ntexture_filtering = "nearest"\nfmv_filter = "nearest"\n'
@@ -81,6 +82,7 @@ def main() -> int:
     p.add_argument("--framework", type=Path, default=ROOT / ".local/psxrecomp")
     p.add_argument("--recompiler-build", type=Path, default=ROOT / ".local/build-recompiler")
     p.add_argument("--work-dir", type=Path, default=ROOT / ".local/runtime-dev")
+    p.add_argument("--save-dir", type=Path, help="Persist this memory-card directory for direct launches too")
     p.add_argument("--cmake", default="cmake")
     p.add_argument("--console-host", action="store_true", help="Linux headless/offscreen build; not for Windows")
     p.add_argument("--configure-only", action="store_true")
@@ -123,7 +125,7 @@ def main() -> int:
                 raise RuntimeError("Incomplete cached generation; use a new --work-dir")
         generated = generated_root / "SLUS_006.37"
         work.mkdir(parents=True, exist_ok=True)
-        (work / "game.toml").write_text(runtime_config(manifest, installation, generated, args.controller_mode), encoding="utf-8")
+        (work / "game.toml").write_text(runtime_config(manifest, installation, generated, args.controller_mode, args.save_dir), encoding="utf-8")
         media_header = prepare_media(manifest, installation, work / "private/n2o_media_binding.h")
         options_header = prepare_options(installation, work / "private/n2o_options_binding.h")
         native_receipt = prepare_native(installation, framework, emitter, work / "game.toml",

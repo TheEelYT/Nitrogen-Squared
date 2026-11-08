@@ -1,6 +1,27 @@
-# Windows and Linux release tests — 0.1.1
+# Windows and Linux release tests — 0.1.2
 
 ## Current acceptance and update checks
+
+**0.1.2 — shared saves for direct shortcuts. Fresh focused check pending.**
+The portable launcher repairs existing game.toml and any saved memory-card path
+settings when it opens. Direct execution of the prepared EXE then uses the same
+.local/saves as launcher play, independent of the shortcut's working folder.
+The repair changes configuration only; the existing compiled game is retained.
+New preparations persist the same save directory in their generated configuration.
+
+Open the updated launcher once, then close it and try your existing EXE/shortcut.
+Inspect known high scores and saved slots, then compare launcher play. Do not
+overwrite a valued slot or start a new campaign for this check. Configuration
+backups are kept beside the changed files. If both .local/saves and
+.local/runtime-dev/saves exist, the launcher's cards remain authoritative and the
+other folder is preserved unchanged. A legacy-only save folder is copied only
+when no portable save folder exists; cards are never merged or overwritten.
+
+This is a launcher/configuration patch with no selected native-code changes:
+38.4156% linked / 61.5844% outside, clocks unchanged and level-entry stutter OPEN.
+The existing 0.1.x Prepare & play version check can still refresh the build;
+version-independent reuse remains scheduled for 0.2.0. Unsubmitted checks carry
+forward and all prior submitted report bodies remain untouched.
 
 **0.1.1 — title-screen exit correction and combined checksums. Fresh checks pending.**
 Hold Back on the title screen for two continuous seconds to close. The closing...
@@ -871,27 +892,42 @@ Instructions for future maintainers and assistants:
     "metricNote": "Linked emitted byte coverage, including payload data. Not project completion or CPU time."
   },
   "version": {
-    "id": "n0101",
-    "name": "v0.1.1",
-    "title": "Title-screen two-second exit and combined checksums",
+    "id": "n0102",
+    "name": "v0.1.2",
+    "title": "Shared saves for direct EXE launches",
     "runtime": "Windows / Linux x64 \u00b7 USA disc",
     "cart": "",
-    "createdAt": "2026-11-07",
-    "description": "Fresh title-screen hold/cancel, restored main-menu Back and updater checks. Other unsubmitted checks and optional Linux carry forward unchanged; preserve .local, saves and submitted history."
+    "createdAt": "2026-11-08",
+    "description": "Launcher/configuration repair makes direct shortcuts and launcher play share .local/saves. Existing cards and both old folders are preserved. Unsubmitted checks and optional Linux carry forward; game code and native coverage are unchanged."
   },
   "checks": [
     {
       "id": "N2-UPDATE",
-      "title": "Update and refresh the private build",
+      "title": "Update the launcher and repair existing save paths",
       "area": "Launcher",
       "required": true,
       "priority": "high",
       "steps": [
-        "Use Check for updates in the existing launcher.",
-        "Allow the private build to refresh; preserve .local and existing saves."
+        "Use Check for updates and let the updated launcher reopen once. Preserve .local and both existing save folders.",
+        "You can close the launcher and use the existing game shortcut for the direct-save check before pressing Prepare & play."
       ],
-      "expected": "Update completes and starts the refreshed build.",
-      "context": "Fresh v0.1.1 updater-bridge check. The launcher accepts SHA256SUMS.txt and legacy sidecars; preserve .local and saves. No new campaign or upload required."
+      "expected": "The launcher opens normally and repairs the existing runtime configuration; no disc reimport or recompilation is needed for the save-path repair.",
+      "context": "Fresh v0.1.2 launcher/configuration check. The existing 0.1.x Prepare & play version policy can still refresh a build; version-independent compilation reuse remains scheduled for 0.2.0."
+    },
+    {
+      "id": "N2-DIRECT-SAVES",
+      "title": "Direct EXE and launcher use the same saves",
+      "area": "Saves / shortcuts",
+      "required": true,
+      "priority": "high",
+      "steps": [
+        "After opening the updated launcher once, start the existing NitrogenSquared-dev executable or a shortcut to it; a shortcut with a different Start in folder should work too.",
+        "Check the known high score and existing saved-game slot list without overwriting a valued slot.",
+        "Close the game, start it through the launcher and check that the same progress is available.",
+        "If runtime-dev/saves already contains a different card, confirm that folder is still present. Do not merge or overwrite the cards to perform this check."
+      ],
+      "expected": "Both launch paths use .local/saves. Existing direct-launch cards remain untouched in runtime-dev/saves when both folders exist; no third save folder appears because of the shortcut working directory.",
+      "context": "Fresh v0.1.2 check. Read-only slot/high-score inspection is sufficient; no new campaign, new upload or valued-save overwrite is requested."
     },
     {
       "id": "N2-TITLE",

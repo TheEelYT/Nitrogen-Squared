@@ -30,6 +30,10 @@ All downloaded tools, extracted/generated game files and saves are kept under
 this folder's .local directory. Original disc files remain where you selected them.
 The release contains no game data or game-derived executable.
 
+Open the updated launcher once to repair existing direct-EXE save paths.
+Launcher and direct execution then share .local/saves; old runtime-dev/saves
+are preserved if present. The configuration repair needs no recompilation.
+
 Updates preserve .local. Never delete it to update; it includes your saves.
 Keep the source disc available for original assets, audio and verification.
 If the prepared folder moves, its build cache is rebuilt locally. Saves are kept.

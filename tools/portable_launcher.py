@@ -14,6 +14,7 @@ import time
 sys.path.insert(0,str(Path(__file__).resolve().parent))
 from portable_support import Layout, beneath, bootstrap, run, sha256, write_json
 from portable_update import latest_release, stage_release, start_updater
+from runtime_paths import repair_portable_saves
 
 
 def select_cue(selected: Path) -> Path:
@@ -156,7 +157,7 @@ class Backend:
         cmake=self.layout.cmake
         command=self.layout.command("build_runtime.py","--installation",self.layout.installation,
                                     "--framework",self.layout.framework,"--recompiler-build",self.layout.local/"build-recompiler",
-                                    "--work-dir",self.layout.work,"--cmake",cmake,
+                                    "--work-dir",self.layout.work,"--save-dir",self.layout.local/"saves","--cmake",cmake,
                                     *("--cmake-arg="+arg for arg in self.layout.runtime_cmake_args()))
         run(command,self.layout.root,env,self)
         retained=self.layout.local/"retained-settings.toml"
@@ -167,6 +168,7 @@ class Backend:
         state.update(schema=1,prepared_version=self.layout.version,root=str(self.layout.root),
                      prepared_tools=self.layout.tool_fingerprint())
         write_json(self.layout.state_path,state)
+        repair_portable_saves(self.layout)
         return env
 
     def play(self):
@@ -175,6 +177,7 @@ class Backend:
             env=self.prepare()
         else:
             env=self.layout.environment()
+        repair_portable_saves(self.layout)
         self("Game running. Close the game window to return here.")
         run(self.layout.command("run_runtime.py","--work-dir",self.layout.work,
                                  "--save-dir",self.layout.local/"saves"),self.layout.root,env,self)
@@ -402,6 +405,9 @@ def main():
         from linux_support import LinuxLayout
         layout=LinuxLayout(args.root)
     lock=instance_lock(layout)
+    # Repair prepared configurations even when the user only opens the launcher
+    # to update, then starts the existing EXE/shortcut directly. No compilation.
+    repair_portable_saves(layout)
     if args.bootstrap_tools or args.runtime_fixture:
         backend=Backend(layout,lambda kind,text:print(text,flush=True))
         env=bootstrap(layout,backend)

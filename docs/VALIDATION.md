@@ -4,6 +4,36 @@ Reports through 0.0.20 are preserved in
 [the validation history](VALIDATION_THROUGH_0.0.20.md). Historical claims retain
 their tested version and scope.
 
+## 0.1.2 direct-launch save directory
+
+The owner reports that launcher play uses .local/saves while direct execution
+from runtime-dev/build selects runtime-dev/saves. Source inspection confirms the
+launcher CLI override and the generated relative saves default diverge. Existing
+settings.toml memory-card directory and per-slot paths can override game.toml.
+
+This launcher/configuration repair persists the portable directory on preparation
+and repairs already prepared game.toml files (including executable-local shadows)
+and saved card-path overrides when the launcher opens and before play. Changed
+configuration is backed up; both existing card folders are preserved without merge
+or overwrite. Legacy-only cards are copied only if the portable folder is absent.
+The Python launch path follows the persisted directory unless explicitly overridden.
+No compiled runtime implementation, selected native ranges or game/audio clocks
+change. Coverage remains 324,928 / 845,824 = 38.4156% linked / 61.5844% outside;
+all 796 records and 48 exclusions remain. Level-entry stutter is still OPEN.
+
+Local synthetic tests cover both binary layouts, stale per-slot settings, spaces,
+unrelated cwd, idempotence/backups, binary preservation, conflicting and legacy-only
+cards, malformed settings, symlink refusal and repair without invoking compilation.
+All 113 source tests pass without skips with CMake/Ninja available. The actual
+Windows/Linux SDK parser/discovery fixture and final package/publication checks
+remain pending until their receipts are recorded. Fresh n0102 player checks are
+pending; historical submitted results are preserved and unfinished checks carried.
+
+The save-path fix itself works with the existing compiled executable. The 0.1.x
+Prepare & play version refresh is retained; general reuse remains scheduled for
+0.2.0. Direct native-movie/environment parity is separate existing work. This is
+not a new gameplay acceptance or a stutter fix.
+
 ## 0.1.0 main-menu close, Audio titles and release branches
 
 This host/product update changes no selected native ranges: all 796 records and
