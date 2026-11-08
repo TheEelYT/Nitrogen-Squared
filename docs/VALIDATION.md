@@ -27,7 +27,40 @@ All 113 local source tests pass without skips; the 133-file source audit and
 actual Dashboard parser/carry/idempotence/result-tail checks pass. The production
 C11 adapter also passes the full keyboard fixture locally with the actual pinned
 parser/sampler and installed SDL2; CI exercises the default SDL3 runtime. Final
-Windows/Linux source/runtime/renderer and publication checks are pending.
+Windows/Linux source/runtime/renderer and publication checks pass; the receipt
+below records the released code and public-asset audit.
+
+### 0.1.3 publication receipt
+
+[0.1.3](https://github.com/TheEelYT/Nitrogen-Squared/releases/tag/v0.1.3)
+is published at immutable code, tag and release/0.1.3 commit
+`b6dfc1c51ecd3627637b097e31de02f456b0210c`.
+[Source checks](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/42513804052),
+[Windows/Linux runtime and renderer checks](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/42513803983)
+and [Release](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/42514544440)
+all pass. Main was fast-forwarded to the exact checked release-branch commit.
+The keyboard fixture passes with Windows CI and bundled toolchains, Linux
+ENHANCED/REFERENCE builds and the actual packaged preparation paths. Existing
+virtual-gamepad and direct-save parser fixtures also pass. The local CMake
+contract check accepts LF/CRLF and rejects unexpected parser changes.
+
+All five public assets were downloaded and verified against GitHub digests,
+SHA256SUMS.txt and legacy sidecars. The Windows package owns 1,784 files, with
+x64 bootstrap and Python license; Linux owns 135 files. Both contain the exact
+133 reviewed source files after Git line-ending normalization; neither contains
+private build output or README PNGs. Latest points to v0.1.3, while earlier
+0.1.0/0.1.1/0.1.2 release targets, asset IDs, sizes and digests are unchanged.
+
+- Windows ZIP SHA-256: `e941d13afca7def604bfa443ea965d38a35c28c492864244fbae7a3286864bac`.
+- Linux ZIP SHA-256: `13f32475ba1f2f3ff8d8de4362a9367d6b73968f48115bb3c3fd4b87a7738c5e`.
+
+This later receipt is documentation only; preserve the released code, branch,
+tag and assets. Updating to the keyboard patch requires Prepare & play to
+rebuild the private game. Fresh n0103 player keyboard checks remain pending;
+these synthetic checks do not establish new gameplay acceptance. Historical
+submitted report bytes are preserved and unfinished/blocked checks carry forward.
+Native coverage stays 38.4156% linked / 61.5844% outside; all 796 records and
+48 exclusions are unchanged. Clocks are unchanged and level-entry stutter is OPEN.
 
 ## 0.1.2 direct-launch save directory
 
