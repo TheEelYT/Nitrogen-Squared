@@ -2,9 +2,19 @@
 
 - The user authorizes repository updates. Keep the current working Windows
   baseline usable while advancing native execution in small qualified steps.
-- The user gives standing approval to promote updates to `main` whenever the
-  agent judges them ready. This covers 0.0.14 and future updates; do not request
-  separate promotion approval unless the user changes this instruction.
+- RELEASE POLICY CHANGED by the owner on 2026-11-08: new update work belongs
+  on the persistent `dev` branch, initialized from main. Wait for the owner's
+  explicit verification AND release clearance before promoting to main or
+  creating a release branch/tag or publishing any release, including prereleases.
+  This supersedes every earlier standing-promotion approval below. Automated
+  checks and downloadable Actions test artifacts on dev are authorized.
+- Keep remote branches limited to main, dev and already released release/x.y.z
+  branches. Fix/retest candidates on dev under the same planned version. Before
+  final testing incorporate any newer main commits into dev; after clearance,
+  fast-forward the exact qualified dev commit to main, preserve that commit on
+  release/x.y.z, then build/publish from main. Never recreate/reset dev over work.
+  Later documentation receipts stay on main; released branches/tags/assets stay
+  immutable. A passed Dashboard check alone is not release clearance.
 - The accepted 0.0.9 player baseline reaches level 4 with no issues reported and
   working saves/high scores. Do not require later-level progression before the
   next native milestone. Add focused checks for behavior affected by each change.
