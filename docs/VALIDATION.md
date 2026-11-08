@@ -24,15 +24,45 @@ all 796 records and 48 exclusions remain. Level-entry stutter is still OPEN.
 Local synthetic tests cover both binary layouts, stale per-slot settings, spaces,
 unrelated cwd, idempotence/backups, binary preservation, conflicting and legacy-only
 cards, malformed settings, symlink refusal and repair without invoking compilation.
-All 113 source tests pass without skips with CMake/Ninja available. The actual
-Windows/Linux SDK parser/discovery fixture and final package/publication checks
-remain pending until their receipts are recorded. Fresh n0102 player checks are
-pending; historical submitted results are preserved and unfinished checks carried.
+All 113 source tests pass without skips with CMake/Ninja available. Final
+Windows/Linux source, actual SDK parser/discovery, runtime/renderer and both
+package/publication checks pass; release receipts follow below. Fresh n0102
+player checks remain pending. Historical submitted results are preserved and
+unfinished checks carried.
 
 The save-path fix itself works with the existing compiled executable. The 0.1.x
 Prepare & play version refresh is retained; general reuse remains scheduled for
 0.2.0. Direct native-movie/environment parity is separate existing work. This is
 not a new gameplay acceptance or a stutter fix.
+
+### 0.1.2 publication receipt
+
+Final release code, tag v0.1.2 and release/0.1.2 all identify
+`f7aee187f2993ee3bb22fc8fa86bf316a4e4acac`.
+[Source checks](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/42499682748)
+and [Windows/Linux runtime and renderer checks](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/42499682728)
+pass on that release-branch commit. Promotion keeps the identical commit;
+[Release](https://github.com/TheEelYT/Nitrogen-Squared/actions/runs/42500620393)
+then passes Windows/Linux packaging, startup, actual bundled/system-toolchain
+synthetic runtime tests and copied-updater/restart preservation checks on main.
+The real SDK discovery/settings parser reads the shared card sentinel from an
+unrelated cwd, including the Windows Release/ layout. Linux renderer/worker
+comparisons pass as well. No commercial game data is used by these CI fixtures.
+
+All five actual public assets were downloaded and verified against GitHub's
+SHA-256 digests, combined SHA256SUMS.txt and legacy sidecars. The Windows package
+has 1,781 owned files, an x64 launcher and Python license; Linux has 132 owned
+files. Both contain the exact 130 reviewed source files (accounting for Git line
+endings), with README PNGs excluded from launcher packages. Latest points to
+v0.1.2. Version 0.1.0 and 0.1.1 release targets, asset IDs, sizes and digests are
+unchanged. Preserve the released code, tag, branch and assets; this later receipt
+on main needs no version bump, private game rebuild or unrelated repeat playtest.
+
+The fix changes configuration, not compiled game implementations or native
+selection. Coverage stays 38.4156% linked / 61.5844% outside; game/audio clocks
+are unchanged and level-entry stutter remains OPEN. General build reuse remains
+planned for 0.2.0. Fresh player evidence is still limited to the pending n0102
+checks; automated synthetic checks are not a player save/gameplay acceptance.
 
 ## 0.1.0 main-menu close, Audio titles and release branches
 
