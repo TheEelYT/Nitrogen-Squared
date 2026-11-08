@@ -146,7 +146,7 @@ Holding Tab does not speed up the game.
 
 ## Updating
 
-Use **Check for updates** in the launcher. **After installing 0.1.2, open the launcher once** to repair save paths for existing direct EXE shortcuts; the repair itself needs no recompilation. Keep the complete installation folder together and preserve **`.local`**; it holds your saves, settings and private build. Moving the folder may require a fresh build cache while retaining saves. Do not delete `.local` to update.
+Use **Check for updates** in the launcher, then **Prepare & play** once after installing **0.1.3** to rebuild with the corrected keyboard defaults. Opening the launcher also applies the shared-save configuration repair for existing direct EXE shortcuts. Keep the complete installation folder together and preserve **`.local`**; it holds your saves, settings and private build. Moving the folder may require a fresh build cache while retaining saves. Do not delete `.local` to update.
 
 If an older launcher cannot install an update, get the latest platform ZIP from **Releases** and follow its release notes. Both ZIPs have checksums in **SHA256SUMS.txt**. GitHub provides source archives automatically.
 
