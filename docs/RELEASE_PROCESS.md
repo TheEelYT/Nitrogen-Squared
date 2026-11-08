@@ -3,6 +3,8 @@
 This policy supersedes the earlier standing approval to publish updates.
 Only the owner can clear a verified candidate for release. Passing automated
 checks or individual Dashboard checks does not itself grant that clearance.
+The approval rule is also recorded in main's agent instructions as a
+documentation-only policy change; this does not approve any development code.
 
 ## Branches
 

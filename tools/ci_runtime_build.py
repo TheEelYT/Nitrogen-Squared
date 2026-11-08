@@ -30,7 +30,7 @@ def check_build_reuse(binary: Path, work: Path):
     from package_source import collect
     from portable_launcher import Backend
     from linux_support import LinuxLayout
-    root=Path(tempfile.mkdtemp(prefix="Real binary reuse with spaces ",dir=work))
+    root=Path(tempfile.mkdtemp(prefix="Real binary reuse with spaces ",dir=work)).resolve()
     layout=(Layout if os.name=="nt" else LinuxLayout)(root)
     for name,data in collect(ROOT).items():
         p=layout.app/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(data)
@@ -45,7 +45,7 @@ def check_build_reuse(binary: Path, work: Path):
     record=dict(schema=1,build_succeeded=True,public_distribution_allowed=False,executable=str(executable),
                 config=str(config),build_identity=build_identity(layout.app,executable,options))
     write_json(layout.work/'runtime-build.json',record)
-    write_json(layout.state_path,dict(schema=1,prepared_version='0.2.0',root=str(root),prepared_tools=layout.tool_fingerprint()))
+    write_json(layout.state_path,dict(schema=1,prepared_version='0.2.0',root=str(layout.root),prepared_tools=layout.tool_fingerprint()))
     before=executable.read_bytes(),executable.stat().st_mtime_ns
     (layout.app/'VERSION').write_text('0.2.1\n')
     launcher=layout.app/'tools/portable_launcher.py';launcher.write_bytes(launcher.read_bytes()+b'\n# original launcher-only fixture\n')
