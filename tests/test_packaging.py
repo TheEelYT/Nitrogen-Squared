@@ -7,7 +7,7 @@ import unittest
 from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
-from package_source import audit_staging, collect, validate_file, ROOT
+from package_source import audit_staging, collect, validate_file, documentation_assets, ROOT
 from release_checksums import (ASSET_NAME, LINUX_ASSET_NAME, CHECKSUM_NAME,
                                REPOSITORY, checksum_for, write_checksums,
                                publication_asset_names, maintain_published_release)
@@ -51,6 +51,30 @@ class PackagingTests(unittest.TestCase):
         files = collect(ROOT)
         self.assertIn("README.md", files)
         self.assertIn("tools/n2o_disc.py", files)
+
+    def test_readme_assets_are_reviewed_and_excluded_from_packages(self):
+        assets = set(json.loads((ROOT / "configs/documentation_assets.json").read_text()))
+        self.assertEqual(len(assets), 5)
+        self.assertFalse(assets.intersection(collect(ROOT)))
+
+    def test_documentation_gate_rejects_changed_bytes_and_unsafe_paths(self):
+        (self.root / "configs").mkdir()
+        images = self.root / "docs/images"
+        images.mkdir(parents=True)
+        image = images / "title.png"
+        original = b"\x89PNG\r\n\x1a\noriginal synthetic fixture"
+        image.write_bytes(original)
+        manifest = self.root / "configs/documentation_assets.json"
+        digest = hashlib.sha256(original).hexdigest()
+        manifest.write_text(json.dumps({"docs/images/title.png": digest}))
+        self.assertEqual(documentation_assets(self.root), {"docs/images/title.png"})
+        image.write_bytes(original + b"changed")
+        with self.assertRaisesRegex(ValueError, "Unreviewed"):
+            documentation_assets(self.root)
+        for name in ["../title.png", "docs/images/../title.png", "docs/images/game.bin", ".local/title.png"]:
+            manifest.write_text(json.dumps({name: digest}))
+            with self.subTest(name=name), self.assertRaisesRegex(ValueError, "Invalid"):
+                documentation_assets(self.root)
 
     def test_parent_path_cannot_be_allowlisted(self):
         with self.assertRaises(ValueError):

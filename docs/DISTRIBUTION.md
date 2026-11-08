@@ -112,3 +112,14 @@ or documentation-only update reuses the current compatible compilation. Preserve
 private builds and saves during either update path. Tests must cover both paths
 and prove that a changed build input cannot reuse a stale executable. This policy
 is scheduled for 0.2.0; 0.1.0 retains the existing build-refresh behavior.
+
+## Public README images
+
+The owner authorizes the original project logo and four reviewed 16:9 demonstration
+images for the repository README. Their provenance is in [images/README.md](images/README.md).
+The source gate verifies their exact hashes through configs/documentation_assets.json
+separately from the text allowlist. They are never copied into either launcher ZIP
+or the tool-built source package. GitHub's automatic source archives include the
+repository's documentation images. This exception does not permit standalone game
+resources (including the memory-card icon), other captures, generated C, private
+modules, disc images or saves in Git or player packages.

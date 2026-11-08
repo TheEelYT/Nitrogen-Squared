@@ -1,229 +1,187 @@
-# Nitrogen Squared
+<h1 align="center">
+  <img src="docs/images/logo.png" alt="Nitrogen Squared" width="420">
+</h1>
 
-A Windows-first recompilation project for **N2O: Nitrous Oxide (PlayStation)**,
-with a planned PS Vita port and optional remaster presentation.
+<p align="center">
+  <b>N2O: Nitrous Oxide (PlayStation), recompiled for Windows and Linux.</b>
+</p>
 
-**Current status: 0.1.1 — hold Back on the title screen for two seconds to close.**
-The “closing...” caption fades in over the first second near the top third;
-release to cancel. Main-menu Back has its original behavior. Holding Tab no
-longer speeds up the game; complete Audio track-title repairs are retained.
-[Game options](docs/GAME_OPTIONS.md) · [Display policy](docs/WINDOW_DISPLAY.md).
+<p align="center">
+  <a href="https://github.com/TheEelYT/Nitrogen-Squared/commits/main"><img src="https://img.shields.io/github/last-commit/TheEelYT/Nitrogen-Squared/main?label=last%20commit&amp;color=68cfdf&amp;labelColor=211952" alt="Last commit"></a>
+  <a href="https://github.com/TheEelYT/Nitrogen-Squared/releases/latest"><img src="https://img.shields.io/github/v/release/TheEelYT/Nitrogen-Squared?label=latest&amp;color=f58b00&amp;labelColor=211952" alt="Latest release"></a>
+  <a href="#quick-start"><img src="https://img.shields.io/badge/platform-Windows%20%7C%20Linux-68cfdf?labelColor=211952" alt="Platform: Windows and Linux"></a>
+  <a href="https://github.com/TheEelYT/Nitrogen-Squared/issues"><img src="https://img.shields.io/github/issues/TheEelYT/Nitrogen-Squared?label=open%20issues&amp;color=f58b00&amp;labelColor=211952" alt="Open issues"></a>
+</p>
 
-Native coverage stays **38.4156% linked / 61.5844% outside**, 324,928 / 845,824
-bytes. This host/product update adds no native ranges. The metric includes
-payload data and is not project completion or CPU time. Fresh focused checks and
-unsubmitted menu/Linux checks are in the Dashboard. Previous submitted results
-remain historical. Intermittent level-transition stutter remains open. Logic,
-rendering and game-audio clocks remain unchanged. Each release preserves its
-final tested code on `release/x.y.z` alongside its immutable version tag.
+<p align="center">
+  <a href="https://github.com/TheEelYT/Nitrogen-Squared/releases">Releases</a> ·
+  <a href="#controls">Controls</a> ·
+  <a href="docs/DEVELOPMENT.md">Building from source</a> ·
+  <a href="docs/ROADMAP.md">Roadmap</a> ·
+  <a href="THIRD_PARTY.md">Credits &amp; dependencies</a> ·
+  <a href="https://github.com/TheEelYT/Nitrogen-Squared/issues">Issues</a>
+</p>
 
-Both platform ZIPs share `SHA256SUMS.txt`. GitHub supplies the source archives;
-there is no extra uploaded source ZIP. This updater bridge keeps legacy checksum
-sidecars through 0.1.x. From 0.2.0 releases use only the two ZIPs and the combined
-checksums. Older launchers that skip 0.1.1 may need a manual launcher download;
-retain `.local` and existing saves.
+> [!IMPORTANT]
+> **Bring your own game.** You need the supported **USA CUE/BIN** of N2O: Nitrous
+> Oxide. The launcher verifies your disc and compiles the game privately on your
+> computer. Releases include no game code, game assets, music, saves or Sony BIOS.
+> Keep the matching CUE and BIN together and available after setup.
 
-The Windows release contains launcher.exe, supporting source and portable Python.
-First launch selects your USA CUE/BIN and privately verifies, extracts, generates,
-compiles and plays. Use **Check for updates**, preserving .local and existing saves.
-No separate Python or Visual Studio installation is needed.
+## Screenshots
 
-All three submitted 0.0.23 Windows/dashboard checks pass: update/private-build
-refresh, opening playback/menus/short gameplay and existing saved-slot loading.
-The reported route is accepted; earlier reports retain their version. No repeat
-test, new campaign, upload or valued-save overwrite is requested. USA remains
-the supported base.
+<table>
+  <tr>
+    <td width="50%"><img src="docs/images/title-screen.png" alt="Title screen without the N2O logo"></td>
+    <td width="50%"><img src="docs/images/ship-selection.png" alt="Ship selection"></td>
+  </tr>
+  <tr>
+    <td width="50%"><img src="docs/images/gameplay-ship-one.png" alt="Gameplay with Mantis"></td>
+    <td width="50%"><img src="docs/images/gameplay-ship-two.png" alt="Gameplay with a different ship"></td>
+  </tr>
+</table>
 
-**Asset folders** preserves original containers, raw movie streams and ten PCM
-WAV tracks under .local/game. Runtime still uses the original disc. Folder-backed
-loading, mod packs, optional user-owned EU language assets and logic/render clock
-separation remain future work.
+## Features
 
-## Play on Windows
+### Desktop presentation
 
-1. Download [Nitrogen-Squared-Windows-x64.zip](https://github.com/TheEelYT/Nitrogen-Squared/releases/download/v0.1.1/Nitrogen-Squared-Windows-x64.zip)
-   from the [0.1.1 release](https://github.com/TheEelYT/Nitrogen-Squared/releases/tag/v0.1.1).
-2. Extract the complete **Nitrogen-Squared** folder somewhere you can write to,
-   then run **launcher.exe**. Windows 10/11 x64 is supported.
-3. Select your supported USA **CUE** sheet, keeping its matching BIN beside it.
-   A BIN selection works only when its matching CUE can be found beside it.
-4. Let first preparation finish. Internet access is needed to download pinned
-   tools and dependencies; compilation can take several minutes. Later launches
-   reuse the prepared game. Keep your original disc files available.
+- **Widescreen and window-sized rendering**, with square pixels and nearest-neighbor presentation.
+- **Independent HUD and text scaling:** AUTO or 2X, 3X, 4X and 6X. AUTO keeps a 2X minimum.
+- **Windowed, borderless fullscreen or fullscreen** in the in-game Video menu.
+- **Render resolution from 25% to 200%** of the window size, separate from the interface.
 
-Everything downloaded, extracted or generated, including saves, stays under
-`Nitrogen-Squared/.local`. The original selected disc stays at its existing path.
-Use **Check for updates** in the launcher; updates preserve `.local` and rebuild
-the private game when needed. Keep the whole folder together. Moving it causes a
-fresh build cache to be prepared while retaining saves. Do not delete `.local` to
-update. Portable saves are in `.local/saves`; developer-build saves remain in their
-existing location unless copied deliberately.
+### Sound and controls
 
-The public executable is the original launcher. The game executable is generated
-privately from the player's verified input and must not be redistributed. No Vita
-VPK is available. The runtime retains native boot/BIOS, selected native game
-routines and interpreter fallback, with the pinned PSXRecomp framework still in use.
+- Native playback of all three opening movies, with audio and skip controls.
+- Keyboard and SDL gamepad input, including analog controllers.
+- In-game **Audio**, **Video**, **Controls** and **Extras** menus. Audio includes master, SFX, ambient and music volume.
+- Hold **Back** on the **title screen** for **two seconds** to close. A fading **closing...** caption shows progress; release to cancel. On keyboard, use **Backspace** with the mapping below.
 
-## Play on Linux x86_64
+### Portable setup and saves
 
-Download [Nitrogen-Squared-Linux-x64.zip](https://github.com/TheEelYT/Nitrogen-Squared/releases/download/v0.1.1/Nitrogen-Squared-Linux-x64.zip),
-extract the whole folder and run `sh launcher.sh`. Select the same supported USA
-CUE/BIN. The shared launcher verifies/imports/generates/builds/plays and handles
-updates, keeping all project state and saves in .local. Keep Windows and Linux
-installations in separate folders.
+- The launcher verifies your disc, downloads pinned build dependencies and prepares your private game.
+- **Check for updates** installs updates while preserving local files and saves.
+- Downloaded tools, extracted files, builds, logs and saves stay inside the installation's `.local` folder.
+- **Asset folders** optionally organizes your own textures, models, maps, sound banks, movies and CD music for inspection. Runtime still uses the disc; replacement packs and folder-backed loading are future work.
 
-Linux uses system Python 3.11+ with Tk, Git, CMake, Make, a C11/C++17 compiler,
-pkg-config and graphics/audio development packages. See README-FIRST.txt for the
-Ubuntu 24.04+ prerequisite command and equivalent packages on other distributions.
-The launcher does not use sudo. Framework/SDL revisions stay pinned and download
-inside .local. This is a source launcher package; no game binary or commercial
-assets are distributed. Local gameplay uses Linux OpenGL; broader desktop,
-Wayland and audio-device compatibility remain player checks.
+## Quick start
 
-## Native progress — 0.1.1 (unchanged selection)
+Get the **latest release from the [Releases tab](https://github.com/TheEelYT/Nitrogen-Squared/releases)** and choose the ZIP for your platform. Extract the complete **Nitrogen-Squared** folder somewhere writable before starting the launcher.
 
-| Selected executable payloads | Bytes | Share |
-| --- | ---: | ---: |
-| Covered by linked native translations | 324,928 | **38.4156%** |
-| Outside linked native translation ranges | 520,896 | **61.5844%** |
-| Total | 845,824 | 100.00% |
+### Windows 10/11 x64
 
-The retained 0.0.23 batch adds 13 N2O roots while preserving all 783 earlier
-input records; 0.0.31 adds no further native ranges.
-N2O: 296,520 bytes (64.6362%), 645
-roots and 11,133 aliases. NEW: 10,500 bytes
-(3.1454%), 152 roots and 300 aliases.
-Boot is unchanged. Aliases earn no extra byte credit.
+1. Extract `Nitrogen-Squared-Windows-x64.zip` and run **launcher.exe**.
+2. Select your supported USA **CUE** file, with its matching BIN beside it. Selecting the BIN also works when its matching CUE can be found beside it.
+3. Let preparation finish, then play. First setup needs internet access and can take several minutes; later launches reuse the prepared game.
 
-Larger-target exploration uses ordinary scripted controller inputs and disposable
-card copies. Final routes cover saved-game loading, later-level play, slot saving,
-fresh setup creation/load/overwrite and the expanded tutorial/gameplay route.
-Final reduced O3 checks pass 240 live + 3,175 replay = 3,415
-comparisons, zero mismatches, and 166 exact frames. Card outputs match reference
-bytes. Normal source/range hashes match and the movie/controller/pause/quit fixture
-passes without qualification hooks. Source and cross-platform package/runtime CI
-gate publication. See [validation](docs/VALIDATION.md) and [player checks](TESTING.md).
+No separate Python or Visual Studio installation is required. The Windows package includes portable Python and downloads its pinned preparation tools.
 
-These are executable-range measurements, not overall completion or native CPU
-time. Payloads include embedded data. A new private code/data inventory records
-linked translations, tentative static-code/data hints, conflicts and unknown
-ranges separately; it does not invent a code-only denominator or change this
-metric. The launcher and mapping tools add no native byte credit.
+### Linux x86_64
 
-Desktop presentation and controller input use host implementations, and **3 of 3
-opening movie routes** use native playback. The launcher supplies the verified disc
-and the same runtime settings as the Python launch path. Game routines still use
-PS1 drawing packets/GTE, guest SPU/CD audio and BIOS/card compatibility services.
-Normal launch requests the bounded OpenGL render worker. Native movie audio has
-its own timeline; gameplay audio and simulation/render clock separation remain
-future work. The user accepted launcher-built Windows 0.0.18 through level 9
-with successful saving and no issues noticed; see TESTING.md.
+1. Install Python **3.11+** with Tk, Git, CMake **3.20+**, Make, a C11/C++17 compiler, pkg-config and the graphics/audio development libraries listed in the package's **README-FIRST.txt**.
+2. Extract `Nitrogen-Squared-Linux-x64.zip`, open a terminal in the extracted **Nitrogen-Squared** folder and run `sh launcher.sh`.
+3. Select the supported USA CUE/BIN and let preparation finish. First setup needs internet access; the launcher uses your system compiler and Python.
 
-## Bring your own game
+Linux runs the game through OpenGL. Keep Windows and Linux installations in separate folders. PS Vita is planned; no Vita package is available yet.
 
-The repository and release packages must contain **no game files**. Players
-provide the complete USA BIN/CUE on first launch. Game executables, original
-assets, music, generated game C, compiled game modules, memory snapshots and saves
-remain private local data. Packaging uses an explicit source allowlist and rejects
-unexpected staged files. See [distribution policy](docs/DISTRIBUTION.md).
+## Controls
 
-The current verifier accepts one verified merged BIN/CUE layout, with one data
-track and ten audio tracks. A different dump layout is rejected until separately
-verified; that does not mean the user's disc is bad. Extract ZIPs before import.
+### Keyboard — Digital Pad
 
-## Private asset extraction
+| PlayStation input | Key |
+| --- | --- |
+| D-pad Up | W |
+| D-pad Right | D |
+| D-pad Down | S |
+| D-pad Left | A |
+| Cross | Enter |
+| Circle | Right Shift |
+| Triangle | Backspace |
+| Square | E |
+| Start | P |
+| Select | O |
+| L1 | S |
+| R1 | Space |
+| L2 | Minus (`-`) |
+| R2 | Equals (`=`) |
 
-The launcher's **Asset folders** button optionally organizes the verified player's
-textures, models, maps,
-sound banks, text, movies and CD music under `.local/game`. It preserves original
-containers and movie sectors, exports CD music as PCM WAV, and records file/track
-aliases and hashes. Runtime still needs the original BIN; replacement-pack loading
-and folder-backed runtime access are separate work. See [asset folders and the
-modding plan](docs/ASSETS.md) for the bundled-Python command and current scope.
+### Menus
 
-## Developer importer
+Use **WASD** to move, **Enter** to select and **Backspace** to go back.
 
-Requires Python 3.10 or later. It uses the standard library; no pip dependencies.
-On Windows, the Python installer includes Tk for the initial setup interface.
+### Gameplay
 
-```powershell
-python tools/first_boot.py
-```
+| Action | Key |
+| --- | --- |
+| Move left / right | A / D |
+| Brake | S |
+| Jump | Space |
+| Fire main weapon | Enter |
+| Fire secondary weapon | Right Shift |
+| Switch secondary weapon | W |
+| Activate firewall | E |
+| Activate shield | Backspace |
+| Pause / resume without a menu | P |
+| Open the pause menu | O |
+| Zoom out / in | Minus (`-`) / Equals (`=`) |
 
-This investigation UI imports inputs only. It does not launch a game. The complete
-disc is verified using bounded reads, executables are extracted into the local user
-data directory, and the original CUE/BIN stays in place for future disc/audio access.
-Existing prepared directories are never overwritten.
+The in-game **Controls** screen selects the game's controller configuration.
 
-For command-line inspection or private preparation:
+### Desktop shortcuts
 
-```powershell
-python tools/n2o_disc.py 'B:\Discs\N2O\N2O - Nitrous Oxide (USA).cue'
-python tools/n2o_disc.py 'B:\Discs\N2O\N2O - Nitrous Oxide (USA).cue' --prepare .local/installation
-```
+| Action | Key |
+| --- | --- |
+| Hide / show the System and Debug menu bar | F1 |
+| Toggle fullscreen | F11 |
+| Close from the title screen | Hold Backspace for 2 seconds; release to cancel |
 
-## Developer analysis
+Holding Tab does not speed up the game.
 
-Install Git, CMake 3.20+, Python 3.10+ and a C/C++ toolchain. On Windows, run in
-a Visual Studio developer shell (VS 2022+), or use a working MinGW environment.
-The bootstrap downloads a pinned upstream checkout separately into `.local/`.
-Python 3.10 native-slice builds additionally need `python -m pip install tomli`;
-Python 3.11+ includes its TOML reader. The importer needs neither.
+## Updating
 
-```powershell
-python tools/build_recompiler.py
-python tools/generate.py --installation .local/installation --framework .local/psxrecomp --recompiler .local/build-recompiler/Release/psxrecomp-game.exe --output .local/analysis
-```
+Use **Check for updates** in the launcher. Keep the complete installation folder together and preserve **`.local`**; it holds your saves, settings and private build. Moving the folder may require a fresh build cache while retaining saves. Do not delete `.local` to update.
 
-For MinGW/Linux, the emitter is usually directly under `.local/build-recompiler/`;
-adjust the `--recompiler` path. The generation command writes separate analysis
-outputs for the boot loader, `N2O.EXE` and `NEW.EXE`, using the OpenBIOS profile.
-It deliberately does not merge their overlapping code addresses or claim to build
-a working runtime. Generated C and all private caches must stay out of Git/releases.
+If an older launcher cannot install an update, get the latest platform ZIP from **Releases** and follow its release notes. Both ZIPs have checksums in **SHA256SUMS.txt**. GitHub provides source archives automatically.
 
-## Build the private development runtime
+## Saves, settings and logs
 
-After importing the game, open a Visual Studio developer PowerShell with the C++
-compiler and CMake available. In this repository:
+Paths below are relative to the extracted **Nitrogen-Squared** folder.
 
-```powershell
-python tools/build_runtime.py
-python tools/run_runtime.py
-```
+| What | Where |
+| --- | --- |
+| Portable saves and memory cards | `.local/saves` |
+| In-game Video and Audio settings | `.local/nitrogen-options.ini` |
+| Launcher state | `.local/launcher-state.json` |
+| Setup log | `.local/setup.log` |
+| Game startup / runtime log | `.local/runtime-dev/runtime.log` |
+| Optional extracted asset folders | `.local/game` |
+| Private build and caches | `.local/runtime-dev` and other folders inside `.local` |
 
-The build command uses the existing import in `%LOCALAPPDATA%\NitrogenSquared`,
-builds the pinned framework tools, generates OpenBIOS and local game C, and links
-a private desktop executable under `.local/runtime-dev`. It downloads third-party
-source dependencies on the first build. Keep the original CUE/BIN in place.
+Developer builds use their own save location; see [development](docs/DEVELOPMENT.md). Back up your saves before experimenting with builds or moving them between installations.
 
-**Do not upload or redistribute that executable:** it contains game code generated
-from your own disc. The public source package still contains no game inputs,
-generated game C, compiled game modules, captures, or assets. The portable release above automates this private build using downloaded tools.
+## Current status and known issues
 
-See [player testing steps](TESTING.md). World resolution and aspect follow the
-window; the interface uses AUTO or a selected whole-number scale. Vita remains planned.
-The OpenGL window now has **System** and **Debug** menus. **F1** hides/restores
-the bar; **F11** toggles fullscreen. Settings and dropdowns pause the guest and
-audio, while passive performance/audio overlays allow gameplay to continue.
+Windows and Linux launcher packages are available. The project combines native translations and host implementations with interpreter fallback; it is still in development.
 
-After building, measure linked native translations with
-`python tools/native_progress.py`. See [native progress](docs/NATIVE_PROGRESS.md)
-for the denominator and the distinction between native game code and host services.
+**Linked native range coverage: 38.4156%; outside linked ranges: 61.5844%.** This measures 324,928 of 845,824 executable-payload bytes, including embedded data. It is neither overall completion nor the proportion of CPU time running natively. See [native progress](docs/NATIVE_PROGRESS.md) for the breakdown and method.
 
-## Checks
+- An intermittent stutter when entering a new level remains open.
+- Broader Linux desktop, Wayland and audio-device compatibility still needs player testing.
+- Only the verified USA disc layout is supported. Other dump layouts and EU support need separate verification; rejection does not mean your disc is bad.
+- Gameplay audio and simulation/render clock separation, mod-pack loading and Vita support remain future work.
 
-```powershell
-python -m unittest discover -s tests -v
-python tools/package_source.py --check-tracked
-python tools/package_source.py --output dist/Nitrogen-Squared-source.zip
-```
+[Player checks](TESTING.md) · [Validation record](docs/VALIDATION.md) · [Roadmap](docs/ROADMAP.md)
 
-Tests use hand-authored synthetic sectors and code, never the commercial disc.
-The source ZIP uses only reviewed text files; `.local/` is never traversed.
-CI runs the tests and packaging audit on Windows and Linux without game data.
-It also links the complete runtime with an original synthetic program, exercises
-virtual gamepad input, and compares the reference/enhanced renderer on Linux.
+## Reporting problems
 
-See [disc findings](docs/DISC_ANALYSIS.md), [roadmap](docs/ROADMAP.md), and
-[validation record](docs/VALIDATION.md). Original code is MIT licensed. Dependencies
-have separate terms described in [THIRD_PARTY.md](THIRD_PARTY.md).
+[Open an issue](https://github.com/TheEelYT/Nitrogen-Squared/issues) with your release version, operating system, GPU, steps to reproduce and the relevant setup or runtime log. On Linux, include your distribution and whether you use X11 or Wayland.
+
+Do not attach disc images, game executables, generated C, private build caches or saves. For disc-verification errors, include the error message and dump layout rather than uploading the disc.
+
+## Development and credits
+
+Build and analysis commands are in [Development](docs/DEVELOPMENT.md). Technical details live in [Disc analysis](docs/DISC_ANALYSIS.md), [Native progress](docs/NATIVE_PROGRESS.md), [Display policy](docs/WINDOW_DISPLAY.md) and [Game options](docs/GAME_OPTIONS.md).
+
+Nitrogen Squared uses the pinned [PSXRecomp](https://github.com/RetroPortingToolKit/psxrecomp) framework, SDL3, Dear ImGui and PCSX-Redux OpenBIOS. The project's original code is [MIT licensed](LICENSE); dependencies retain their own terms, including PSXRecomp's PolyForm Noncommercial license. See [THIRD_PARTY.md](THIRD_PARTY.md) and the [distribution policy](docs/DISTRIBUTION.md).
+
+The Nitrogen Squared logo is original artwork made by the project owner in GIMP. N2O: Nitrous Oxide and the game imagery belong to their respective rights holders. This is an independent fan project, not an official release.

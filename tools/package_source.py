@@ -6,6 +6,7 @@ separate policy for original runtime binaries and third-party notices.
 """
 from __future__ import annotations
 import argparse
+import hashlib
 import json
 import re
 import subprocess
@@ -56,6 +57,27 @@ def audit_staging(root: Path, allowed: set[str]):
         validate_file(root, name)
 
 
+def documentation_assets(root: Path) -> set[str]:
+    """Review README PNGs separately; collect()/release stages stay text-only."""
+    manifest = json.loads((root / "configs/documentation_assets.json").read_text())
+    if not isinstance(manifest, dict) or not manifest:
+        raise ValueError("Invalid documentation asset manifest")
+    for name, digest in manifest.items():
+        rel = Path(name)
+        if (rel.is_absolute() or ".." in rel.parts or rel.parent.as_posix() != "docs/images"
+                or rel.suffix != ".png" or not isinstance(digest, str)
+                or not re.fullmatch(r"[0-9a-f]{64}", digest)):
+            raise ValueError(f"Invalid documentation asset: {name}")
+        path = root / rel
+        if (path.is_symlink() or not path.is_file()
+                or not path.resolve().is_relative_to(root.resolve()) or path.stat().st_size > 4 * 1024 * 1024):
+            raise ValueError(f"Forbidden documentation asset: {name}")
+        data = path.read_bytes()
+        if not data.startswith(b"\x89PNG\r\n\x1a\n") or hashlib.sha256(data).hexdigest() != digest:
+            raise ValueError(f"Unreviewed documentation asset: {name}")
+    return set(manifest)
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--output", type=Path)
@@ -66,7 +88,7 @@ def main():
         files = collect(ROOT)
         if args.check_tracked:
             tracked = subprocess.check_output(["git", "ls-files", "-z"], cwd=ROOT).decode("utf-8").split("\0")
-            unexpected = set(filter(None, tracked)) - set(files)
+            unexpected = set(filter(None, tracked)) - set(files) - documentation_assets(ROOT)
             if unexpected:
                 raise ValueError(f"Unreviewed tracked files: {sorted(unexpected)}")
         if args.check_stage:
