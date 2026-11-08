@@ -845,3 +845,17 @@
   fade; ordinary Main Back is restored. Native coverage/clocks unchanged;
   level-entry stutter OPEN. This receipt is docs-only; preserve release code.
   Fresh n0101 player checks pending; future 0.2.0 reuse policy remains planned.
+
+- Branding provenance clarified by the owner: logo.png (orange/cyan N-squared)
+  was made by the owner in GIMP and is authorized for public GitHub use. Preserve
+  the supplied artwork when integrating it. The supplied pixel N icon.png is
+  ripped from N2O's PS1 memory-card save icon; it is commercial game content,
+  not original project artwork. Never commit or ship that PNG, derived public
+  icons, or encoded copies of its pixels in source/bootstrap/release packages.
+- For the next branding update, locate the memory-card icon in the player's
+  verified disc resources and decode/cache it privately under .local. Its exact
+  source container/offset has not yet been identified. The current extractor
+  preserves containers and does not export a standalone icon. Use the owner's
+  project logo as a public/first-run fallback before a verified import exists.
+  This provenance note implements no branding/runtime changes and needs no
+  VERSION bump, release, private rebuild or repeat player check.

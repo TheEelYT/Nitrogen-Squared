@@ -71,3 +71,26 @@ resource IDs, formats and compatibility. Their identity, supported sizes/layouts
 load order and fallback need explicit rules. Packs must preserve the original
 private extraction; launcher updates must preserve both. Mod loading, editing
 format conversion and BIN-free runtime access are not enabled by this first step.
+
+
+## Project branding and the memory-card icon
+
+The owner supplied two images with different provenance:
+
+| Image | Origin | Intended handling |
+| --- | --- | --- |
+| N-squared logo (logo.png) | Made by the owner in GIMP; authorized for GitHub | Public project branding; preserve the supplied artwork |
+| Pixel N (icon.png) | Ripped from N2O's PS1 memory-card save icon | Private game asset; never include the image or its encoded/converted pixels in Git or public packages |
+
+For the next branding update, locate and decode the memory-card icon from each
+player's verified disc resources, caching any display formats under .local.
+The original project logo can provide public and first-run branding before an
+import exists. Do not embed the ripped icon in a distributed launcher executable
+or use the uploaded rip as a public fallback.
+
+The current extractor preserves original containers; it does not export a
+standalone memory-card icon. Its source container/offset and decoding path have
+not yet been identified. This records the planned integration and provenance;
+no new icon extraction, display behavior or branding assets are implemented by
+this documentation change. Published 0.1.1 code, assets and release branches stay
+unchanged.
