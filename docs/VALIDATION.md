@@ -4,6 +4,32 @@ Reports through 0.0.20 are preserved in
 [the validation history](VALIDATION_THROUGH_0.0.20.md). Historical claims retain
 their tested version and scope.
 
+## 0.2.0 dev candidate — not released
+
+The owner supersedes standing promotion approval: all work/fixes go on dev,
+with explicit player verification AND release clearance before main, tags,
+release branches or publication. Main/latest remain at 0.1.3. Dev source/runtime
+checks and both package checks gate downloadable Actions candidates only.
+The workflow condition fixture exercises dev/main/other refs and proves dev
+cannot reach release creation or ref writes. No release/0.2.0 branch is created.
+
+The launcher now distinguishes public VERSION from compiled-game inputs. New
+receipts capture source/dependency/build settings and exact executable/manifest
+hashes. Launcher/docs/version-only changes reuse the compatible game. Changed
+build inputs/options, missing or inconsistent receipts and changed outputs request
+rebuilding; failed preparation does not launch stale code. Legacy 0.1.x builds
+prepare once. Settings and custom input profiles survive cache replacement.
+Direct Python launch refuses stale receipts. Generated boot input cache identity
+also includes the importer and emitter-build scripts.
+
+All 128 local source tests and the 138-file reviewed source audit pass.
+Windows/Linux runtime and package results are recorded by Actions for each dev
+candidate commit, including the real-binary reuse fixture. Player verification
+and explicit release clearance remain pending. Preserve prior submitted report bytes and
+carry unfinished checks. No native game range changes: all 796 records and 48
+exclusions remain, at 324,928 / 845,824 = 38.4156% linked / 61.5844% outside.
+Clocks are unchanged and level-entry stutter remains OPEN.
+
 ## 0.1.3 PC keyboard defaults
 
 The README's PC table previously differed from the compiled SDK stock layout.

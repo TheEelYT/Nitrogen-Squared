@@ -1,5 +1,11 @@
 # No game content in Git or releases
 
+Development and approval policy: work on dev, keep main at cleared releases,
+and publish only after explicit owner verification and release clearance.
+Dev creates Actions test artifacts, never GitHub releases or release branches.
+See [the current release process](RELEASE_PROCESS.md); this supersedes historical
+branch/publication descriptions below.
+
 This is an explicit project requirement, including derived game code.
 
 Allowed in source: original tools/runtime code, documentation, identity hashes,
@@ -111,7 +117,7 @@ the prepared game require recompilation, including a game-code patch. A launcher
 or documentation-only update reuses the current compatible compilation. Preserve
 private builds and saves during either update path. Tests must cover both paths
 and prove that a changed build input cannot reuse a stale executable. This policy
-is scheduled for 0.2.0; 0.1.0 retains the existing build-refresh behavior.
+is implemented by the 0.2.0 dev candidate; player verification is pending.
 
 ## Public README images
 

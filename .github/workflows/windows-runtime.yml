@@ -1,9 +1,7 @@
 name: Runtime and renderer checks
 on:
   push:
-    branches: ['release/**']
-    paths-ignore:
-      - 'TESTING.md'
+    branches: [dev]
   pull_request:
 permissions:
   contents: read

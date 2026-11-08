@@ -1,6 +1,8 @@
 """Linux launcher integration. Uses system build tools; all project state is local."""
 from pathlib import Path
 import os
+import hashlib
+import json
 import platform
 import shutil
 import subprocess
@@ -23,7 +25,10 @@ class LinuxLayout(Layout):
     @property
     def cmake(self): return shutil.which("cmake") or "cmake"
 
-    def tool_fingerprint(self): return sha256(self.app/"tools/linux_support.py")
+    def tool_fingerprint(self):
+        from runtime_compatibility import build_options
+        options=build_options(cmake_args=self.runtime_cmake_args(),environment=self.environment())
+        return hashlib.sha256(json.dumps(options,sort_keys=True).encode()).hexdigest()
 
     def environment(self):
         env=os.environ.copy()

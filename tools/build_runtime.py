@@ -19,6 +19,7 @@ from prepare_media import prepare_media
 from prepare_options import prepare_options
 from prepare_native import prepare_native
 from n2o_disc import ROOT, DiscError, default_data_dir, digest, inspect
+from runtime_compatibility import build_identity, build_options, input_fingerprint
 
 
 def find_binary(directory: Path, name: str) -> Path:
@@ -97,6 +98,7 @@ def main() -> int:
             raise FileNotFoundError("CMake is not on PATH. Use a Visual Studio developer shell with CMake installed.")
         installation = args.installation.resolve()
         manifest = load_installation(installation)
+        input_identity = input_fingerprint(ROOT)
         framework, compiler_build, work = (d.resolve() for d in (args.framework, args.recompiler_build, args.work_dir))
         if work == ROOT or work == installation or work == framework:
             raise ValueError("Choose a separate private runtime work directory")
@@ -113,8 +115,9 @@ def main() -> int:
             raise RuntimeError("Invalid BIOS emitter fingerprint")
         (framework / "generated/OpenBIOS.emitter.sha").write_text(fingerprint + "\n", encoding="utf-8")
 
-        signature = hashlib.sha256((FRAMEWORK_REV + manifest["bin_sha256"] +
-                                    digest(ROOT / "tools/generate.py")).encode()).hexdigest()
+        generator_inputs = "".join(digest(ROOT / "tools" / name) for name in
+                                   ("generate.py", "n2o_disc.py", "build_recompiler.py"))
+        signature = hashlib.sha256((FRAMEWORK_REV + manifest["bin_sha256"] + generator_inputs).encode()).hexdigest()
         generated_root = work / "generated" / signature[:16]
         if not generated_root.exists():
             generate(installation, framework, emitter, generated_root)
@@ -159,6 +162,11 @@ def main() -> int:
                       disc_sha256=manifest["bin_sha256"], build_succeeded=True,
                       gameplay_verified=False, public_distribution_allowed=False,
                       diagnostics_enabled=args.diagnostics)
+        record["build_identity"] = build_identity(ROOT, executable, build_options(
+            diagnostics=args.diagnostics, controller_mode=args.controller_mode,
+            console_host=args.console_host, cmake_args=args.cmake_arg))
+        if record["build_identity"]["inputs_sha256"] != input_identity:
+            raise RuntimeError("Game build inputs changed during preparation; rebuild before playing")
         (work / "runtime-build.json").write_text(json.dumps(record, indent=2) + "\n", encoding="utf-8")
         print(f"\nPrivate runtime built: {executable}\nStart with: python tools/run_runtime.py")
         return 0

@@ -9,6 +9,7 @@ import subprocess
 from build_runtime import load_installation
 from n2o_disc import ROOT
 from runtime_paths import configured_saves
+from runtime_compatibility import reusable_runtime, platform_id
 
 
 def runtime_environment(work: Path, display_ring: bool = False, show_fps: bool = False,
@@ -55,6 +56,10 @@ def main():
         record = json.loads((work / "runtime-build.json").read_text())
         if not record.get("build_succeeded") or record.get("public_distribution_allowed") is not False:
             raise ValueError("No complete private development build is recorded")
+        identity = record.get("build_identity")
+        options = identity.get("options", {}) if isinstance(identity, dict) else {}
+        if not reusable_runtime(ROOT, work, platform_id(), options):
+            raise ValueError("Game build is outdated or incomplete. Use Prepare & play or build_runtime.py to rebuild; existing saves are kept.")
         current = load_installation(Path(record["installation"]))
         if current["bin_sha256"] != record.get("disc_sha256"):
             raise ValueError("Build and installed disc do not match")

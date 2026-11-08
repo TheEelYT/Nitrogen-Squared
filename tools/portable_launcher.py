@@ -15,6 +15,7 @@ sys.path.insert(0,str(Path(__file__).resolve().parent))
 from portable_support import Layout, beneath, bootstrap, run, sha256, write_json
 from portable_update import latest_release, stage_release, start_updater
 from runtime_paths import repair_portable_saves
+from runtime_compatibility import build_options, reusable_runtime
 
 
 def select_cue(selected: Path) -> Path:
@@ -132,8 +133,7 @@ class Backend:
             for name in ("runtime-dev","build-recompiler"):
                 source=self.layout.local/name
                 if source.exists():os.replace(source,backup/name)
-            for old in (backup/"runtime-dev/build/settings.toml",backup/"runtime-dev/build/Release/settings.toml"):
-                if old.is_file():shutil.copy2(old,self.layout.local/"retained-settings.toml");break
+            self.retain_runtime_preferences(backup/"runtime-dev/build")
             self("Preparing a fresh compatible build cache; previous files and saves are preserved.")
         elif escaped_compiler:
             # 0.0.17 could leave CMakeRCCompiler.cmake with invalid backslash
@@ -142,9 +142,21 @@ class Backend:
             backup=beneath(self.layout.root,".local/relocated/"+str(time.time_ns()))
             backup.mkdir(parents=True)
             os.replace(self.layout.work/"build",backup/"runtime-build")
-            for old in (backup/"runtime-build/settings.toml",backup/"runtime-build/Release/settings.toml"):
-                if old.is_file():shutil.copy2(old,self.layout.local/"retained-settings.toml");break
+            self.retain_runtime_preferences(backup/"runtime-build")
             self("Refreshing Windows compiler configuration; completed preparation and saves are preserved.")
+
+    def retain_runtime_preferences(self,build):
+        for name in ("settings.toml","keybinds.ini","input.ini"):
+            for directory in (build/"Release",build):
+                old=directory/name
+                if old.is_file():
+                    shutil.copy2(old,self.layout.local/("retained-"+name));break
+
+    def restore_runtime_preferences(self,executable):
+        for name in ("settings.toml","keybinds.ini","input.ini"):
+            retained=self.layout.local/("retained-"+name)
+            target=executable.parent/name
+            if retained.is_file() and not target.exists():shutil.copy2(retained,target)
 
     def prepare(self):
         state=self.layout.state()
@@ -160,11 +172,8 @@ class Backend:
                                     "--work-dir",self.layout.work,"--save-dir",self.layout.local/"saves","--cmake",cmake,
                                     *("--cmake-arg="+arg for arg in self.layout.runtime_cmake_args()))
         run(command,self.layout.root,env,self)
-        retained=self.layout.local/"retained-settings.toml"
-        if retained.is_file():
-            receipt=json.loads((self.layout.work/"runtime-build.json").read_text())
-            target=Path(receipt["executable"]).parent/"settings.toml"
-            if not target.exists():shutil.copy2(retained,target)
+        receipt=json.loads((self.layout.work/"runtime-build.json").read_text())
+        self.restore_runtime_preferences(Path(receipt["executable"]))
         state.update(schema=1,prepared_version=self.layout.version,root=str(self.layout.root),
                      prepared_tools=self.layout.tool_fingerprint())
         write_json(self.layout.state_path,state)
@@ -173,10 +182,13 @@ class Backend:
 
     def play(self):
         state=self.layout.state()
-        if state.get("prepared_version")!=self.layout.version or state.get("root")!=str(self.layout.root) or state.get("prepared_tools")!=self.layout.tool_fingerprint() or not (self.layout.work/"runtime-build.json").is_file():
+        env = self.layout.environment()
+        options = build_options(cmake_args=self.layout.runtime_cmake_args(),environment=env)
+        if (state.get("prepared_version") is None or state.get("root")!=str(self.layout.root) or state.get("prepared_tools")!=self.layout.tool_fingerprint()
+                or not reusable_runtime(self.layout.app,self.layout.work,self.layout.platform,options)):
             env=self.prepare()
         else:
-            env=self.layout.environment()
+            self("Using your existing compatible game build.")
         repair_portable_saves(self.layout)
         self("Game running. Close the game window to return here.")
         run(self.layout.command("run_runtime.py","--work-dir",self.layout.work,

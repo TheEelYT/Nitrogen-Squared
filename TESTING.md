@@ -1,6 +1,23 @@
-# Windows and Linux release tests — 0.1.3
+# Windows and Linux development tests — 0.2.0
 
 ## Current acceptance and update checks
+
+**0.2.0 dev candidate — not released; owner verification/clearance pending.**
+Test artifacts come from successful dev Actions runs, not Releases. Main and
+stable Check for updates remain on 0.1.3. Close the game/launcher before installing
+an offered candidate and preserve the entire .local folder. First migration from
+0.1.x prepares once; subsequent compatible play and launcher-only updates reuse
+the existing compiled game. Runtime/native/build-input changes request rebuilding.
+Settings, custom keyboard/gamepad profiles and saves remain preserved.
+
+Follow the focused build-reuse check below. Automated fixtures cover a verified
+launcher-only package update on both platforms, changed inputs/flags and failed
+rebuild handling. No new campaign, upload or valued-save overwrite is requested.
+Unfinished checks carry forward; prior submitted result bodies remain untouched.
+Coverage stays **38.4156% linked / 61.5844% outside**; clocks are unchanged and
+level-entry stutter is OPEN. Report dev-only results in chat while the Dashboard
+continues your main-based 0.1.3 checks; branch-aware Dashboard sync is follow-up.
+A passed individual check does not itself authorize a release.
 
 **0.1.3 — PC keyboard defaults match the README. Fresh focused check pending.**
 Use Check for updates, then Prepare & play once to rebuild the private game.
@@ -906,27 +923,42 @@ Instructions for future maintainers and assistants:
     "metricNote": "Linked emitted byte coverage, including payload data. Not project completion or CPU time."
   },
   "version": {
-    "id": "n0103",
-    "name": "v0.1.3",
-    "title": "PC keyboard defaults match the README",
+    "id": "n0200",
+    "name": "v0.2.0",
+    "title": "Dev candidate: build reuse and verified releases",
     "runtime": "Windows / Linux x64 \u00b7 USA disc",
     "cart": "",
     "createdAt": "2026-11-08",
-    "description": "The compiled game now uses the documented PC keyboard defaults. Stock profiles upgrade automatically; custom profiles and gamepads remain unchanged. Rebuild through Prepare & play. Unfinished checks carry forward; native coverage is unchanged."
+    "description": "Unreleased dev candidate. Compiled-input identity enables launcher-only build reuse; game/runtime/build changes require rebuilding. Explicit owner verification and release clearance are required. Main stays on 0.1.3; unfinished checks carry forward."
   },
   "checks": [
     {
       "id": "N2-UPDATE",
-      "title": "Update and rebuild for the new keyboard defaults",
+      "title": "Install an offered 0.2.0 dev test candidate",
       "area": "Launcher",
       "required": true,
       "priority": "high",
       "steps": [
-        "Use Check for updates, preserving .local, saves and settings.",
-        "Choose Prepare & play once to rebuild the private game with the new keyboard defaults."
+        "Close the game and launcher before installing the offered Actions test candidate. Preserve the complete .local folder.",
+        "Use Prepare & play once to establish the new compatibility receipt when migrating from 0.1.x."
       ],
-      "expected": "The launcher updates and the rebuilt game starts normally with existing progress available.",
-      "context": "Fresh v0.1.3 check. This changes compiled runtime inputs, so rebuilding is required. No reimport or valued-save overwrite is requested."
+      "expected": "The candidate starts with existing progress/settings. This first 0.2.0 preparation may rebuild; subsequent compatible launches reuse that game.",
+      "context": "Unreleased n0200 dev candidate. Do not use stable Check for updates to obtain dev builds; release clearance is separate from test results."
+    },
+    {
+      "id": "N2-BUILD-REUSE",
+      "title": "Reuse the prepared game and preserve preferences",
+      "area": "Launcher / build compatibility",
+      "required": true,
+      "priority": "high",
+      "steps": [
+        "After preparing the offered 0.2.0 candidate once, close the game and choose Prepare & play again.",
+        "Confirm the launcher reports using the existing compatible game without compiling again.",
+        "Inspect known high scores/saved slots, custom keyboard or gamepad bindings and Video/Audio preferences without overwriting a valued save.",
+        "If another launcher-only candidate is offered, install it with .local preserved and repeat. A candidate explicitly containing runtime changes should rebuild instead."
+      ],
+      "expected": "Unchanged game inputs reuse the private game. Runtime/build changes request compilation. Existing saves, settings and custom input profiles survive either path.",
+      "context": "Fresh n0200 dev check; report available steps only. Automated verified-package/real-binary fixtures cover both update decisions. No artificial code edits, new campaign or valued-save overwrite required."
     },
     {
       "id": "N2-KEYBOARD",

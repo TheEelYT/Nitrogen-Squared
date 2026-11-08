@@ -1,9 +1,7 @@
 name: Source checks
 on:
   push:
-    branches: ['release/**']
-    paths-ignore:
-      - 'TESTING.md'
+    branches: [dev]
   pull_request:
 permissions:
   contents: read
@@ -21,7 +19,7 @@ jobs:
       - name: Configuration regression prerequisites
         run: |
           cmake --version
-          python -m pip install ninja tomli
+          python -m pip install ninja tomli pyyaml
       - name: Synthetic tests (no game files)
         run: python -m unittest discover -s tests -v
       - name: Reject game content in source package

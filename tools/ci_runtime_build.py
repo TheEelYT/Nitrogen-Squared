@@ -21,6 +21,43 @@ from n2o_disc import ROOT
 from prepare_native import capture, emit
 from portable_support import Layout, write_json
 from runtime_paths import repair_portable_saves
+from runtime_compatibility import build_identity, build_options, reusable_runtime
+
+
+def check_build_reuse(binary: Path, work: Path):
+    """Model a player receipt using the real original synthetic executable."""
+    from unittest.mock import patch
+    from package_source import collect
+    from portable_launcher import Backend
+    from linux_support import LinuxLayout
+    root=Path(tempfile.mkdtemp(prefix="Real binary reuse with spaces ",dir=work))
+    layout=(Layout if os.name=="nt" else LinuxLayout)(root)
+    for name,data in collect(ROOT).items():
+        p=layout.app/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(data)
+    executable=layout.work/"build"/binary.name
+    executable.parent.mkdir(parents=True)
+    shutil.copy2(binary,executable)
+    shutil.copy2(binary.with_suffix(".execution.json"),executable.with_suffix(".execution.json"))
+    config=layout.work/"game.toml"
+    config.write_text('[runtime]\nmemcard_dir='+json.dumps(str(layout.local/'saves'))+'\n')
+    card=layout.local/'saves/card1.mcd';card.parent.mkdir();card.write_bytes(b'original reuse card sentinel')
+    options=build_options(cmake_args=layout.runtime_cmake_args(),environment=layout.environment())
+    record=dict(schema=1,build_succeeded=True,public_distribution_allowed=False,executable=str(executable),
+                config=str(config),build_identity=build_identity(layout.app,executable,options))
+    write_json(layout.work/'runtime-build.json',record)
+    write_json(layout.state_path,dict(schema=1,prepared_version='0.2.0',root=str(root),prepared_tools=layout.tool_fingerprint()))
+    before=executable.read_bytes(),executable.stat().st_mtime_ns
+    (layout.app/'VERSION').write_text('0.2.1\n')
+    launcher=layout.app/'tools/portable_launcher.py';launcher.write_bytes(launcher.read_bytes()+b'\n# original launcher-only fixture\n')
+    backend=Backend(layout)
+    with patch.object(backend,'prepare',side_effect=AssertionError('unchanged game was recompiled')),patch('portable_launcher.run') as launch:
+        backend.play()
+        if launch.call_count!=1:raise RuntimeError('Compatible real binary did not reach the launch path')
+    changed=layout.app/'compat/keyboard_defaults.c';changed.write_bytes(changed.read_bytes()+b'\n/* original changed-build fixture */\n')
+    if reusable_runtime(layout.app,layout.work,layout.platform,options):raise RuntimeError('Changed game input reused a stale executable')
+    if before!=(executable.read_bytes(),executable.stat().st_mtime_ns) or card.read_bytes()!=b'original reuse card sentinel':
+        raise RuntimeError('Reuse fixture modified the existing binary or card')
+    print('Runtime build reuse smoke passed: real executable, launcher/version reuse, changed-input rebuild, preserved binary/card',flush=True)
 
 
 def run_smoke(binary: Path, work: Path):
@@ -150,6 +187,7 @@ def main():
     runtime_binary = find_binary(work / "build", "NitrogenSquared-dev")
     if load_execution_manifest(runtime_binary)["profile"] != "ENHANCED":
         raise RuntimeError("Normal runtime execution manifest has the wrong profile")
+    check_build_reuse(runtime_binary,work)
     print(f"Real runtime linked with original synthetic input: {runtime_binary}")
     # Reuse this build tree to run the real runtime's SDL routing/mapping with
     # a virtual controller. This entry point never boots the synthetic guest.

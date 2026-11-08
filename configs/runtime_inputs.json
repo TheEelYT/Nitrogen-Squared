@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "sdl_revision": "8e37db5e797b6167f3a00d697d816a684bd259c7",
+  "trees": [
+    "cmake",
+    "compat",
+    "native"
+  ],
+  "files": [
+    "CMakeLists.txt",
+    "configs/runtime_inputs.json",
+    "configs/disc_usa.json",
+    "configs/native_usa.json",
+    "configs/native_exclusions_usa.json",
+    "configs/portable_tools.json",
+    "tools/build_recompiler.py",
+    "tools/build_runtime.py",
+    "tools/generate.py",
+    "tools/n2o_disc.py",
+    "tools/native_progress.py",
+    "tools/prepare_media.py",
+    "tools/prepare_native.py",
+    "tools/prepare_options.py",
+    "tools/adapt_window_display.py"
+  ]
+}

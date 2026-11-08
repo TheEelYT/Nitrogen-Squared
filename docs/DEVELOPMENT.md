@@ -123,3 +123,37 @@ Gamepads, input.ini routing and host shortcuts retain their existing behavior.
 This changes compiled runtime inputs: Prepare & play must rebuild older games.
 The actual SDK input fixture checks fresh/stock/custom profiles, all documented
 buttons, duplicate S, analog axes, reset/save/reload and direct discovery.
+
+## 0.2.0 compiled-game compatibility
+
+Follow RELEASE_PROCESS.md: dev work and test artifacts first; explicit owner
+verification/release clearance precede main promotion or release/tag creation.
+For the source test suite install ninja, tomli and pyyaml (the latter validates
+actual workflow branch conditions). Runtime/launcher use no new Python dependency.
+
+configs/runtime_inputs.json classifies the public inputs that can affect the
+compiled game: CMake, all cmake/compat/native files, disc/native/tool definitions,
+the pinned SDL revision and generation/build/adaptation scripts. It hashes sorted
+relative names and UTF-8 content with Git line endings normalized. VERSION, docs,
+launcher/update code, CI and synthetic tests are excluded. Add new build inputs
+to this reviewed definition; build options separately record compiler environment,
+CMake arguments, diagnostics and controller configuration. SDL preparation reads
+its pin from the same definition. Linux tool identity uses build options, rather
+than a hash of its entire launcher/update helper.
+
+A successful private runtime-build.json records input identity, target platform,
+options and hashes of the executable and execution manifest. Missing/legacy or
+inconsistent receipts request rebuilding. Executable/config/manifest paths must
+stay in the private work directory. A source change during compilation refuses
+to publish a successful receipt. Direct Python launch also refuses stale builds.
+
+Public version changes alone can reuse a compatible game; its compiled version
+stamp remains the version used for that build. First migration from 0.1.x builds
+once. Disc reimport, moved roots and incompatible tools/configuration retain
+the existing conservative rebuild behavior. Cache replacement also retains and
+restores settings.toml, keybinds.ini and input.ini without overwriting current
+new-build preferences; .local/saves and nitrogen-options.ini stay separate.
+Original fixtures cover actual verified-package updates on both layouts, flags,
+source additions/removals, missing or changed outputs and a failed rebuild that
+must not launch the stale program. CI additionally uses a real compiled synthetic
+executable to check the production launcher decision. No commercial input is used.

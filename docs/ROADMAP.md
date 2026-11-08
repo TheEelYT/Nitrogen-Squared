@@ -289,3 +289,12 @@ without losing private files or saves. From 0.2.0 until the owner declares 1.0.0
 major game-code releases advance the middle number and patches/launcher updates
 advance the last number (for example 0.2.0 -> 0.2.1). Keep a final release branch
 for each complete version. This work follows the current 0.1.0 release.
+
+## 0.2.0 development and approval checkpoint
+
+The dev candidate implements compiled-input identity/reuse, preserved custom
+input profiles during cache replacement and owner-cleared publication. Native
+selection remains unchanged at 38.4156% linked / 61.5844% outside. Dev Actions
+produce qualified test artifacts; main and the latest public release remain
+0.1.3 until explicit clearance. Dashboard branch-aware development sync remains
+follow-up work; its existing main-based 0.1.3 testing is kept intact.

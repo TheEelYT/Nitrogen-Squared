@@ -277,7 +277,9 @@ def prepare_sdl(layout, env, git, progress):
     if not sdl.exists():
         run([git,"init",str(sdl)],layout.root,env,progress)
         run([git,"-C",str(sdl),"remote","add","origin","https://github.com/libsdl-org/SDL.git"],layout.root,env,progress)
-    sdl_pin="8e37db5e797b6167f3a00d697d816a684bd259c7"
+    sdl_pin=json.loads((layout.app/"configs/runtime_inputs.json").read_text(encoding="utf-8"))["sdl_revision"]
+    if not isinstance(sdl_pin,str) or len(sdl_pin)!=40 or any(c not in "0123456789abcdef" for c in sdl_pin):
+        raise ValueError("Invalid SDL source revision")
     current=subprocess.run([git,"-C",str(sdl),"rev-parse","HEAD"],env=env,capture_output=True,text=True,
                            creationflags=subprocess.CREATE_NO_WINDOW if os.name=="nt" else 0)
     if current.returncode or current.stdout.strip()!=sdl_pin:

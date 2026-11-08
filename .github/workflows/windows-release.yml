@@ -1,7 +1,7 @@
 name: Release
 on:
   push:
-    branches: [main]
+    branches: [main, dev]
     paths-ignore:
       - 'TESTING.md'
   workflow_dispatch:
@@ -12,7 +12,7 @@ permissions:
   contents: read
 jobs:
   package:
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev'
     runs-on: windows-latest
     timeout-minutes: 60
     steps:
@@ -75,7 +75,7 @@ jobs:
           if-no-files-found: error
           retention-days: 7
   linux-package:
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev'
     runs-on: ubuntu-24.04
     timeout-minutes: 60
     steps:
@@ -107,8 +107,9 @@ jobs:
             dist/Nitrogen-Squared-Linux-x64.zip.sha256
           if-no-files-found: error
           retention-days: 7
-  publish:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+  distribute:
+    name: ${{ github.ref == 'refs/heads/dev' && 'Stage test candidate' || 'Publish approved release' }}
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev')
     needs: [package, linux-package]
     runs-on: ubuntu-latest
     permissions:
@@ -152,7 +153,21 @@ jobs:
             sleep 20
           done
           if [ "$ready" -ne 1 ]; then echo 'Required checks did not finish in time.'; exit 1; fi
+      - name: Build combined checksums
+        run: python tools/release_checksums.py --output dist/SHA256SUMS.txt dist/Nitrogen-Squared-Windows-x64.zip dist/Nitrogen-Squared-Linux-x64.zip
+      - name: Upload a test candidate without creating a GitHub release
+        if: github.ref == 'refs/heads/dev'
+        uses: actions/upload-artifact@v4
+        with:
+          name: dev-${{ github.sha }}
+          path: |
+            dist/Nitrogen-Squared-Windows-x64.zip
+            dist/Nitrogen-Squared-Linux-x64.zip
+            dist/SHA256SUMS.txt
+          if-no-files-found: error
+          retention-days: 30
       - name: Publish a complete draft without overwriting a published release
+        if: github.ref == 'refs/heads/main'
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
@@ -178,15 +193,15 @@ jobs:
           Extract the complete **Nitrogen-Squared** folder and run **launcher.exe**.
           Select the supported USA CUE with its matching BIN beside it. Preparation verifies/imports/generates/compiles your private game; no separate Python or Visual Studio installation is required.
 
-          **0.1.3:** the compiled game's PC keyboard defaults now match the README. After updating, choose **Prepare & play** once to rebuild your private game. New and unchanged stock profiles use WASD, Enter, Right Shift, Backspace, E, P/O, Space and Minus/Equals as documented. S intentionally handles both menu Down and braking. Existing custom keyboard profiles and gamepad mappings remain unchanged; keyboard files are preserved during the stock-profile upgrade.
+          **0.2.0:** the launcher tracks compiled-game inputs separately from the public version. Prepare once when upgrading from 0.1.x. Later launcher/docs-only updates reuse the existing compatible game; changed runtime/native/build inputs require rebuilding. Existing saves, settings and custom keyboard profiles are preserved.
 
-          This patch changes compiled host input code, so the game must be rebuilt. Version-independent compilation reuse remains scheduled for 0.2.0. The shared-save repair from 0.1.2, title-screen two-second exit, Audio track-title and Tab repairs remain. Open the launcher once before using direct shortcuts so they receive the shared-save configuration repair; existing cards and configuration backups are preserved.
+          Development and player testing take place on dev. Only an explicitly owner-cleared candidate is promoted to main and published; dev builds are Actions artifacts, not GitHub releases. Source/runtime checks qualify the exact commit before packaging can be distributed.
 
           **Checksums:** SHA256SUMS.txt covers both platform ZIPs. This release's launcher accepts combined and legacy checksums. Individual .sha256 sidecars stay through 0.1.x for older launchers; from 0.2.0 new releases contain only the two ZIPs and SHA256SUMS.txt. Older launchers that skip this bridge may need a manual launcher download, preserving .local. GitHub's automatic source archives replace the redundant uploaded source ZIP. Each release preserves its final source at release/x.y.z.
 
           **Linux x86_64 launcher:** extract the Linux ZIP and run `sh launcher.sh`. Install the system Python/Tk, compiler and graphics/audio prerequisites listed in README-FIRST.txt once. The launcher selects your CUE/BIN, prepares your private game and handles updates. Windows continues to bundle portable Python and preparation tools; use separate folders for each platform.
 
-          Native coverage stays 38.4156% linked / 61.5844% outside. Fresh Test Dashboard n0103 checks the rebuilt keyboard controls and carries unfinished save/menu checks, including optional Linux, forward. Earlier submitted results retain their versions. No new campaign, upload or valued-save overwrite is requested. Audio/game clocks are unchanged; intermittent level-entry stutter remains open.
+          Native coverage stays 38.4156% linked / 61.5844% outside. Fresh Test Dashboard n0200 checks unchanged-input reuse, changed-input rebuilding and preservation, and carries unfinished checks forward. Earlier submitted results retain their versions. No new campaign, upload or valued-save overwrite is requested. Audio/game clocks are unchanged; intermittent level-entry stutter remains open.
 
           **Asset folders** remains optional: original containers, raw movie streams and ten PCM WAV tracks are preserved under .local/game. Runtime still uses the original USA disc. Folder-backed loading, mod packs and EU language import remain future work.
 
@@ -195,7 +210,6 @@ jobs:
           if [[ "$version" == "0.1.1" ]]; then
             python tools/release_checksums.py --maintain-release v0.1.0 --expected-commit de0866abaeeb1b33ca4aa11990224b66f190a527
           fi
-          python tools/release_checksums.py --output dist/SHA256SUMS.txt dist/Nitrogen-Squared-Windows-x64.zip dist/Nitrogen-Squared-Linux-x64.zip
           # Keep sidecars through the updater bridge, then only ZIPs + SUMS.
           python tools/release_checksums.py --asset-list-version "$version" > "$RUNNER_TEMP/release-assets.txt"
           mapfile -t names < "$RUNNER_TEMP/release-assets.txt"
@@ -208,6 +222,7 @@ jobs:
           fi
           gh release edit "v$version" --draft=false --latest
       - name: Preserve final release branch and prune retired work branches
+        if: github.ref == 'refs/heads/main'
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}

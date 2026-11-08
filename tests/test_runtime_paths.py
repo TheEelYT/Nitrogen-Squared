@@ -111,7 +111,7 @@ class RuntimeSavePathsTests(unittest.TestCase):
             argv = ['run_runtime.py', '--work-dir', str(self.layout.work)]
             if explicit: argv += ['--save-dir', str(explicit)]
             child = Mock(); child.wait.return_value = 0
-            with patch.object(sys, 'argv', argv), patch.object(run_runtime, 'load_installation', return_value={'bin_sha256':'original','bin':'synthetic-disc.bin'}), patch.object(run_runtime.subprocess, 'Popen', return_value=child) as start:
+            with patch.object(sys, 'argv', argv), patch.object(run_runtime, 'reusable_runtime', return_value=True), patch.object(run_runtime, 'load_installation', return_value={'bin_sha256':'original','bin':'synthetic-disc.bin'}), patch.object(run_runtime.subprocess, 'Popen', return_value=child) as start:
                 self.assertEqual(run_runtime.main(), 0)
             command = start.call_args.args[0]
             self.assertEqual(Path(command[command.index('--memcard-dir')+1]), (explicit or self.layout.local/'saves').resolve())
@@ -120,7 +120,7 @@ class RuntimeSavePathsTests(unittest.TestCase):
         write_json(self.layout.state_path, dict(schema=1, prepared_version=self.layout.version,
                    root=str(self.layout.root), prepared_tools=self.layout.tool_fingerprint()))
         backend = Backend(self.layout)
-        with patch.object(backend, 'prepare', side_effect=AssertionError('must not compile')), patch('portable_launcher.run') as run:
+        with patch.object(backend, 'prepare', side_effect=AssertionError('must not compile')), patch('portable_launcher.reusable_runtime', return_value=True), patch('portable_launcher.run') as run:
             backend.play()
         self.assertEqual(configured_saves(self.config), self.layout.local / 'saves')
         self.assertEqual(len(run.call_args_list), 1)
