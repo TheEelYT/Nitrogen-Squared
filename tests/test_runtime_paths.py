@@ -114,7 +114,7 @@ class RuntimeSavePathsTests(unittest.TestCase):
             with patch.object(sys, 'argv', argv), patch.object(run_runtime, 'load_installation', return_value={'bin_sha256':'original','bin':'synthetic-disc.bin'}), patch.object(run_runtime.subprocess, 'Popen', return_value=child) as start:
                 self.assertEqual(run_runtime.main(), 0)
             command = start.call_args.args[0]
-            self.assertEqual(Path(command[command.index('--memcard-dir')+1]), explicit or self.layout.local/'saves')
+            self.assertEqual(Path(command[command.index('--memcard-dir')+1]), (explicit or self.layout.local/'saves').resolve())
 
     def test_prepared_launcher_repairs_config_without_calling_the_compiler(self):
         write_json(self.layout.state_path, dict(schema=1, prepared_version=self.layout.version,
