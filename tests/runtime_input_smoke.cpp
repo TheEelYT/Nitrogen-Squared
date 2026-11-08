@@ -31,6 +31,8 @@ static void update_virtual_input()
     SDL_UpdateGamepads();
 }
 
+#include "runtime_keyboard_smoke.inc"
+
 static void runtime_status_and_title_smoke()
 {
     NitrogenRuntimeStatus before{}, after{};
@@ -101,6 +103,7 @@ int main(int argc, char **argv)
 {
     std::setvbuf(stdout, nullptr, _IONBF, 0);
     runtime_save_paths_smoke(argv[0]);
+    runtime_keyboard_smoke(argv[0]);
     SDL_SetHint(SDL_HINT_JOYSTICK_ALLOW_BACKGROUND_EVENTS, "1");
     require_input(psx_sdl_init(SDL_INIT_GAMEPAD | SDL_INIT_EVENTS) == 0, "initialize SDL input");
     SDL_VirtualJoystickDesc desc;

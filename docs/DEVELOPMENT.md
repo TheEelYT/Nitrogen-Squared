@@ -103,3 +103,23 @@ The source ZIP uses only reviewed text files; `.local/` is never traversed.
 CI runs the tests and packaging audit on Windows and Linux without game data.
 It also links the complete runtime with an original synthetic program, exercises
 virtual gamepad input, and compares the reference/enhanced renderer on Linux.
+
+## PC keyboard defaults (0.1.3)
+
+The title wraps the pinned keyboard parser/sampler without editing the SDK.
+Its complete source hash is checked at configure time. New profiles use the
+README table; a complete unchanged framework profile with no alternate bindings
+is interpreted as the new defaults on each load. Existing files are not rewritten
+by migration. Any customized player profile retains its full original semantics,
+including unspecified legacy defaults, alternate and mouse bindings. An explicit
+reset restores the title profile; explicit Save persists the effective profile.
+S intentionally asserts Down and L1. A/D also drive the left analog X axis;
+W/S leave analog Y centred. L3/R3 and the other stick directions are unbound.
+
+The adapter recognizes actual executable files before the SDK's extension
+heuristic, so extensionless Linux binaries load/create keybinds.ini beside the
+executable, including direct launches from another working directory.
+Gamepads, input.ini routing and host shortcuts retain their existing behavior.
+This changes compiled runtime inputs: Prepare & play must rebuild older games.
+The actual SDK input fixture checks fresh/stock/custom profiles, all documented
+buttons, duplicate S, analog axes, reset/save/reload and direct discovery.

@@ -1,6 +1,20 @@
-# Windows and Linux release tests — 0.1.2
+# Windows and Linux release tests — 0.1.3
 
 ## Current acceptance and update checks
+
+**0.1.3 — PC keyboard defaults match the README. Fresh focused check pending.**
+Use Check for updates, then Prepare & play once to rebuild the private game.
+The previous release documented the PC layout but still compiled the framework's
+stock bindings. New and unchanged stock profiles now use the table. Existing
+custom profiles, including alternate/mouse binds, remain unchanged. Reset restores
+the project defaults. The intentional S Down/L1 overlap survives save/reload;
+A/D also steer the keyboard analog path. The title Back gesture uses Backspace.
+
+Check menu navigation and brief ordinary gameplay using the focused keyboard
+check below. No new campaign, upload or valued-save overwrite is requested.
+Unsubmitted checks carry forward and submitted reports remain untouched.
+Coverage stays **38.4156% linked / 61.5844% outside**; clocks are unchanged and
+intermittent level-entry stutter remains OPEN.
 
 **0.1.2 — shared saves for direct shortcuts. Fresh focused check pending.**
 The portable launcher repairs existing game.toml and any saved memory-card path
@@ -892,27 +906,42 @@ Instructions for future maintainers and assistants:
     "metricNote": "Linked emitted byte coverage, including payload data. Not project completion or CPU time."
   },
   "version": {
-    "id": "n0102",
-    "name": "v0.1.2",
-    "title": "Shared saves for direct EXE launches",
+    "id": "n0103",
+    "name": "v0.1.3",
+    "title": "PC keyboard defaults match the README",
     "runtime": "Windows / Linux x64 \u00b7 USA disc",
     "cart": "",
     "createdAt": "2026-11-08",
-    "description": "Launcher/configuration repair makes direct shortcuts and launcher play share .local/saves. Existing cards and both old folders are preserved. Unsubmitted checks and optional Linux carry forward; game code and native coverage are unchanged."
+    "description": "The compiled game now uses the documented PC keyboard defaults. Stock profiles upgrade automatically; custom profiles and gamepads remain unchanged. Rebuild through Prepare & play. Unfinished checks carry forward; native coverage is unchanged."
   },
   "checks": [
     {
       "id": "N2-UPDATE",
-      "title": "Update the launcher and repair existing save paths",
+      "title": "Update and rebuild for the new keyboard defaults",
       "area": "Launcher",
       "required": true,
       "priority": "high",
       "steps": [
-        "Use Check for updates and let the updated launcher reopen once. Preserve .local and both existing save folders.",
-        "You can close the launcher and use the existing game shortcut for the direct-save check before pressing Prepare & play."
+        "Use Check for updates, preserving .local, saves and settings.",
+        "Choose Prepare & play once to rebuild the private game with the new keyboard defaults."
       ],
-      "expected": "The launcher opens normally and repairs the existing runtime configuration; no disc reimport or recompilation is needed for the save-path repair.",
-      "context": "Fresh v0.1.2 launcher/configuration check. The existing 0.1.x Prepare & play version policy can still refresh a build; version-independent compilation reuse remains scheduled for 0.2.0."
+      "expected": "The launcher updates and the rebuilt game starts normally with existing progress available.",
+      "context": "Fresh v0.1.3 check. This changes compiled runtime inputs, so rebuilding is required. No reimport or valued-save overwrite is requested."
+    },
+    {
+      "id": "N2-KEYBOARD",
+      "title": "README keyboard controls in menus and gameplay",
+      "area": "Keyboard input",
+      "required": true,
+      "priority": "high",
+      "steps": [
+        "With the stock keyboard profile, use WASD in menus, Enter to select and Backspace to return. On the title screen, briefly hold Backspace and release to cancel closing.",
+        "During brief ordinary play, check A/D movement, S brake, Space jump, Enter main fire and Right Shift secondary fire.",
+        "Check W changes secondary weapons, E activates a firewall and Backspace activates a shield when available. Minus/Equals zoom out/in.",
+        "Check P pauses/resumes without a menu and O opens the pause menu. If you already use custom keybinds.ini bindings, confirm they remain unchanged instead of replacing them."
+      ],
+      "expected": "The default controls match the README. S works for both menu Down and braking; A/D steer in digital and analog modes. Custom keyboard profiles and gamepads retain their mappings.",
+      "context": "Fresh v0.1.3 check after Prepare & play. Only test available consumables; no new campaign, new upload or valued-save overwrite required."
     },
     {
       "id": "N2-DIRECT-SAVES",

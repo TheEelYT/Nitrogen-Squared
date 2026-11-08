@@ -52,6 +52,10 @@ psxrecomp_add_game_runtime(nitrogen-runtime
     GEN_FULL_GLOB "${NITROGEN_GENERATED_DIR}/SLUS_006.37_full_*.c"
 )
 set_target_properties(nitrogen-runtime PROPERTIES OUTPUT_NAME "NitrogenSquared-dev")
+get_target_property(_nitrogen_sources nitrogen-runtime SOURCES)
+if("${PSXRECOMP_ROOT}/runtime/src/psx_keybinds.c" IN_LIST _nitrogen_sources)
+    include(cmake/keyboard_defaults.cmake)
+endif()
 set(NITROGEN_NATIVE_STATIC "" CACHE FILEPATH "Private generated loaded-game slice dispatcher")
 if(NITROGEN_NATIVE_STATIC)
     include(cmake/native_game.cmake)

@@ -4,6 +4,31 @@ Reports through 0.0.20 are preserved in
 [the validation history](VALIDATION_THROUGH_0.0.20.md). Historical claims retain
 their tested version and scope.
 
+## 0.1.3 PC keyboard defaults
+
+The README's PC table previously differed from the compiled SDK stock layout.
+The title's C11 adapter now supplies the documented defaults for new and unchanged
+stock profiles, with the deliberate S Down/L1 overlap and A/D analog X steering.
+W/S do not move analog Y. Custom profiles, including partial legacy and alternate
+mouse bindings, are retained without rewriting their files. Explicit reset/save
+uses the title defaults. Executable-relative discovery handles Linux binaries
+without filename extensions. The pinned parser/sampler remains the implementation;
+a configure-time source hash rejects an unreviewed change to its private contract.
+
+This changes compiled runtime inputs and requires Prepare & play after updating.
+No selected game ranges change: all 796 records and 48 exclusions remain, with
+324,928 / 845,824 = 38.4156% linked / 61.5844% outside. Game/audio clocks remain
+unchanged and level-entry stutter remains OPEN. Fresh n0103 player checks are
+pending, unfinished checks carry forward and submitted result bodies are preserved.
+The original runtime input fixture now exercises fresh/stock/custom bindings,
+all documented key-to-button masks, analog axes, duplicate S, file preservation
+and reset/save/reload through actual startup discovery from an unrelated cwd.
+All 113 local source tests pass without skips; the 133-file source audit and
+actual Dashboard parser/carry/idempotence/result-tail checks pass. The production
+C11 adapter also passes the full keyboard fixture locally with the actual pinned
+parser/sampler and installed SDL2; CI exercises the default SDL3 runtime. Final
+Windows/Linux source/runtime/renderer and publication checks are pending.
+
 ## 0.1.2 direct-launch save directory
 
 The owner reports that launcher play uses .local/saves while direct execution

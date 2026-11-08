@@ -88,6 +88,13 @@ Linux runs the game through OpenGL. Keep Windows and Linux installations in sepa
 
 ### Keyboard — Digital Pad
 
+Version 0.1.3 applies these defaults in the compiled game, including upgrades
+from the original stock layout. After updating, use **Prepare & play** to rebuild.
+This host input patch leaves native coverage at 38.4156% linked / 61.5844% outside.
+Existing custom keyboard profiles remain unchanged; `keybinds.ini` beside the
+game executable stores them. The S key intentionally drives both D-pad Down
+and L1 for menu navigation and braking. Gamepad bindings are unchanged.
+
 | PlayStation input | Key |
 | --- | --- |
 | D-pad Up | W |

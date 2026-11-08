@@ -163,7 +163,8 @@ def main():
             "Runtime native slice smoke passed:" not in result.stdout or
             "Runtime native boundary smoke passed:" not in result.stdout or
             "Runtime status/title smoke passed:" not in result.stdout or
-            "Runtime save paths smoke passed:" not in result.stdout):
+            "Runtime save paths smoke passed:" not in result.stdout or
+            "Runtime keyboard smoke passed:" not in result.stdout):
         raise RuntimeError("Virtual input test exited without its success receipt: " + result.stdout + result.stderr)
     print(result.stdout, end="", flush=True)
     enhanced = load_execution_manifest(find_binary(work / "build", "NitrogenSquared-input-test"))
