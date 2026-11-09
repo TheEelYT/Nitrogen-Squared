@@ -12,7 +12,7 @@ import tempfile
 import zipfile
 
 from n2o_disc import ROOT
-from package_source import collect,audit_staging
+from package_source import collect_package,audit_staging
 from portable_support import ASSET_NAME,sha256,write_json
 from portable_update import owned_path,verify_package
 
@@ -62,7 +62,7 @@ def copy_python(source: Path, destination: Path):
 
 
 def stage(output: Path):
-    files=collect(ROOT)
+    files=collect_package(ROOT)
     with tempfile.TemporaryDirectory(prefix="nitrogen-release-",dir=output.parent) as temporary:
         root=Path(temporary)/"Nitrogen-Squared"
         app=root/"app"

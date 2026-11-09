@@ -26,7 +26,7 @@ GitHub Actions artifacts require a signed-in account with repository access.
 2. Unzip that artifact, then the Windows or Linux platform ZIP inside it.
 3. Close the game and launcher before installing into the existing folder. Keep
    the complete .local directory, including saves, settings and the private build.
-4. Use Prepare & play. The first 0.2.0 setup establishes a compatibility identity;
+4. Use Play. The first 0.2.x setup establishes a compatibility identity;
    later compatible candidates reuse the same compiled game. Follow the candidate's
    app/TESTING.md or the dev branch's TESTING.md for focused checks.
 5. Report noticed bugs against that candidate; fix and retest on dev. Existing
@@ -57,3 +57,5 @@ and launcher updates advance 0.0.x. A version change alone never invalidates a
 0.2.0-compatible game build. Changed runtime/native sources, build/generation
 recipes, dependency pins or compiler options require rebuilding. Launcher,
 documentation and test changes can reuse the existing compatible executable.
+
+The owner verified 0.2.0 and skipped its publication. Version 0.2.1 includes those changes and the launcher redesign; it requires fresh UI verification and explicit release clearance. Do not create a 0.2.0 release branch or tag.

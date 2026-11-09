@@ -53,8 +53,32 @@ def audit_staging(root: Path, allowed: set[str]):
     actual = {str(p.relative_to(root)).replace("\\", "/") for p in root.rglob("*") if p.is_file() or p.is_symlink()}
     if actual != allowed:
         raise ValueError(f"Unexpected or missing release files: {sorted(actual ^ allowed)}")
+    assets = launcher_assets(root) if any(name.endswith('.png') for name in actual) else {}
     for name in sorted(actual):
-        validate_file(root, name)
+        if name not in assets:validate_file(root, name)
+
+
+def launcher_assets(root: Path) -> dict[str, bytes]:
+    """Only the owner's logo and original launcher illustration may ship."""
+    manifest=json.loads((root/"configs/launcher_assets.json").read_text(encoding="utf-8"))
+    permitted={"launcher/assets/logo.png","launcher/assets/tunnel.png"}
+    if not isinstance(manifest,dict) or set(manifest)!=permitted:
+        raise ValueError("Unsupported launcher artwork manifest")
+    assets={}
+    for name,digest in manifest.items():
+        path=root/name
+        if (not isinstance(digest,str) or not re.fullmatch(r"[0-9a-f]{64}",digest)
+                or path.is_symlink() or not path.is_file() or not path.resolve().is_relative_to(root.resolve())
+                or path.stat().st_size>4*1024*1024):raise ValueError("Forbidden launcher artwork: "+name)
+        data=path.read_bytes()
+        if not data.startswith(b"\x89PNG\r\n\x1a\n") or hashlib.sha256(data).hexdigest()!=digest:
+            raise ValueError("Unreviewed launcher artwork: "+name)
+        assets[name]=data
+    return assets
+
+
+def collect_package(root: Path) -> dict[str, bytes]:
+    return {**collect(root),**launcher_assets(root)}
 
 
 def documentation_assets(root: Path) -> set[str]:
@@ -88,11 +112,13 @@ def main():
         files = collect(ROOT)
         if args.check_tracked:
             tracked = subprocess.check_output(["git", "ls-files", "-z"], cwd=ROOT).decode("utf-8").split("\0")
-            unexpected = set(filter(None, tracked)) - set(files) - documentation_assets(ROOT)
+            unexpected = set(filter(None, tracked)) - set(files) - documentation_assets(ROOT) - set(launcher_assets(ROOT))
             if unexpected:
                 raise ValueError(f"Unreviewed tracked files: {sorted(unexpected)}")
         if args.check_stage:
-            audit_staging(args.check_stage, set(files))
+            allowed=set(files)
+            if (args.check_stage/'launcher/assets').is_dir():allowed |= set(launcher_assets(ROOT))
+            audit_staging(args.check_stage, allowed)
         if args.output:
             args.output.parent.mkdir(parents=True, exist_ok=True)
             with zipfile.ZipFile(args.output, "w", zipfile.ZIP_DEFLATED) as z:

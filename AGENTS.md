@@ -869,3 +869,11 @@
   project logo as a public/first-run fallback before a verified import exists.
   This provenance note implements no branding/runtime changes and needs no
   VERSION bump, release, private rebuild or repeat player check.
+
+- Active 0.2.1 includes the owner-verified 0.2.0 compatibility changes; the owner
+  explicitly skipped a separate 0.2.0 release. Keep 0.2.1 on dev until its new
+  launcher UI is verified and explicitly cleared for publication. No Link Play.
+  Use original N2O-inspired tunnel artwork and the exact owner-created N² logo;
+  never ship the ripped memory-card icon. launcher_assets.json separately gates
+  these two PNGs by exact path/hash; source_package.json remains text-only.
+  The compiled-game fingerprint must remain identical to verified 0.2.0.

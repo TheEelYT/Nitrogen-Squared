@@ -4,7 +4,7 @@ import argparse
 import tempfile
 import zipfile
 from n2o_disc import ROOT
-from package_source import collect,audit_staging
+from package_source import collect_package,audit_staging
 from portable_support import LINUX_ASSET_NAME,extract_zip,sha256,write_json
 from portable_update import verify_package,owned_path
 
@@ -38,7 +38,7 @@ exec python3 -X utf8 -E -s -B "$root/app/tools/portable_launcher.py" --root "$ro
 '''
 
 def stage(output):
-    files=collect(ROOT);output.parent.mkdir(parents=True,exist_ok=True)
+    files=collect_package(ROOT);output.parent.mkdir(parents=True,exist_ok=True)
     with tempfile.TemporaryDirectory(prefix='nitrogen-linux-',dir=output.parent) as t:
         root=Path(t)/'Nitrogen-Squared';app=root/'app';app.mkdir(parents=True)
         for n,data in files.items():

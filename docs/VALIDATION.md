@@ -1432,3 +1432,20 @@ and timestamps. Coverage remains 38.4156% linked / 61.5844% outside, with all
 796 native records and 48 exclusions unchanged. Level-entry stutter remains
 OPEN and clocks unchanged. The planned 0.2.0 compilation-reuse/version policy
 is recorded; it is not implemented by this patch.
+
+## 0.2.1 development candidate
+
+The owner verified 0.2.0 and requested its inclusion in 0.2.1 without publishing
+0.2.0 separately. New UI verification and explicit release clearance are pending.
+The launcher uses original tunnel artwork and the exact owner-created N² logo,
+with Home, What's New and Settings pages, offline notes, shared stage progress,
+and native-compatible display/master-volume preferences. No Link Play is present.
+The reviewed image manifest is separate from the text-only source allowlist.
+
+Compiled game inputs remain `4ab9bc7e2cf8067a308fa329692040366619bfd9000b020368832efe70a156af`.
+No native selection, game clocks or gameplay code changes are made: coverage stays
+38.4156% linked / 61.5844% outside. Level-entry stutter remains OPEN. Automated
+source, packaged UI, updater and runtime qualification are recorded on the
+corresponding dev Actions commit. Main remains on 0.1.3 until owner clearance.
+Unfinished player checks carry forward; historical Dashboard result bodies are
+preserved exactly. New n0201 player checks remain untested until reported.

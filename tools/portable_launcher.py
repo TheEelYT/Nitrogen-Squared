@@ -194,7 +194,7 @@ class Backend:
         run(self.layout.command("run_runtime.py","--work-dir",self.layout.work,
                                  "--save-dir",self.layout.local/"saves"),self.layout.root,env,self)
 
-    def action(self,selected=None,play=True,assets=False):
+    def action(self,selected=None,play=True,assets=False,import_only=False):
         self.cancel.clear()
         self.layout.writable()
         with (self.layout.local/"setup.log").open("a",encoding="utf-8") as self.log:
@@ -202,7 +202,9 @@ class Backend:
                 if selected:
                     self.import_disc(selected)
                 message="Ready to play."
-                if assets:
+                if import_only:
+                    message="Game disc verified. Ready to prepare."
+                elif assets:
                     from extract_assets import extract
                     extract(self.layout.installation,self.layout.local/"game",progress=self)
                     message="Assets extracted to .local/game. Use Asset folders to open them."
@@ -232,56 +234,33 @@ class Application:
         result_path=layout.local/"last-update-result.json"
         update_result=json.loads(result_path.read_text()) if result_path.is_file() else None
         if result_path.is_file():result_path.unlink()
+        from launcher_presentation import read_release_cache, release_list
+        from launcher_ui import LauncherView
         self.window=tk.Tk()
         self.window.title("Nitrogen Squared")
-        self.window.geometry("780x310")
-        self.window.minsize(740,280)
-        body=ttk.Frame(self.window,padding=22)
-        body.pack(fill="both",expand=True)
-        ttk.Label(body,text="Nitrogen Squared",font=("Segoe UI",20,"bold")).pack(anchor="w")
-        ttk.Label(body,text="Version "+layout.version+"  ·  "+layout.display_name).pack(anchor="w",pady=(0,16))
-        self.status=tk.StringVar(value="Choose your N2O CUE sheet to prepare the game." if not layout.state().get("disc") else "Ready to play.")
-        ttk.Label(body,textvariable=self.status,wraplength=590).pack(anchor="w",fill="x")
-        self.detail=tk.StringVar(value="First setup downloads build tools. All prepared files and saves stay in this folder.")
-        ttk.Label(body,textvariable=self.detail,wraplength=590).pack(anchor="w",fill="x",pady=(10,14))
-        self.bar=ttk.Progressbar(body,mode="indeterminate")
-        self.bar.pack(fill="x",pady=(0,14))
-        buttons=ttk.Frame(body);buttons.pack(fill="x")
-        self.play_button=ttk.Button(buttons,text="Prepare & play",command=self.play)
-        self.play_button.pack(side="left")
-        self.disc_button=ttk.Button(buttons,text="Choose disc…",command=self.choose)
-        self.disc_button.pack(side="left",padx=8)
-        self.assets_button=ttk.Button(buttons,text="Asset folders",command=self.assets,
-                                     state="normal" if (layout.installation/"installation.json").is_file() else "disabled")
-        self.assets_button.pack(side="left",padx=(0,8))
-        self.update_button=ttk.Button(buttons,text="Restore previous version" if self.recovery else "Check for updates",command=self.restore if self.recovery else self.check_update)
-        self.update_button.pack(side="left")
-        self.stop_button=ttk.Button(buttons,text="Stop",command=self.stop,state="disabled")
-        self.stop_button.pack(side="right")
-        self.window.update_idletasks()
-        width,height=max(740,body.winfo_reqwidth()),max(280,body.winfo_reqheight())
-        self.window.minsize(width,height)
-        self.window.geometry(f"{max(780,width)}x{max(310,height)}")
+        width=min(1180,max(960,self.window.winfo_screenwidth()-100))
+        height=min(720,max(620,self.window.winfo_screenheight()-100))
+        self.window.geometry(f"{width}x{height}")
+        self.window.minsize(960,620)
+        self.stage_percent=None
+        self.status=tk.StringVar(value="Ready to play" if layout.state().get("disc") else "Choose your game disc")
+        self.detail=tk.StringVar(value="Your game, settings and saves stay in this folder." if layout.state().get("disc") else "Select your supported USA CUE/BIN to get started.")
+        self.releases=release_list(layout,read_release_cache(layout.local))
+        self.view=LauncherView(self)
         self.window.protocol("WM_DELETE_WINDOW",self.close)
         self.window.after(100,self.poll)
         if self.recovery:
-            self.status.set("An update was interrupted. Restore the previous version before playing.")
-            self.play_button.configure(state="disabled");self.disc_button.configure(state="disabled")
-            self.assets_button.configure(state="disabled")
+            self.status.set("Update recovery")
+            self.detail.set("Restore the previous launcher version before playing. Your game files and saves are kept.")
         elif update_result and not update_result.get("success"):
-            self.status.set("The update failed; the previous version was restored.")
+            self.status.set("Previous version restored")
             self.detail.set(update_result.get("error","Details are in .local/update.log"))
-        elif not testing:
-            self.window.after(250,self.choose if not layout.state().get("disc") else self.check_update)
+        if not testing and not self.recovery:self.window.after(300,self.load_history)
 
     def activity(self,value):
         self.busy=value
-        for button in (self.play_button,self.disc_button,self.update_button):
-            button.configure(state="disabled" if value else "normal")
-        self.assets_button.configure(state="normal" if not value and (self.layout.installation/"installation.json").is_file() else "disabled")
-        self.stop_button.configure(state="normal" if value else "disabled")
-        if value:self.bar.start(12)
-        else:self.bar.stop()
+        self.stage_percent=None
+        self.view.set_busy(value)
 
     def play(self):
         if not self.layout.state().get("disc"):
@@ -289,12 +268,12 @@ class Application:
         self.activity(True);self.status.set("Starting game…")
         threading.Thread(target=self.backend.action,daemon=False).start()
 
-    def choose(self):
+    def choose(self,play=True):
         from tkinter import filedialog
         selected=filedialog.askopenfilename(parent=self.window,title="Select your N2O CUE sheet",filetypes=[("CUE sheet (recommended)","*.cue"),("BIN image with matching CUE","*.bin")])
         if selected:
-            self.activity(True);self.status.set("Verifying and preparing your game…")
-            threading.Thread(target=self.backend.action,args=(Path(selected),),daemon=False).start()
+            self.activity(True);self.status.set("Verifying and preparing your game…" if play else "Verifying your disc…")
+            threading.Thread(target=self.backend.action,args=(Path(selected),),kwargs=dict(play=play,import_only=not play),daemon=False).start()
 
     def assets(self):
         folder=self.layout.local/"game"
@@ -335,25 +314,23 @@ class Application:
             while True:
                 kind,text=self.events.get_nowait()
                 if kind=="progress":
-                    if text.startswith("Game running."):
-                        self.status.set("Game running")
-                        self.detail.set("Close the game window to return to the launcher.")
-                        self.stop_button.configure(state="disabled")
-                    elif text.startswith(("Downloaded ","Verifying the complete disc","Existing saves","The folder moved")):
-                        self.detail.set(text[-400:])
-                    elif text.startswith("Preparing "):
-                        self.detail.set("Preparing your game and its local tools…")
-                    elif text.startswith("Extracting "):
-                        self.detail.set("Extracting original assets and music to .local/game…")
-                    elif text.startswith("["):
-                        import re
-                        stage=re.match(r"\[\s*(\d+)%\]",text)
-                        step=re.match(r"\[(\d+)/(\d+)\]",text)
-                        if stage:self.detail.set(f"Compiling a preparation stage ({stage[1]}%).")
-                        elif step:self.detail.set(f"Compiling a preparation stage (step {step[1]} of {step[2]}).")
+                    from launcher_presentation import progress_summary
+                    summary=progress_summary(text)
+                    if summary:
+                        title,detail,self.stage_percent=summary
+                        self.status.set(title);self.detail.set(detail)
+                        self.view.refresh_status()
+                        if title=="Game running":self.stop_button.configure(state="disabled")
                 elif kind in ("done","error"):
-                    self.activity(False);self.status.set(text)
-                    if kind=="error":messagebox.showerror("Nitrogen Squared",text+"\n\nDetails: .local/setup.log",parent=self.window)
+                    self.activity(False)
+                    self.status.set(text if kind=="done" else "Setup stopped" if self.backend.cancel.is_set() else "Something went wrong")
+                    if kind=="error":self.detail.set(text);self.show_error(text)
+                    self.view.reload_options();self.view.refresh_status()
+                elif kind=="history":
+                    from launcher_presentation import release_list
+                    self.releases=release_list(self.layout,text);self.view.update_releases()
+                elif kind=="history-error":
+                    pass # Cached/bundled notes remain usable offline.
                 elif kind=="update-error":
                     self.activity(False);self.status.set("Could not check for updates. You can still play.")
                     self.detail.set(text)
@@ -376,6 +353,57 @@ class Application:
                     self.window.destroy();return
         except queue.Empty:pass
         self.window.after(100,self.poll)
+
+    def load_history(self):
+        def fetch():
+            from launcher_presentation import fetch_release_history
+            try:self.events.put(("history",fetch_release_history(self.layout.local)))
+            except (OSError,ValueError) as e:self.events.put(("history-error",str(e)))
+        threading.Thread(target=fetch,daemon=True).start()
+
+    def show_error(self,text):
+        from tkinter import messagebox
+        messagebox.showerror("Nitrogen Squared",text+"\n\nDetails: .local/setup.log",parent=self.window)
+
+    def open_path(self,path):
+        if os.name=="nt":os.startfile(str(path))
+        else:subprocess.Popen(["xdg-open",str(path)])
+
+    def open_folder(self,name):
+        if name not in ("saves","game"):raise ValueError("Unsupported launcher folder")
+        path=self.layout.local/name;path.mkdir(parents=True,exist_ok=True);self.open_path(path)
+
+    def open_local_file(self,name):
+        if name not in ("setup.log","update.log"):raise ValueError("Unsupported launcher log")
+        path=self.layout.local/name
+        if path.is_file():self.open_path(path)
+        else:self.status.set("No log yet");self.detail.set("A log will appear after setup or an update.")
+
+    def open_runtime_file(self,name):
+        from tkinter import messagebox
+        if name not in ("keybinds.ini","input.ini"):raise ValueError("Unsupported input profile")
+        try:
+            record=json.loads((self.layout.work/"runtime-build.json").read_text(encoding="utf-8"))
+            path=Path(record["executable"]).resolve().parent/name
+            if not path.is_relative_to(self.layout.work.resolve()) or not path.is_file():raise ValueError("No input profile")
+            self.open_path(path)
+        except (OSError,ValueError,KeyError):
+            messagebox.showinfo("Controls","Launch the game once to create its input profiles. Existing custom bindings are kept.",parent=self.window)
+
+    def open_url(self,url):
+        import webbrowser
+        allowed=("https://github.com/TheEelYT/Nitrogen-Squared", "https://github.com/TheEelYT/Nitrogen-Squared/releases")
+        if url not in allowed:raise ValueError("Unsupported project link")
+        webbrowser.open(url)
+
+    def change_accent(self,name):
+        if self.busy or self.recovery:return
+        from launcher_presentation import set_accent
+        from launcher_ui import LauncherView
+        page,tab=self.view.page,self.view.tab
+        set_accent(self.layout.local,name)
+        self.view.destroy();self.view=LauncherView(self)
+        self.view.open_settings(tab,show=False);self.view.show_page(page)
 
     def close(self):
         from tkinter import messagebox
@@ -436,10 +464,11 @@ def main():
     app=Application(layout,args.launcher_pid,testing=args.self_test)
     if args.self_test:
         app.window.update()
+        ui_report=app.view.smoke()
         if os.name=="nt": Path(sys.executable).resolve().relative_to((layout.root/"support/python").resolve())
         report=dict(version=layout.version,python=str(sys.executable),storage=str(layout.local),
                     tkinter=True,asset_tools=bool(app.assets_button.winfo_exists()),
-                    first_run=not bool(layout.state().get("disc")),status=app.status.get())
+                    first_run=not bool(layout.state().get("disc")),status=app.status.get(),launcher_ui=ui_report)
         if not args.report:raise ValueError("Self-test needs a report path")
         args.report.resolve().relative_to(layout.local.resolve())
         write_json(args.report,report)

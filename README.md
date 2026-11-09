@@ -84,13 +84,15 @@ No separate Python or Visual Studio installation is required. The Windows packag
 
 Linux runs the game through OpenGL. Keep Windows and Linux installations in separate folders. PS Vita is planned; no Vita package is available yet.
 
+The launcher has **Home**, **What's New** and **Settings** pages. Settings includes window mode, HUD scale, scene resolution and master volume; these apply on the next game launch. Bundled/cached release notes remain available offline.
+
 ## Controls
 
 ### Keyboard — Digital Pad
 
 Version 0.1.3 applies these defaults in the compiled game, including upgrades
-from the original stock layout. After updating, use **Prepare & play** to rebuild.
-The 0.2.0 launcher/workflow changes leave native coverage at 38.4156% linked / 61.5844% outside.
+from the original stock layout. After updating, use **Play** to rebuild.
+The 0.2.1 launcher/workflow changes leave native coverage at 38.4156% linked / 61.5844% outside.
 Existing custom keyboard profiles remain unchanged; `keybinds.ini` beside the
 game executable stores them. The S key intentionally drives both D-pad Down
 and L1 for menu navigation and braking. Gamepad bindings are unchanged.
@@ -150,7 +152,7 @@ New work and test candidates live on **dev**. Releases are published only after
 the owner verifies and explicitly clears them. Test candidates are available as
 GitHub Actions artifacts; see [the release process](docs/RELEASE_PROCESS.md).
 
-Use **Check for updates** for published releases. Starting with **0.2.0**, Prepare & play rebuilds when game/runtime build inputs change and reuses your existing compatible game for launcher-only updates. The first upgrade from 0.1.x prepares once to establish this compatibility check. Opening the launcher also applies the shared-save configuration repair for direct EXE shortcuts. Keep the complete installation folder together and preserve **`.local`**; it holds your saves, settings and private build. Moving the folder may require a fresh build cache while retaining saves. Do not delete `.local` to update.
+Use **Check for updates** for published releases. Starting with **0.2.1**, Play rebuilds when game/runtime build inputs change and reuses your existing compatible game for launcher-only updates. The first upgrade from 0.1.x prepares once to establish this compatibility check. Opening the launcher also applies the shared-save configuration repair for direct EXE shortcuts. Keep the complete installation folder together and preserve **`.local`**; it holds your saves, settings and private build. Moving the folder may require a fresh build cache while retaining saves. Do not delete `.local` to update.
 
 If an older launcher cannot install an update, get the latest platform ZIP from **Releases** and follow its release notes. Both ZIPs have checksums in **SHA256SUMS.txt**. GitHub provides source archives automatically.
 

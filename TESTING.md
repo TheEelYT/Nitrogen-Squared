@@ -1,8 +1,13 @@
-# Windows and Linux development tests — 0.2.0
+# Windows and Linux development tests — 0.2.1
 
 ## Current acceptance and update checks
 
-**0.2.0 dev candidate — not released; owner verification/clearance pending.**
+**0.2.1 dev candidate — launcher redesign; owner verification and release clearance pending.**
+The owner verified 0.2.0 and requested its changes be included in 0.2.1 without a separate release. Home, What's New and Settings replace the old launcher panel, with original N² branding and tunnel artwork. Display/master-volume settings share the native preferences file. Notes work from bundled/cached data offline; progress is shared between Home and the sidebar. No Link Play tab is included.
+
+Use the offered dev Actions artifact, preserving the entire .local folder. A verified 0.2.0 private game should be reused unchanged; migration from 0.1.x prepares once. Main and stable updates stay on 0.1.3 until explicit owner clearance. Report dev-only results in chat while the Dashboard follows main. Unfinished checks carry forward, and submitted result bodies remain untouched. Coverage remains **38.4156% linked / 61.5844% outside**; clocks are unchanged and level-entry stutter remains OPEN.
+
+**0.2.0 — owner verified; intentionally not released separately. Changes included in 0.2.1.**
 Test artifacts come from successful dev Actions runs, not Releases. Main and
 stable Check for updates remain on 0.1.3. Close the game/launcher before installing
 an offered candidate and preserve the entire .local folder. First migration from
@@ -923,42 +928,55 @@ Instructions for future maintainers and assistants:
     "metricNote": "Linked emitted byte coverage, including payload data. Not project completion or CPU time."
   },
   "version": {
-    "id": "n0200",
-    "name": "v0.2.0",
-    "title": "Dev candidate: build reuse and verified releases",
+    "id": "n0201",
+    "name": "v0.2.1",
+    "title": "Dev candidate: redesigned launcher",
     "runtime": "Windows / Linux x64 \u00b7 USA disc",
     "cart": "",
     "createdAt": "2026-11-08",
-    "description": "Unreleased dev candidate. Compiled-input identity enables launcher-only build reuse; game/runtime/build changes require rebuilding. Explicit owner verification and release clearance are required. Main stays on 0.1.3; unfinished checks carry forward."
+    "description": "Includes owner-verified, unreleased 0.2.0 build reuse. New launcher UI awaits owner verification and explicit release clearance; main remains 0.1.3."
   },
   "checks": [
     {
-      "id": "N2-UPDATE",
-      "title": "Install an offered 0.2.0 dev test candidate",
+      "id": "N2-LAUNCHER",
+      "title": "Launcher navigation, artwork and resizing",
       "area": "Launcher",
       "required": true,
       "priority": "high",
       "steps": [
-        "Close the game and launcher before installing the offered Actions test candidate. Preserve the complete .local folder.",
-        "Use Prepare & play once to establish the new compatibility receipt when migrating from 0.1.x."
+        "Install the offered dev Actions candidate with the launcher/game closed; preserve the entire .local folder.",
+        "Check Home, What\u2019s New and every Settings tab at your usual window size and a smaller size. Confirm the N\u00b2 logo and tunnel artwork, readable notes, scrolling and no Link Play tab.",
+        "Change the accent colour, restart the launcher and confirm it persists. If offline, confirm bundled/cached notes and Play remain available."
       ],
-      "expected": "The candidate starts with existing progress/settings. This first 0.2.0 preparation may rebuild; subsequent compatible launches reuse that game.",
-      "context": "Unreleased n0200 dev candidate. Do not use stable Check for updates to obtain dev builds; release clearance is separate from test results."
+      "expected": "Navigation, keyboard focus, artwork and settings fit the window. Offline notes remain usable; no game setup is required merely to open the launcher.",
+      "context": "Fresh n0201 UI check. This is an unreleased Actions candidate; verification does not by itself clear publication."
     },
     {
-      "id": "N2-BUILD-REUSE",
-      "title": "Reuse the prepared game and preserve preferences",
-      "area": "Launcher / build compatibility",
+      "id": "N2-LAUNCHER-SETTINGS",
+      "title": "Launcher settings and existing 0.2.0 game reuse",
+      "area": "Launcher / settings",
       "required": true,
       "priority": "high",
       "steps": [
-        "After preparing the offered 0.2.0 candidate once, close the game and choose Prepare & play again.",
-        "Confirm the launcher reports using the existing compatible game without compiling again.",
-        "Inspect known high scores/saved slots, custom keyboard or gamepad bindings and Video/Audio preferences without overwriting a valued save.",
-        "If another launcher-only candidate is offered, install it with .local preserved and repeat. A candidate explicitly containing runtime changes should rebuild instead."
+        "With your verified 0.2.0 .local folder preserved, choose Play. Confirm it reports using the existing compatible game without compiling.",
+        "Close the game; change window mode, HUD scale, scene resolution and master volume in Settings. Start the game and confirm they apply. Restore your preferred values.",
+        "Inspect known high scores, saved slots and custom bindings without overwriting a valued save. Check Open saves, logs and keyboard bindings when available."
       ],
-      "expected": "Unchanged game inputs reuse the private game. Runtime/build changes request compilation. Existing saves, settings and custom input profiles survive either path.",
-      "context": "Fresh n0200 dev check; report available steps only. Automated verified-package/real-binary fixtures cover both update decisions. No artificial code edits, new campaign or valued-save overwrite required."
+      "expected": "The verified 0.2.0 compilation is reused. Preferences apply on next launch; saves and custom profiles survive. Opening Settings alone writes no game preferences.",
+      "context": "0.2.0 changes were owner-verified and are included without a separate 0.2.0 release. No new campaign or upload requested."
+    },
+    {
+      "id": "N2-LAUNCHER-PROGRESS",
+      "title": "Setup, update and error feedback",
+      "area": "Launcher",
+      "required": false,
+      "priority": "medium",
+      "steps": [
+        "If setup or an update is naturally needed, check the current-stage progress in Home and the sidebar. Do not delete a working build to force setup.",
+        "Confirm competing setup actions/settings are disabled while busy; navigation stays readable. Stop setup only if convenient, then retry normally."
+      ],
+      "expected": "Both progress views agree. Percentages describe known compilation stages; other work uses an indeterminate indicator. Errors preserve private files and offer a useful log.",
+      "context": "Optional where the operation is available. Automated synthetic fixtures cover preparation, compatible reuse, updater rollback and busy-state controls."
     },
     {
       "id": "N2-KEYBOARD",
