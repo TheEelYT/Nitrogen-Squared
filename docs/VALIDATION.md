@@ -1534,3 +1534,24 @@ Native coverage stays 38.4156% linked / 61.5844% outside; game inputs, clocks an
 level-entry-stutter status are unchanged. Dashboard result bytes are preserved.
 Version remains 0.2.1. Deliver a complete source ZIP; nothing is pushed, promoted,
 tagged or published. The owner's praise of presentation is not release clearance.
+
+
+## 0.2.1 Windows source-check encoding correction — 2026-11-09
+
+Owner-pushed 3564c804bebb26d46ce6c294c06a4fd973a02903: Source checks
+42736049809 passed Linux source and launcher UI, but Windows job 129565436001
+failed the new one-Play subprocess regression because its launch marker was
+absent. The test generated a Python child script containing an ellipsis with
+Path.write_text's platform default encoding. On an ANSI Windows Python 3.10
+installation that produces non-UTF-8 Python source. This is a fixture defect,
+not evidence that the packaged launch fix failed. Explicit UTF-8 is now used
+for both generated fixture scripts. No launcher, game or audio code changes.
+
+A controlled Windows-ANSI write reproduction fails before the correction and
+passes afterward; all 145 local Python tests pass without skips. This does not
+claim a Windows CI rerun. Windows runtime job 129565436123 and Linux runtime job 129565435555 passed on
+3564c80; both platform package jobs were still running when last inspected. The new commit
+still needs its own complete passing Actions results after the owner pushes.
+Compiled-game fingerprint, native coverage (38.4156% / 61.5844%), clocks, version
+and all submitted Dashboard results are unchanged. Deliver source only; nothing
+is pushed, promoted, tagged or released.

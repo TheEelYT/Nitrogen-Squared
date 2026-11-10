@@ -94,7 +94,7 @@ assert sys.stdin.read(1)=='', 'worker inherited launcher protocol input'
 pathlib.Path(sys.argv[1]).write_text('launched')
 print('Runtime started (PID 42). Log: original fixture',flush=True)
 while not pathlib.Path(sys.argv[2]).exists():time.sleep(.01)
-''')
+''',encoding='utf-8')
         write_json(self.layout.state_path,dict(schema=1,disc='original-fixture.cue',prepared_version='0.2.0',root=str(self.root),prepared_tools=self.layout.tool_fingerprint()))
         entry=self.root/'service-entry.py'
         entry.write_text('''import sys
@@ -110,7 +110,7 @@ def launch(command,cwd,env,progress):
     real_run([sys.executable,'-u',sys.argv[4],sys.argv[5],sys.argv[6]],cwd,env,progress)
 with patch('portable_launcher.reusable_runtime',return_value=True),patch('portable_launcher.repair_portable_saves'),patch('portable_launcher.run',side_effect=launch):
     serve(layout,testing=True)
-''')
+''',encoding='utf-8')
         proc=subprocess.Popen([sys.executable,'-I',str(entry),str(ROOT/'tools'),str(self.root),str(ROOT),str(child),str(marker),str(release)],stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True,encoding='utf-8')
         import queue,time
         messages=queue.Queue()

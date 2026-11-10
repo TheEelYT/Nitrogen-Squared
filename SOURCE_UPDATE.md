@@ -1,34 +1,30 @@
-# Apply the 0.2.1 launch/progress and Linux CI fix
+# Apply the 0.2.1 Windows source-check fixture fix
 
-This complete source snapshot is based on dev commit 21f7b1d. Version stays
-0.2.1, pending owner testing and explicit release clearance. Nothing was pushed,
-promoted, tagged or released. The owner will push this source personally.
+Complete source snapshot based on dev commit 3564c80. Version stays 0.2.1.
+Nothing was pushed, promoted, tagged or published. The owner pushes personally.
 
-1. Extract this ZIP somewhere temporary.
-2. Copy the contents of its Nitrogen-Squared folder into B:\Nitrogen-Squared-dev.
-   Keep the checkout's .git directory. No .git, private game files or build tools
-   are included in this ZIP. Keep your entire .local folder.
-3. This revision has no new tracked-file deletions relative to the Tauri commit.
-4. Stage and inspect, then commit/push dev when ready:
+Copy the contents of this ZIP's Nitrogen-Squared folder into your existing
+B:\Nitrogen-Squared-dev checkout, preserving .git. There are no new file deletions.
+Keep your entire .local folder and close the game/launcher before replacing a
+built package. This source ZIP contains no compiled game, caches or saves.
+
+The only code change is in tests/test_launcher_service.py: both generated Python
+fixture scripts now specify UTF-8 when written. The child script contains an
+ellipsis; Windows Python 3.10's default ANSI encoding could make its source
+unreadable to Python's UTF-8 parser, causing a misleading failed launch marker.
+Launcher, game, audio and compiled-game inputs are unchanged by this correction.
 
 ```powershell
 git add -A
 git diff --cached --stat
 git status --short
-git commit -m "Fix launcher startup progress and Linux audio smoke timing"
+git commit -m "Write launcher subprocess fixtures as UTF-8 on Windows"
 git push origin dev
 ```
 
-Play now reports actual disc verification, relays child output without buffering,
-and switches to Running only after the runtime supplies its PID receipt. Worker
-processes receive EOF on stdin, keeping the UI protocol pipe private. Rapid
-lifecycle/stage changes are always published. The Linux package had compiled;
-its later audio smoke check assumed callback startup within 180 ms. That check
-now waits for the same actual sample/clock progress with a three-second deadline,
-without video/event pumping or game-clock changes. No test is skipped or retried.
-
-After Actions completes, install the new Windows candidate preserving .local.
-Click Play once and leave Stop alone: expect disc verification followed by the
-game window, then Running. On game exit the launcher should become ready again.
-A compatible 0.2.0 build is retained; no new campaign or save overwrite is needed.
-The updated Linux package/complete runtime checks remain to be confirmed in CI.
+The Windows-encoding reproduction failed before the fix and passes afterward.
+All 145 local Python tests pass. Actions still needs to verify the new commit;
+no actual Windows CI rerun is claimed by these local results. The earlier
+3564c80 launcher UI and Linux source checks passed, and Windows runtime checks
+passed. Platform packaging and remaining runtime results are read separately.
+Do not promote main or create a release until explicit owner clearance.
