@@ -1,30 +1,38 @@
-# Apply the 0.2.1 Windows source-check fixture fix
+# Apply the 0.2.1 native launcher regression-fixture revision
 
-Complete source snapshot based on dev commit 3564c80. Version stays 0.2.1.
-Nothing was pushed, promoted, tagged or published. The owner pushes personally.
+Complete source snapshot based on dev bb8245b. Version remains 0.2.1.
+Nothing was pushed, promoted, tagged, published or rerun in Actions. The owner
+canceled the other bb8245b workflows after the Windows source check failed.
 
-Copy the contents of this ZIP's Nitrogen-Squared folder into your existing
-B:\Nitrogen-Squared-dev checkout, preserving .git. There are no new file deletions.
-Keep your entire .local folder and close the game/launcher before replacing a
-built package. This source ZIP contains no compiled game, caches or saves.
+Copy this ZIP's Nitrogen-Squared contents into B:\Nitrogen-Squared-dev,
+preserving .git. There are no new deletions. Preserve your entire .local folder.
 
-The only code change is in tests/test_launcher_service.py: both generated Python
-fixture scripts now specify UTF-8 when written. The child script contains an
-ellipsis; Windows Python 3.10's default ANSI encoding could make its source
-unreadable to Python's UTF-8 parser, causing a misleading failed launch marker.
-Launcher, game, audio and compiled-game inputs are unchanged by this correction.
+The preceding UTF-8 file-writing fix did not resolve the Windows CI assertion.
+This revision gives the subprocess regression the native Windows/Linux layout,
+the same isolated UTF-8 interpreter flags as the actual launcher, and a prepared
+synthetic receipt generated in the interpreter that consumes it. Test workers
+use the host interpreter rather than an absent portable interpreter. An unexpected
+rebuild fails explicitly. The one-Play/no-follow-up-input and separate worker
+stdin assertions are retained. No launcher, game, audio or UI code changes.
+
+The test now captures child stderr, non-JSON output, state/error responses and
+the backend setup log. A dead child or explicit backend error fails promptly;
+otherwise its bounded cold-start deadline is 15 seconds. Nothing is skipped or
+retried. A future failure must expose the real child error in the Actions log.
+
+All 145 local tests pass. Both layout classes were exercised locally on Linux;
+a deliberately broken child still fails and displays its real traceback.
+These checks do not substitute for an actual Windows CI run. Windows CI still
+needs to confirm this revision; do not treat this handoff as a verified Windows fix.
 
 ```powershell
 git add -A
 git diff --cached --stat
 git status --short
-git commit -m "Write launcher subprocess fixtures as UTF-8 on Windows"
+git commit -m "Use native launcher fixture setup and expose subprocess failures"
 git push origin dev
 ```
 
-The Windows-encoding reproduction failed before the fix and passes afterward.
-All 145 local Python tests pass. Actions still needs to verify the new commit;
-no actual Windows CI rerun is claimed by these local results. The earlier
-3564c80 launcher UI and Linux source checks passed, and Windows runtime checks
-passed. Platform packaging and remaining runtime results are read separately.
-Do not promote main or create a release until explicit owner clearance.
+Both actual platform package jobs and both runtime jobs from 3564c80 succeeded;
+its final candidate staging was blocked by the source-test gate. Keep new work on
+dev, and wait for explicit owner release clearance before promoting main.

@@ -1555,3 +1555,40 @@ still needs its own complete passing Actions results after the owner pushes.
 Compiled-game fingerprint, native coverage (38.4156% / 61.5844%), clocks, version
 and all submitted Dashboard results are unchanged. Deliver source only; nothing
 is pushed, promoted, tagged or released.
+
+
+## 0.2.1 native fixture correction and diagnostics — 2026-11-09
+
+Owner-pushed bb8245be38268b32ad210627338a6db4786d23a8 still fails Windows
+source job 129571572945 in Source run 42737913439 at the same missing-launch-marker
+assertion. Linux source and launcher UI jobs pass. The earlier UTF-8 correction
+addressed a reproducible fixture defect but did not establish or resolve the CI
+failure's complete cause. Previous wording identifying it as the confirmed cause
+was too strong. The old assertion discarded child stderr and the backend setup
+log, so that log alone cannot identify the remaining underlying exception.
+
+The fixture incorrectly selected LinuxLayout on Windows and directly called serve
+without matching the production host's UTF-8 process flags. It now selects the
+native layout, explicitly uses host Python for this synthetic test and creates
+its prepared receipt in the same interpreter that consumes it. Unexpected
+preparation is an immediate explicit failure. The child and service use isolated/
+unbuffered UTF-8 command contracts, and worker stdin remains DEVNULL. The original
+one-Play/no-follow-up-input, verification and actual Running assertions remain.
+A bounded 15-second cold-start window allows for shared-runner startup variation,
+with prompt failure when a child exits or reports an error. Errors include process
+exit status, protocol states, stderr, malformed output and the actual setup log.
+No retry, skip or automatic pass is added.
+
+All 145 local tests pass. The fixture is also exercised using the Windows Layout
+class on Linux; this is not a Windows OS test. A deliberately broken child produces
+a failed assertion containing its actual traceback, proving the diagnostic path.
+Actual Windows CI verification is still required after the owner's push. No
+launcher, game, UI, audio, compiled inputs, coverage or version changes are made.
+This is a source-only handoff and is not claimed as a verified Windows resolution.
+
+Additional receipts: both package jobs 129565436057 (Windows) and 129565436449
+(Linux) on 3564c80 succeeded, including the revised Linux audio check. Run
+42736049755 failed only at its final source-check gate. Runtime/renderer run
+42736049763 passed both platforms. The owner canceled the other bb8245b workflows
+after the source failure; no remote rerun is requested or performed here. Keep
+dev at 0.2.1 pending exact-commit qualification and explicit owner clearance.

@@ -83,9 +83,8 @@ class LaunchProgressRegressionTests(unittest.TestCase):
         with self.assertRaises(ValueError):self.service.handle('stop',{})
 
     def test_one_play_request_launches_while_protocol_input_remains_open(self):
-        from portable_support import write_json
-        # Original subprocess fixture: attempts to read stdin before announcing
-        # launch. A worker must see EOF, never inherit the UI command pipe.
+        # Exercise the native layout and the same isolated UTF-8 interpreter
+        # contract as the Tauri host. Test jobs use host Python, not bundled Python.
         marker=self.root/'launched.txt';release=self.root/'exit.txt'
         child=self.root/'original-launch-fixture.py'
         child.write_text('''import pathlib,sys,time
@@ -95,44 +94,64 @@ pathlib.Path(sys.argv[1]).write_text('launched')
 print('Runtime started (PID 42). Log: original fixture',flush=True)
 while not pathlib.Path(sys.argv[2]).exists():time.sleep(.01)
 ''',encoding='utf-8')
-        write_json(self.layout.state_path,dict(schema=1,disc='original-fixture.cue',prepared_version='0.2.0',root=str(self.root),prepared_tools=self.layout.tool_fingerprint()))
         entry=self.root/'service-entry.py'
-        entry.write_text('''import sys
+        entry.write_text('''import os,sys
 from pathlib import Path
 from unittest.mock import patch
 sys.path.insert(0,sys.argv[1])
+from portable_support import Layout,write_json,run as real_run
 from linux_support import LinuxLayout
 from launcher_service import serve
-from portable_support import run as real_run
-layout=LinuxLayout(Path(sys.argv[2]));layout.app=Path(sys.argv[3])
+layout=(Layout if os.name=='nt' else LinuxLayout)(Path(sys.argv[2]))
+layout.app=Path(sys.argv[3]);layout.python=Path(sys.executable).resolve()
+# Build the synthetic prepared receipt in the interpreter which consumes it;
+# do not compare a Linux build-tool fingerprint across Windows processes.
+write_json(layout.state_path,dict(schema=1,disc='original-fixture.cue',prepared_version='0.2.0',root=str(layout.root),prepared_tools=layout.tool_fingerprint()))
 def launch(command,cwd,env,progress):
     assert '-u' in command
-    real_run([sys.executable,'-u',sys.argv[4],sys.argv[5],sys.argv[6]],cwd,env,progress)
-with patch('portable_launcher.reusable_runtime',return_value=True),patch('portable_launcher.repair_portable_saves'),patch('portable_launcher.run',side_effect=launch):
+    real_run([sys.executable,'-u','-X','utf8',sys.argv[4],sys.argv[5],sys.argv[6]],cwd,env,progress)
+with patch('portable_launcher.reusable_runtime',return_value=True),patch('portable_launcher.Backend.prepare',side_effect=AssertionError('Prepared fixture unexpectedly requested compilation')),patch('portable_launcher.repair_portable_saves'),patch('portable_launcher.run',side_effect=launch):
     serve(layout,testing=True)
 ''',encoding='utf-8')
-        proc=subprocess.Popen([sys.executable,'-I',str(entry),str(ROOT/'tools'),str(self.root),str(ROOT),str(child),str(marker),str(release)],stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True,encoding='utf-8')
+        proc=subprocess.Popen([sys.executable,'-I','-X','utf8','-B',str(entry),str(ROOT/'tools'),str(self.root),str(ROOT),str(child),str(marker),str(release)],stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True,encoding='utf-8',errors='replace')
         import queue,time
-        messages=queue.Queue()
-        reader=threading.Thread(target=lambda:[messages.put(json.loads(line)) for line in proc.stdout],daemon=True);reader.start()
-        seen=[]
+        messages=queue.Queue();stderr=[];protocol_errors=[]
+        def read_messages():
+            for line in proc.stdout:
+                try:messages.put(json.loads(line))
+                except ValueError:protocol_errors.append(line)
+        reader=threading.Thread(target=read_messages,daemon=True)
+        err_reader=threading.Thread(target=lambda:[stderr.append(line) for line in proc.stderr],daemon=True)
+        reader.start();err_reader.start();seen=[]
+        def diagnostics():
+            log=self.root/'.local/setup.log'
+            return ('Process exit: '+repr(proc.poll())+'\nProtocol: '+repr(seen)+
+                    '\nNon-JSON output: '+''.join(protocol_errors)+'\nChild stderr:\n'+''.join(stderr)+
+                    '\nSetup log:\n'+(log.read_text(encoding='utf-8',errors='replace') if log.is_file() else '(not created)'))
         try:
             proc.stdin.write(json.dumps(dict(id=1,command='play'))+'\n');proc.stdin.flush()
-            deadline=time.monotonic()+5
+            deadline=time.monotonic()+15
             while time.monotonic()<deadline:
                 try:value=messages.get(timeout=.1)
-                except queue.Empty:continue
+                except queue.Empty:
+                    if proc.poll() is not None:break
+                    continue
                 seen.append(value)
-                if value.get('event')=='state' and value['payload']['phase']=='running':break
-            self.assertTrue(marker.exists(),'Play waited for another UI command instead of starting the child')
-            self.assertTrue(any(v.get('event')=='state' and v['payload']['phase']=='running' for v in seen),seen)
-            self.assertTrue(any(v.get('event')=='state' and v['payload']['title']=='Verifying your disc' for v in seen),seen)
+                if value.get('error'):break
+                if value.get('event')=='state':
+                    state=value['payload']
+                    if state['phase']=='running' or state.get('error'):break
+            detail=diagnostics()
+            self.assertTrue(marker.exists(),'One Play request did not launch the child.\n'+detail)
+            self.assertTrue(any(v.get('event')=='state' and v['payload']['phase']=='running' for v in seen),detail)
+            self.assertTrue(any(v.get('event')=='state' and v['payload']['title']=='Verifying your disc' for v in seen),detail)
         finally:
-            release.write_text('close fixture')
+            release.write_text('close fixture',encoding='utf-8')
             if proc.poll() is None:
                 proc.stdin.close()
                 try:proc.wait(timeout=5)
                 except subprocess.TimeoutExpired:proc.kill();proc.wait()
-            reader.join(timeout=2);proc.stdout.close();proc.stderr.close()
+            reader.join(timeout=2);err_reader.join(timeout=2)
+            proc.stdout.close();proc.stderr.close()
 
 if __name__=='__main__':unittest.main()
