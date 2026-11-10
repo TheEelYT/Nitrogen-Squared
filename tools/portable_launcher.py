@@ -11,7 +11,7 @@ import threading
 import time
 
 sys.path.insert(0,str(Path(__file__).resolve().parent))
-from portable_support import Layout, beneath, bootstrap, run, sha256, write_json
+from portable_support import Layout, beneath, bootstrap, probe, run, sha256, stop_process, write_json
 from portable_update import latest_release, stage_release, start_updater
 from runtime_paths import repair_portable_saves
 from runtime_compatibility import build_options, reusable_runtime
@@ -61,14 +61,8 @@ class Backend:
     def stop(self):
         self.cancel.set()
         process=self.process
-        if process and process.poll() is None:
-            if os.name=="nt":
-                subprocess.run(["taskkill","/PID",str(process.pid),"/T","/F"],capture_output=True,
-                               creationflags=subprocess.CREATE_NO_WINDOW,timeout=15)
-            else:
-                import signal
-                try: os.killpg(process.pid,signal.SIGTERM)
-                except ProcessLookupError: pass
+        if process:
+            stop_process(process)
 
     def import_disc(self,selected):
         from n2o_disc import inspect,prepare,digest
@@ -98,10 +92,12 @@ class Backend:
             run([git,"init",str(target)],self.layout.root,env,self)
             run([git,"-C",str(target),"remote","add","origin",FRAMEWORK_URL],self.layout.root,env,self)
             run([git,"-C",str(target),"config","core.longpaths","true"],self.layout.root,env,self)
-        result=subprocess.run([git,"-C",str(target),"rev-parse","HEAD"],env=env,capture_output=True,text=True,
-                              creationflags=subprocess.CREATE_NO_WINDOW if os.name=="nt" else 0)
+        self("Checking framework source revision…")
+        result=probe([git,"-C",str(target),"rev-parse","HEAD"],self.layout.root,env,self)
         if result.returncode:
-            run([git,"-C",str(target),"fetch","--depth","1","origin",FRAMEWORK_REV],self.layout.root,env,self)
+            self("Downloading framework source…")
+            run([git,"-C",str(target),"fetch","--progress","--depth","1","origin",FRAMEWORK_REV],self.layout.root,env,self)
+            self("Preparing framework source checkout…")
             run([git,"-C",str(target),"checkout","--detach",FRAMEWORK_REV],self.layout.root,env,self)
         elif result.stdout.strip()!=FRAMEWORK_REV:
             raise ValueError("The preparation framework has another revision and was preserved")
@@ -200,6 +196,8 @@ class Backend:
     def action(self,selected=None,play=True,assets=False,import_only=False):
         self.layout.writable()
         with (self.layout.local/"setup.log").open("a",encoding="utf-8") as self.log:
+            self.log.write("\nSetup session: "+time.strftime("%Y-%m-%d %H:%M:%S %z")+"\n")
+            self.log.flush()
             try:
                 if selected:
                     self.import_disc(selected)

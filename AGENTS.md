@@ -899,3 +899,21 @@
   audio-startup assumption. Keep the same progress criteria with a bounded wait,
   no main-thread/event assistance and no runtime/player-clock changes. Deliver
   source only; the owner still pushes personally. Keep version 0.2.1 on dev.
+
+- The owner installed the current 79a2671 Windows artifact, confirmed compatible
+  game launching works, and explicitly cleared/published 0.2.1. Preserve its tag,
+  release branch and public assets. The subsequent clean Windows first-setup
+  report remains OPEN: setup stopped near SDL initialization; manual fetch and
+  then fetch/checkout in the launcher's Python environment passed. Cancellation
+  messages are not a diagnosis of the earlier wait.
+- Active 0.2.2 addresses concrete setup-process gaps: SDL/framework revision
+  probes must have DEVNULL input, a tracked child and bounded wait; Stop must
+  reach them. Record setup sessions/commands/exits and show dependency-download
+  progress. Do not claim these gaps establish the owner's Windows root cause.
+  Real Windows first-setup qualification is pending. Keep .local, completed tools,
+  imports and saves; no forced game rebuild or native/clock changes. Maintain
+  the accepted compiled-game fingerprint. Deliver source only; no remote writes,
+  promotion or publication until the owner pushes/tests and explicitly clears it.
+- The 0.1.3 updater rejects the Tauri support/launcher/licenses package directory.
+  Manual full-package replacement preserving .local is needed for that transition.
+  Never silently alter immutable old releases to change their installed updater.

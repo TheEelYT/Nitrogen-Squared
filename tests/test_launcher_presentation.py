@@ -67,21 +67,26 @@ class LauncherPresentationTests(unittest.TestCase):
         self.assertEqual(read_launcher_preferences(self.root)['accent'],'Cyan')
 
     def test_notes_use_bundled_current_and_actual_published_history_offline(self):
-        layout=SimpleNamespace(app=ROOT,local=self.root,version='0.2.1')
+        current=(ROOT/'VERSION').read_text().strip()
+        layout=SimpleNamespace(app=ROOT,local=self.root,version=current)
         self.assertEqual(read_release_cache(self.root),[])
-        notes=release_list(layout,[]);self.assertEqual([n['version'] for n in notes],['0.2.1'])
+        notes=release_list(layout,[]);self.assertEqual([n['version'] for n in notes],[current])
         actual=dict(tag_name='v0.1.3',name='0.1.3',body='PC controls',published_at='2026-11-08T00:00:00Z',html_url='https://untrusted.invalid')
         with patch('launcher_presentation.api_json',return_value=[actual,dict(actual,prerelease=True),dict(tag_name='bad')]) as fetch:
             online=fetch_release_history(self.root)
         self.assertEqual(online,read_release_cache(self.root));self.assertEqual(len(online),1)
         self.assertTrue(online[0]['url'].startswith('https://github.com/TheEelYT/Nitrogen-Squared/'))
-        self.assertEqual([n['version'] for n in release_list(layout,online)],['0.2.1','0.1.3'])
+        self.assertEqual([n['version'] for n in release_list(layout,online)],[current,'0.1.3'])
         with patch('launcher_presentation.api_json',side_effect=OSError('offline')):
             with self.assertRaises(OSError):fetch_release_history(self.root)
         self.assertEqual(online,read_release_cache(self.root))
         self.assertIsNone(clean_release(dict(actual,draft=True)))
 
     def test_progress_is_current_stage_only_and_unknown_does_not_invent_percent(self):
+        self.assertEqual(progress_summary('Receiving objects:  37% (10/27)')[2],37)
+        self.assertEqual(progress_summary('Resolving deltas: 100% (27/27)')[2],100)
+        self.assertEqual(progress_summary('Checking SDL source revision…')[0],'Checking SDL')
+        self.assertIsNone(progress_summary('Command: private setup query'))
         self.assertEqual(progress_summary('[ 42%] Building CXX object')[2],42)
         self.assertEqual(progress_summary('[12/24] Compiling original fixture')[2],50)
         self.assertEqual(progress_summary('[999%] stage')[2],100)

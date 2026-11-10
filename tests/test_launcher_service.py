@@ -83,6 +83,12 @@ class LaunchProgressRegressionTests(unittest.TestCase):
         with self.assertRaises(ValueError):self.service.handle('stop',{})
 
     def test_one_play_request_launches_while_protocol_input_remains_open(self):
+        self._one_play_request()
+
+    def test_first_setup_revision_probe_finishes_with_protocol_input_open(self):
+        self._one_play_request(first_setup=True)
+
+    def _one_play_request(self, first_setup=False):
         # Exercise the native layout and the same isolated UTF-8 interpreter
         # contract as the Tauri host. Test jobs use host Python, not bundled Python.
         marker=self.root/'launched.txt';release=self.root/'exit.txt'
@@ -95,25 +101,37 @@ print('Runtime started (PID 42). Log: original fixture',flush=True)
 while not pathlib.Path(sys.argv[2]).exists():time.sleep(.01)
 ''',encoding='utf-8')
         entry=self.root/'service-entry.py'
+        query=self.root/'revision-fixture.py'
+        query.write_text('''import sys
+assert sys.stdin.read(1)=='', 'revision query inherited launcher protocol input'
+print('original-fixture-revision',flush=True)
+''',encoding='utf-8')
         entry.write_text('''import os,sys
 from pathlib import Path
 from unittest.mock import patch
 sys.path.insert(0,sys.argv[1])
-from portable_support import Layout,write_json,run as real_run
+from portable_support import Layout,write_json,run as real_run,probe
 from linux_support import LinuxLayout
 from launcher_service import serve
 layout=(Layout if os.name=='nt' else LinuxLayout)(Path(sys.argv[2]))
 layout.app=Path(sys.argv[3]);layout.python=Path(sys.executable).resolve()
 # Build the synthetic prepared receipt in the interpreter which consumes it;
 # do not compare a Linux build-tool fingerprint across Windows processes.
-write_json(layout.state_path,dict(schema=1,disc='original-fixture.cue',prepared_version='0.2.0',root=str(layout.root),prepared_tools=layout.tool_fingerprint()))
+first_setup=sys.argv[8]=='first-setup'
+write_json(layout.state_path,dict(schema=1,disc='original-fixture.cue',prepared_version=None if first_setup else '0.2.0',root=str(layout.root),prepared_tools=layout.tool_fingerprint()))
+def prepare(backend):
+    assert first_setup, 'Prepared fixture unexpectedly requested compilation'
+    backend('Checking SDL source revision…')
+    result=probe([sys.executable,'-u','-X','utf8',sys.argv[7]],layout.root,layout.environment(),backend)
+    assert result.returncode==0 and result.stdout.strip()=='original-fixture-revision'
+    return layout.environment()
 def launch(command,cwd,env,progress):
     assert '-u' in command
     real_run([sys.executable,'-u','-X','utf8',sys.argv[4],sys.argv[5],sys.argv[6]],cwd,env,progress)
-with patch('portable_launcher.reusable_runtime',return_value=True),patch('portable_launcher.Backend.prepare',side_effect=AssertionError('Prepared fixture unexpectedly requested compilation')),patch('portable_launcher.repair_portable_saves'),patch('portable_launcher.run',side_effect=launch):
+with patch('portable_launcher.reusable_runtime',return_value=True),patch('portable_launcher.Backend.prepare',new=prepare),patch('portable_launcher.repair_portable_saves'),patch('portable_launcher.run',side_effect=launch):
     serve(layout,testing=True)
 ''',encoding='utf-8')
-        proc=subprocess.Popen([sys.executable,'-I','-X','utf8','-B',str(entry),str(ROOT/'tools'),str(self.root),str(ROOT),str(child),str(marker),str(release)],stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True,encoding='utf-8',errors='replace')
+        proc=subprocess.Popen([sys.executable,'-I','-X','utf8','-B',str(entry),str(ROOT/'tools'),str(self.root),str(ROOT),str(child),str(marker),str(release),str(query),'first-setup' if first_setup else 'reuse'],stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True,encoding='utf-8',errors='replace')
         import queue,time
         messages=queue.Queue();stderr=[];protocol_errors=[]
         def read_messages():
@@ -145,6 +163,8 @@ with patch('portable_launcher.reusable_runtime',return_value=True),patch('portab
             self.assertTrue(marker.exists(),'One Play request did not launch the child.\n'+detail)
             self.assertTrue(any(v.get('event')=='state' and v['payload']['phase']=='running' for v in seen),detail)
             self.assertTrue(any(v.get('event')=='state' and v['payload']['title']=='Verifying your disc' for v in seen),detail)
+            if first_setup:
+                self.assertTrue(any(v.get('event')=='state' and v['payload']['title']=='Checking SDL' for v in seen),detail)
         finally:
             release.write_text('close fixture',encoding='utf-8')
             if proc.poll() is None:

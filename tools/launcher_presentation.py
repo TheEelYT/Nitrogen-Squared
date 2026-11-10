@@ -117,6 +117,12 @@ def progress_summary(line):
     if line.startswith("Starting game."):return "Starting game", "Verifying your disc before launch…", None
     if line.startswith("Using your existing"):return "Starting game", "Using your existing compatible game build.", None
     if line.startswith("Downloaded "):return "Downloading tools", line[-180:], None
+    if line.startswith("Checking SDL source"):return "Checking SDL", "Checking a required setup component…", None
+    if line.startswith("Checking framework source"):return "Checking framework", "Checking the game preparation framework…", None
+    if line.startswith("Downloading SDL source"):return "Downloading SDL", "Downloading a required setup component…", None
+    if line.startswith("Downloading framework source"):return "Downloading framework", "Downloading the game preparation framework…", None
+    git_progress=re.search(r"(?:Receiving objects|Resolving deltas):\s*(\d+)%",line)
+    if git_progress:return "Downloading setup components", line[-180:], min(100,int(git_progress[1]))
     if line.startswith("Verifying the complete disc"):return "Verifying your disc", "Checking the game and its audio tracks…", None
     if line.startswith("Extracting "):return "Extracting assets", "Saving original assets and music locally…", None
     stage=re.match(r"\[\s*(\d+)%\]",line)

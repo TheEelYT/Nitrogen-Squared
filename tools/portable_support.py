@@ -214,7 +214,59 @@ class Layout:
                 "-DCMAKE_FIND_USE_PACKAGE_REGISTRY=OFF"]
 
 
+def stop_process(process):
+    """Stop a tracked preparation process and its children, without touching data."""
+    if process.poll() is not None:
+        return
+    if os.name == "nt":
+        subprocess.run(["taskkill", "/PID", str(process.pid), "/T", "/F"],
+                       stdin=subprocess.DEVNULL, capture_output=True,
+                       creationflags=subprocess.CREATE_NO_WINDOW, timeout=15)
+    else:
+        import signal
+        try:
+            os.killpg(process.pid, signal.SIGTERM)
+        except ProcessLookupError:
+            pass
+
+
+def probe(command, cwd: Path, env: dict, progress=print, *, timeout=30):
+    """A bounded, cancellable query; never inherit the service's command input.
+
+    A missing HEAD is an expected result during first setup, so callers inspect
+    the return code instead of treating every nonzero query result as failure.
+    """
+    description = subprocess.list2cmdline(list(map(str, command)))
+    progress("Command: " + description)
+    flags = subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0
+    with subprocess.Popen(command, cwd=cwd, env=env, stdin=subprocess.DEVNULL,
+                          stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                          text=True, encoding="utf-8", errors="replace",
+                          creationflags=flags, start_new_session=os.name != "nt") as proc:
+        tracker = getattr(progress, "set_process", None)
+        try:
+            if tracker:
+                tracker(proc)
+            try:
+                output, error = proc.communicate(timeout=timeout)
+            except subprocess.TimeoutExpired:
+                stop_process(proc)
+                output, error = proc.communicate(timeout=15)
+                raise RuntimeError(f"Setup query timed out after {timeout} seconds: {description}")
+            progress(f"Command exited ({proc.returncode}): {description}")
+            for line in error.splitlines():
+                progress(line)
+            return subprocess.CompletedProcess(command, proc.returncode, output, error)
+        finally:
+            if proc.poll() is None:
+                stop_process(proc)
+            if tracker:
+                tracker(None)
+
+
 def run(command, cwd: Path, env: dict, progress=print):
+    description = subprocess.list2cmdline(list(map(str, command)))
+    progress("Command: " + description)
     flags = subprocess.CREATE_NO_WINDOW if os.name=="nt" else 0
     with subprocess.Popen(command, cwd=cwd, env=env, stdin=subprocess.DEVNULL, stdout=subprocess.PIPE,
                           stderr=subprocess.STDOUT, text=True, encoding="utf-8",
@@ -226,7 +278,8 @@ def run(command, cwd: Path, env: dict, progress=print):
             for line in proc.stdout:
                 progress(line.rstrip())
             if proc.wait():
-                raise RuntimeError(f"Preparation command failed ({proc.returncode}); see the setup log")
+                raise RuntimeError(f"Preparation command failed ({proc.returncode}): {description}; see the setup log")
+            progress(f"Command exited (0): {description}")
         finally:
             if tracker:
                 tracker(None)
@@ -280,11 +333,13 @@ def prepare_sdl(layout, env, git, progress):
     sdl_pin=json.loads((layout.app/"configs/runtime_inputs.json").read_text(encoding="utf-8"))["sdl_revision"]
     if not isinstance(sdl_pin,str) or len(sdl_pin)!=40 or any(c not in "0123456789abcdef" for c in sdl_pin):
         raise ValueError("Invalid SDL source revision")
-    current=subprocess.run([git,"-C",str(sdl),"rev-parse","HEAD"],env=env,capture_output=True,text=True,
-                           creationflags=subprocess.CREATE_NO_WINDOW if os.name=="nt" else 0)
+    progress("Checking SDL source revision…")
+    current=probe([git,"-C",str(sdl),"rev-parse","HEAD"],layout.root,env,progress)
     if current.returncode or current.stdout.strip()!=sdl_pin:
         if not current.returncode:
             raise ValueError("The private SDL checkout has another revision; it was preserved")
-        run([git,"-C",str(sdl),"fetch","--depth","1","origin",sdl_pin],layout.root,env,progress)
+        progress("Downloading SDL source…")
+        run([git,"-C",str(sdl),"fetch","--progress","--depth","1","origin",sdl_pin],layout.root,env,progress)
+        progress("Preparing SDL source checkout…")
         run([git,"-C",str(sdl),"checkout","--detach",sdl_pin],layout.root,env,progress)
     return env

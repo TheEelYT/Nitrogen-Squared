@@ -13,7 +13,7 @@ from unittest.mock import patch
 import zipfile
 
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"tools"))
-from portable_support import ASSET_NAME,LINUX_ASSET_NAME,REPOSITORY,Layout,beneath,download,extract_zip,relative_path,sha256,write_json
+from portable_support import ASSET_NAME,LINUX_ASSET_NAME,REPOSITORY,Layout,beneath,download,extract_zip,relative_path,sha256,write_json,probe,run,prepare_sdl
 from portable_update import apply_update,latest_release,stage_release,start_updater,owned_path,read_manifest,rollback,verify_package,version_tuple
 from portable_launcher import Backend,select_cue
 from test_disc import fixture
@@ -39,6 +39,88 @@ class PortableTests(unittest.TestCase):
         self.layout=Layout(self.root)
 
     def tearDown(self):self.temp.cleanup()
+
+    def test_query_timeout_releases_process_and_identifies_the_command(self):
+        seen=[];processes=[]
+        class Progress:
+            def __call__(self,line):seen.append(line)
+            def set_process(self,process):processes.append(process)
+        command=[sys.executable,'-u','-c','import time; time.sleep(20)']
+        with self.assertRaisesRegex(RuntimeError,'Setup query timed out.*time.sleep'):
+            probe(command,self.root,os.environ.copy(),Progress(),timeout=.2)
+        self.assertIsNone(processes[-1])
+        self.assertIsNotNone(processes[0].poll())
+        self.assertTrue(any(line.startswith('Command: ') for line in seen))
+
+    def test_stop_cancels_a_tracked_revision_query(self):
+        import threading
+        ready=threading.Event();errors=[]
+        backend=Backend(self.layout)
+        original_tracker=backend.set_process
+        def tracker(process):
+            original_tracker(process)
+            if process:ready.set()
+        backend.set_process=tracker
+        def query():
+            try:probe([sys.executable,'-u','-c','import time; time.sleep(20)'],self.root,os.environ.copy(),backend)
+            except Exception as error:errors.append(error)
+        thread=threading.Thread(target=query,daemon=True);thread.start()
+        self.assertTrue(ready.wait(3))
+        backend.stop();thread.join(timeout=5)
+        self.assertFalse(thread.is_alive(),'Stop left the revision query running')
+        self.assertIsNone(backend.process)
+        self.assertTrue(any('Stopped.' in str(error) for error in errors))
+
+    def test_sdl_and_framework_revision_checks_use_the_tracked_query(self):
+        from build_recompiler import FRAMEWORK_REV
+        self.layout.app.mkdir(parents=True)
+        (self.layout.app/'configs').mkdir()
+        revision='a'*40
+        write_json(self.layout.app/'configs/runtime_inputs.json',dict(sdl_revision=revision))
+        (self.layout.local/'SDL3-source').mkdir(parents=True)
+        self.layout.framework.mkdir()
+        env=self.layout.environment();backend=Backend(self.layout)
+        with patch('portable_support.probe',return_value=subprocess.CompletedProcess([],0,revision+'\n','')) as query:
+            prepare_sdl(self.layout,env,self.layout.git,backend)
+        self.assertEqual(query.call_args.args[0][-2:],['rev-parse','HEAD'])
+        self.assertIs(query.call_args.args[3],backend)
+        with patch('portable_launcher.probe',return_value=subprocess.CompletedProcess([],0,FRAMEWORK_REV+'\n','')) as query:
+            backend.ensure_framework(env)
+        self.assertIs(query.call_args.args[3],backend)
+
+    def test_command_failure_names_the_failing_command(self):
+        seen=[]
+        with self.assertRaisesRegex(RuntimeError,'Preparation command failed.*original fixture'):
+            run([sys.executable,'-c','import sys; print("original fixture"); sys.exit(7)'],self.root,os.environ.copy(),seen.append)
+        self.assertIn('original fixture',seen)
+
+    @unittest.skipUnless(shutil.which('git'),'Git required for dependency setup integration')
+    def test_actual_git_dependency_checkout_resumes_and_preserves_other_revisions(self):
+        git=shutil.which('git');source=self.base/'original dependency';source.mkdir()
+        hooks=self.base/'empty hooks';hooks.mkdir()
+        def command(*args):
+            return subprocess.check_output([git,*map(str,args)],stderr=subprocess.STDOUT,text=True).strip()
+        command('init',source)
+        (source/'original.txt').write_text('original dependency fixture\n',encoding='utf-8')
+        command('-C',source,'add','original.txt')
+        command('-C',source,'-c','user.name=Original Fixture','-c','user.email=fixture@example.invalid',
+                '-c','commit.gpgsign=false','-c','core.hooksPath='+hooks.as_posix(),'commit','-m','Original fixture')
+        revision=command('-C',source,'rev-parse','HEAD')
+        sdl=self.layout.local/'SDL3-source';command('init',sdl)
+        command('-C',sdl,'remote','add','origin',source.as_uri())
+        definition=self.layout.app/'configs/runtime_inputs.json'
+        write_json(definition,dict(sdl_revision=revision))
+        backend=Backend(self.layout);env=self.layout.environment()
+        prepare_sdl(self.layout,env,git,backend)
+        self.assertEqual(command('-C',sdl,'rev-parse','HEAD'),revision)
+        self.assertEqual((sdl/'original.txt').read_text(),'original dependency fixture\n')
+        # Resume uses the existing pinned HEAD without another fetch/checkout.
+        with patch('portable_support.run',side_effect=AssertionError('Unexpected repeat setup command')):
+            prepare_sdl(self.layout,env,git,backend)
+        write_json(definition,dict(sdl_revision='0'*40))
+        with self.assertRaisesRegex(ValueError,'another revision; it was preserved'):
+            prepare_sdl(self.layout,env,git,backend)
+        self.assertEqual(command('-C',sdl,'rev-parse','HEAD'),revision)
 
     def test_release_discovery_prefers_combined_checksums_and_accepts_legacy(self):
         prefix=f"https://github.com/{REPOSITORY}/releases/download/v0.1.1/"

@@ -1592,3 +1592,60 @@ Additional receipts: both package jobs 129565436057 (Windows) and 129565436449
 42736049763 passed both platforms. The owner canceled the other bb8245b workflows
 after the source failure; no remote rerun is requested or performed here. Keep
 dev at 0.2.1 pending exact-commit qualification and explicit owner clearance.
+
+
+## 0.2.1 acceptance and 0.2.2 first-setup process candidate — 2026-11-10
+
+The owner corrected a stale local package overlay, installed 79a2671 and confirmed
+the new launcher starts an existing compatible game normally. They explicitly
+cleared and published 0.2.1. Source checks 42741839279, runtime/renderer
+42741839573 and Release candidate 42741839552 passed at that exact commit.
+The public v0.2.1 identifies 79a2671befd7a387f3bdd3f85f875aabf2e56091 and has
+both platform ZIPs plus SHA256SUMS.txt. Preserve those published identities.
+This acceptance does not qualify a blank first setup.
+
+Subsequent owner reports: 0.1.3's updater rejects the new Tauri notice directory
+support/launcher/licenses during package validation. Manual full-package overlay
+preserving .local is required for that installed-updater transition. A blank
+Windows installation downloads the tools and initializes SDL, then appears idle;
+setup.log later contains generic code-1 errors or explicit Stopped messages.
+The latter reflect cancellation, not a diagnosis of the earlier wait. Direct
+bundled-Git fetch returned 0; the launcher's own Python/environment also fetched
+and checked out the pinned SDL revision successfully. The owner reports no disk
+activity during the GUI wait and little CPU above idle. That is consistent with
+waiting, but does not establish which process was blocked or the Windows cause.
+
+Code inspection finds remaining revision queries in prepare_sdl and
+Backend.ensure_framework use inherited stdin and untracked subprocess.run calls.
+The new probe helper supplies DEVNULL input, registers the child with the Backend,
+uses a 30-second communicate deadline and terminates its process tree on timeout.
+Backend Stop uses the same process-tree helper. A missing HEAD remains an expected
+query result and still leads to fetch/checkout; existing pinned checkouts are reused
+and a different populated revision is preserved/refused as before. Normal setup
+commands now log their command and successful exit; a failed command is named in
+the error. Each action has a setup-session timestamp. Dependency Git fetches use
+--progress; receiving/resolving percentages reach the UI. No native/runtime inputs
+or clock behavior changed, and completed private preparation data is retained.
+
+Local receipts: all 151 Python tests pass with no skips, both frontend action tests
+pass and the Vite production build succeeds. The real JSON-lines service fixture
+now covers a synthetic first-setup revision query with the host input pipe kept
+open after one Play command. Its child verifies stdin is EOF, then the synthetic
+game reaches Running without another host request. With only probe stdin changed
+back to inherited input, this new test fails at its bounded 15-second deadline;
+restoring DEVNULL passes. Separate real-child tests verify timeout cleanup, Stop
+cleanup and failing-command diagnostics. Both SDL/framework production callers
+are checked to use the tracked query helper. An actual local Git integration uses
+a tiny original-text repository over file transport, checks out the requested
+revision through production prepare_sdl, resumes without another fetch and
+refuses a different populated revision while preserving its checkout. These Linux/local tests exercise the
+process contract, not an actual Windows Git stall or a full commercial-disc setup.
+
+Version metadata is 0.2.2, on a source-only dev candidate. The accepted compiled-game
+fingerprint remains 4ab9bc7e2cf8067a308fa329692040366619bfd9000b020368832efe70a156af;
+coverage remains 38.4156% linked / 61.5844% outside. Existing compatible games need
+no rebuild. TESTING.md's submitted result tail is preserved byte-for-byte; n0202
+adds explicit resumed/fresh setup and cancellation checks. Windows/Linux CI and
+owner testing of the new candidate remain pending. No remote write, promotion,
+release mutation or publication was performed. The original Windows root cause
+and resolution remain unconfirmed until those platform/player receipts exist.

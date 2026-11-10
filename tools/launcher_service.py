@@ -89,7 +89,9 @@ class Service:
                 self.title, self.detail, self.percent = summary
                 if self.title == 'Game running': self.phase = 'running'
                 elif self.title == 'Starting game': self.phase = 'starting'
-                elif self.title in ('Compiling','Setting up','Downloading tools'): self.phase = 'setup'
+                elif self.title in ('Compiling','Setting up','Downloading tools','Checking SDL',
+                        'Checking framework','Downloading SDL','Downloading framework',
+                        'Downloading setup components'): self.phase = 'setup'
                 # Throttle repeated percentages, never lifecycle/stage changes.
                 # A reused build can verify and launch inside the same 80 ms.
                 if previous==(self.phase,self.title) and time.monotonic()-self.last_progress < .08: return

@@ -107,6 +107,18 @@ already contained in the tested release. Changed or unmerged work is preserved.
 
 ## Update compatibility and version policy from 0.2.0
 
+The released 0.1.3 updater rejects the Tauri package's new
+`support/launcher/licenses/` directory during staging, before replacement. Those
+users must close the launcher/game and manually overlay the complete new platform
+package while preserving `.local`; replacing launcher.exe alone is insufficient.
+Updating new updater code cannot change the checks already installed in 0.1.3.
+Do not overwrite old published assets/tags to retrofit this change.
+
+The 0.2.2 setup-only candidate retains compatible compiled games and completed
+setup downloads. A clean Windows setup is not qualified by a successful existing
+game launch or by the synthetic compiler fixture; verify the service's own first
+setup and cancellation paths before clearing a release.
+
 Major game-code updates increment the middle component (`0.2.0`, `0.3.0`, ...).
 Patches and launcher updates increment the final component (`0.2.1`, `0.2.2`, ...).
 Use this policy until the owner declares version 1.0.0. Every complete version

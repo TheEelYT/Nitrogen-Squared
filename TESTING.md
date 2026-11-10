@@ -1,29 +1,39 @@
-# Windows and Linux development tests — 0.2.1
+# Windows and Linux development tests — 0.2.2
 
 ## Current acceptance and update checks
 
-**0.2.1 launch/progress revision — Windows retest and Linux CI confirmation pending.**
-The owner reports the Tauri launcher looks and feels great, but Play appeared
-stuck at Starting game until Stop was clicked. That visual/interaction feedback
-is accepted without marking every launcher check passed. This revision flushes
-startup/verification output, publishes every lifecycle transition and waits for
-an actual runtime PID before showing Running. Worker stdin is separate from the
-launcher command pipe. The Linux host compiled and passed its interface check;
-the later audio smoke check failed its fixed 180 ms startup assumption. It now
-waits for the same observed audio progress within a bounded deadline.
+**0.2.2 development candidate — Windows first-setup retest pending.**
+The owner confirmed the installed 0.2.1 Tauri launcher works with an existing
+compatible build, then cleared and published 0.2.1 at 79a2671. Its source,
+Windows/Linux runtime and package workflows passed. That acceptance does not
+cover a blank first setup: the owner subsequently reports setup stalling near
+SDL Git initialization, with errors after stopping. Direct SDL fetch and then
+fetch/checkout through the launcher's Python environment succeeded. The complete
+blank Windows setup is still unverified; no confirmed Windows root cause exists.
 
-Install the next dev candidate with the game/launcher closed, retaining .local.
-Click Play once without touching Stop. Expect visible disc verification followed
-by the game window, Running and no Stop button. Close the game and confirm Play
-is available again. A compatible 0.2.0 build should not compile again. No new
-campaign, new upload or valued-save overwrite is requested. The complete Linux
-package/runtime workflow still needs a successful rerun after the owner pushes.
-Coverage remains **38.4156% linked / 61.5844% outside** and clocks are unchanged.
+This candidate separates SDL/framework revision-query input from the launcher's
+command pipe, tracks those child processes for Stop and adds a 30-second query
+deadline. Logs identify each command and exit code. Git dependency downloads
+show progress. These changes address concrete process-handling gaps and improve
+diagnosis; they are not a receipt that the owner's Windows stall is fixed.
 
-**0.2.1 dev candidate — launcher redesign; owner verification and release clearance pending.**
-The owner verified 0.2.0 and requested its changes be included in 0.2.1 without a separate release. The initial Tk candidate was reported clunky. This revision adapts Recompia’s actual frontend in a Tauri shell. Home, What's New and Settings replace the canvas GUI, with original N² branding and tunnel artwork. Display/master-volume settings share the native preferences file. Notes work from bundled/cached data offline; progress is shared between Home and the sidebar. No Link Play tab is included.
+Install the dev Actions candidate with the launcher/game closed, retaining the
+current partial .local. Click Play once; report the final Command/Command exited
+lines if setup stops. Reuse completed tool downloads. Check Stop during a setup
+step, then retry without clearing the folder. A separate new installation can
+check first setup without altering the working installation or valued saves.
+Do not delete the working .local folder for testing. No new campaign is needed.
+Compatible 0.2.0/0.2.1 games must remain reusable without compilation.
 
-Use the offered dev Actions artifact, preserving the entire .local folder. A verified 0.2.0 private game should be reused unchanged; migration from 0.1.x prepares once. Main and stable updates stay on 0.1.3 until explicit owner clearance. Report dev-only results in chat while the Dashboard follows main. Unfinished checks carry forward, and submitted result bodies remain untouched. Coverage remains **38.4156% linked / 61.5844% outside**; clocks are unchanged and level-entry stutter remains OPEN.
+0.1.3's updater rejects the new support/launcher/licenses directory before
+replacement. For that transition copy the full new platform package over the
+installation manually, preserving .local. New updater code cannot repair the
+already installed old updater. Keep 0.2.1 release assets/tag/branch immutable.
+
+Coverage remains **38.4156% linked / 61.5844% outside**; game code and clocks are
+unchanged. Owner verification and explicit release clearance for 0.2.2 are pending.
+
+## Historical acceptance notes
 
 **0.2.0 — owner verified; intentionally not released separately. Changes included in 0.2.1.**
 Test artifacts come from successful dev Actions runs, not Releases. Main and
@@ -946,15 +956,44 @@ Instructions for future maintainers and assistants:
     "metricNote": "Linked emitted byte coverage, including payload data. Not project completion or CPU time."
   },
   "version": {
-    "id": "n0201",
-    "name": "v0.2.1",
-    "title": "Dev candidate: Tauri launcher",
+    "id": "n0202",
+    "name": "v0.2.2",
+    "title": "Dev candidate: first-setup process handling",
     "runtime": "Windows / Linux x64 \u00b7 USA disc",
     "cart": "",
-    "createdAt": "2026-11-09",
-    "description": "Includes owner-verified, unreleased 0.2.0 build reuse. Tauri/Recompia launcher revision awaits owner verification and explicit release clearance; main remains 0.1.3."
+    "createdAt": "2026-11-10",
+    "description": "Bounded, cancellable SDL/framework revision queries and visible setup command diagnostics. Clean Windows first-setup verification and release clearance pending; published 0.2.1 remains immutable."
   },
   "checks": [
+    {
+      "id": "N2-FIRST-SETUP",
+      "title": "Resume partial setup and verify a fresh installation",
+      "area": "Launcher setup",
+      "required": true,
+      "priority": "high",
+      "steps": [
+        "Install the 0.2.2 dev package with the launcher/game closed; keep the existing partial .local and its completed downloads.",
+        "Click Play once. Check visible SDL/framework checking/downloading stages and command/exit receipts in .local/setup.log. Allow compilation if this folder has no compatible game.",
+        "Verify a blank first setup in a separate writable installation only; do not delete the working installation or copy valued saves into the test folder.",
+        "If blocked, report the last Command line, exit code/error and .local/launcher-error.log. Stop is not required to start a completed compatible game."
+      ],
+      "expected": "Setup either advances into compilation/play or reports the failing command; revision queries cannot wait indefinitely on launcher input. Completed preparation data remains reusable.",
+      "context": "The original Windows clean-setup stall has not been reproduced locally. Manual SDL commands passed; that does not qualify a complete first setup. This is a new n0202 check."
+    },
+    {
+      "id": "N2-SETUP-STOP",
+      "title": "Stop a setup operation and resume",
+      "area": "Launcher setup",
+      "required": true,
+      "priority": "high",
+      "steps": [
+        "During preparation in the separate test installation, click Stop once.",
+        "Wait for Setup stopped or an explicit error; confirm the task ends.",
+        "Click Play again without clearing .local. Confirm completed downloads/imports are retained."
+      ],
+      "expected": "Stop reaches tracked setup children, including revision checks; retry preserves existing data. A revision query has a 30-second limit and names its command if it times out.",
+      "context": "No save overwrite or campaign replay requested. A very fast revision check may finish before Stop can be clicked."
+    },
     {
       "id": "N2-LAUNCHER",
       "title": "Launcher navigation, artwork and resizing",
@@ -967,7 +1006,7 @@ Instructions for future maintainers and assistants:
         "Change the accent colour, restart the launcher and confirm it persists. If offline, confirm bundled/cached notes and Play remain available."
       ],
       "expected": "Navigation, keyboard focus, artwork and settings fit the window. Offline notes remain usable; no game setup is required merely to open the launcher.",
-      "context": "Fresh n0201 Tauri revision UI check; the earlier Tk candidate was reported clunky. This is an unreleased Actions candidate; verification does not by itself clear publication."
+      "context": "0.2.1 UI and compatible-build launching were owner-accepted. Check for a regression only if observed; no complete UI checklist repeat is requested for this setup-only candidate."
     },
     {
       "id": "N2-LAUNCHER-SETTINGS",
