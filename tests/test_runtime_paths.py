@@ -124,7 +124,8 @@ class RuntimeSavePathsTests(unittest.TestCase):
             backend.play()
         self.assertEqual(configured_saves(self.config), self.layout.local / 'saves')
         self.assertEqual(len(run.call_args_list), 1)
-        self.assertIn('run_runtime.py', run.call_args.args[0][6])
+        self.assertTrue(any(str(arg).endswith('run_runtime.py') for arg in run.call_args.args[0]))
+        self.assertIn('-u',run.call_args.args[0])
 
     def test_no_prepared_runtime_is_a_noop(self):
         (self.layout.work/'runtime-build.json').unlink()

@@ -189,9 +189,13 @@ class Backend:
         else:
             self("Using your existing compatible game build.")
         repair_portable_saves(self.layout)
-        self("Game running. Close the game window to return here.")
-        run(self.layout.command("run_runtime.py","--work-dir",self.layout.work,
-                                 "--save-dir",self.layout.local/"saves"),self.layout.root,env,self)
+        self("Starting game. Verifying your disc before launch…")
+        # The child verifies the disc before it creates a game process. Relay
+        # those lines immediately; only its actual PID receipt means Running.
+        command=self.layout.command("run_runtime.py","--work-dir",self.layout.work,
+                                    "--save-dir",self.layout.local/"saves")
+        command.insert(1,"-u")
+        run(command,self.layout.root,env,self)
 
     def action(self,selected=None,play=True,assets=False,import_only=False):
         self.layout.writable()

@@ -887,3 +887,15 @@
 - The owner explicitly requests SOURCE ZIP delivery and will push personally.
   Do not push, promote, tag or publish this revision. Keep it at 0.2.1 on dev.
   SOURCE_UPDATE.md records the two tracked deletions required for ZIP overlays.
+
+
+- 0.2.1 follow-up: owner accepts the Tauri look/feel but reports Play appearing
+  stuck until Stop; no release clearance. Publish startup/verification/running
+  transitions even within the progress throttle, use unbuffered run_runtime
+  output, isolate worker stdin from the service protocol and require the actual
+  Runtime started PID receipt for Running. Retain full disc validation and the
+  accepted compiled-game fingerprint. The Linux 21f7b1d host/package/interface
+  succeeded; its subsequent synthetic media check failed the fixed 180 ms
+  audio-startup assumption. Keep the same progress criteria with a bounded wait,
+  no main-thread/event assistance and no runtime/player-clock changes. Deliver
+  source only; the owner still pushes personally. Keep version 0.2.1 on dev.

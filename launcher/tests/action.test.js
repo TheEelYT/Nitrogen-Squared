@@ -8,9 +8,11 @@ test('new import, prepared game, interrupted update and running game choose appr
   assert.equal(primaryAction({disc:'local.cue',prepared:true}).label,'Play');
   assert.equal(primaryAction({recovery:true,busy:false}).action,'restore');
   assert.equal(primaryAction({busy:true,phase:'running'}).disabled,true);
+  assert.equal(primaryAction({busy:true,phase:'starting'}).label,'Starting');
 });
 test('stopping is available only before running or committed update restart',()=>{
   assert.equal(canStop({busy:true,phase:'setup'}),true);
+  assert.equal(canStop({busy:true,phase:'starting'}),true);
   assert.equal(canStop({busy:true,phase:'update'}),true);
   assert.equal(canStop({busy:true,phase:'running'}),false);
   assert.equal(canStop({busy:true,phase:'restart'}),false);

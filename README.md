@@ -84,7 +84,7 @@ No separate Python, Node.js, Rust or Visual Studio installation is required. The
 
 Linux runs the game through OpenGL. Keep Windows and Linux installations in separate folders. PS Vita is planned; no Vita package is available yet.
 
-The Tauri launcher, adapted from [Dittobyte/Recompia](https://github.com/Dittobyte/Recompia), has **Home**, **What's New** and **Settings** pages. Settings includes window mode, HUD scale, scene resolution and master volume; these apply on the next game launch. Bundled/cached release notes remain available offline.
+The Tauri launcher, adapted from [Dittobyte/Recompia](https://github.com/Dittobyte/Recompia), has **Home**, **What's New** and **Settings** pages. Settings includes window mode, HUD scale, scene resolution and master volume; these apply on the next game launch. Bundled/cached release notes remain available offline. Play shows disc verification before the game starts and changes to Running after the runtime confirms its process; launcher-only fixes retain the compatible game build.
 
 ## Controls
 

@@ -2,6 +2,24 @@
 
 ## Current acceptance and update checks
 
+**0.2.1 launch/progress revision — Windows retest and Linux CI confirmation pending.**
+The owner reports the Tauri launcher looks and feels great, but Play appeared
+stuck at Starting game until Stop was clicked. That visual/interaction feedback
+is accepted without marking every launcher check passed. This revision flushes
+startup/verification output, publishes every lifecycle transition and waits for
+an actual runtime PID before showing Running. Worker stdin is separate from the
+launcher command pipe. The Linux host compiled and passed its interface check;
+the later audio smoke check failed its fixed 180 ms startup assumption. It now
+waits for the same observed audio progress within a bounded deadline.
+
+Install the next dev candidate with the game/launcher closed, retaining .local.
+Click Play once without touching Stop. Expect visible disc verification followed
+by the game window, Running and no Stop button. Close the game and confirm Play
+is available again. A compatible 0.2.0 build should not compile again. No new
+campaign, new upload or valued-save overwrite is requested. The complete Linux
+package/runtime workflow still needs a successful rerun after the owner pushes.
+Coverage remains **38.4156% linked / 61.5844% outside** and clocks are unchanged.
+
 **0.2.1 dev candidate — launcher redesign; owner verification and release clearance pending.**
 The owner verified 0.2.0 and requested its changes be included in 0.2.1 without a separate release. The initial Tk candidate was reported clunky. This revision adapts Recompia’s actual frontend in a Tauri shell. Home, What's New and Settings replace the canvas GUI, with original N² branding and tunnel artwork. Display/master-volume settings share the native preferences file. Notes work from bundled/cached data offline; progress is shared between Home and the sidebar. No Link Play tab is included.
 
@@ -958,11 +976,11 @@ Instructions for future maintainers and assistants:
       "required": true,
       "priority": "high",
       "steps": [
-        "With your verified 0.2.0 .local folder preserved, choose Play. Confirm it reports using the existing compatible game without compiling.",
+        "With your verified 0.2.0 .local folder preserved, click Play once without touching Stop. Expect Starting, visible disc verification, then the game window and Running. Confirm no compilation; after closing the game, Play is available again.",
         "Close the game; change window mode, HUD scale, scene resolution and master volume in Settings. Start the game and confirm they apply. Restore your preferred values.",
         "Inspect known high scores, saved slots and custom bindings without overwriting a valued save. Check Open saves, logs and keyboard bindings when available."
       ],
-      "expected": "The verified 0.2.0 compilation is reused. Preferences apply on next launch; saves and custom profiles survive. Opening Settings alone writes no game preferences.",
+      "expected": "The verified 0.2.0 compilation is reused. A single Play click launches without Stop; Running appears only after an actual runtime PID. Preferences apply on next launch; saves and custom profiles survive. Opening Settings alone writes no game preferences.",
       "context": "0.2.0 changes were owner-verified and are included without a separate 0.2.0 release. No new campaign or upload requested."
     },
     {

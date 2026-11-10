@@ -216,7 +216,7 @@ class Layout:
 
 def run(command, cwd: Path, env: dict, progress=print):
     flags = subprocess.CREATE_NO_WINDOW if os.name=="nt" else 0
-    with subprocess.Popen(command, cwd=cwd, env=env, stdout=subprocess.PIPE,
+    with subprocess.Popen(command, cwd=cwd, env=env, stdin=subprocess.DEVNULL, stdout=subprocess.PIPE,
                           stderr=subprocess.STDOUT, text=True, encoding="utf-8",
                           errors="replace", creationflags=flags, start_new_session=os.name!="nt") as proc:
         tracker=getattr(progress,"set_process",None)

@@ -1485,3 +1485,52 @@ and copied-updater fixtures; it never publishes dev builds as releases.
 Dashboard submitted-results suffix is unchanged. Focused n0201 player checks
 remain pending. Native coverage stays 38.4156% linked / 61.5844% outside; clocks
 and all game inputs are unchanged and level-entry stutter stays OPEN.
+
+
+## 0.2.1 startup/progress and Linux smoke follow-up — 2026-11-09
+
+Baseline is owner-pushed dev 21f7b1df3f9fab0bcd5619ea896160613ca4fab4.
+The owner reports that the Tauri launcher looks and feels great, but Play with a
+compatible game appears stuck until Stop. The supplied recording shows stale
+Starting game while the backend already considers itself running; it does not
+establish that Stop itself starts the game. Code inspection reproduces dropped
+startup stages within the 80 ms progress throttle. The backend also announced
+Running before creating the actual runtime process, while child disc-verification
+output could remain buffered.
+
+This revision publishes every stage/phase transition, uses Starting during launch,
+relays run_runtime.py output unbuffered and treats its actual Runtime started PID
+receipt as Running. Worker processes use DEVNULL for stdin, never inheriting the
+service command pipe. Full disc validation and compiled-game reuse are retained.
+Two regressions fail on the baseline and pass on the fix: rapid lifecycle updates
+and a real service/worker subprocess started by one Play request while the protocol
+stdin remains open and no Stop/follow-up request is sent. The child confirms EOF
+on its separate stdin and writes its launch marker before reporting Running.
+
+Baseline CI: Source checks 42730594815 and Runtime/renderer 42730594954 passed.
+Release run 42730594779's Windows job 129547283338 passed native compilation,
+packaging, actual webview/backend startup, synthetic runtime and copied updater.
+Linux job 129547283749 compiled/packaged its host and passed the actual first-run
+interface; it failed later at `audio advances through main-thread stall` in the
+synthetic media check. This was not a compiler failure. The test assumed the
+independent audio thread would start within a fixed 180 ms. The replacement waits
+for the same >3000 submitted samples and >0.08 s media clock, at most three seconds,
+without video, event or guest assistance; failure prints actual driver/count/clock.
+Pause/resume checks and production audio/game clocks are unchanged. No retries,
+skips or relaxed success thresholds are introduced.
+
+Local validation: all 145 Python tests pass without skips; both JavaScript action
+tests and the Vite production build pass. A focused build of the actual AudioPlayer
+and revised smoke block against pinned SDL 3.4.10 revision
+8e37db5e797b6167f3a00d697d816a684bd259c7 passes 20 real dummy-device startup/stall/
+pause/resume cycles. Injecting a 300 ms device-start delay with real SDL streams
+fails the old 180 ms check and passes five cycles with the revised check. This
+focused test does not substitute for the complete Linux packaging/runtime workflow,
+which must rerun after the owner pushes. Windows player verification remains pending.
+
+Compiled-game inputs remain
+4ab9bc7e2cf8067a308fa329692040366619bfd9000b020368832efe70a156af.
+Native coverage stays 38.4156% linked / 61.5844% outside; game inputs, clocks and
+level-entry-stutter status are unchanged. Dashboard result bytes are preserved.
+Version remains 0.2.1. Deliver a complete source ZIP; nothing is pushed, promoted,
+tagged or published. The owner's praise of presentation is not release clearance.

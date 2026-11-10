@@ -62,7 +62,15 @@ void nitrogen_media_smoke() {
     Clip clip;clip.sample_rate=37800;clip.duration=.5;clip.audio.resize(37800,0);
     {
         AudioPlayer player(clip);player.set_paused(false);
-        SDL_Delay(180); // No video, event pumping or guest simulation.
+        // A shared CI runner may not schedule the first audio callback within
+        // 180 ms. Wait for observed progress with a deadline; never pump video,
+        // events or guest simulation to help the independent audio thread.
+        const auto deadline=SDL_GetTicksNS()+3000000000ULL;
+        while ((player.submitted()<=3000||player.clock()<=.08)&&SDL_GetTicksNS()<deadline) SDL_Delay(10);
+        if (player.submitted()<=3000||player.clock()<=.08)
+            std::fprintf(stderr,"Audio startup: driver=%s submitted=%llu clock=%.6f\n",
+                         SDL_GetCurrentAudioDriver()?SDL_GetCurrentAudioDriver():"none",
+                         (unsigned long long)player.submitted(),player.clock());
         check(player.submitted()>3000&&player.clock()>.08,"audio advances through main-thread stall");
         player.set_paused(true);const auto count=player.submitted();const double at=player.clock();SDL_Delay(60);
         check(player.submitted()==count&&std::abs(player.clock()-at)<.001,"pause media clock");

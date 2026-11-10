@@ -86,7 +86,7 @@ class LauncherPresentationTests(unittest.TestCase):
         self.assertEqual(progress_summary('[12/24] Compiling original fixture')[2],50)
         self.assertEqual(progress_summary('[999%] stage')[2],100)
         self.assertIsNone(progress_summary('[12/0] invalid'))
-        for line in ['Preparing game','Downloaded compiler','Verifying the complete disc','Extracting assets','Game running. Close window']:
+        for line in ['Preparing game','Downloaded compiler','Verifying the complete disc','Extracting assets','Runtime started (PID 42). Log: original fixture']:
             with self.subTest(line=line):self.assertIsNone(progress_summary(line)[2])
         self.assertIsNone(progress_summary('unstructured tool output'))
 

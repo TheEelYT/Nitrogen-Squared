@@ -85,9 +85,14 @@ class Service:
             if kind == 'progress':
                 summary = progress_summary(text)
                 if not summary: return
+                previous=self.phase,self.title
                 self.title, self.detail, self.percent = summary
                 if self.title == 'Game running': self.phase = 'running'
-                if time.monotonic()-self.last_progress < .08: return
+                elif self.title == 'Starting game': self.phase = 'starting'
+                elif self.title in ('Compiling','Setting up','Downloading tools'): self.phase = 'setup'
+                # Throttle repeated percentages, never lifecycle/stage changes.
+                # A reused build can verify and launch inside the same 80 ms.
+                if previous==(self.phase,self.title) and time.monotonic()-self.last_progress < .08: return
                 self.last_progress = time.monotonic()
             elif kind in ('done','error'):
                 cancelled = self.backend.cancel.is_set()
@@ -125,7 +130,7 @@ class Service:
         if command == 'state': return self.snapshot()
         if command == 'play':
             if not self.layout.state().get('disc'): raise ValueError('Choose your supported USA CUE sheet first.')
-            self.begin('Starting game…', self.backend.action)
+            self.begin('Starting game…', self.backend.action,phase='starting')
         elif command == 'choose':
             selected = args.get('path')
             if not isinstance(selected,str) or not selected: raise ValueError('No disc selected')

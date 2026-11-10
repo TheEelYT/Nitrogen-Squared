@@ -113,7 +113,8 @@ def release_list(layout, published):
 
 
 def progress_summary(line):
-    if line.startswith("Game running."):return "Game running", "Close the game window to return here.", None
+    if line.startswith("Runtime started (PID "):return "Game running", "Close the game window to return here.", None
+    if line.startswith("Starting game."):return "Starting game", "Verifying your disc before launch…", None
     if line.startswith("Using your existing"):return "Starting game", "Using your existing compatible game build.", None
     if line.startswith("Downloaded "):return "Downloading tools", line[-180:], None
     if line.startswith("Verifying the complete disc"):return "Verifying your disc", "Checking the game and its audio tracks…", None
