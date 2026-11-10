@@ -1449,3 +1449,39 @@ source, packaged UI, updater and runtime qualification are recorded on the
 corresponding dev Actions commit. Main remains on 0.1.3 until owner clearance.
 Unfinished player checks carry forward; historical Dashboard result bodies are
 preserved exactly. New n0201 player checks remain untested until reported.
+
+
+## 0.2.1 Tauri source revision — 2026-11-09
+
+The owner reports that the first Windows Tk candidate feels clunky and authorizes
+adapting Recompia's actual frontend/Tauri shell. This source revision replaces
+canvas drawing with HTML/CSS controls, shared state and responsive pages. It
+retains the exact owner logo and original tunnel art and connects the existing
+portable Python Backend over local JSON-lines pipes. No Link Play is added.
+The owner authorizes GPL-3.0-or-later for original project code; Recompia provenance,
+historical MIT grants and component notices remain included. The owner explicitly
+requests source ZIP delivery and will push personally: nothing is pushed, tagged,
+promoted or published by this work. Version stays 0.2.1. Main is an ancestor of
+the source baseline; no newer main game change needs incorporation.
+
+Local evidence: all 143 Python synthetic/configuration tests pass with no skips;
+two JavaScript readiness/cancellation tests pass. Six Chromium frontend interaction
+tests pass at 760×500, 960×620, 1100×700 and 1440×900, including busy-state
+settings, page navigation during tasks, persisted preference command dispatch,
+literal remote notes and reduced-motion scrolling. Home and Settings browser
+renders were visually inspected. Production Vite and native Linux Tauri builds
+pass. A real Linux host/source package is reextracted and its 844-file manifest
+checked; Cargo notice files with epoch timestamps are clamped by ZIP packaging.
+The stdio bridge is exercised as a separate isolated Python process, including
+invalid requests and self-test reports. The compiled-game input fingerprint remains
+`4ab9bc7e2cf8067a308fa329692040366619bfd9000b020368832efe70a156af`.
+
+Windows native compilation, actual system-webview self-tests, copied native-host
+update/restart and cross-platform runtime workflows must run in Actions after the
+owner pushes. Browser mocks do not qualify those native lifecycle/platform checks.
+No fresh real-disc preparation or Windows player acceptance is claimed. The
+packaging workflow gates downloadable candidates on its actual webview/backend
+and copied-updater fixtures; it never publishes dev builds as releases.
+Dashboard submitted-results suffix is unchanged. Focused n0201 player checks
+remain pending. Native coverage stays 38.4156% linked / 61.5844% outside; clocks
+and all game inputs are unchanged and level-entry stutter stays OPEN.

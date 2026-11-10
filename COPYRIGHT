@@ -1,0 +1,14 @@
+Nitrogen Squared
+Copyright (c) 2026 N2O Recomp contributors
+
+Except where another license is stated, project code is licensed under the
+GNU General Public License, version 3 or (at your option) any later version.
+You may redistribute and/or modify it under those terms. It is provided
+WITHOUT ANY WARRANTY; see LICENSE.
+
+The launcher frontend includes adaptations of Dittobyte/Recompia, under
+GPL-3.0-or-later. See launcher/UPSTREAM.md and THIRD_PARTY.md.
+Previously distributed MIT versions retain their MIT permissions; the original
+notice is preserved in third_party/LICENSE.MIT-history. Third-party components
+retain their own terms. The owner-created logo and original tunnel illustration
+are authorized project branding assets. No commercial game data is included.

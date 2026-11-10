@@ -1,0 +1,35 @@
+/* SPDX-License-Identifier: GPL-3.0-or-later. N² branding and responsive additions. */
+[hidden] { display:none !important; }
+.art-soft { filter:blur(24px); }
+.nitrogen-brand { width:130px; height:auto; max-height:90px; object-fit:contain; }
+.brand { min-height:110px; justify-content:center; }
+.eyebrow { font-size:var(--text-2xs); letter-spacing:.13em; color:var(--color-text-2); }
+.home-tagline { font-size:var(--text-xl); text-shadow:var(--shadow-text); }
+.home-logo { width:min(420px,100%); }
+.home-hero { padding-top:var(--space-5); }
+.home-detail { min-height:0; }
+.home-task progress { min-width:0; }
+.build-label { display:flex; flex-direction:column; gap:8px; padding:12px; font-size:var(--text-xs); color:var(--color-text-3); }
+.test-badge { font-size:9px; letter-spacing:.12em; }
+.notes-body { white-space:pre-wrap; overflow-wrap:anywhere; line-height:1.65; user-select:text; font-size:var(--text-md); }
+.note-detail { min-width:0; overflow-y:auto; padding:var(--space-7); }
+.note-date { margin-block:8px 24px; }
+.set .row-label { flex:1 1 42%; max-width:50%; }
+.set .row-control { max-width:55%; }
+.set .row-label p { font-weight:400; margin-top:4px; }
+.set-disc { max-width:100%; overflow-wrap:anywhere; }
+.row-item { padding-block:14px; }
+.note-mark { color:var(--color-accent); font-size:var(--text-2xs); }
+@media (max-width:999.98px) {
+  .nitrogen-brand { width:44px; height:44px; object-fit:contain; }
+  .brand { min-height:72px; justify-content:center; }
+  .build-label { padding-inline:0; text-align:center; font-size:9px; }
+  .test-badge { display:none; }
+  .news { grid-template-columns:180px minmax(0,1fr); }
+}
+@media (max-height:639.98px) {
+  .home-logo { width:min(300px,100%); }
+  .home-tagline { font-size:var(--text-lg); }
+  .home .eyebrow { display:none; }
+  .home { gap:var(--space-4); }
+}

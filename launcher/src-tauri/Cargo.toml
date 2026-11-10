@@ -1,0 +1,21 @@
+[package]
+name = "nitrogen-launcher"
+version = "0.2.1"
+description = "Nitrogen Squared portable launcher"
+edition = "2021"
+license = "GPL-3.0-or-later"
+
+[build-dependencies]
+tauri-build = { version = "=2.7.4", features = [] }
+
+[dependencies]
+tauri = { version = "=2.12.5", features = [] }
+tauri-plugin-dialog = "=2.8.4"
+serde_json = "1"
+
+[profile.release]
+opt-level = "s"
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true

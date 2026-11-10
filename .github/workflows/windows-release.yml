@@ -22,6 +22,15 @@ jobs:
           python-version: '3.13'
           architecture: x64
       - uses: ilammy/msvc-dev-cmd@v1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Build Tauri launcher and dependency notices
+        run: |
+          python -m pip install pillow
+          python tools/build_launcher.py
+          if ($LASTEXITCODE -ne 0) { throw 'Tauri launcher build failed' }
       - name: Package original launcher and portable Python only
         run: |
           python -m unittest discover -s tests -p test_portable.py -v
@@ -47,7 +56,7 @@ jobs:
             throw 'Portable launcher self-test failed'
           }
           $result = Get-Content $report -Raw | ConvertFrom-Json
-          if (-not $result.tkinter -or -not $result.first_run -or -not $result.asset_tools -or -not $result.launcher_ui.artwork -or -not $result.launcher_ui.layout -or -not $result.launcher_ui.progress) { throw 'First-run interface was not verified' }
+          if ($result.frontend -ne 'tauri' -or -not $result.first_run -or -not $result.asset_tools -or -not $result.launcher_ui.artwork -or -not $result.launcher_ui.layout -or -not $result.launcher_ui.progress) { throw 'First-run interface was not verified' }
           Write-Output ($result | ConvertTo-Json)
           "NITROGEN_PORTABLE_SMOKE_ROOT=$app" | Out-File -FilePath $env:GITHUB_ENV -Append
       - name: Test bundled preparation tools against the actual runtime
@@ -86,7 +95,15 @@ jobs:
       - name: Linux desktop and preparation prerequisites
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y python3-tk build-essential cmake git pkg-config libgl-dev libegl-dev libx11-dev libxcursor-dev libxi-dev libxrandr-dev libxfixes-dev libxext-dev libxss-dev libxtst-dev libxkbcommon-dev libudev-dev libusb-1.0-0-dev libdbus-1-dev libasound2-dev libpulse-dev xvfb xauth xdg-utils
+          sudo apt-get install -y python3-tk build-essential cmake git pkg-config libgl-dev libegl-dev libx11-dev libxcursor-dev libxi-dev libxrandr-dev libxfixes-dev libxext-dev libxss-dev libxtst-dev libxkbcommon-dev libudev-dev libusb-1.0-0-dev libdbus-1-dev libasound2-dev libpulse-dev libgtk-3-dev libwebkit2gtk-4.1-dev librsvg2-dev patchelf xvfb xauth xdg-utils
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Build Tauri launcher and dependency notices
+        run: |
+          python -m pip install pillow
+          python tools/build_launcher.py
       - name: Package original Linux launcher and reviewed source only
         run: |
           python tools/package_source.py --check-tracked
@@ -193,13 +210,13 @@ jobs:
           Extract the complete **Nitrogen-Squared** folder and run **launcher.exe**.
           Select the supported USA CUE with its matching BIN beside it. Preparation verifies/imports/generates/compiles your private game; no separate Python or Visual Studio installation is required.
 
-          **0.2.1:** a redesigned Home, What’s New and Settings launcher adds original N² tunnel artwork, offline release notes and shared setup progress. Display and master-volume settings apply on the next launch. The verified 0.2.0 changes are included without a separate release: the launcher tracks compiled-game inputs separately from the public version. Prepare once when upgrading from 0.1.x. Later launcher/docs-only updates reuse the existing compatible game; changed runtime/native/build inputs require rebuilding. Existing saves, settings and custom keyboard profiles are preserved.
+          **0.2.1:** a GPL-3.0-or-later Tauri launcher adapted from Dittobyte/Recompia replaces the Tk interface. Home, What’s New and Settings adds original N² tunnel artwork, offline release notes and shared setup progress. Display and master-volume settings apply on the next launch. The verified 0.2.0 changes are included without a separate release: the launcher tracks compiled-game inputs separately from the public version. Prepare once when upgrading from 0.1.x. Later launcher/docs-only updates reuse the existing compatible game; changed runtime/native/build inputs require rebuilding. Existing saves, settings and custom keyboard profiles are preserved.
 
           Development and player testing take place on dev. Only an explicitly owner-cleared candidate is promoted to main and published; dev builds are Actions artifacts, not GitHub releases. Source/runtime checks qualify the exact commit before packaging can be distributed.
 
           **Checksums:** SHA256SUMS.txt covers both platform ZIPs. This release's launcher accepts combined and legacy checksums. Individual .sha256 sidecars stay through 0.1.x for older launchers; from 0.2.0 new releases contain only the two ZIPs and SHA256SUMS.txt. Older launchers that skip this bridge may need a manual launcher download, preserving .local. GitHub's automatic source archives replace the redundant uploaded source ZIP. Each release preserves its final source at release/x.y.z.
 
-          **Linux x86_64 launcher:** extract the Linux ZIP and run `sh launcher.sh`. Install the system Python/Tk, compiler and graphics/audio prerequisites listed in README-FIRST.txt once. The launcher selects your CUE/BIN, prepares your private game and handles updates. Windows continues to bundle portable Python and preparation tools; use separate folders for each platform.
+          **Linux x86_64 launcher:** extract the Linux ZIP and run `sh launcher.sh`. Install the system Python, GTK/WebKitGTK, compiler and graphics/audio prerequisites listed in README-FIRST.txt once. The launcher selects your CUE/BIN, prepares your private game and handles updates. Windows continues to bundle portable Python and preparation tools; use separate folders for each platform.
 
           Native coverage stays 38.4156% linked / 61.5844% outside. Focused n0201 checks cover launcher navigation, preferences, compatible 0.2.0 game reuse and preservation, and carries unfinished checks forward. Earlier submitted results retain their versions. No new campaign, upload or valued-save overwrite is requested. Audio/game clocks are unchanged; intermittent level-entry stutter remains open.
 

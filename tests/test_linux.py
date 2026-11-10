@@ -38,11 +38,17 @@ class LinuxPackageTests(unittest.TestCase):
 
     def test_linux_package_exact_inventory_and_update_preservation(self):
         with tempfile.TemporaryDirectory() as t:
-            p=Path(t);archive=p/'linux.zip';stage(archive);extract_zip(archive,p/'install')
+            p=Path(t);archive=p/'linux.zip'
+            bundle=p/'launcher-fixture';(bundle/'licenses').mkdir(parents=True)
+            (bundle/'launcher').write_bytes(b'original native host fixture')
+            (bundle/'licenses/DEPENDENCIES.json').write_text('[]')
+            stage(archive,launcher_bundle=bundle);extract_zip(archive,p/'install')
             root=p/'install/Nitrogen-Squared';l=LinuxLayout(root);old=verify_package(root)
             self.assertEqual(old['platform'],'linux-x86_64')
             self.assertFalse((root/'launcher.exe').exists())
-            self.assertFalse((root/'support').exists())
+            self.assertFalse((root/'support/python').exists())
+            self.assertTrue((root/'launcher').is_file())
+            self.assertTrue((root/'support/launcher/licenses/DEPENDENCIES.json').is_file())
             if os.name!='nt':self.assertTrue((root/'launcher.sh').stat().st_mode&0o100)
             staged=l.local/'updates/stage';staged.mkdir(parents=True)
             import shutil

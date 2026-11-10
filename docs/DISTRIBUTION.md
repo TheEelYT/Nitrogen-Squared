@@ -10,7 +10,7 @@ This is an explicit project requirement, including derived game code.
 
 Allowed in source: original tools/runtime code, documentation, identity hashes,
 track metadata, addresses, configuration and original synthetic test fixtures.
-The Windows release additionally contains an original Win32 launcher executable
+The Windows release additionally contains an Tauri launcher executable
 and a clean CPython distribution with its upstream licenses.
 
 Excluded: disc images/CUE sheets, extracted executables, asset/audio files,
@@ -46,7 +46,7 @@ The runtime remains dependent on the pinned framework and compatibility services
 
 The launcher checks this repository's latest stable release, verifies the ZIP
 checksum and exact file manifest, and stages it under .local. Package ownership
-is restricted to launcher.exe, reviewed app source, portable Python and package
+is restricted to the platform launcher, reviewed app source, dependency notices, portable Python and package
 metadata. Private .local data and unknown files are preserved. A collision with
 an unknown file is refused instead of overwriting it.
 
@@ -60,17 +60,18 @@ will provide an additional player-side update check.
 
 ## Package enforcement
 
-The source gate, tools/package_source.py, uses a reviewed 95-file text allowlist
+The source gate, tools/package_source.py, uses an explicit reviewed text allowlist
 and an unchanged 128 KiB per-file limit. CI rejects tracked files outside it and
 recognizable binary/game/emitter content. This guards against accidental inclusion;
 it is not a claim about arbitrary obfuscation. Review every allowlist change.
 
-The Windows packager compiles only launcher/launcher_win.c into the public EXE,
-copies reviewed source and a clean CPython runtime, writes a size/SHA-256 manifest,
-and reextracts/audits the finished ZIP. It never traverses a private .local tree
-or links any game/runtime output into the public launcher. Package CI tests an
-extracted copy with synthetic inputs after the release ZIP has been finalized,
-then checks that its checksum has not changed. Private fixture output is not repacked.
+The packagers ship only the Tauri host, reviewed source/artwork and dependency
+notices (plus portable CPython on Windows). `tools/build_launcher.py` builds the
+host with npm/Cargo lockfiles and no game inputs; it gathers resolved Rust notices.
+The finished ZIP is reextracted and checked against its exact size/hash inventory.
+Native webview self-tests and copied-updater tests run against extracted packages;
+private synthetic fixture outputs are never repacked. The frontend adapts Recompia
+under GPL-3.0-or-later; source, attribution and licenses accompany both platforms.
 
 Main-branch publication waits for package integration and source plus Windows/Linux
 runtime workflows to pass. It uploads all three assets into an unpublished draft
@@ -88,7 +89,7 @@ on-device compilation is not promised. See ROADMAP.md.
 ## Linux launcher package (0.0.28)
 
 The Linux x86_64 ZIP contains launcher.sh, README-FIRST.txt and the same reviewed
-source allowlist under app. No system Python, compiler, prepared game executable
+source allowlist under app, a Tauri host and dependency notices. No system Python, compiler, prepared game executable
 or disc data is bundled. Users install the documented system prerequisites once.
 The shared GUI imports the supported CUE/BIN and privately prepares the game under
 .local; saves and extracted edits remain there. Updates select the Linux asset,

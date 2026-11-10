@@ -4,7 +4,6 @@ import argparse
 import json
 import os
 from pathlib import Path
-import queue
 import shutil
 import subprocess
 import sys
@@ -195,7 +194,6 @@ class Backend:
                                  "--save-dir",self.layout.local/"saves"),self.layout.root,env,self)
 
     def action(self,selected=None,play=True,assets=False,import_only=False):
-        self.cancel.clear()
         self.layout.writable()
         with (self.layout.local/"setup.log").open("a",encoding="utf-8") as self.log:
             try:
@@ -218,198 +216,6 @@ class Backend:
                 self.notify("error",str(e))
             finally:
                 self.log=None
-
-
-class Application:
-    def __init__(self,layout,launcher_pid=0,*,testing=False):
-        import tkinter as tk
-        from tkinter import ttk
-        self.tk=tk
-        self.layout=layout
-        self.launcher_pid=launcher_pid
-        self.events=queue.Queue()
-        self.backend=Backend(layout,lambda kind,text:self.events.put((kind,text)))
-        self.busy=False
-        self.recovery=(layout.local/"update-state.json").exists()
-        result_path=layout.local/"last-update-result.json"
-        update_result=json.loads(result_path.read_text()) if result_path.is_file() else None
-        if result_path.is_file():result_path.unlink()
-        from launcher_presentation import read_release_cache, release_list
-        from launcher_ui import LauncherView
-        self.window=tk.Tk()
-        self.window.title("Nitrogen Squared")
-        width=min(1180,max(960,self.window.winfo_screenwidth()-100))
-        height=min(720,max(620,self.window.winfo_screenheight()-100))
-        self.window.geometry(f"{width}x{height}")
-        self.window.minsize(960,620)
-        self.stage_percent=None
-        self.status=tk.StringVar(value="Ready to play" if layout.state().get("disc") else "Choose your game disc")
-        self.detail=tk.StringVar(value="Your game, settings and saves stay in this folder." if layout.state().get("disc") else "Select your supported USA CUE/BIN to get started.")
-        self.releases=release_list(layout,read_release_cache(layout.local))
-        self.view=LauncherView(self)
-        self.window.protocol("WM_DELETE_WINDOW",self.close)
-        self.window.after(100,self.poll)
-        if self.recovery:
-            self.status.set("Update recovery")
-            self.detail.set("Restore the previous launcher version before playing. Your game files and saves are kept.")
-        elif update_result and not update_result.get("success"):
-            self.status.set("Previous version restored")
-            self.detail.set(update_result.get("error","Details are in .local/update.log"))
-        if not testing and not self.recovery:self.window.after(300,self.load_history)
-
-    def activity(self,value):
-        self.busy=value
-        self.stage_percent=None
-        self.view.set_busy(value)
-
-    def play(self):
-        if not self.layout.state().get("disc"):
-            self.choose();return
-        self.activity(True);self.status.set("Starting game…")
-        threading.Thread(target=self.backend.action,daemon=False).start()
-
-    def choose(self,play=True):
-        from tkinter import filedialog
-        selected=filedialog.askopenfilename(parent=self.window,title="Select your N2O CUE sheet",filetypes=[("CUE sheet (recommended)","*.cue"),("BIN image with matching CUE","*.bin")])
-        if selected:
-            self.activity(True);self.status.set("Verifying and preparing your game…" if play else "Verifying your disc…")
-            threading.Thread(target=self.backend.action,args=(Path(selected),),kwargs=dict(play=play,import_only=not play),daemon=False).start()
-
-    def assets(self):
-        folder=self.layout.local/"game"
-        if folder.is_dir():
-
-            if os.name=="nt": os.startfile(str(folder))
-            else: subprocess.Popen(["xdg-open",str(folder)])
-            return
-        self.activity(True);self.status.set("Extracting asset folders…")
-        self.detail.set("Original assets and music will be saved in .local/game. The game still uses the original disc.")
-        threading.Thread(target=self.backend.action,kwargs=dict(assets=True),daemon=False).start()
-
-    def stop(self):
-        self.stop_button.configure(state="disabled")
-        self.status.set("Stopping; completed files and saves will be kept…")
-        threading.Thread(target=self.backend.stop,daemon=True).start()
-
-    def check_update(self):
-        self.backend.cancel.clear()
-        self.activity(True);self.status.set("Checking for updates…")
-        def check():
-            try:
-                release=latest_release(self.layout.version,self.layout.asset_name)
-                if self.backend.cancel.is_set():raise RuntimeError("Update check stopped")
-                self.events.put(("update",release))
-            except Exception as e:self.events.put(("update-error",str(e)))
-        threading.Thread(target=check,daemon=False).start()
-
-    def restore(self):
-        from tkinter import messagebox
-        if messagebox.askyesno("Restore previous version","Restore the previous launcher files? Your game files and saves will be kept.",parent=self.window):
-            start_updater(self.layout,None,self.launcher_pid)
-            self.window.destroy()
-
-    def poll(self):
-        from tkinter import messagebox
-        try:
-            while True:
-                kind,text=self.events.get_nowait()
-                if kind=="progress":
-                    from launcher_presentation import progress_summary
-                    summary=progress_summary(text)
-                    if summary:
-                        title,detail,self.stage_percent=summary
-                        self.status.set(title);self.detail.set(detail)
-                        self.view.refresh_status()
-                        if title=="Game running":self.stop_button.configure(state="disabled")
-                elif kind in ("done","error"):
-                    self.activity(False)
-                    self.status.set(text if kind=="done" else "Setup stopped" if self.backend.cancel.is_set() else "Something went wrong")
-                    if kind=="error":self.detail.set(text);self.show_error(text)
-                    self.view.reload_options();self.view.refresh_status()
-                elif kind=="history":
-                    from launcher_presentation import release_list
-                    self.releases=release_list(self.layout,text);self.view.update_releases()
-                elif kind=="history-error":
-                    pass # Cached/bundled notes remain usable offline.
-                elif kind=="update-error":
-                    self.activity(False);self.status.set("Could not check for updates. You can still play.")
-                    self.detail.set(text)
-                elif kind=="update":
-                    self.activity(False)
-                    if not text:self.status.set("You have the latest release.")
-                    elif messagebox.askyesno("Update available","Install Nitrogen Squared "+text["version"]+"? The launcher will restart. Your local game files and saves will be kept.",parent=self.window):
-                        self.activity(True);self.status.set("Downloading update…")
-                        def stage(release=text):
-                            try:
-                                staged=stage_release(self.layout,release,self.backend)
-                                if self.backend.cancel.is_set():raise RuntimeError("Update stopped. Downloaded files were kept.")
-                                self.events.put(("staged",staged))
-                            except Exception as e:self.events.put(("error",str(e)))
-                        self.backend.cancel.clear()
-                        threading.Thread(target=stage,daemon=False).start()
-                    else:self.status.set("Ready to play.")
-                elif kind=="staged":
-                    start_updater(self.layout,text,self.launcher_pid)
-                    self.window.destroy();return
-        except queue.Empty:pass
-        self.window.after(100,self.poll)
-
-    def load_history(self):
-        def fetch():
-            from launcher_presentation import fetch_release_history
-            try:self.events.put(("history",fetch_release_history(self.layout.local)))
-            except (OSError,ValueError) as e:self.events.put(("history-error",str(e)))
-        threading.Thread(target=fetch,daemon=True).start()
-
-    def show_error(self,text):
-        from tkinter import messagebox
-        messagebox.showerror("Nitrogen Squared",text+"\n\nDetails: .local/setup.log",parent=self.window)
-
-    def open_path(self,path):
-        if os.name=="nt":os.startfile(str(path))
-        else:subprocess.Popen(["xdg-open",str(path)])
-
-    def open_folder(self,name):
-        if name not in ("saves","game"):raise ValueError("Unsupported launcher folder")
-        path=self.layout.local/name;path.mkdir(parents=True,exist_ok=True);self.open_path(path)
-
-    def open_local_file(self,name):
-        if name not in ("setup.log","update.log"):raise ValueError("Unsupported launcher log")
-        path=self.layout.local/name
-        if path.is_file():self.open_path(path)
-        else:self.status.set("No log yet");self.detail.set("A log will appear after setup or an update.")
-
-    def open_runtime_file(self,name):
-        from tkinter import messagebox
-        if name not in ("keybinds.ini","input.ini"):raise ValueError("Unsupported input profile")
-        try:
-            record=json.loads((self.layout.work/"runtime-build.json").read_text(encoding="utf-8"))
-            path=Path(record["executable"]).resolve().parent/name
-            if not path.is_relative_to(self.layout.work.resolve()) or not path.is_file():raise ValueError("No input profile")
-            self.open_path(path)
-        except (OSError,ValueError,KeyError):
-            messagebox.showinfo("Controls","Launch the game once to create its input profiles. Existing custom bindings are kept.",parent=self.window)
-
-    def open_url(self,url):
-        import webbrowser
-        allowed=("https://github.com/TheEelYT/Nitrogen-Squared", "https://github.com/TheEelYT/Nitrogen-Squared/releases")
-        if url not in allowed:raise ValueError("Unsupported project link")
-        webbrowser.open(url)
-
-    def change_accent(self,name):
-        if self.busy or self.recovery:return
-        from launcher_presentation import set_accent
-        from launcher_ui import LauncherView
-        page,tab=self.view.page,self.view.tab
-        set_accent(self.layout.local,name)
-        self.view.destroy();self.view=LauncherView(self)
-        self.view.open_settings(tab,show=False);self.view.show_page(page)
-
-    def close(self):
-        from tkinter import messagebox
-        if self.busy:
-            messagebox.showinfo("Nitrogen Squared","Stop the current operation, or close the game, before closing the launcher.",parent=self.window)
-        else:self.window.destroy()
 
 
 def instance_lock(layout):
@@ -457,24 +263,13 @@ def main():
                                "--work-dir",layout.local/"portable-runtime-fixture",
                                *("--cmake-arg="+arg for arg in layout.runtime_cmake_args())),layout.root,env,backend)
         lock.close();return
-    for key,pattern in ((("TCL_LIBRARY","tcl8.*"),("TK_LIBRARY","tk8.*")) if os.name=="nt" else ()):
-        candidates=sorted((layout.python.parent/"tcl").glob(pattern))
-        if len(candidates)!=1:raise RuntimeError("The bundled Tcl/Tk runtime is incomplete")
-        os.environ[key]=str(candidates[0])
-    app=Application(layout,args.launcher_pid,testing=args.self_test)
-    if args.self_test:
-        app.window.update()
-        ui_report=app.view.smoke()
-        if os.name=="nt": Path(sys.executable).resolve().relative_to((layout.root/"support/python").resolve())
-        report=dict(version=layout.version,python=str(sys.executable),storage=str(layout.local),
-                    tkinter=True,asset_tools=bool(app.assets_button.winfo_exists()),
-                    first_run=not bool(layout.state().get("disc")),status=app.status.get(),launcher_ui=ui_report)
-        if not args.report:raise ValueError("Self-test needs a report path")
-        args.report.resolve().relative_to(layout.local.resolve())
-        write_json(args.report,report)
-        app.window.destroy()
-    else:app.window.mainloop()
     lock.close()
+    native=layout.root/("launcher.exe" if os.name=="nt" else "launcher")
+    if not native.is_file():raise RuntimeError("Build the Tauri launcher first (see launcher/README.md).")
+    command=[str(native)]
+    if args.self_test:command += ["--self-test","--report",str(args.report)]
+    raise SystemExit(subprocess.call(command,cwd=layout.root))
+
 
 
 if __name__=="__main__":

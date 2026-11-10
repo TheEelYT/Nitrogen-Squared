@@ -877,3 +877,13 @@
   never ship the ripped memory-card icon. launcher_assets.json separately gates
   these two PNGs by exact path/hash; source_package.json remains text-only.
   The compiled-game fingerprint must remain identical to verified 0.2.0.
+
+
+- 0.2.1 UI revision: the owner found the Tk canvas launcher clunky and authorized
+  adapting Recompia's actual frontend/Tauri shell and adopting GPL-3.0-or-later
+  for original project code. Preserve Recompia provenance and all component
+  notices; prior MIT distributions retain their permissions. Only original
+  N²/tunnel artwork is public. Runtime C11/C++17 inputs remain identical.
+- The owner explicitly requests SOURCE ZIP delivery and will push personally.
+  Do not push, promote, tag or publish this revision. Keep it at 0.2.1 on dev.
+  SOURCE_UPDATE.md records the two tracked deletions required for ZIP overlays.

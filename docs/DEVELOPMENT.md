@@ -157,3 +157,15 @@ Original fixtures cover actual verified-package updates on both layouts, flags,
 source additions/removals, missing or changed outputs and a failed rebuild that
 must not launch the stale program. CI additionally uses a real compiled synthetic
 executable to check the production launcher decision. No commercial input is used.
+
+
+## Tauri launcher development (0.2.1)
+
+The desktop launcher now adapts Recompia's GPL frontend. Build with
+`python tools/build_launcher.py` before packaging; install Node.js 24, Rust
+stable and Pillow on the build host. Linux build hosts need GTK 3/WebKitGTK
+4.1 development packages; Windows uses its C++ build tools and SDK.
+The player's runtime remains C11/C++17. Backend setup/save/update behavior is
+reused through tools/launcher_service.py's local JSON-lines bridge.
+See [launcher/README.md](../launcher/README.md) for browser development,
+native smoke checks, dependency notices and exact build commands.

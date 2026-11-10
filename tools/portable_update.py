@@ -28,7 +28,7 @@ def owned_path(name):
     name=relative_path(name)
     if any(p.casefold() in (".local","saves","cache","generated","disc","executables",".git") for p in name.split("/")):
         raise ValueError("A release cannot own private data")
-    if name not in ("launcher.exe","launcher.sh","README-FIRST.txt") and not name.startswith(("app/","support/python/")):
+    if name not in ("launcher.exe","launcher","launcher.sh","README-FIRST.txt") and not name.startswith(("app/","support/python/","support/launcher/")):
         raise ValueError("Unexpected release-owned path")
     return name
 
@@ -275,7 +275,7 @@ def main():
         if (layout.local/"update-state.json").exists():
             if os.name=="nt": ctypes.windll.user32.MessageBoxW(None,"The update could not finish. Files and backups were kept. Relaunch and choose Restore previous version. Details: .local/update.log","Nitrogen Squared",0x10)
             raise
-    command=[str(layout.root/"launcher.exe")] if os.name=="nt" else layout.command("portable_launcher.py","--root",layout.root)
+    command=[str(layout.root/"launcher.exe")] if os.name=="nt" else ["sh",str(layout.root/"launcher.sh")]
     if args.restart_report:
         args.restart_report.resolve().relative_to(layout.local.resolve())
         command += ["--self-test","--report",str(args.restart_report)]

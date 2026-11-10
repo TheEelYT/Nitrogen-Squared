@@ -25,7 +25,9 @@ FIRST_RUN="""Nitrogen Squared — Windows x64
    your private game. First setup needs internet access and can take a while.
 4. Use the launcher to play and check for updates.
 
-No separate Python or Visual Studio installation is required.
+No separate Python, Node.js, Rust or Visual Studio installation is required.
+Windows uses Microsoft Edge WebView2 (normally present on Windows 10/11).
+If missing, install the Evergreen Runtime from https://developer.microsoft.com/microsoft-edge/webview2/.
 All downloaded tools, extracted/generated game files and saves are kept under
 this folder's .local directory. Original disc files remain where you selected them.
 The release contains no game data or game-derived executable.
@@ -37,7 +39,7 @@ are preserved if present. The configuration repair needs no recompilation.
 Updates preserve .local. Never delete it to update; it includes your saves.
 Keep the source disc available for original assets, audio and verification.
 If the prepared folder moves, its build cache is rebuilt locally. Saves are kept.
-See app/THIRD_PARTY.md and support/python/LICENSE.txt for third-party notices.
+See app/LICENSE, app/COPYRIGHT, app/THIRD_PARTY.md and support/python/LICENSE.txt for third-party notices.
 """
 
 
@@ -61,7 +63,7 @@ def copy_python(source: Path, destination: Path):
             raise ValueError("Incomplete portable CPython runtime")
 
 
-def stage(output: Path):
+def stage(output: Path, *, launcher_bundle=None):
     files=collect_package(ROOT)
     with tempfile.TemporaryDirectory(prefix="nitrogen-release-",dir=output.parent) as temporary:
         root=Path(temporary)/"Nitrogen-Squared"
@@ -73,11 +75,11 @@ def stage(output: Path):
             path.write_bytes(data)
         audit_staging(app,set(files))
         copy_python(Path(sys.base_prefix),root/"support/python")
-        # Only this original bootstrap is compiled into the public launcher.
-        subprocess.run(["cl","/nologo","/O2","/MT","/W4",
-                        str(ROOT/"launcher/launcher_win.c"),"/Fe:"+str(root/"launcher.exe"),
-                        "/Fo:"+str(Path(temporary)/"launcher.obj"),"/link","/SUBSYSTEM:WINDOWS",
-                        "/MANIFEST:EMBED","user32.lib"],check=True,cwd=temporary)
+        bundle=Path(launcher_bundle) if launcher_bundle else ROOT/"dist/launcher-windows"
+        if not (bundle/"launcher.exe").is_file() or not (bundle/"licenses/DEPENDENCIES.json").is_file():
+            raise ValueError("Build the Tauri launcher first: python tools/build_launcher.py")
+        shutil.copy2(bundle/"launcher.exe",root/"launcher.exe")
+        shutil.copytree(bundle/"licenses",root/"support/launcher/licenses")
         (root/"README-FIRST.txt").write_text(FIRST_RUN,encoding="utf-8")
         inventory={}
         for path in sorted(root.rglob("*")):
@@ -89,7 +91,7 @@ def stage(output: Path):
                       python_version=sys.version.split()[0],files=inventory)
         write_json(root/"release-manifest.json",manifest)
         verify_package(root)
-        with zipfile.ZipFile(output,"w",zipfile.ZIP_DEFLATED,compresslevel=6) as archive:
+        with zipfile.ZipFile(output,"w",zipfile.ZIP_DEFLATED,compresslevel=6,strict_timestamps=False) as archive:
             for path in sorted(root.rglob("*")):
                 if path.is_file():archive.write(path,"Nitrogen-Squared/"+path.relative_to(root).as_posix())
         # Read the finished archive into a fresh directory and audit its exact inventory.

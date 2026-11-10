@@ -18,3 +18,10 @@ saves/
 *.elf
 *.self
 overlay_captures*
+
+node_modules/
+launcher/src-tauri/target/
+launcher/src-tauri/gen/
+launcher/src-tauri/icons/
+launcher/test-results/
+launcher/playwright-report/

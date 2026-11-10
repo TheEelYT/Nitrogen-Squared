@@ -2,6 +2,7 @@
 from pathlib import Path
 import argparse
 import tempfile
+import shutil
 import zipfile
 from n2o_disc import ROOT
 from package_source import collect_package,audit_staging
@@ -21,10 +22,10 @@ are preserved if present. The configuration repair needs no recompilation.
 
 Use Check for updates; keep .local and the original disc available.
 
-Requires a graphical Linux x86_64 desktop, Python 3.11+ with Tk, Git, CMake 3.20+,
+Requires a graphical Linux x86_64 desktop, Python 3.11+, GTK 3 and WebKitGTK 4.1, Git, CMake 3.20+,
 Make, a C11/C++17 compiler, pkg-config and OpenGL/EGL/X11/audio development files.
 On Ubuntu 24.04 or newer, install prerequisites once:
-    sudo apt install python3 python3-tk git cmake build-essential pkg-config libgl-dev libegl-dev libx11-dev libxcursor-dev libxi-dev libxrandr-dev libxfixes-dev libxext-dev libxss-dev libxtst-dev libxkbcommon-dev libudev-dev libusb-1.0-0-dev libdbus-1-dev libasound2-dev libpulse-dev xdg-utils
+    sudo apt install python3 libgtk-3-0t64 libwebkit2gtk-4.1-0 git cmake build-essential pkg-config libgl-dev libegl-dev libx11-dev libxcursor-dev libxi-dev libxrandr-dev libxfixes-dev libxext-dev libxss-dev libxtst-dev libxkbcommon-dev libudev-dev libusb-1.0-0-dev libdbus-1-dev libasound2-dev libpulse-dev xdg-utils
 Other distributions need the equivalent packages. No sudo is used by the launcher.
 The system Python and compiler are used; pinned SDL/framework source downloads
 and all project state remain inside this folder. This is a source launcher
@@ -34,16 +35,22 @@ See app/THIRD_PARTY.md for dependency notices. Very small windows retain 2x UI.
 LAUNCHER='''#!/bin/sh
 set -eu
 root=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
-exec python3 -X utf8 -E -s -B "$root/app/tools/portable_launcher.py" --root "$root" "$@"
+chmod u+x "$root/launcher"
+exec "$root/launcher" "$@"
 '''
 
-def stage(output):
+def stage(output, *, launcher_bundle=None):
     files=collect_package(ROOT);output.parent.mkdir(parents=True,exist_ok=True)
     with tempfile.TemporaryDirectory(prefix='nitrogen-linux-',dir=output.parent) as t:
         root=Path(t)/'Nitrogen-Squared';app=root/'app';app.mkdir(parents=True)
         for n,data in files.items():
             p=app/n;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(data)
         audit_staging(app,set(files))
+        bundle=Path(launcher_bundle) if launcher_bundle else ROOT/'dist/launcher-linux'
+        if not (bundle/'launcher').is_file() or not (bundle/'licenses/DEPENDENCIES.json').is_file():
+            raise ValueError('Build the Tauri launcher first: python tools/build_launcher.py')
+        shutil.copy2(bundle/'launcher',root/'launcher');(root/'launcher').chmod(0o755)
+        shutil.copytree(bundle/'licenses',root/'support/launcher/licenses')
         (root/'launcher.sh').write_text(LAUNCHER,encoding='utf-8',newline='\n');(root/'launcher.sh').chmod(0o755)
         (root/'README-FIRST.txt').write_text(FIRST_RUN,encoding='utf-8')
         inventory={}
@@ -52,7 +59,7 @@ def stage(output):
                 n=p.relative_to(root).as_posix();owned_path(n);inventory[n]=dict(size=p.stat().st_size,sha256=sha256(p))
         write_json(root/'release-manifest.json',dict(schema=1,platform='linux-x86_64',version=(ROOT/'VERSION').read_text().strip(),files=inventory))
         verify_package(root)
-        with zipfile.ZipFile(output,'w',zipfile.ZIP_DEFLATED) as z:
+        with zipfile.ZipFile(output,'w',zipfile.ZIP_DEFLATED,strict_timestamps=False) as z:
             for p in sorted(root.rglob('*')):
                 if p.is_file():z.write(p,'Nitrogen-Squared/'+p.relative_to(root).as_posix())
         extract_zip(output,Path(t)/'check');verify_package(Path(t)/'check/Nitrogen-Squared')

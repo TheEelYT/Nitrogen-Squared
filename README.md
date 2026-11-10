@@ -74,17 +74,17 @@ Get the **latest release from the [Releases tab](https://github.com/TheEelYT/Nit
 2. Select your supported USA **CUE** file, with its matching BIN beside it. Selecting the BIN also works when its matching CUE can be found beside it.
 3. Let preparation finish, then play. First setup needs internet access and can take several minutes; later launches reuse the prepared game.
 
-No separate Python or Visual Studio installation is required. The Windows package includes portable Python and downloads its pinned preparation tools.
+No separate Python, Node.js, Rust or Visual Studio installation is required. The launcher uses Microsoft Edge WebView2, normally present on Windows 10/11. The Windows package includes portable Python and downloads its pinned preparation tools.
 
 ### Linux x86_64
 
-1. Install Python **3.11+** with Tk, Git, CMake **3.20+**, Make, a C11/C++17 compiler, pkg-config and the graphics/audio development libraries listed in the package's **README-FIRST.txt**.
+1. Install Python **3.11+**, GTK 3, WebKitGTK **4.1**, Git, CMake **3.20+**, Make, a C11/C++17 compiler, pkg-config and the graphics/audio development libraries listed in the package's **README-FIRST.txt**.
 2. Extract `Nitrogen-Squared-Linux-x64.zip`, open a terminal in the extracted **Nitrogen-Squared** folder and run `sh launcher.sh`.
 3. Select the supported USA CUE/BIN and let preparation finish. First setup needs internet access; the launcher uses your system compiler and Python.
 
 Linux runs the game through OpenGL. Keep Windows and Linux installations in separate folders. PS Vita is planned; no Vita package is available yet.
 
-The launcher has **Home**, **What's New** and **Settings** pages. Settings includes window mode, HUD scale, scene resolution and master volume; these apply on the next game launch. Bundled/cached release notes remain available offline.
+The Tauri launcher, adapted from [Dittobyte/Recompia](https://github.com/Dittobyte/Recompia), has **Home**, **What's New** and **Settings** pages. Settings includes window mode, HUD scale, scene resolution and master volume; these apply on the next game launch. Bundled/cached release notes remain available offline.
 
 ## Controls
 
@@ -195,6 +195,6 @@ Do not attach disc images, game executables, generated C, private build caches o
 
 Build and analysis commands are in [Development](docs/DEVELOPMENT.md). Technical details live in [Disc analysis](docs/DISC_ANALYSIS.md), [Native progress](docs/NATIVE_PROGRESS.md), [Display policy](docs/WINDOW_DISPLAY.md) and [Game options](docs/GAME_OPTIONS.md).
 
-Nitrogen Squared uses the pinned [PSXRecomp](https://github.com/RetroPortingToolKit/psxrecomp) framework, SDL3, Dear ImGui and PCSX-Redux OpenBIOS. The project's original code is [MIT licensed](LICENSE); dependencies retain their own terms, including PSXRecomp's PolyForm Noncommercial license. See [THIRD_PARTY.md](THIRD_PARTY.md) and the [distribution policy](docs/DISTRIBUTION.md).
+Nitrogen Squared uses the pinned [PSXRecomp](https://github.com/RetroPortingToolKit/psxrecomp) framework, SDL3, Dear ImGui and PCSX-Redux OpenBIOS. The project's original code is licensed under [GPL-3.0-or-later](LICENSE) (see [COPYRIGHT](COPYRIGHT)); previously distributed MIT versions retain their permissions; dependencies retain their own terms, including PSXRecomp's PolyForm Noncommercial license. See [THIRD_PARTY.md](THIRD_PARTY.md) and the [distribution policy](docs/DISTRIBUTION.md).
 
 The Nitrogen Squared logo is original artwork made by the project owner in GIMP. N2O: Nitrous Oxide and the game imagery belong to their respective rights holders. This is an independent fan project, not an official release.

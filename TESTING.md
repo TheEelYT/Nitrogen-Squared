@@ -3,7 +3,7 @@
 ## Current acceptance and update checks
 
 **0.2.1 dev candidate — launcher redesign; owner verification and release clearance pending.**
-The owner verified 0.2.0 and requested its changes be included in 0.2.1 without a separate release. Home, What's New and Settings replace the old launcher panel, with original N² branding and tunnel artwork. Display/master-volume settings share the native preferences file. Notes work from bundled/cached data offline; progress is shared between Home and the sidebar. No Link Play tab is included.
+The owner verified 0.2.0 and requested its changes be included in 0.2.1 without a separate release. The initial Tk candidate was reported clunky. This revision adapts Recompia’s actual frontend in a Tauri shell. Home, What's New and Settings replace the canvas GUI, with original N² branding and tunnel artwork. Display/master-volume settings share the native preferences file. Notes work from bundled/cached data offline; progress is shared between Home and the sidebar. No Link Play tab is included.
 
 Use the offered dev Actions artifact, preserving the entire .local folder. A verified 0.2.0 private game should be reused unchanged; migration from 0.1.x prepares once. Main and stable updates stay on 0.1.3 until explicit owner clearance. Report dev-only results in chat while the Dashboard follows main. Unfinished checks carry forward, and submitted result bodies remain untouched. Coverage remains **38.4156% linked / 61.5844% outside**; clocks are unchanged and level-entry stutter remains OPEN.
 
@@ -930,11 +930,11 @@ Instructions for future maintainers and assistants:
   "version": {
     "id": "n0201",
     "name": "v0.2.1",
-    "title": "Dev candidate: redesigned launcher",
+    "title": "Dev candidate: Tauri launcher",
     "runtime": "Windows / Linux x64 \u00b7 USA disc",
     "cart": "",
-    "createdAt": "2026-11-08",
-    "description": "Includes owner-verified, unreleased 0.2.0 build reuse. New launcher UI awaits owner verification and explicit release clearance; main remains 0.1.3."
+    "createdAt": "2026-11-09",
+    "description": "Includes owner-verified, unreleased 0.2.0 build reuse. Tauri/Recompia launcher revision awaits owner verification and explicit release clearance; main remains 0.1.3."
   },
   "checks": [
     {
@@ -949,7 +949,7 @@ Instructions for future maintainers and assistants:
         "Change the accent colour, restart the launcher and confirm it persists. If offline, confirm bundled/cached notes and Play remain available."
       ],
       "expected": "Navigation, keyboard focus, artwork and settings fit the window. Offline notes remain usable; no game setup is required merely to open the launcher.",
-      "context": "Fresh n0201 UI check. This is an unreleased Actions candidate; verification does not by itself clear publication."
+      "context": "Fresh n0201 Tauri revision UI check; the earlier Tk candidate was reported clunky. This is an unreleased Actions candidate; verification does not by itself clear publication."
     },
     {
       "id": "N2-LAUNCHER-SETTINGS",
