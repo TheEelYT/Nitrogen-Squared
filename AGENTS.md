@@ -976,3 +976,14 @@
   still requires the actual runtime PID before Running. Build Python must be
   unbuffered too. No selected game code/coverage or clocks change. Deliver source
   only; fresh platform CI and owner retry remain pending, with no remote writes.
+
+
+- At d83eedd Source checks (including browser interactions) and Windows/Linux
+  runtime checks passed. Release 42967736853 failed both package constructions
+  before smoke tests: ZipInfo.from_file rejected a pre-1980 bundled-file mtime
+  before the helper could assign its safe date. The ZipFile object's relaxed
+  timestamp flag does not control that separate metadata call. Pass
+  strict_timestamps=False to from_file, then retain the fixed 1980 archive date
+  and file modes. Reproduce with a 1970 notice and the actual Linux package
+  fixture. This packaging-only correction keeps the compiled-game fingerprint,
+  native coverage and clocks unchanged. Deliver complete source; owner pushes.

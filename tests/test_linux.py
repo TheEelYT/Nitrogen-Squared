@@ -43,6 +43,8 @@ class LinuxPackageTests(unittest.TestCase):
             bundle=p/'launcher-fixture';(bundle/'licenses').mkdir(parents=True)
             (bundle/'launcher').write_bytes(b'original native host fixture')
             (bundle/'licenses/DEPENDENCIES.json').write_text('[]')
+            # Crate/distribution notices can preserve pre-ZIP (1970) timestamps.
+            os.utime(bundle/'licenses/DEPENDENCIES.json',(0,0))
             stage(archive,launcher_bundle=bundle);extract_zip(archive,p/'install')
             root=p/'install/Nitrogen-Squared';l=LinuxLayout(root);old=verify_package(root)
             self.assertEqual(old['platform'],'linux-x86_64')

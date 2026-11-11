@@ -1845,3 +1845,45 @@ code, native service inventory or clock changes. Allow one preparation/build
 update while retaining completed tools, imports, saves and settings. Fresh
 platform CI and owner Windows retry/icon/reuse checks remain pending. Version
 stays unreleased 0.2.2; source delivery only, with no remote writes or releases.
+
+
+## 0.2.2 pre-1980 bundled-file ZIP metadata correction — 2026-11-11
+
+For d83eeddcbe10c79abb785dc71812e7b9830200b2, Source checks 42967736778
+passed Windows job 130348772131, Linux job 130348772382 and launcher UI job
+130348772346 (the frontend build and interaction step). Runtime and renderer
+checks 42967736765 passed. This supersedes the preceding local-only browser
+limitation for that commit; it does not qualify a player setup or a new revision.
+
+Release 42967736853 failed Linux job 130348772308 and Windows job 130348772664
+at package construction, after successful Tauri builds and source audits. Both
+tracebacks identify package_source.py:108, ZipInfo.from_file(path, arcname=name),
+raising ValueError: ZIP does not support timestamps before 1980. The subsequent
+platform smoke tests and test-candidate staging were skipped; no qualified new
+artifact was produced by this run.
+
+archive_file assigned its safe fixed date only AFTER constructing ZipInfo from
+source filesystem metadata. A pre-1980 source timestamp was rejected first.
+The containing ZipFile's strict_timestamps=False does not affect this explicit
+ZipInfo.from_file call. Passing strict_timestamps=False to that call clamps
+legacy metadata before construction; the existing fixed 1980 archive date,
+compression, bytes and mode metadata remain unchanged. No notice is dropped.
+
+A new original notice with mtime 1970 reproduces the same ValueError on the
+unmodified helper, including with strict_timestamps=False on the ZipFile. The
+corrected helper packages it with the safe date and preserves source bytes and
+mtime. The actual Linux package/update fixture now also contains a 1970 notice.
+All 167 Python tests pass without skips, including that complete package audit,
+extraction/update preservation, mode/date tests and existing real Ninja loop
+recovery. Source audit passes for the same 188 text files, two approved launcher
+PNGs and five documentation PNGs in complete source. No game-derived payloads
+or runtime inputs changed. A full Windows package was not built locally; fresh
+Windows/Linux package and smoke CI remain pending. UI sources did not change.
+
+Compiled-game fingerprint remains
+7bf57fbc867fa84052d5a6b0a3d0e4a4ffe0fc2a74b480561151f2f3d50718eb;
+this packaging-only correction does not require an additional private game
+rebuild. Native selection, service inventory, coverage 38.4156% linked / 61.5844%
+outside and clocks are unchanged. TESTING.md retains n0202, focused player checks
+and byte-identical submitted results. Complete source delivered for owner push;
+no remote mutation, promotion, tag, release or rerun was performed.

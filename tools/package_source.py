@@ -105,7 +105,9 @@ def documentation_assets(root: Path) -> set[str]:
 def archive_file(archive, path: Path, name: str):
     # ZIP's timezone-free timestamps can land in the future after extraction.
     # An old fixed date is safe for every locale; keep permission metadata.
-    info = zipfile.ZipInfo.from_file(path, arcname=name)
+    # Clamp legacy source dates before constructing ZipInfo. The ZipFile's own
+    # strict_timestamps setting does not apply to this explicit metadata call.
+    info = zipfile.ZipInfo.from_file(path, arcname=name, strict_timestamps=False)
     info.date_time = (1980, 1, 1, 0, 0, 0)
     info.compress_type = zipfile.ZIP_DEFLATED
     archive.writestr(info, path.read_bytes())

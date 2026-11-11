@@ -91,3 +91,15 @@ class BuildPolicyTests(unittest.TestCase):
             normalize_build_timestamps(root,lines.append)
             run(['ninja','-C',str(build),'-d','explain'],root,os.environ.copy(),lines.append)
             self.assertIn('Compiled original fixture',lines)
+
+    def test_archive_accepts_pre_1980_bundled_files_without_changing_the_source(self):
+        with tempfile.TemporaryDirectory() as t:
+            root=Path(t);source=root/'notice.txt';source.write_bytes(b'original dependency notice')
+            os.utime(source,(0,0));before=source.stat().st_mtime_ns
+            with zipfile.ZipFile(root/'package.zip','w',strict_timestamps=False) as archive:
+                archive_file(archive,source,'Nitrogen-Squared/support/launcher/licenses/notice.txt')
+            with zipfile.ZipFile(root/'package.zip') as archive:
+                info=archive.infolist()[0]
+                self.assertEqual(info.date_time,(1980,1,1,0,0,0))
+                self.assertEqual(archive.read(info),source.read_bytes())
+            self.assertEqual(source.stat().st_mtime_ns,before)

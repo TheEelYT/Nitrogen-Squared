@@ -2,7 +2,17 @@
 
 ## Current acceptance and update checks
 
-**0.2.2 development candidate — timestamp-loop recovery, desktop jobs and progress.**
+**0.2.2 development candidate — ZIP packaging date correction.**
+At d83eedd, Source checks (including browser interactions) and Windows/Linux
+runtime checks passed. Release failed both package jobs before smoke tests
+because bundled-file timestamps before 1980 were rejected while collecting ZIP
+metadata. This revision accepts those legacy source dates before assigning the
+fixed safe archive date; source contents and file permissions stay intact. The
+new regression and actual Linux packaging fixture use a 1970 dependency notice.
+Fresh packaging/platform CI remains pending. No extra player replay is needed;
+keep the focused setup/progress/icon/reuse checks below and preserve .local.
+
+Previous build/progress correction retained:
 The owner trace identifies app/CMakeLists.txt newer than each regenerated
 build.ninja; no compilation starts. The direct glob check reports no mismatch.
 This revision repairs future-dated reviewed input timestamps without changing
@@ -13,10 +23,9 @@ consecutive regenerations without compiler work now stop with an explicit error.
 Desktop preparation defaults to floor(80% of available logical threads), at
 least one job; a smaller explicit override is respected. The future Vita target
 stays capped at two. The launcher shows stage, action/counter, worker count and
-elapsed time. Unknown totals stay indeterminate. All 166 Python tests, frontend
-unit tests and the frontend build pass locally. Browser interaction tests could
-not launch Chromium in this workspace (socket permission); fresh platform CI
-and owner retry are pending. Keep .local; allow one preparation/build update.
+elapsed time. Unknown totals stay indeterminate. All 167 Python tests pass locally. At the preceding d83eedd commit, browser
+interactions passed in Source checks CI, and both runtime jobs passed. Fresh
+package CI and owner retry remain pending. Keep .local; allow one preparation/build update.
 
 Earlier icon correction context:
 The bcd506f source/UI checks passed, but both runtime and both package jobs linked
@@ -989,7 +998,7 @@ Instructions for future maintainers and assistants:
     "runtime": "Windows / Linux x64 \u00b7 USA disc",
     "cart": "",
     "createdAt": "2026-11-10",
-    "description": "Repairs future source mtimes behind the CMake loop, uses 80% desktop thread budgets and displays build stage/detail/workers/elapsed. Retains disc-derived game icon and interrupted-setup repairs. CI and owner verification pending."
+    "description": "Repairs future source mtimes behind the CMake loop, uses 80% desktop thread budgets and displays build stage/detail/workers/elapsed. Retains disc-derived game icon and interrupted-setup repairs. CI and owner verification pending. Corrects pre-1980 bundled-file ZIP metadata rejection; d83eedd source/UI and runtime checks passed before packaging failed."
   },
   "checks": [
     {

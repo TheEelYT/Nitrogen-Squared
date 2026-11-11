@@ -1,52 +1,37 @@
-# Apply the 0.2.2 build-progress and timestamp-loop update
+# Apply the 0.2.2 ZIP packaging date correction
 
-Complete source based on dev 1409f36bbac2cfccc9b1399da2a83b412ff5edfd.
-Version remains unreleased 0.2.2. Includes the prior setup, origin repair,
-private disc-icon extraction and CMake icon-forwarding fixes. No remote write,
-main promotion, release branch, tag or publication was performed.
+Complete source based on dev d83eeddcbe10c79abb785dc71812e7b9830200b2.
+Version stays unreleased 0.2.2. Includes all prior timestamp-loop recovery,
+desktop job scheduling, detailed progress, setup recovery and game-icon work.
+No remote write, promotion, tag or release was performed.
 
-The owner's new Ninja explain trace identifies the repeated configuration input:
-app/CMakeLists.txt remains newer than every newly generated build.ninja. The
-separate VerifyGlobs check reported no changed lists. This timestamp ordering
-causes Ninja to regenerate repeatedly before compiler work. A local original
-CMake/Ninja fixture reproduces the loop, stops after three regenerations, then
-completes in the SAME build directory after future input timestamp repair.
-ZIP dates have no timezone and are a plausible source of the future dates; the
-trace does not independently establish which extractor/clock created them.
+At d83eedd, Source checks 42967736778 passed (Windows, Linux and launcher UI),
+and Runtime and renderer checks 42967736765 passed on Windows/Linux. Release
+42967736853 failed both package jobs before smoke tests/artifact staging:
+ValueError: ZIP does not support timestamps before 1980.
 
-This update:
-- repairs only future mtimes on reviewed source build inputs and VERSION before
-  configuration, preserving their bytes and private/user files;
-- writes timezone-safe fixed dates in source/Windows/Linux ZIP entries, keeping
-  file permissions, and stops repeated regeneration with child-tree cleanup;
-- uses floor(80% of available logical threads), minimum one, for desktop tool
-  and game builds; respects a smaller CMAKE_BUILD_PARALLEL_LEVEL override;
-- retains the future Vita two-job ceiling and controlled two-job CI builds;
-- runs build Python unbuffered and reports distinct configuration, generation,
-  asset preparation, tool build, game build and final verification stages;
-- shows current build action/counter, worker summary and live elapsed time on
-  Home, including after navigation. Unknown totals remain indeterminate.
+The shared archive_file helper called ZipInfo.from_file with strict timestamps,
+so an old bundled file was rejected BEFORE its safe 1980 archive date was set.
+The ZipFile object's strict_timestamps=False did not control this separate
+metadata call. The fix passes that flag to from_file too, preserving the fixed
+archive date, file modes and bytes. No launcher, build-policy or game change.
 
-Validation: all 166 Python tests pass without skips, including real Ninja
-reproduction/repair, job-budget/affinity/override checks, archive timestamp and
-permission checks, stage/elapsed service state, isolated copied updaters and
-existing startup/Stop regressions. Frontend unit tests and production build pass.
-The seven browser interaction tests could not start Chromium here: its process
-singleton socket is denied by this workspace. They remain part of Source checks
-CI, including the new detail/elapsed/unknown-progress/navigation regression.
-Fresh Windows/Linux runtime/package CI and owner retry are still pending.
+Regression: a new original dependency notice dated 1970 reproduces the exact
+failure with the prior helper. It passes with the correction and retains its
+source timestamp/content. The actual Linux package/update fixture also includes
+a 1970 notice and passes. All 167 Python tests pass without skips; source audit
+passes. Fresh platform package/smoke CI remains required; a full Windows package
+was not built locally. No browser rerun was needed for this packaging-only edit.
 
-Compiled-game input fingerprint:
+Compiled-game fingerprint stays:
 7bf57fbc867fa84052d5a6b0a3d0e4a4ffe0fc2a74b480561151f2f3d50718eb.
-Build/generator scripts changed, so allow one preparation/build update; completed
-tools/imports and all saves/settings are retained. No native selection, game
-logic or clocks changed. Coverage stays 38.4156% linked / 61.5844% outside.
-No commercial icon pixels or other game-derived payloads are in this source ZIP.
+This correction itself requires no additional game rebuild. Keep the existing
+0.2.2 candidate's setup/build update and focused player checks. Native selection,
+coverage (38.4156% linked / 61.5844% outside) and clocks are unchanged.
 
-1. With your source checkout on dev, copy ALL contents of this ZIP's
-   Nitrogen-Squared folder into B:\Nitrogen-Squared-dev, replacing existing files.
-   Preserve .git and .local. There are no tracked deletions.
-2. Review and commit in PowerShell:
+Copy all contents of this ZIP's Nitrogen-Squared folder over the source checkout
+B:\Nitrogen-Squared-dev on dev, replacing files. Preserve .git and .local.
+No tracked deletions. This is complete source, not a compiled Windows artifact.
 
 ```powershell
 cd B:\Nitrogen-Squared-dev
@@ -55,31 +40,12 @@ git add -A
 git diff --cached --stat
 git diff --cached --check
 git status --short
-git commit -m "Fix setup timestamp loop and improve desktop build progress"
+git commit -m "Fix packaging of files with pre-1980 timestamps"
 git push origin dev
 ```
 
-3. Wait for ALL three workflows to pass on that exact commit. Install the
-   complete new Windows ARTIFACT with game/launcher closed, retaining .local.
-   Source copied into the Git checkout does not update your installed launcher.
-4. Click Play and confirm setup advances from configuring into actual compiler
-   jobs, shows useful status/elapsed/workers, and opens the game with its yellow N
-   icon. Close the game and click Play again to verify reuse and preserved saves.
-   The job budget does not promise 80% CPU usage during serial stages.
-5. Report the focused n0202 Dashboard results; its earlier submitted result bytes
-   are preserved. Keep this candidate on dev until owner verification and explicit
-   release clearance. No repeat campaign or deliberate save overwrite is needed.
-
-Immediate repair for the already installed old candidate (game/launcher/Ninja
-stopped; run in B:\Games\Nitrogen-Squared):
-
-```powershell
-$now = (Get-Date).ToUniversalTime()
-Get-ChildItem .\app -Recurse -File |
-    Where-Object { $_.LastWriteTimeUtc -gt $now } |
-    ForEach-Object { $_.LastWriteTimeUtc = $now }
-```
-
-Then reopen the launcher and retry Play. This changes only future source-file
-metadata and preserves .local. The new candidate automates the narrower reviewed
-build-input repair and prevents newly packaged ZIPs from carrying future dates.
+Wait for all three workflows on the new commit, then install the complete new
+Windows artifact with the launcher/game closed and .local preserved. Retry the
+focused setup/progress/icon/reuse checks. Source copied into the Git checkout
+does not update an already installed launcher. n0202 submitted result bytes are
+preserved. Keep this on dev pending owner verification and release clearance.
