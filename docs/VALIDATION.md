@@ -1746,3 +1746,41 @@ game entry/alias selection or runtime clocks changed; linked coverage remains
 Version remains unreleased 0.2.2. n0202 adds N2-GAME-ICON and keeps submitted
 result bytes unchanged. Source delivery includes all prior origin/query fixes;
 no remote writes, main promotion, tag, release mutation or publication occurred.
+
+
+## 0.2.2 icon argument forwarding failure and correction — 2026-11-10
+
+At bcd506ff0f9a7065835b693a9e9b29effc9e97d8, Source checks 42946459658 passed
+(all source/UI jobs). Runtime and renderer checks 42946459743 failed on Ubuntu
+job 130280357087 and Windows job 130280357581. Release 42946459650 failed Linux
+package 130280357431 and Windows package 130280357848; final candidate staging
+was skipped. All four actual runtimes compiled/linked, then correctly failed
+Synthetic window icon was not staged by the real framework. Configure logs show
+APP_ICON selected the framework default assets/psxrecomp.ico, not the generated
+original CI fixture icon. Those runs provide no qualified test candidate.
+
+The caller placed its forwarded APP_ICON after GEN_FULL_GLOB. The pinned
+high-level psxrecomp_add_game_runtime parser has GEN_FULL_GLOB as a multi-value
+argument and does not recognize APP_ICON; that keyword and path were swallowed
+into the glob list instead of PSXG_UNPARSED_ARGUMENTS. The lower target supports
+APP_ICON but never received it. Moving the forwarded argument before the list
+fixes that call contract. No framework file, decoder/image bytes or verification
+threshold was changed. The earlier CMake unit stub parsed APP_ICON directly and
+missed the high-level wrapper. It now models both parser layers; the unmodified
+caller fails at configuration and the corrected caller passes.
+
+All 158 local Python tests pass with no skips. An additional harness extracts the
+actual unmodified high-level function from pinned f42d2c004b3dd6ef6ccb83101b40ede55f24bf59
+and supplies an instrumented lower target. The bcd506f caller reproduces the lost
+argument; the corrected caller selects the requested private icon, builds a tiny
+original host and stages the exact requested PNG. This tests actual high-level
+argument handling, not a full pinned-runtime/Windows build. Fresh Windows/Linux
+runtime/package CI, Windows PE resource verification and owner shell/icon checks
+remain pending. Existing PNG and PE resource identity checks remain enabled.
+
+CMake input fingerprint becomes
+0df3326a448c5a4eb6970ae138908d2767e5a86a195798c5c22d8b537a0eb835.
+Native game selection/coverage remain 38.4156% linked / 61.5844% outside; no clocks
+changed. Version stays unreleased 0.2.2; no private files are deleted or shipped.
+n0202 and the existing submitted result tail are preserved. Complete source is
+provided for the owner's commit/push; no remote writes or release action occurred.

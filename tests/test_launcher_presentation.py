@@ -103,7 +103,7 @@ class LauncherPresentationTests(unittest.TestCase):
         self.assertEqual(events[-1],('done','Game disc verified. Ready to prepare.'))
 
     def test_icon_candidate_has_the_reviewed_game_fingerprint(self):
-        self.assertEqual(input_fingerprint(ROOT),'5452a0ea2e4d2e60e27d4b71d9319f64133f94d558d898c3c923c69a02bf81f4')
+        self.assertEqual(input_fingerprint(ROOT),'0df3326a448c5a4eb6970ae138908d2767e5a86a195798c5c22d8b537a0eb835')
 
     def test_original_artwork_separate_from_text_and_complete_package(self):
         assets=launcher_assets(ROOT);text=collect(ROOT)

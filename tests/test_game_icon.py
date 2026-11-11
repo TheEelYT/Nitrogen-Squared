@@ -92,7 +92,16 @@ class GameIconTests(unittest.TestCase):
         generated=self.root/'generated';generated.mkdir()
         (generated/'SLUS_006.37_dispatch.c').write_text('/* Original fixture. */\n')
         (framework/'dummy.c').write_text('int main(void) { return 0; }\n')
+        # The pinned high-level helper does not recognize APP_ICON itself.
+        # It forwards unknown arguments, but a preceding GEN_FULL_GLOB list
+        # consumes them. Model both parser layers instead of bypassing it.
         (framework/'runtime/runtime.cmake').write_text('''function(psxrecomp_add_game_runtime target)
+  cmake_parse_arguments(TITLE "ENABLE_NETPLAY_IF_PRESENT;ENABLE_SETUP_WIZARD;PGXP"
+    "GEN_MARKER;GEN_FULL_FALLBACK;VERSION_FILE;CODEGEN_SETUP_INCLUDE_DIR;NETPLAY_LOBBY_URL;PRELOADED_MODS_DIR"
+    "GEN_FULL_GLOB;CODEGEN_SETUP_SOURCES;EXCLUDE_BUILTIN_MODS" ${ARGN})
+  psxrecomp_add_runtime_target(${target} ${TITLE_UNPARSED_ARGUMENTS})
+endfunction()
+function(psxrecomp_add_runtime_target target)
   cmake_parse_arguments(FIXTURE "" "APP_ICON" "" ${ARGN})
   if(NOT FIXTURE_APP_ICON STREQUAL NITROGEN_GAME_ICON)
     message(FATAL_ERROR "Private icon was not passed to the framework")

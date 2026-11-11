@@ -949,3 +949,12 @@
   and Windows resource/staging integration. Windows shell appearance and full
   candidate verification remain pending. Deliver complete source plus commit
   steps; the owner still performs every push and release action.
+
+- bcd506f Source checks passed, but Windows/Linux runtime and both package fixtures
+  linked with the default controller icon and failed the staged-PNG identity check.
+  APP_ICON followed the high-level helper's multi-value GEN_FULL_GLOB and was
+  swallowed before reaching the lower runtime target. Keep the fix at 0.2.2:
+  forward the icon before that list; never weaken icon verification. The earlier
+  unit stub bypassed that upper parser and must model both layers. Check the
+  actual pinned high-level function locally as well. No framework source edits.
+  Fresh Windows/Linux CI and player icon verification are still pending.

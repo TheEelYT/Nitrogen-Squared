@@ -3,6 +3,14 @@
 ## Current acceptance and update checks
 
 **0.2.2 development candidate — private game icon; Windows verification pending.**
+The bcd506f source/UI checks passed, but both runtime and both package jobs linked
+with the default framework icon and failed the staged-icon check. The caller put
+APP_ICON after the high-level helper's GEN_FULL_GLOB list; it was consumed as a
+list entry instead of forwarded. This revision puts the icon argument before
+that list and strengthens the parser-contract regression. Use only a new fully
+passing candidate; bcd506f has no qualified test artifact. The icon/image decoder
+and original private extraction remain unchanged.
+
 The owner reports the installed 64c71b7 launcher now works as intended after using
 the correct Windows artifact and manually restoring the framework remote. That
 qualifies the reported resumed setup/launch route, not a new blank setup or the
@@ -965,7 +973,7 @@ Instructions for future maintainers and assistants:
     "runtime": "Windows / Linux x64 \u00b7 USA disc",
     "cart": "",
     "createdAt": "2026-11-10",
-    "description": "Private yellow N game EXE/window icon from verified disc inputs, with one build update; includes interrupted-source remote repair. Reported launcher route works; icon, blank setup and release clearance remain pending."
+    "description": "Corrects APP_ICON forwarding through the pinned CMake helper; retains private disc-derived game icons and setup recovery. Fresh Windows/Linux runtime/package checks and owner icon verification remain pending."
   },
   "checks": [
     {
@@ -975,7 +983,7 @@ Instructions for future maintainers and assistants:
       "required": true,
       "priority": "high",
       "steps": [
-        "Install the complete new 0.2.2 dev Windows artifact with the game/launcher closed. Keep the entire .local folder and your existing disc/import.",
+        "Install the complete NEW 0.2.2 dev Windows artifact only after all workflows pass for the corrected commit. Keep the entire .local folder and your existing disc/import; bcd506f failed icon staging and is not a qualified artifact.",
         "Click Play and allow the one build update for the icon. Do not clear .local or manually replace generated files.",
         "Check the NitrogenSquared-dev program icon and the running game title bar/taskbar for the yellow N from the disc. The game should open normally.",
         "Close the game and click Play again. Confirm that the compiled game is reused and existing saves/settings/key profiles remain available."
