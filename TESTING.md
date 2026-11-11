@@ -2,36 +2,39 @@
 
 ## Current acceptance and update checks
 
-**0.2.2 development candidate — Windows first-setup retest pending.**
-The owner confirmed the installed 0.2.1 Tauri launcher works with an existing
-compatible build, then cleared and published 0.2.1 at 79a2671. Its source,
-Windows/Linux runtime and package workflows passed. That acceptance does not
-cover a blank first setup: the owner subsequently reports setup stalling near
-SDL Git initialization, with errors after stopping. Direct SDL fetch and then
-fetch/checkout through the launcher's Python environment succeeded. The complete
-blank Windows setup is still unverified; no confirmed Windows root cause exists.
+**0.2.2 development candidate — private game icon; Windows verification pending.**
+The owner reports the installed 64c71b7 launcher now works as intended after using
+the correct Windows artifact and manually restoring the framework remote. That
+qualifies the reported resumed setup/launch route, not a new blank setup or the
+uncommitted automatic-remote-repair source. The owner requests the disc's yellow N
+as the compiled game program icon before committing the complete 0.2.2 update.
 
-This candidate separates SDL/framework revision-query input from the launcher's
-command pipe, tracks those child processes for Stop and adds a 30-second query
-deadline. Logs identify each command and exit code. Git dependency downloads
-show progress. These changes address concrete process-handling gaps and improve
-diagnosis; they are not a receipt that the owner's Windows stall is fixed.
+The build verifies the imported N2O.EXE and its icon extents, decodes its 16-colour
+16x16 save icon, and generates a multi-size ICO plus a PNG under
+.local/runtime-dev/private/game-icon. The pinned framework embeds the Windows
+resource and applies the staged PNG to the game window/taskbar. The original
+launcher artwork stays public; no disc-derived image enters the source/package.
+The compiled game now needs one build update because its resource/build inputs
+changed. Keep the full .local folder, saves, settings and custom profiles intact.
+Future launcher-only updates still reuse a compatible compiled game.
 
-Install the dev Actions candidate with the launcher/game closed, retaining the
-current partial .local. Click Play once; report the final Command/Command exited
-lines if setup stops. Reuse completed tool downloads. Check Stop during a setup
-step, then retry without clearing the folder. A separate new installation can
-check first setup without altering the working installation or valued saves.
-Do not delete the working .local folder for testing. No new campaign is needed.
-Compatible 0.2.0/0.2.1 games must remain reusable without compilation.
+Install the new dev candidate, allow its icon build update, then check the game
+EXE, running title bar and taskbar for the yellow N. Close the game and click Play
+again to check reuse without recompilation. No new campaign is requested. The
+source also includes the interrupted-source-setup repair: missing SDL/framework
+origins are restored before fetch; different remotes/revisions are preserved.
+Check a separate new installation for first setup without deleting the working
+installation. Source-only synthetic CI checks do not qualify a complete player
+first setup or the final Windows shell appearance.
 
-0.1.3's updater rejects the new support/launcher/licenses directory before
-replacement. For that transition copy the full new platform package over the
-installation manually, preserving .local. New updater code cannot repair the
-already installed old updater. Keep 0.2.1 release assets/tag/branch immutable.
+The old 0.1.3 updater rejects support/launcher/licenses: manually overlay the full
+new platform package while preserving .local for that transition. The owner
+requested withdrawal of the broken public 0.2.1 download; retain its source
+history and do not recreate a withdrawn release without authorization.
 
-Coverage remains **38.4156% linked / 61.5844% outside**; game code and clocks are
-unchanged. Owner verification and explicit release clearance for 0.2.2 are pending.
+Native selection remains **38.4156% linked / 61.5844% outside**; game logic and
+clocks are unchanged. Icon verification and explicit 0.2.2 release clearance remain
+pending. Prior submitted Dashboard result bodies are preserved byte-for-byte.
 
 ## Historical acceptance notes
 
@@ -958,13 +961,28 @@ Instructions for future maintainers and assistants:
   "version": {
     "id": "n0202",
     "name": "v0.2.2",
-    "title": "Dev candidate: first-setup process handling",
+    "title": "Dev candidate: disc-derived game icon and setup recovery",
     "runtime": "Windows / Linux x64 \u00b7 USA disc",
     "cart": "",
     "createdAt": "2026-11-10",
-    "description": "Bounded, cancellable SDL/framework revision queries and visible setup command diagnostics. Clean Windows first-setup verification and release clearance pending; published 0.2.1 remains immutable."
+    "description": "Private yellow N game EXE/window icon from verified disc inputs, with one build update; includes interrupted-source remote repair. Reported launcher route works; icon, blank setup and release clearance remain pending."
   },
   "checks": [
+    {
+      "id": "N2-GAME-ICON",
+      "title": "Disc-derived yellow N program and game-window icon",
+      "area": "Private game build",
+      "required": true,
+      "priority": "high",
+      "steps": [
+        "Install the complete new 0.2.2 dev Windows artifact with the game/launcher closed. Keep the entire .local folder and your existing disc/import.",
+        "Click Play and allow the one build update for the icon. Do not clear .local or manually replace generated files.",
+        "Check the NitrogenSquared-dev program icon and the running game title bar/taskbar for the yellow N from the disc. The game should open normally.",
+        "Close the game and click Play again. Confirm that the compiled game is reused and existing saves/settings/key profiles remain available."
+      ],
+      "expected": "The private Windows executable embeds the yellow N at multiple icon sizes, and the game window uses its staged PNG. A later Play does not recompile. No commercial icon is in public source/release ZIPs.",
+      "context": "New icon-specific n0202 check. The prior compatible build needs one resource/build update; that is expected. No campaign replay or deliberate save overwrite requested."
+    },
     {
       "id": "N2-FIRST-SETUP",
       "title": "Resume partial setup and verify a fresh installation",
@@ -973,12 +991,13 @@ Instructions for future maintainers and assistants:
       "priority": "high",
       "steps": [
         "Install the 0.2.2 dev package with the launcher/game closed; keep the existing partial .local and its completed downloads.",
+        "For the reported initialized framework folder with a missing origin, retry without deleting .local. Expect Preparing missing source remote, then a fetch from the pinned framework URL.",
         "Click Play once. Check visible SDL/framework checking/downloading stages and command/exit receipts in .local/setup.log. Allow compilation if this folder has no compatible game.",
         "Verify a blank first setup in a separate writable installation only; do not delete the working installation or copy valued saves into the test folder.",
         "If blocked, report the last Command line, exit code/error and .local/launcher-error.log. Stop is not required to start a completed compatible game."
       ],
-      "expected": "Setup either advances into compilation/play or reports the failing command; revision queries cannot wait indefinitely on launcher input. Completed preparation data remains reusable.",
-      "context": "The original Windows clean-setup stall has not been reproduced locally. Manual SDL commands passed; that does not qualify a complete first setup. This is a new n0202 check."
+      "expected": "An initialized repository with no origin is repaired and setup advances. Existing different origins/revisions are reported and retained. Setup errors name the failing command; completed data stays reusable.",
+      "context": "The missing-origin recovery failure is reproduced with real local Git repositories and repaired for both SDL/framework. The owner's full Windows first setup still requires testing; do not clear working saves. The owner accepted the resumed 64c71b7 launcher route after manual repair; automatic recovery and blank setup still need the new candidate."
     },
     {
       "id": "N2-SETUP-STOP",
@@ -989,7 +1008,7 @@ Instructions for future maintainers and assistants:
       "steps": [
         "During preparation in the separate test installation, click Stop once.",
         "Wait for Setup stopped or an explicit error; confirm the task ends.",
-        "Click Play again without clearing .local. Confirm completed downloads/imports are retained."
+        "Click Play again without clearing .local. Confirm completed downloads/imports are retained and a missing source remote is repaired if initialization was interrupted."
       ],
       "expected": "Stop reaches tracked setup children, including revision checks; retry preserves existing data. A revision query has a 30-second limit and names its command if it times out.",
       "context": "No save overwrite or campaign replay requested. A very fast revision check may finish before Stop can be clicked."

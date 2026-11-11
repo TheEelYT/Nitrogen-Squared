@@ -18,6 +18,7 @@ from generate import generate
 from prepare_media import prepare_media
 from prepare_options import prepare_options
 from prepare_native import prepare_native
+from prepare_icon import prepare_icon, verify_embedded_icon
 from n2o_disc import ROOT, DiscError, default_data_dir, digest, inspect
 from runtime_compatibility import build_identity, build_options, input_fingerprint
 
@@ -131,6 +132,8 @@ def main() -> int:
         (work / "game.toml").write_text(runtime_config(manifest, installation, generated, args.controller_mode, args.save_dir), encoding="utf-8")
         media_header = prepare_media(manifest, installation, work / "private/n2o_media_binding.h")
         options_header = prepare_options(installation, work / "private/n2o_options_binding.h")
+        print("Preparing the verified disc's private game icon…",flush=True)
+        game_icon = prepare_icon(installation, work / "private/game-icon")
         native_receipt = prepare_native(installation, framework, emitter, work / "game.toml",
                                         work / "private/game-slices", args.cmake)
         build_dir = work / "build"
@@ -138,6 +141,7 @@ def main() -> int:
                    f"-DPSXRECOMP_ROOT={framework}", f"-DNITROGEN_GENERATED_DIR={generated}",
                    f"-DNITROGEN_MEDIA_BINDING={media_header}",
                    f"-DNITROGEN_OPTIONS_BINDING={options_header}",
+                   f"-DNITROGEN_GAME_ICON={game_icon.as_posix()}",
                    f"-DNITROGEN_NATIVE_STATIC={native_receipt.parent / 'overlays_static.c'}",
                    "-DCMAKE_BUILD_TYPE=Release", "-DBUILD_TESTING=OFF", "-DNITROGEN_INPUT_SMOKE=OFF",
                    f"-DNITROGEN_DIAGNOSTICS={'ON' if args.diagnostics else 'OFF'}"]
@@ -151,6 +155,11 @@ def main() -> int:
         subprocess.run([args.cmake, "--build", str(build_dir), "--config", "Release",
                         "--target", "nitrogen-runtime", "--parallel", "2"], check=True)
         executable = find_binary(build_dir, "NitrogenSquared-dev")
+        staged_icon=executable.parent/'assets/psxrecomp.png'
+        if not staged_icon.is_file() or digest(staged_icon)!=digest(game_icon.with_suffix('.png')):
+            raise RuntimeError('The private game window icon was not staged correctly')
+        if os.name=='nt':
+            verify_embedded_icon(executable,game_icon)
         execution = load_execution_manifest(executable)
         native_slices = ([dict(manifest=str(native_receipt), sha256=digest(native_receipt))]
                          if execution["profile"] == "ENHANCED" else [])
@@ -162,6 +171,7 @@ def main() -> int:
                       disc_sha256=manifest["bin_sha256"], build_succeeded=True,
                       gameplay_verified=False, public_distribution_allowed=False,
                       diagnostics_enabled=args.diagnostics)
+        record['game_icon']=dict(ico=str(game_icon),png=str(staged_icon),png_sha256=digest(staged_icon))
         record["build_identity"] = build_identity(ROOT, executable, build_options(
             diagnostics=args.diagnostics, controller_mode=args.controller_mode,
             console_host=args.console_host, cmake_args=args.cmake_arg))

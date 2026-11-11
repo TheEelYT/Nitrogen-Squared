@@ -917,3 +917,35 @@
 - The 0.1.3 updater rejects the Tauri support/launcher/licenses package directory.
   Manual full-package replacement preserving .local is needed for that transition.
   Never silently alter immutable old releases to change their installed updater.
+
+- The owner requested withdrawal of the broken 0.2.1 release download; that request
+  supersedes the earlier instruction to retain those public assets. The owner
+  performs the deletion. Preserve its source tag/branch and never recreate a
+  withdrawn release without explicit clearance. No remote writes by this agent.
+- The 64c71b7 Windows setup log now identifies a missing/unusable framework origin:
+  HEAD returned 128 for an unpopulated repository, then fetch origin failed.
+  Both SDL/framework setup only configured remotes when their directory did not
+  exist, leaving an initialized-but-interrupted checkout broken on every retry.
+  Keep this fix in unreleased 0.2.2: restore only a missing expected origin before
+  fetch, resume empty source directories and framework longpaths, preserve any
+  existing different origin/revision and all private data. Reproduce the failure
+  and repair using real local Git fixtures. Complete Windows first setup remains
+  pending; this diagnoses the current fetch failure, not every earlier wait.
+
+- The owner now reports the installed 64c71b7 launcher works as intended after
+  correct-artifact installation and manual origin repair. This accepts that
+  resumed route, not blank automatic setup or release clearance. Before committing
+  0.2.2 they explicitly request the yellow N from their disc as the GAME program
+  icon. The verified USA N2O.EXE contains the matching CLUT/bitmap; the public
+  game_icon_usa.json records only offsets, dimensions and hashes. Generate all
+  PNG/ICO/receipt files privately under .local, never in source/public assets.
+- Use the pinned framework's existing APP_ICON/PNG staging and window-icon loader.
+  Do not modify the pinned checkout or replace the public launcher artwork. The
+  user's new request authorizes changing compiled-game build inputs for this
+  resource update, superseding the preceding unchanged-fingerprint constraint.
+  One build update is expected; retain saves, profiles and preparation data.
+  Native selected code, coverage 38.4156%/61.5844%, and clocks remain unchanged.
+  Validate the actual private decode, PNG/ICO formats, framework window loader
+  and Windows resource/staging integration. Windows shell appearance and full
+  candidate verification remain pending. Deliver complete source plus commit
+  steps; the owner still performs every push and release action.

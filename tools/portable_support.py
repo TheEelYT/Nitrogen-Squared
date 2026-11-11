@@ -16,6 +16,7 @@ import zipfile
 REPOSITORY = "TheEelYT/Nitrogen-Squared"
 ASSET_NAME = "Nitrogen-Squared-Windows-x64.zip"
 LINUX_ASSET_NAME = "Nitrogen-Squared-Linux-x64.zip"
+SDL_SOURCE_URL = "https://github.com/libsdl-org/SDL.git"
 MAX_ARCHIVE_BYTES = 2 * 1024**3
 MAX_EXPANDED_BYTES = 5 * 1024**3
 
@@ -324,12 +325,24 @@ def bootstrap(layout: Layout, progress=print):
     return env
 
 
+def ensure_git_origin(git, target: Path, expected_url: str, cwd: Path, env: dict, progress):
+    """Resume initialization after interruption; never replace an existing URL."""
+    result=probe([git,"-C",str(target),"config","--local","--get-all","remote.origin.url"],
+                 cwd,env,progress)
+    if result.returncode == 1 and not result.stdout.strip():
+        progress("Preparing missing source remote…")
+        run([git,"-C",str(target),"remote","add","origin",expected_url],cwd,env,progress)
+    elif result.returncode:
+        raise ValueError("Cannot inspect the preparation source remote; existing files were preserved: "+str(target))
+    elif result.stdout.splitlines() != [expected_url]:
+        raise ValueError("The preparation source has another origin URL; it was preserved: "+str(target))
+
+
 def prepare_sdl(layout, env, git, progress):
     # Keep SDL preparation deterministic and avoid the release-archive fallback.
     sdl=layout.local/"SDL3-source"
-    if not sdl.exists():
+    if not sdl.exists() or (sdl.is_dir() and not any(sdl.iterdir())):
         run([git,"init",str(sdl)],layout.root,env,progress)
-        run([git,"-C",str(sdl),"remote","add","origin","https://github.com/libsdl-org/SDL.git"],layout.root,env,progress)
     sdl_pin=json.loads((layout.app/"configs/runtime_inputs.json").read_text(encoding="utf-8"))["sdl_revision"]
     if not isinstance(sdl_pin,str) or len(sdl_pin)!=40 or any(c not in "0123456789abcdef" for c in sdl_pin):
         raise ValueError("Invalid SDL source revision")
@@ -338,6 +351,7 @@ def prepare_sdl(layout, env, git, progress):
     if current.returncode or current.stdout.strip()!=sdl_pin:
         if not current.returncode:
             raise ValueError("The private SDL checkout has another revision; it was preserved")
+        ensure_git_origin(git,sdl,SDL_SOURCE_URL,layout.root,env,progress)
         progress("Downloading SDL source…")
         run([git,"-C",str(sdl),"fetch","--progress","--depth","1","origin",sdl_pin],layout.root,env,progress)
         progress("Preparing SDL source checkout…")

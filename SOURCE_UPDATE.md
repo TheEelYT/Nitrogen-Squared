@@ -1,59 +1,69 @@
-# Apply the 0.2.2 setup-process development candidate
+# Apply the complete 0.2.2 game-icon and setup-recovery candidate
 
-Complete source snapshot based on dev/released 0.2.1 commit
-79a2671befd7a387f3bdd3f85f875aabf2e56091. This is a new 0.2.2 dev candidate.
-The owner still pushes personally. Nothing was pushed, tagged or published.
-Do not move main or modify the 0.2.1 release branch/tag/assets for this candidate.
+Full source based on dev 64c71b7967d55b6204da9348916902093c7242d8. Version stays 0.2.2.
+Includes the previous missing-origin repair source; no need to apply its ZIP first.
+Nothing was pushed, promoted, tagged or published. The owner performs all pushes.
 
-Close the game/launcher. Before copying, switch your source checkout to dev and
-ensure it has no uncommitted work. Copy this ZIP's Nitrogen-Squared contents into
-B:\Nitrogen-Squared-dev, preserving .git and the entire .local folder. There are
-no tracked deletions. This ZIP contains source, not a Windows launcher build.
+The owner reports the installed 64c71b7 launcher works as intended, then requests
+the disc's yellow N as the compiled game program icon before committing 0.2.2.
+This source verifies the imported USA N2O.EXE, decodes its exact palette/bitmap,
+and writes private multi-size ICO, PNG and icon.json files under
+.local/runtime-dev/private/game-icon. The pinned framework embeds APP_ICON into
+the Windows game EXE and stages the PNG for its existing game-window icon loader.
+No disc-derived icon bytes, generated icons or derived headers are in this ZIP.
+The new config contains only format, offsets, dimensions and hashes.
 
-SDL/framework revision checks previously inherited the service's command pipe
-and were not tracked for cancellation. They now use DEVNULL input, a tracked
-child and a 30-second deadline. Stop reaches these children. Setup logs identify
-sessions, every command, exit codes and failing commands. Git downloads use
---progress and publish receiving/resolving percentages in the launcher.
+The icon changes compiled-game inputs, so allow ONE build update after installing
+the new candidate. Do not delete .local; imports, tools, saves, settings and input
+profiles remain. Subsequent Play reuses the new compatible build. Native selected
+code/coverage stay 38.4156% linked / 61.5844% outside; clocks are unchanged.
+New compiled-game input fingerprint:
+5452a0ea2e4d2e60e27d4b71d9319f64133f94d558d898c3c923c69a02bf81f4.
 
-These are concrete process-handling corrections and diagnostics. They do NOT
-establish the root cause of the owner's Windows first-setup stall. Direct SDL
-fetch and checkout in the launcher's Python environment passed; a complete clean
-Windows GUI setup remains unverified. Do not claim this candidate fixes it until
-the Windows Actions build and owner retry confirm that behavior.
+Qualification: all 158 local Python tests pass with no skips. Actual verified-disc
+extraction produced the requested yellow N. An independent PNG/ICO reader checked
+every size (16,32,48,64,128,256), and a compiled harness using the exact pinned
+framework's real SDL window-icon loader decoded/applied the exact private pixels.
+CMake integration tests exercise APP_ICON propagation and incomplete-input failure.
+The game build verifies its staged PNG and, on Windows, compares every embedded
+PE icon resource against the private ICO. Real cross-platform runtime/package CI
+now uses an original checkerboard icon to verify that path without commercial data.
+Windows CI, actual shell/taskbar appearance and owner verification remain pending.
+No full native-game rebuild/playtest was performed in this Linux source workspace.
 
-All 151 local Python tests pass with no skips. Two frontend action tests and the
-Vite production build pass. A real service subprocess with its command input kept
-open completes a synthetic first-setup query and starts its synthetic game after
-one Play request. Reintroducing inherited query input makes that check fail;
-restoring isolated input passes. Query timeout and Stop tests terminate their
-actual child processes. These are Linux/local synthetic receipts, not a Windows
-first-setup qualification or a real-game rebuild.
+Before copying, go to your source checkout and switch to dev:
 
-Compiled-game inputs stay
-4ab9bc7e2cf8067a308fa329692040366619bfd9000b020368832efe70a156af.
-Coverage stays 38.4156% linked / 61.5844% outside. Game code and clocks are unchanged.
-Compatible 0.2.0/0.2.1 games remain reusable. Keep completed downloads/imports/saves.
-TESTING.md adds n0202 setup/resume/cancellation checks and preserves submitted
-results byte-for-byte. A separate fresh test installation must not replace or
-clear the working installation's .local folder.
+```powershell
+cd B:\Nitrogen-Squared-dev
+git switch dev
+git status --short
+```
+
+Extract this ZIP separately. Copy ALL contents of its Nitrogen-Squared folder over
+B:\Nitrogen-Squared-dev, replacing source files. Preserve .git and all of .local.
+No tracked deletions are required. Expected existing changes from the preceding
+uncommitted origin-repair ZIP are included in this complete snapshot.
 
 ```powershell
 git add -A
 git diff --cached --stat
+git diff --cached --check
 git status --short
-git commit -m "Fix setup query isolation and add command diagnostics"
+git commit -m "Add private disc-derived game icon and repair interrupted setup"
 git push origin dev
 ```
 
-Wait for Source checks, Runtime and renderer checks and the dev Release candidate.
-Install that complete Windows candidate over the test installation, preserving
-its partial .local folder. Retry Play; do not click Stop to launch. If blocked,
-send the latest setup session's final Command/Command exited/error lines and
-.local/launcher-error.log. Verify a separate blank setup only after the candidate
-is installed. Owner verification and release clearance are still required before
-promoting 0.2.2 to main.
+Stop if a command fails or the staged list contains unrelated files. Do not push
+main, create a release tag or publish this unverified candidate. Wait for all three
+workflows, then download the NEW Windows artifact from that commit. Close the game
+and launcher, overlay the complete platform package, keeping .local, and run it.
+Let the game build update finish; check the yellow N on the EXE and running game.
+Close the game and Play once more to confirm reuse and retained player state.
 
-For old 0.1.x installations, manually overlay the full platform package while
-preserving .local: their installed updater rejects support/launcher/licenses.
-Updating only launcher.exe is insufficient. The public 0.2.1 remains immutable.
+The source keeps the interrupted SDL/framework remote repair and query isolation,
+cancellation, deadlines and command logs. A missing expected origin is restored;
+a different existing origin/revision is reported and preserved. A separate blank
+setup can verify automatic recovery without clearing the working installation.
+TESTING.md keeps n0202, adds a fresh N2-GAME-ICON check and preserves result bodies.
+The owner requested withdrawal of the broken 0.2.1 release download; preserve its
+source history and do not recreate a withdrawn release without authorization.

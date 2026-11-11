@@ -90,6 +90,7 @@ class RuntimeCompatibilityTests(unittest.TestCase):
     def test_all_build_input_classes_and_added_or_removed_source_force_rebuild(self):
         for name in ('CMakeLists.txt','cmake/keyboard_defaults.cmake','compat/keyboard_defaults.c',
                      'native/media.h','configs/native_usa.json','configs/runtime_inputs.json',
+                     'configs/game_icon_usa.json','tools/prepare_icon.py',
                      'tools/build_recompiler.py','tools/generate.py','tools/prepare_options.py','tools/adapt_window_display.py'):
             with self.subTest(path=name):
                 p=self.layout.app/name;data=p.read_bytes();p.write_bytes(data+b'\n')

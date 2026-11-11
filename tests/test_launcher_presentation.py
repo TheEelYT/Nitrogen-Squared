@@ -102,8 +102,8 @@ class LauncherPresentationTests(unittest.TestCase):
         imported.assert_called_once();play.assert_not_called();bootstrap.assert_not_called()
         self.assertEqual(events[-1],('done','Game disc verified. Ready to prepare.'))
 
-    def test_launcher_only_candidate_retains_verified_game_fingerprint(self):
-        self.assertEqual(input_fingerprint(ROOT),'4ab9bc7e2cf8067a308fa329692040366619bfd9000b020368832efe70a156af')
+    def test_icon_candidate_has_the_reviewed_game_fingerprint(self):
+        self.assertEqual(input_fingerprint(ROOT),'5452a0ea2e4d2e60e27d4b71d9319f64133f94d558d898c3c923c69a02bf81f4')
 
     def test_original_artwork_separate_from_text_and_complete_package(self):
         assets=launcher_assets(ROOT);text=collect(ROOT)

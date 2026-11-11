@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "source": "N2O.EXE",
+  "format": "ps1-clut16-icon-4bpp",
+  "width": 16,
+  "height": 16,
+  "palette_offset": 459000,
+  "pixels_offset": 459032,
+  "palette_sha256": "c3fbfaee92fc733d7ef6806881246d50096622c8fb28d357b1a5896294e68ceb",
+  "pixels_sha256": "7c3410bb2ce72f90d41074740f9ec94dac75c12555972b5dcc8cf312c7652c80"
+}

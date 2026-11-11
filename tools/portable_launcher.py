@@ -11,7 +11,7 @@ import threading
 import time
 
 sys.path.insert(0,str(Path(__file__).resolve().parent))
-from portable_support import Layout, beneath, bootstrap, probe, run, sha256, stop_process, write_json
+from portable_support import Layout, beneath, bootstrap, ensure_git_origin, probe, run, sha256, stop_process, write_json
 from portable_update import latest_release, stage_release, start_updater
 from runtime_paths import repair_portable_saves
 from runtime_compatibility import build_options, reusable_runtime
@@ -88,13 +88,13 @@ class Backend:
         from build_recompiler import FRAMEWORK_REV,FRAMEWORK_URL
         target=self.layout.framework
         git=self.layout.git
-        if not target.exists():
+        if not target.exists() or (target.is_dir() and not any(target.iterdir())):
             run([git,"init",str(target)],self.layout.root,env,self)
-            run([git,"-C",str(target),"remote","add","origin",FRAMEWORK_URL],self.layout.root,env,self)
-            run([git,"-C",str(target),"config","core.longpaths","true"],self.layout.root,env,self)
         self("Checking framework source revision…")
         result=probe([git,"-C",str(target),"rev-parse","HEAD"],self.layout.root,env,self)
         if result.returncode:
+            ensure_git_origin(git,target,FRAMEWORK_URL,self.layout.root,env,self)
+            run([git,"-C",str(target),"config","core.longpaths","true"],self.layout.root,env,self)
             self("Downloading framework source…")
             run([git,"-C",str(target),"fetch","--progress","--depth","1","origin",FRAMEWORK_REV],self.layout.root,env,self)
             self("Preparing framework source checkout…")

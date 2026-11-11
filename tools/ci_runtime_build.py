@@ -22,6 +22,7 @@ from prepare_native import capture, emit
 from portable_support import Layout, write_json
 from runtime_paths import repair_portable_saves
 from runtime_compatibility import build_identity, build_options, reusable_runtime
+from prepare_icon import write_icons, verify_embedded_icon
 
 
 def check_build_reuse(binary: Path, work: Path):
@@ -38,6 +39,9 @@ def check_build_reuse(binary: Path, work: Path):
     executable.parent.mkdir(parents=True)
     shutil.copy2(binary,executable)
     shutil.copy2(binary.with_suffix(".execution.json"),executable.with_suffix(".execution.json"))
+    if (binary.parent/'assets/psxrecomp.png').is_file():
+        (executable.parent/'assets').mkdir()
+        shutil.copy2(binary.parent/'assets/psxrecomp.png',executable.parent/'assets/psxrecomp.png')
     config=layout.work/"game.toml"
     config.write_text('[runtime]\nmemcard_dir='+json.dumps(str(layout.local/'saves'))+'\n')
     card=layout.local/'saves/card1.mcd';card.parent.mkdir();card.write_bytes(b'original reuse card sentinel')
@@ -70,6 +74,9 @@ def run_smoke(binary: Path, work: Path):
     target_dir.mkdir(parents=True)
     executable = target_dir / binary.name
     shutil.copy2(binary, executable)
+    if (binary.parent/'assets/psxrecomp.png').is_file():
+        (target_dir/'assets').mkdir()
+        shutil.copy2(binary.parent/'assets/psxrecomp.png',target_dir/'assets/psxrecomp.png')
     for library in binary.parent.glob("*.dll"):
         shutil.copy2(library, target_dir / library.name)
     (layout.work / "game.toml").write_bytes((work / "synthetic.toml").read_bytes())
@@ -169,9 +176,15 @@ def main():
                    for pc, words in [(0x8001B600, indirect), (0x8001BFE8, indirect),
                                      (0x8001B700, callback)])
     native = emit(records, framework, game, config, work / "native-slices")
+    # Original checkerboard, never the player's disc-derived icon. Exercise the
+    # same APP_ICON resource and staged-window-PNG paths in both package jobs.
+    icon_pixels=b''.join(bytes((40,120,220,255) if (x//4+y//4)%2 else (220,100,40,255))
+                         for y in range(16) for x in range(16))
+    icon=write_icons(icon_pixels,work/'.local/original-icon-fixture')
     configure = ["cmake", "-S", str(ROOT), "-B", str(work / "build"),
                     f"-DPSXRECOMP_ROOT={framework}", f"-DNITROGEN_GENERATED_DIR={generated}",
                     f"-DNITROGEN_NATIVE_STATIC={native.parent / 'overlays_static.c'}",
+                    f"-DNITROGEN_GAME_ICON={icon.as_posix()}",
                     "-DNITROGEN_NATIVE_SMOKE=ON",
                     "-DCMAKE_BUILD_TYPE=Release", "-DBUILD_TESTING=OFF", "-DNITROGEN_INPUT_SMOKE=OFF",
                     "-DNITROGEN_DIAGNOSTICS=OFF", "-DPSX_EXECUTION_PROFILE=ENHANCED"]
@@ -185,6 +198,12 @@ def main():
     if os.name != "nt":
         os.environ.update(SDL_VIDEODRIVER="offscreen", SDL_AUDIODRIVER="dummy", EGL_PLATFORM="surfaceless")
     runtime_binary = find_binary(work / "build", "NitrogenSquared-dev")
+    staged_icon=runtime_binary.parent/'assets/psxrecomp.png'
+    if not staged_icon.is_file() or staged_icon.read_bytes()!=icon.with_suffix('.png').read_bytes():
+        raise RuntimeError('Synthetic window icon was not staged by the real framework')
+    if os.name=='nt':
+        verify_embedded_icon(runtime_binary,icon)
+    print('Private game icon integration passed: staged PNG and platform resource',flush=True)
     if load_execution_manifest(runtime_binary)["profile"] != "ENHANCED":
         raise RuntimeError("Normal runtime execution manifest has the wrong profile")
     check_build_reuse(runtime_binary,work)

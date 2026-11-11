@@ -42,6 +42,15 @@ else()
 endif()
 include("${PSXRECOMP_ROOT}/runtime/runtime.cmake")
 
+set(NITROGEN_GAME_ICON "" CACHE FILEPATH "Private disc-derived game ICO")
+set(_nitrogen_icon_args)
+if(NITROGEN_GAME_ICON)
+    get_filename_component(_nitrogen_icon_dir "${NITROGEN_GAME_ICON}" DIRECTORY)
+    if(NOT EXISTS "${NITROGEN_GAME_ICON}" OR NOT EXISTS "${_nitrogen_icon_dir}/psxrecomp.png")
+        message(FATAL_ERROR "Private game icon is incomplete; rebuild with build_runtime.py")
+    endif()
+    list(APPEND _nitrogen_icon_args APP_ICON "${NITROGEN_GAME_ICON}")
+endif()
 psxrecomp_add_game_runtime(nitrogen-runtime
     WINDOW_TITLE "Nitrogen Squared development"
     DEFAULT_GAME_CONFIG_PATH "game.toml"
@@ -50,6 +59,7 @@ psxrecomp_add_game_runtime(nitrogen-runtime
     VERSION_FILE "${CMAKE_CURRENT_SOURCE_DIR}/VERSION"
     GEN_MARKER "${NITROGEN_GENERATED_DIR}/SLUS_006.37_dispatch.c"
     GEN_FULL_GLOB "${NITROGEN_GENERATED_DIR}/SLUS_006.37_full_*.c"
+    ${_nitrogen_icon_args}
 )
 set_target_properties(nitrogen-runtime PROPERTIES OUTPUT_NAME "NitrogenSquared-dev")
 get_target_property(_nitrogen_sources nitrogen-runtime SOURCES)

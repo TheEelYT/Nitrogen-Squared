@@ -1649,3 +1649,100 @@ adds explicit resumed/fresh setup and cancellation checks. Windows/Linux CI and
 owner testing of the new candidate remain pending. No remote write, promotion,
 release mutation or publication was performed. The original Windows root cause
 and resolution remain unconfirmed until those platform/player receipts exist.
+
+
+## 0.2.2 follow-up — missing origin after interrupted initialization (2026-11-10)
+
+The owner ran the 64c71b7 Windows candidate. SDL revision query returned 0; the
+framework query returned 128 because that repository has no populated HEAD.
+The next framework fetch failed with origin not appearing to be a repository.
+That identifies the current missing/unusable-remote failure; it does not prove
+why every earlier wait began. Source workflow 42808723088, runtime/renderer
+42808723092 and Release candidate 42808723171 passed at the exact 64c71b7 commit.
+The failure is a user-state recovery gap absent from the earlier source fixtures.
+
+Code only configured origin inside the branch for a nonexistent source directory.
+If initialization completed but remote setup was interrupted, the directory then
+existed and every retry skipped its remote. Running the unmodified 64c71b7
+prepare_sdl against a real git-initialized/no-origin fixture reproduces the owner's
+HEAD/fetch-128 sequence without network access. New recovery fixtures exercise
+both production SDL preparation and Backend.ensure_framework against an original
+local-text Git repository over file transport.
+
+The shared ensure_git_origin query checks local configured URLs before a required
+fetch. It adds the expected origin only when that URL is missing; a different or
+multiple configured URL is refused and preserved. An existing empty directory is
+initialized, and framework core.longpaths is configured before its required fetch.
+No existing populated revision is reset. Already pinned sources return without
+new config/fetch mutations. Completed downloads, imports and private data stay
+intact; query input isolation/tracking/timeouts and command/progress logs remain.
+
+All 153 local Python tests pass with no skips. Real Git cases cover interrupted
+post-init, existing-empty-folder and fresh-folder setup for both SDL/framework, subsequent
+reuse without another source mutation, retention of a private save sentinel and
+refusal/preservation of a different origin. Existing pinned-revision preservation
+and the service query/cancellation regressions still pass. The text/artwork source
+audit passes. No native build is needed: accepted compiled-game inputs stay
+4ab9bc7e2cf8067a308fa329692040366619bfd9000b020368832efe70a156af;
+coverage remains 38.4156% linked / 61.5844% outside and clocks are unchanged.
+
+Version remains unreleased 0.2.2. Fresh Windows/Linux CI and owner verification of
+complete resumed and first setup are pending. n0202 definitions now call out this
+recovery and retain the existing submitted-results tail byte-for-byte. The owner
+was given a one-command missing-framework-origin repair for the installed folder;
+no remote writes, release changes or deletion of private files were performed.
+The owner requested withdrawal of the broken 0.2.1 release download; preserve its
+source history and do not recreate a withdrawn release without authorization.
+
+
+## 0.2.2 requested private game icon — 2026-11-10
+
+The owner reports the installed 64c71b7 launcher works as intended after the
+correct artifact and manual framework-origin repair. This accepts that resumed
+route; the uncommitted automatic-repair source and a new blank setup remain
+separate checks. Before committing, they explicitly request the disc's yellow N
+as the private game program icon instead of the framework controller icon.
+
+The original USA disc was privately restored and verified against disc_usa.json.
+The matching 16-colour CLUT and 16x16 packed bitmap are in verified N2O.EXE at
+file offsets 459000 and 459032. Their SHA256 values are recorded in the public
+metadata-only game_icon_usa.json. None of this icon's palette bytes, bitmap, PNG/ICO or new captures is included in public source. The standard-library decoder verifies the full
+source executable and both extents before writing .local/runtime-dev/private/
+game-icon/psxrecomp.ico, psxrecomp.png and a private hash receipt. ICO contains
+16/32/48/64/128/256 nearest-neighbour images; PNG is 256x256 RGBA. Zero CLUT words
+are transparent and 4-bit pixels use low nibble first. The decoded yellow N was
+visually checked against the owner's privately supplied icon reference.
+
+The pinned framework already supports APP_ICON, Windows RC embedding, matching
+PNG staging and psx_apply_window_icon at game-window creation. CMake now accepts
+NITROGEN_GAME_ICON; build_runtime.py prepares the icon and supplies this path.
+No framework file was edited. A build checks its staged PNG against the generated
+one. Windows builds load the EXE as data only, compare the group directory and
+all RT_ICON resources with the ICO, and fail if any resource is missing/different.
+The synthetic runtime CI uses an original checkerboard through this same build
+path, verifies the staged PNG and checks Windows resources. It copies the PNG
+when testing executable-relative shortcut/save discovery. No commercial icon is
+included in the synthetic fixture or any public package.
+
+Local evidence: all 158 Python tests pass with no skips. New original-only tests
+cover palette/nibble/alpha decoding, PNG CRC/header/content, ICO sizes/DIB layout,
+private-only output, source/extent changes refusing publication, repeatable writes,
+CMake APP_ICON propagation and failure for an incomplete icon pair. Existing game
+reuse tests now include recipe/decoder changes as build inputs. Independent Pillow
+PNG/ICO reading verifies every generated size against privately decoded pixels.
+A standalone C++ harness compiled the exact pinned psx_window_icon.cpp against
+SDL 3.4.10, used the dummy video driver and captured SDL_SetWindowIcon's surface;
+its full RGBA hash equals the generated private image. This tests the real loader,
+not a substitute decoder. No native/game playback, Windows shell rendering or
+full Windows build was performed locally. Those require the owner's next Actions
+candidate and focused icon check before release clearance.
+
+This requested resource change intentionally replaces the earlier unchanged-input
+constraint. New compiled-game fingerprint:
+5452a0ea2e4d2e60e27d4b71d9319f64133f94d558d898c3c923c69a02bf81f4.
+One game build update is expected, preserving .local and player state. No new
+game entry/alias selection or runtime clocks changed; linked coverage remains
+38.4156% / 61.5844% outside and the native service inventory is unchanged.
+Version remains unreleased 0.2.2. n0202 adds N2-GAME-ICON and keeps submitted
+result bytes unchanged. Source delivery includes all prior origin/query fixes;
+no remote writes, main promotion, tag, release mutation or publication occurred.

@@ -142,3 +142,20 @@ or the tool-built source package. GitHub's automatic source archives include the
 repository's documentation images. This exception does not permit standalone game
 resources (including the memory-card icon), other captures, generated C, private
 modules, disc images or saves in Git or player packages.
+
+
+## Private game icon from the player's disc
+
+0.2.2 generates the game's yellow N icon from verified imported N2O.EXE bytes.
+Public game_icon_usa.json contains offset/hash metadata only; the decoder embeds
+no palette or image bytes. Generated psxrecomp.ico, psxrecomp.png and icon.json
+stay under .local/runtime-dev/private/game-icon and must never enter source,
+launcher/release archives or public CI artifacts. The private compiled Windows
+EXE embeds its ICO, and the framework stages the PNG at build/assets/psxrecomp.png
+(or build/Release/assets for multi-config) for its existing SDL window loader.
+The unchanged original N² launcher artwork remains separately hash-gated.
+
+The icon is a compiled-game input change and requires one build update, preserving
+all player state. Subsequent compatible launches and launcher-only updates reuse
+that result. Synthetic CI supplies an original checkerboard icon and verifies
+resource/staging integration without any commercial icon or game data.

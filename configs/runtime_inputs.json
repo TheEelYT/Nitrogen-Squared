@@ -10,6 +10,7 @@
     "CMakeLists.txt",
     "configs/runtime_inputs.json",
     "configs/disc_usa.json",
+    "configs/game_icon_usa.json",
     "configs/native_usa.json",
     "configs/native_exclusions_usa.json",
     "configs/portable_tools.json",
@@ -21,6 +22,7 @@
     "tools/prepare_media.py",
     "tools/prepare_native.py",
     "tools/prepare_options.py",
+    "tools/prepare_icon.py",
     "tools/adapt_window_display.py"
   ]
 }

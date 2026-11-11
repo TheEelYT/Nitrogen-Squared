@@ -77,8 +77,8 @@ class PortableTests(unittest.TestCase):
         (self.layout.app/'configs').mkdir()
         revision='a'*40
         write_json(self.layout.app/'configs/runtime_inputs.json',dict(sdl_revision=revision))
-        (self.layout.local/'SDL3-source').mkdir(parents=True)
-        self.layout.framework.mkdir()
+        (self.layout.local/'SDL3-source/.git').mkdir(parents=True)
+        (self.layout.framework/'.git').mkdir(parents=True)
         env=self.layout.environment();backend=Backend(self.layout)
         with patch('portable_support.probe',return_value=subprocess.CompletedProcess([],0,revision+'\n','')) as query:
             prepare_sdl(self.layout,env,self.layout.git,backend)
@@ -94,8 +94,7 @@ class PortableTests(unittest.TestCase):
             run([sys.executable,'-c','import sys; print("original fixture"); sys.exit(7)'],self.root,os.environ.copy(),seen.append)
         self.assertIn('original fixture',seen)
 
-    @unittest.skipUnless(shutil.which('git'),'Git required for dependency setup integration')
-    def test_actual_git_dependency_checkout_resumes_and_preserves_other_revisions(self):
+    def _original_dependency(self):
         git=shutil.which('git');source=self.base/'original dependency';source.mkdir()
         hooks=self.base/'empty hooks';hooks.mkdir()
         def command(*args):
@@ -106,12 +105,18 @@ class PortableTests(unittest.TestCase):
         command('-C',source,'-c','user.name=Original Fixture','-c','user.email=fixture@example.invalid',
                 '-c','commit.gpgsign=false','-c','core.hooksPath='+hooks.as_posix(),'commit','-m','Original fixture')
         revision=command('-C',source,'rev-parse','HEAD')
+        return git,source,revision,command
+
+    @unittest.skipUnless(shutil.which('git'),'Git required for dependency setup integration')
+    def test_actual_git_dependency_checkout_resumes_and_preserves_other_revisions(self):
+        git,source,revision,command=self._original_dependency()
         sdl=self.layout.local/'SDL3-source';command('init',sdl)
         command('-C',sdl,'remote','add','origin',source.as_uri())
         definition=self.layout.app/'configs/runtime_inputs.json'
         write_json(definition,dict(sdl_revision=revision))
         backend=Backend(self.layout);env=self.layout.environment()
-        prepare_sdl(self.layout,env,git,backend)
+        with patch('portable_support.SDL_SOURCE_URL',source.as_uri()):
+            prepare_sdl(self.layout,env,git,backend)
         self.assertEqual(command('-C',sdl,'rev-parse','HEAD'),revision)
         self.assertEqual((sdl/'original.txt').read_text(),'original dependency fixture\n')
         # Resume uses the existing pinned HEAD without another fetch/checkout.
@@ -121,6 +126,50 @@ class PortableTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'another revision; it was preserved'):
             prepare_sdl(self.layout,env,git,backend)
         self.assertEqual(command('-C',sdl,'rev-parse','HEAD'),revision)
+
+    @unittest.skipUnless(shutil.which('git'),'Git required for dependency setup integration')
+    def test_interrupted_sdl_and_framework_setup_repair_missing_origin(self):
+        git,source,revision,command=self._original_dependency()
+        for component in ('SDL','framework'):
+            for interrupted in ('after-init','empty-directory','new-directory'):
+                with self.subTest(component=component,interrupted=interrupted):
+                    layout=Layout(self.base/(component+' '+interrupted));layout.writable()
+                    target=layout.local/'SDL3-source' if component=='SDL' else layout.framework
+                    if interrupted=='after-init':command('init',target)
+                    elif interrupted=='empty-directory':target.mkdir()
+                    write_json(layout.app/'configs/runtime_inputs.json',dict(sdl_revision=revision))
+                    private=layout.local/'saves/keep.txt';private.parent.mkdir();private.write_bytes(b'original private fixture')
+                    backend=Backend(layout);env=layout.environment()
+                    with patch('portable_support.SDL_SOURCE_URL',source.as_uri()),patch('build_recompiler.FRAMEWORK_URL',source.as_uri()),patch('build_recompiler.FRAMEWORK_REV',revision),patch.object(Layout,'git',property(lambda _:git)):
+                        if component=='SDL':prepare_sdl(layout,env,git,backend)
+                        else:backend.ensure_framework(env)
+                        # The recovered source is reusable, with no new mutation.
+                        with patch('portable_support.run',side_effect=AssertionError('Repeated source setup')),patch('portable_launcher.run',side_effect=AssertionError('Repeated framework setup')):
+                            if component=='SDL':prepare_sdl(layout,env,git,backend)
+                            else:backend.ensure_framework(env)
+                    self.assertEqual(command('-C',target,'rev-parse','HEAD'),revision)
+                    self.assertEqual(command('-C',target,'remote','get-url','origin'),source.as_uri())
+                    self.assertEqual(private.read_bytes(),b'original private fixture')
+                    if component=='framework':self.assertEqual(command('-C',target,'config','--get','core.longpaths'),'true')
+
+    @unittest.skipUnless(shutil.which('git'),'Git required for dependency setup integration')
+    def test_interrupted_setup_preserves_a_different_existing_origin(self):
+        git,source,revision,command=self._original_dependency()
+        for component in ('SDL','framework'):
+            with self.subTest(component=component):
+                layout=Layout(self.base/component);layout.writable()
+                target=layout.local/'SDL3-source' if component=='SDL' else layout.framework
+                command('init',target);other=source.as_uri()+'/different'
+                command('-C',target,'remote','add','origin',other)
+                private=target/'keep.txt';private.write_bytes(b'existing source fixture')
+                write_json(layout.app/'configs/runtime_inputs.json',dict(sdl_revision=revision))
+                backend=Backend(layout);env=layout.environment()
+                with patch('portable_support.SDL_SOURCE_URL',source.as_uri()),patch('build_recompiler.FRAMEWORK_URL',source.as_uri()),patch('build_recompiler.FRAMEWORK_REV',revision),patch.object(Layout,'git',property(lambda _:git)):
+                    with self.assertRaisesRegex(ValueError,'another origin URL; it was preserved'):
+                        if component=='SDL':prepare_sdl(layout,env,git,backend)
+                        else:backend.ensure_framework(env)
+                self.assertEqual(command('-C',target,'remote','get-url','origin'),other)
+                self.assertEqual(private.read_bytes(),b'existing source fixture')
 
     def test_release_discovery_prefers_combined_checksums_and_accepts_legacy(self):
         prefix=f"https://github.com/{REPOSITORY}/releases/download/v0.1.1/"

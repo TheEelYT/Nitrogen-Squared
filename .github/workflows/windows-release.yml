@@ -210,7 +210,7 @@ jobs:
           Extract the complete **Nitrogen-Squared** folder and run **launcher.exe**.
           Select the supported USA CUE with its matching BIN beside it. Preparation verifies/imports/generates/compiles your private game; no separate Python or Visual Studio installation is required.
 
-          **0.2.2:** SDL/framework revision queries use separate input, tracked cancellation and a 30-second deadline. Setup logs identify commands and exit codes, and dependency downloads report progress. Completed preparation data and compatible 0.2.0/0.2.1 game builds remain reusable. The Tauri launcher, settings and original N² artwork from 0.2.1 are retained. Game/native inputs and clocks are unchanged.
+          **0.2.2:** the private game build decodes the yellow N save icon from the player's verified disc and embeds it as the Windows EXE icon, with the same PNG used for the running game window/taskbar. Extracted images stay private under .local and are absent from these release packages. This resource/build change needs one build update; saves/settings are kept. SDL/framework revision queries use separate input, tracked cancellation and a 30-second deadline. Setup logs identify commands and exit codes, and dependency downloads report progress. Interrupted SDL/framework initialization now repairs a missing expected source remote before fetching; existing different remotes are preserved. Completed preparation data and compatible 0.2.0/0.2.1 game builds remain reusable. The Tauri launcher, settings and original N² artwork from 0.2.1 are retained. Game logic, native selection and clocks are unchanged; icon preparation changes compiled-game inputs.
 
           **Upgrading from 0.1.x:** the old updater rejects the Tauri package's new support/launcher/licenses directory. Close the old launcher/game, download the complete platform ZIP and replace its release files manually while preserving the entire .local folder. Replacing only launcher.exe is insufficient. A first upgrade from 0.1.x prepares the private game once.
 
@@ -220,7 +220,7 @@ jobs:
 
           **Linux x86_64 launcher:** extract the Linux ZIP and run `sh launcher.sh`. Install the system Python, GTK/WebKitGTK, compiler and graphics/audio prerequisites listed in README-FIRST.txt once. The launcher selects your CUE/BIN, prepares your private game and handles updates. Windows continues to bundle portable Python and preparation tools; use separate folders for each platform.
 
-          Native coverage stays 38.4156% linked / 61.5844% outside. Focused n0202 checks cover clean/resumed first setup, cancellation and preservation of compatible builds. Unfinished checks carry forward. Earlier submitted results retain their versions. No new campaign, upload or valued-save overwrite is requested. Audio/game clocks are unchanged; intermittent level-entry stutter remains open.
+          Native coverage stays 38.4156% linked / 61.5844% outside. Focused n0202 checks cover the disc-derived game icon, clean/resumed first setup, cancellation and build reuse after the icon update. Unfinished checks carry forward. Earlier submitted results retain their versions. No new campaign, upload or valued-save overwrite is requested. Audio/game clocks are unchanged; intermittent level-entry stutter remains open.
 
           **Asset folders** remains optional: original containers, raw movie streams and ten PCM WAV tracks are preserved under .local/game. Runtime still uses the original USA disc. Folder-backed loading, mod packs and EU language import remain future work.
 
