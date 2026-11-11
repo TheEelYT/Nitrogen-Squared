@@ -2,7 +2,23 @@
 
 ## Current acceptance and update checks
 
-**0.2.2 development candidate — private game icon; Windows verification pending.**
+**0.2.2 development candidate — timestamp-loop recovery, desktop jobs and progress.**
+The owner trace identifies app/CMakeLists.txt newer than each regenerated
+build.ninja; no compilation starts. The direct glob check reports no mismatch.
+This revision repairs future-dated reviewed input timestamps without changing
+contents and uses timezone-safe ZIP dates. A real Ninja synthetic fixture
+reproduces the loop, then completes in the same directory after repair. Three
+consecutive regenerations without compiler work now stop with an explicit error.
+
+Desktop preparation defaults to floor(80% of available logical threads), at
+least one job; a smaller explicit override is respected. The future Vita target
+stays capped at two. The launcher shows stage, action/counter, worker count and
+elapsed time. Unknown totals stay indeterminate. All 166 Python tests, frontend
+unit tests and the frontend build pass locally. Browser interaction tests could
+not launch Chromium in this workspace (socket permission); fresh platform CI
+and owner retry are pending. Keep .local; allow one preparation/build update.
+
+Earlier icon correction context:
 The bcd506f source/UI checks passed, but both runtime and both package jobs linked
 with the default framework icon and failed the staged-icon check. The caller put
 APP_ICON after the high-level helper's GEN_FULL_GLOB list; it was consumed as a
@@ -969,13 +985,42 @@ Instructions for future maintainers and assistants:
   "version": {
     "id": "n0202",
     "name": "v0.2.2",
-    "title": "Dev candidate: disc-derived game icon and setup recovery",
+    "title": "Dev candidate: setup loop recovery and desktop build progress",
     "runtime": "Windows / Linux x64 \u00b7 USA disc",
     "cart": "",
     "createdAt": "2026-11-10",
-    "description": "Corrects APP_ICON forwarding through the pinned CMake helper; retains private disc-derived game icons and setup recovery. Fresh Windows/Linux runtime/package checks and owner icon verification remain pending."
+    "description": "Repairs future source mtimes behind the CMake loop, uses 80% desktop thread budgets and displays build stage/detail/workers/elapsed. Retains disc-derived game icon and interrupted-setup repairs. CI and owner verification pending."
   },
   "checks": [
+    {
+      "id": "N2-TIMESTAMP-RESUME",
+      "title": "Resume setup past CMake configuration",
+      "area": "Launcher setup",
+      "required": true,
+      "priority": "high",
+      "steps": [
+        "Install the complete newly passing 0.2.2 dev Windows artifact with launcher/game closed. Preserve .local and your disc/import.",
+        "Click Play. If source timestamps were ahead of the clock, setup.log should report adjusted future-dated build input timestamps.",
+        "Confirm configuration advances into Building game and actual compiler jobs instead of repeating CMake indefinitely.",
+        "After the game opens, close it and click Play again; verify reuse and existing saves/settings."
+      ],
+      "expected": "Setup advances past configuration without clearing .local or redownloading completed tools. Repeated regeneration stops explicitly if another cause remains.",
+      "context": "The owner Ninja trace identifies the future CMakeLists.txt input. Local real Ninja reproduction/repair passes; Windows retry remains pending."
+    },
+    {
+      "id": "N2-BUILD-STATUS",
+      "title": "Desktop worker budget and useful progress",
+      "area": "Launcher",
+      "required": true,
+      "priority": "high",
+      "steps": [
+        "During the required build, check the worker summary: e.g. 12 jobs for 16 available logical CPUs with no smaller override.",
+        "Check separate configuring, code-generation and game-build stages, plus visible action/counters and elapsed time. Unknown totals should have no fabricated 0%.",
+        "Open Settings and return Home while busy; confirm progress and elapsed time continue. Stop remains available before the actual game launches."
+      ],
+      "expected": "Desktop jobs use floor(80% of available threads), minimum one. Current-stage counters are not an overall estimate. Quiet stages keep elapsed time moving; Running still waits for the runtime PID.",
+      "context": "A smaller CMAKE_BUILD_PARALLEL_LEVEL is honoured. Some stages are serial; 80% is a parallel-job budget, not guaranteed CPU usage. No campaign replay required."
+    },
     {
       "id": "N2-GAME-ICON",
       "title": "Disc-derived yellow N program and game-window icon",

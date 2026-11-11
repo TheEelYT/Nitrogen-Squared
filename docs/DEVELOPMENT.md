@@ -169,3 +169,29 @@ The player's runtime remains C11/C++17. Backend setup/save/update behavior is
 reused through tools/launcher_service.py's local JSON-lines bridge.
 See [launcher/README.md](../launcher/README.md) for browser development,
 native smoke checks, dependency notices and exact build commands.
+
+
+## Desktop build scheduling and timestamp recovery (0.2.2)
+
+Desktop code-generator and game builds use `max(1, floor(available_threads * 0.8))`
+parallel jobs. Python's process CPU count/affinity is preferred to the total host
+count. A positive smaller `CMAKE_BUILD_PARALLEL_LEVEL` is honoured; larger or
+unlimited requests cannot exceed that cap. Controlled qualification may set it
+to 2. `NITROGEN_BUILD_TARGET=vita` reserves the future Vita two-job cap; this does
+not implement a Vita port. Job count does not change compiled-game identity.
+
+ZIP stores dates without a timezone. Packages now give entries a fixed old date,
+retaining permission metadata, so timezone interpretation cannot create future
+build inputs. Before configuration, the build repairs only future mtimes among
+reviewed runtime inputs plus VERSION. It does not change bytes or touch private
+imports, saves or completed tools. This handles already extracted old packages.
+The owner trace shows CMakeLists.txt newer than every regenerated build.ninja;
+the real Ninja synthetic regression reproduces this loop and completes in the
+same build directory after timestamp repair. Three consecutive regenerations
+without compilation stop setup and clean up the tracked process tree.
+
+Stage markers are flushed from an unbuffered build child. The service retains
+current tool/game stage, per-stage build counters, worker summary and monotonic
+elapsed time. The frontend keeps elapsed time moving during quiet commands,
+displays build detail and disposes its timer on navigation. Unknown totals stay
+indeterminate; existing disc checks and actual-runtime-PID launch gating remain.

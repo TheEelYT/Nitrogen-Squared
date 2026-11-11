@@ -112,7 +112,14 @@ def release_list(layout, published):
     return sorted(items,key=lambda r:version_tuple(r["version"]),reverse=True)
 
 
-def progress_summary(line):
+BUILD_STAGES = frozenset(('Verifying your disc', 'Configuring build tools', 'Building tools',
+    'Preparing firmware', 'Generating game code', 'Checking generated code', 'Preparing game assets',
+    'Preparing native game code', 'Configuring game', 'Building game', 'Finishing setup'))
+
+
+def progress_summary(line, current_stage=''):
+    marker=re.fullmatch(r'Stage: ([^|]+) \| (.+)',line)
+    if marker and marker[1].strip() in BUILD_STAGES:return marker[1].strip(),marker[2],None
     if line.startswith("Runtime started (PID "):return "Game running", "Close the game window to return here.", None
     if line.startswith("Starting game."):return "Starting game", "Verifying your disc before launch…", None
     if line.startswith("Using your existing"):return "Starting game", "Using your existing compatible game build.", None
@@ -125,10 +132,13 @@ def progress_summary(line):
     if git_progress:return "Downloading setup components", line[-180:], min(100,int(git_progress[1]))
     if line.startswith("Verifying the complete disc"):return "Verifying your disc", "Checking the game and its audio tracks…", None
     if line.startswith("Extracting "):return "Extracting assets", "Saving original assets and music locally…", None
-    stage=re.match(r"\[\s*(\d+)%\]",line)
-    if stage:return "Compiling", f"Current compilation stage · {stage[1]}%", min(100,int(stage[1]))
-    step=re.match(r"\[(\d+)/(\d+)\]",line)
-    if step and int(step[2]):return "Compiling", f"Current compilation stage · {step[1]} of {step[2]}",min(100,int(step[1])*100//int(step[2]))
+    if 'Re-running CMake' in line:return 'Configuring game' if current_stage!='Building tools' else 'Configuring build tools','Refreshing the build configuration…',None
+    if 'Re-checking globbed directories' in line:return current_stage or 'Checking build inputs','Checking source file lists…',None
+    stage=re.match(r"\[\s*(\d+)%\]\s*(.*)",line)
+    if stage:return current_stage or 'Building game',stage[2][-180:] or 'Compiling game code…',min(100,int(stage[1]))
+    step=re.match(r"\[(\d+)/(\d+)\]\s*(.*)",line)
+    if step and int(step[2]):return current_stage or 'Building game',f'{step[1]} of {step[2]} · {step[3][-160:]}',min(100,int(step[1])*100//int(step[2]))
+    if current_stage.startswith('Configuring') and line.startswith('-- '):return current_stage,line[3:][-180:],None
     if line.startswith("Preparing "):return "Setting up", "Preparing your game and local tools…",None
     if line.startswith("Existing saves"):return "Keeping your saves",line[-180:],None
     return None

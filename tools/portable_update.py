@@ -203,7 +203,7 @@ def start_updater(layout: Layout, staged: Path | None, launcher_pid: int, *, res
     shutil.copytree(layout.python.parent,runner/"python")
     scripts=runner/"scripts"
     scripts.mkdir()
-    for name in ("portable_update.py","portable_support.py","release_checksums.py"):
+    for name in ("portable_update.py","portable_support.py","release_checksums.py","build_policy.py"):
         shutil.copy2(Path(__file__).with_name(name),scripts/name)
     command=[str(runner/"python/python.exe"),"-X","utf8","-E","-s","-B",str(scripts/"portable_update.py"),"--root",str(layout.root),"--wait-pid",str(os.getpid())]
     if launcher_pid:

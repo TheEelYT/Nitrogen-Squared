@@ -92,7 +92,7 @@ The Tauri launcher, adapted from [Dittobyte/Recompia](https://github.com/Dittoby
 
 Version 0.1.3 applies these defaults in the compiled game, including upgrades
 from the original stock layout. After updating, use **Play** to rebuild.
-The 0.2.2 game-icon build correction and setup-recovery changes leave native coverage at 38.4156% linked / 61.5844% outside.
+The 0.2.2 setup timestamp, build scheduling, progress and game-icon changes leave native coverage at 38.4156% linked / 61.5844% outside.
 Existing custom keyboard profiles remain unchanged; `keybinds.ini` beside the
 game executable stores them. The S key intentionally drives both D-pad Down
 and L1 for menu navigation and braking. Gamepad bindings are unchanged.
@@ -151,6 +151,8 @@ Holding Tab does not speed up the game.
 New work and test candidates live on **dev**. Releases are published only after
 the owner verifies and explicitly clears them. Test candidates are available as
 GitHub Actions artifacts; see [the release process](docs/RELEASE_PROCESS.md).
+
+**Desktop preparation:** builds use up to 80% of available logical threads, rounded down (at least one worker). A smaller `CMAKE_BUILD_PARALLEL_LEVEL` override is respected; this is a job limit, not a promise of 80% CPU use. The launcher shows the current stage, build action/counter, workers and elapsed time. Stages without a measurable total use an indeterminate bar. Future-dated source timestamps are repaired without changing file contents, preventing the reported CMake regeneration loop; repeated regeneration also stops with an error instead of running forever. Keep `.local` and allow one preparation/build update for this candidate.
 
 **0.2.2 dev candidate:** the game build extracts the yellow N memory-card icon from your verified disc's N2O.EXE. It embeds a multi-size Windows program icon and stages the same image for the game window/taskbar through the pinned framework. The extracted PNG/ICO and their receipt stay private under `.local`; public source contains only the decoder and offset/hash metadata. This icon change requires one build update, retaining saves, settings and existing preparation data. Later launcher-only changes still reuse a compatible build. Interrupted SDL/framework setup also repairs a missing expected origin; existing different remotes are preserved.
 

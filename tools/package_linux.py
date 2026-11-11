@@ -5,7 +5,7 @@ import tempfile
 import shutil
 import zipfile
 from n2o_disc import ROOT
-from package_source import collect_package,audit_staging
+from package_source import collect_package,audit_staging,archive_file
 from portable_support import LINUX_ASSET_NAME,extract_zip,sha256,write_json
 from portable_update import verify_package,owned_path
 
@@ -61,7 +61,7 @@ def stage(output, *, launcher_bundle=None):
         verify_package(root)
         with zipfile.ZipFile(output,'w',zipfile.ZIP_DEFLATED,strict_timestamps=False) as z:
             for p in sorted(root.rglob('*')):
-                if p.is_file():z.write(p,'Nitrogen-Squared/'+p.relative_to(root).as_posix())
+                if p.is_file():archive_file(z,p,'Nitrogen-Squared/'+p.relative_to(root).as_posix())
         extract_zip(output,Path(t)/'check');verify_package(Path(t)/'check/Nitrogen-Squared')
     output.with_name(output.name+'.sha256').write_text(sha256(output)+'  '+output.name+'\n',encoding='ascii')
     print('LINUX_PACKAGE_PASS',len(inventory),'owned files',sha256(output),flush=True)

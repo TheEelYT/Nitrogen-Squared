@@ -15,6 +15,7 @@ import shutil
 import tempfile
 
 from build_recompiler import build
+from build_policy import build_jobs
 from build_runtime import find_binary, load_execution_manifest
 from check_renderer import sdl_include_dir
 from n2o_disc import ROOT
@@ -109,6 +110,8 @@ def main():
     p.add_argument("--cmake-arg", action="append", default=[],
                    help="Additional configuration shared with the portable player build")
     args = p.parse_args()
+    # Qualification keeps its controlled budget; player desktops use auto jobs.
+    os.environ['CMAKE_BUILD_PARALLEL_LEVEL']=str(min(2,build_jobs()))
     framework, work = args.framework.resolve(), args.work_dir.resolve()
     build(framework, work / "emitters", bios=True)
     bios = find_binary(work / "emitters", "psxrecomp-bios")

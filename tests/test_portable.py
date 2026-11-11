@@ -364,7 +364,8 @@ class PortableTests(unittest.TestCase):
             Path(env[name]).resolve().relative_to(self.root)
         self.assertEqual(env["CC"],"x86_64-w64-mingw32-clang.exe")
         self.assertIn(str(self.layout.tools/"llvm-mingw/bin"),env["PATH"].split(__import__("os").pathsep))
-        self.assertEqual(env["CMAKE_BUILD_PARALLEL_LEVEL"],"2")
+        from build_policy import build_jobs
+        self.assertEqual(env["CMAKE_BUILD_PARALLEL_LEVEL"],str(build_jobs()))
         self.assertEqual(self.layout.work,self.root/".local/runtime-dev")
         self.assertNotIn("PYTHONHOME",env);self.assertNotIn("PYTHONPATH",env)
 

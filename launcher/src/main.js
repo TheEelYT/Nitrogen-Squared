@@ -20,7 +20,7 @@ async function go(page,opts={}){
   if(!pages[page])return;const id=++token;leaving.forEach(fn=>fn());leaving=[];current=page;
   document.body.dataset.art=page==='home'?'sharp':'soft';chrome(store.state);
   const host=document.createElement('div');host.className='page-host';
-  const ctx={...opts,go,on(fn){const off=store.subscribe(fn);leaving.push(off);return off;}};
+  const ctx={...opts,go,on(fn){const off=store.subscribe(fn);leaving.push(off);return off;},cleanup(fn){leaving.push(fn);}};
   try{await pages[page].mod.render(host,ctx);}catch(e){host.innerHTML=`<div class="page"><div class="banner danger">${esc(e.message)}</div></div>`;}
   if(id!==token)return;host.classList.add('entering');
   host.addEventListener('animationend',e=>{if(e.target===host)host.classList.remove('entering');});

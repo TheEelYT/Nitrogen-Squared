@@ -12,6 +12,7 @@ import tempfile
 import time
 import urllib.request
 import zipfile
+from build_policy import build_jobs
 
 REPOSITORY = "TheEelYT/Nitrogen-Squared"
 ASSET_NAME = "Nitrogen-Squared-Windows-x64.zip"
@@ -193,7 +194,7 @@ class Layout:
         env.update(CC="x86_64-w64-mingw32-clang.exe",
                    CXX="x86_64-w64-mingw32-clang++.exe",
                    RC="x86_64-w64-mingw32-windres.exe",
-                   CMAKE_GENERATOR="Ninja", CMAKE_BUILD_PARALLEL_LEVEL="2",
+                   CMAKE_GENERATOR="Ninja", CMAKE_BUILD_PARALLEL_LEVEL=str(build_jobs(env)),
                    CXXFLAGS="-include cstdlib -include exception",
                    PSX_SDL3_SOURCE_DIR=str(self.local/"SDL3-source"),
                    PYTHONNOUSERSITE="1", PYTHONDONTWRITEBYTECODE="1", PYTHONUTF8="1")
@@ -276,12 +277,24 @@ def run(command, cwd: Path, env: dict, progress=print):
         if tracker:
             tracker(proc)
         try:
+            regenerations = 0
             for line in proc.stdout:
-                progress(line.rstrip())
+                text = line.rstrip()
+                progress(text)
+                if text.startswith('Stage: ') or re.search(r'\]\s+(?:Building |Compiling |Linking )', text):
+                    regenerations = 0
+                elif 'Re-running CMake' in text:
+                    regenerations += 1
+                    if regenerations >= 3:
+                        raise RuntimeError('Build configuration repeated three times without compiling. '
+                            'Setup stopped to prevent a loop; existing files and saves were kept. '
+                            'See the setup log for the repeated configuration.')
             if proc.wait():
                 raise RuntimeError(f"Preparation command failed ({proc.returncode}): {description}; see the setup log")
             progress(f"Command exited (0): {description}")
         finally:
+            if proc.poll() is None:
+                stop_process(proc)
             if tracker:
                 tracker(None)
 

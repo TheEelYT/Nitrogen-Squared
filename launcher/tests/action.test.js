@@ -9,6 +9,8 @@ test('new import, prepared game, interrupted update and running game choose appr
   assert.equal(primaryAction({recovery:true,busy:false}).action,'restore');
   assert.equal(primaryAction({busy:true,phase:'running'}).disabled,true);
   assert.equal(primaryAction({busy:true,phase:'starting'}).label,'Starting');
+  assert.equal(primaryAction({busy:true,phase:'setup'}).label,'Preparing');
+  assert.equal(primaryAction({busy:true,phase:'build'}).label,'Building');
 });
 test('stopping is available only before running or committed update restart',()=>{
   assert.equal(canStop({busy:true,phase:'setup'}),true);

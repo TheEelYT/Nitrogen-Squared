@@ -13,10 +13,15 @@ export function render(el,ctx){
     <p class="home-tagline">Return to the tunnel.</p>
     <div class="home-actions"><button class="btn primary big" id="primary"></button><button class="btn big on-art" id="update">${icon('download')}Check updates</button></div>
     <p class="home-detail" id="detail"></p>
-    <div class="home-task glass strong" id="task" hidden><span class="msg clip" id="task-msg"></span><span class="pct num" id="task-pct"></span><progress max="100" id="task-bar"></progress><button class="btn sm" id="task-stop">${icon('square')}Stop</button></div>
+    <div class="home-task glass strong" id="task" hidden><span class="msg clip" id="task-msg"></span><span class="pct num" id="task-pct"></span><span class="task-detail" id="task-detail"></span><progress max="100" id="task-bar" aria-label="Current stage progress"></progress><span class="task-meta num" id="task-meta"></span><button class="btn sm" id="task-stop">${icon('square')}Stop</button></div>
     <div class="home-notices" id="notices"></div>
   </div><section class="home-news" id="news" aria-label="Newest releases"></section></div>`;
   const part=id=>el.querySelector('#'+id);
+  function clock(s){
+    const seconds=Math.max(0,Math.floor((s?.elapsed||0)+(s?.busy?(performance.now()-(store.receivedAt||performance.now()))/1000:0)));
+    const elapsed=`${Math.floor(seconds/60)}:${String(seconds%60).padStart(2,'0')} elapsed`;
+    part('task-meta').textContent=[s?.phase!=='running'?s?.workers:'',elapsed].filter(Boolean).join(' · ');
+  }
   function draw(s){
     const action=primaryAction(s),b=part('primary');
     patch(b,icon(action.icon,action.disabled&&s?.phase!=='running'?'spin':'')+esc(action.label));
@@ -28,6 +33,8 @@ export function render(el,ctx){
     part('detail').hidden=!part('detail').textContent;
     part('task').hidden=!s?.busy;
     part('task-msg').textContent=s?.title||'';part('task-msg').title=s?.detail||'';
+    part('task-detail').textContent=s?.detail||'';
+    clock(s);
     part('task-pct').textContent=s?.percent==null?'':s.percent+'%';
     if(s?.percent==null)part('task-bar').removeAttribute('value');else part('task-bar').value=s.percent;
     part('task-stop').hidden=!canStop(s);part('task-stop').dataset.act='stop';
@@ -38,4 +45,6 @@ export function render(el,ctx){
     const version=e.target.closest('[data-version]')?.dataset.version;if(version)ctx.go('news',{version});
   });
   ctx.on(draw);draw(store.state);
+  const timer=setInterval(()=>{if(store.state?.busy)clock(store.state);},1000);
+  ctx.cleanup(()=>clearInterval(timer));
 }

@@ -51,6 +51,25 @@ class LauncherServiceTests(unittest.TestCase):
         with patch('launcher_service.start_updater') as updater:
             self.service.handle('finalize_update',{'path':'untrusted'})
         updater.assert_called_once_with(self.layout,self.service.staged,0)
+    def test_build_stage_details_workers_elapsed_and_unknown_progress_survive_reads(self):
+        self.service.busy=True;self.service.started_at=90
+        with patch('launcher_service.time.monotonic',return_value=100):
+            self.service.notify('progress','Stage: Configuring game | Checking graphics and audio…')
+            state=self.service.snapshot()
+            self.assertEqual(state['title'],'Configuring game');self.assertIsNone(state['percent'])
+            self.assertEqual(state['elapsed'],10)
+            self.service.notify('progress','Stage: Building game | Compiling the prepared game…')
+            self.service.notify('progress','Build workers: 12 of 16 logical CPUs')
+            self.service.notify('progress','[12/24] Building CXX object native/movie_player.cpp')
+            state=self.service.handle('state',{})
+            self.assertEqual(state['title'],'Building game');self.assertEqual(state['phase'],'build')
+            self.assertIn('movie_player.cpp',state['detail']);self.assertEqual(state['percent'],50)
+            self.assertEqual(state['workers'],'12 of 16 logical CPUs')
+            self.service.notify('progress','[1/2] Re-running CMake…')
+            self.assertIsNone(self.service.snapshot()['percent'])
+            self.assertEqual(self.service.snapshot()['title'],'Configuring game')
+            self.service.notify('done','Ready')
+            self.assertFalse(self.service.snapshot()['busy']);self.assertEqual(self.service.snapshot()['elapsed'],0)
     def test_real_stdio_responses_keep_unicode_paths_and_emit_valid_json(self):
         # Run the same packaged Python entry point in an isolated portable folder.
         shutil.copytree(ROOT/'tools',self.root/'app/tools',ignore=shutil.ignore_patterns('__pycache__'))

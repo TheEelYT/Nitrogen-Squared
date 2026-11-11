@@ -12,7 +12,7 @@ import tempfile
 import zipfile
 
 from n2o_disc import ROOT
-from package_source import collect_package,audit_staging
+from package_source import collect_package,audit_staging,archive_file
 from portable_support import ASSET_NAME,sha256,write_json
 from portable_update import owned_path,verify_package
 
@@ -93,7 +93,7 @@ def stage(output: Path, *, launcher_bundle=None):
         verify_package(root)
         with zipfile.ZipFile(output,"w",zipfile.ZIP_DEFLATED,compresslevel=6,strict_timestamps=False) as archive:
             for path in sorted(root.rglob("*")):
-                if path.is_file():archive.write(path,"Nitrogen-Squared/"+path.relative_to(root).as_posix())
+                if path.is_file():archive_file(archive,path,"Nitrogen-Squared/"+path.relative_to(root).as_posix())
         # Read the finished archive into a fresh directory and audit its exact inventory.
         check=Path(temporary)/"verified"
         from portable_support import extract_zip

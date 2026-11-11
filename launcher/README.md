@@ -59,3 +59,10 @@ Portable CI also exercises bundled preparation tools against an original
 synthetic runtime and the real copied updater/restart with private sentinels.
 The updater waits for both the native host and Python service before replacing
 files. Busy setup/game sessions reject closing and conflicting operations.
+
+
+Build progress (0.2.2): Home shows the current preparation/build stage, current
+compiler action, stage-local counter, selected worker budget and elapsed time.
+The task continues across navigation. Quiet stages keep an indeterminate bar
+and a moving elapsed clock; they do not invent an overall percent or estimate.
+Desktop jobs default to 80% of available logical threads, rounded down.

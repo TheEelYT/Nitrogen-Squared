@@ -28,7 +28,8 @@ class LinuxPackageTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as t:
             l=LinuxLayout(Path(t));env=l.environment()
             self.assertEqual(l.python,Path(sys.executable).resolve())
-            self.assertEqual(env['CMAKE_BUILD_PARALLEL_LEVEL'],'2')
+            from build_policy import build_jobs
+            self.assertEqual(env['CMAKE_BUILD_PARALLEL_LEVEL'],str(build_jobs()))
             self.assertEqual(env['CMAKE_GENERATOR'],'Unix Makefiles')
             self.assertNotIn('mingw',env.get('CC',''))
             Path(env['TMPDIR']).relative_to(l.root)

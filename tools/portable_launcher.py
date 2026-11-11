@@ -166,6 +166,7 @@ class Backend:
                                     "--framework",self.layout.framework,"--recompiler-build",self.layout.local/"build-recompiler",
                                     "--work-dir",self.layout.work,"--save-dir",self.layout.local/"saves","--cmake",cmake,
                                     *("--cmake-arg="+arg for arg in self.layout.runtime_cmake_args()))
+        command.insert(1,"-u")
         run(command,self.layout.root,env,self)
         receipt=json.loads((self.layout.work/"runtime-build.json").read_text())
         self.restore_runtime_preferences(Path(receipt["executable"]))

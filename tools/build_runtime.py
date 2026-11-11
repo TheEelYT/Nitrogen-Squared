@@ -21,6 +21,7 @@ from prepare_native import prepare_native
 from prepare_icon import prepare_icon, verify_embedded_icon
 from n2o_disc import ROOT, DiscError, default_data_dir, digest, inspect
 from runtime_compatibility import build_identity, build_options, input_fingerprint
+from build_policy import normalize_build_timestamps, report_stage, report_workers
 
 
 def find_binary(directory: Path, name: str) -> Path:
@@ -98,8 +99,10 @@ def main() -> int:
         if not shutil.which(args.cmake):
             raise FileNotFoundError("CMake is not on PATH. Use a Visual Studio developer shell with CMake installed.")
         installation = args.installation.resolve()
+        report_stage('Verifying your disc', 'Checking the game and its audio tracks…')
         manifest = load_installation(installation)
         input_identity = input_fingerprint(ROOT)
+        normalize_build_timestamps(ROOT)
         framework, compiler_build, work = (d.resolve() for d in (args.framework, args.recompiler_build, args.work_dir))
         if work == ROOT or work == installation or work == framework:
             raise ValueError("Choose a separate private runtime work directory")
@@ -108,6 +111,7 @@ def main() -> int:
         bios_emitter = find_binary(compiler_build, "psxrecomp-bios")
         verify_framework(framework)
         # Use the canonical profile and portable CMake fingerprint, without Bash.
+        report_stage('Preparing firmware', 'Preparing the open firmware used by the game…')
         subprocess.run([str(bios_emitter), "--config", "bios/OpenBIOS.toml"], cwd=framework, check=True)
         fingerprint = subprocess.check_output([
             args.cmake, f"-DROOT={framework}", "-DPROFILE=bios/OpenBIOS.toml", "-P",
@@ -121,8 +125,10 @@ def main() -> int:
         signature = hashlib.sha256((FRAMEWORK_REV + manifest["bin_sha256"] + generator_inputs).encode()).hexdigest()
         generated_root = work / "generated" / signature[:16]
         if not generated_root.exists():
+            report_stage('Generating game code', 'Converting your verified game executables; this can take several minutes…')
             generate(installation, framework, emitter, generated_root)
         else:
+            report_stage('Checking generated code', 'Reusing completed local game code…')
             record = json.loads((generated_root / "generation.json").read_text())
             if record.get("framework_revision") != FRAMEWORK_REV or len(record.get("executables", [])) != 3 or any(
                     row.get("exit_code") != 0 for row in record["executables"]):
@@ -130,10 +136,12 @@ def main() -> int:
         generated = generated_root / "SLUS_006.37"
         work.mkdir(parents=True, exist_ok=True)
         (work / "game.toml").write_text(runtime_config(manifest, installation, generated, args.controller_mode, args.save_dir), encoding="utf-8")
+        report_stage('Preparing game assets', 'Checking movie playback, settings and the disc-derived game icon…')
         media_header = prepare_media(manifest, installation, work / "private/n2o_media_binding.h")
         options_header = prepare_options(installation, work / "private/n2o_options_binding.h")
         print("Preparing the verified disc's private game icon…",flush=True)
         game_icon = prepare_icon(installation, work / "private/game-icon")
+        report_stage('Preparing native game code', 'Checking the verified native game implementations…')
         native_receipt = prepare_native(installation, framework, emitter, work / "game.toml",
                                         work / "private/game-slices", args.cmake)
         build_dir = work / "build"
@@ -148,12 +156,16 @@ def main() -> int:
         if args.console_host:
             command.append("-DSDL_UNIX_CONSOLE_BUILD=ON")
         command.extend(args.cmake_arg)
+        report_stage('Configuring game', 'Checking graphics, audio and game build dependencies…')
         subprocess.run(command, check=True)
         if args.configure_only:
             print(f"Configured private runtime: {build_dir}")
             return 0
+        report_stage('Building game', 'Compiling the prepared game; progress is for this build stage…')
+        jobs = report_workers()
         subprocess.run([args.cmake, "--build", str(build_dir), "--config", "Release",
-                        "--target", "nitrogen-runtime", "--parallel", "2"], check=True)
+                        "--target", "nitrogen-runtime", "--parallel", str(jobs)], check=True)
+        report_stage('Finishing setup', 'Verifying the built game and its icon…')
         executable = find_binary(build_dir, "NitrogenSquared-dev")
         staged_icon=executable.parent/'assets/psxrecomp.png'
         if not staged_icon.is_file() or digest(staged_icon)!=digest(game_icon.with_suffix('.png')):

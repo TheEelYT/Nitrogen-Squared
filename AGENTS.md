@@ -958,3 +958,21 @@
   unit stub bypassed that upper parser and must model both layers. Check the
   actual pinned high-level function locally as well. No framework source edits.
   Fresh Windows/Linux CI and player icon verification are still pending.
+
+
+- Active unreleased 0.2.2: the owner explicitly replaces the desktop two-job
+  limit with floor(80% of available logical threads), minimum one. A smaller
+  CMAKE_BUILD_PARALLEL_LEVEL override is respected; the future Vita target stays
+  capped at two. Controlled CI/agent qualification can still request two jobs.
+- The owner's ninja-explain.log identifies app/CMakeLists.txt newer than each
+  freshly generated build.ninja, causing repeated CMake regeneration before any
+  compiler jobs. The direct VerifyGlobs check reported no mismatch. Do not blame
+  source globs or delete .local. Repair only future-dated reviewed source input
+  mtimes before configuration; preserve bytes, hashes, saves and completed tools.
+  Package ZIP dates must be timezone-safe. Stop after three consecutive CMake
+  regenerations without compilation and clean up the tracked child tree.
+- Show actual preparation stages, current build actions, stage-local counters,
+  worker count and elapsed time. Unknown progress remains indeterminate; startup
+  still requires the actual runtime PID before Running. Build Python must be
+  unbuffered too. No selected game code/coverage or clocks change. Deliver source
+  only; fresh platform CI and owner retry remain pending, with no remote writes.

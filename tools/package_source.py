@@ -102,6 +102,15 @@ def documentation_assets(root: Path) -> set[str]:
     return set(manifest)
 
 
+def archive_file(archive, path: Path, name: str):
+    # ZIP's timezone-free timestamps can land in the future after extraction.
+    # An old fixed date is safe for every locale; keep permission metadata.
+    info = zipfile.ZipInfo.from_file(path, arcname=name)
+    info.date_time = (1980, 1, 1, 0, 0, 0)
+    info.compress_type = zipfile.ZIP_DEFLATED
+    archive.writestr(info, path.read_bytes())
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--output", type=Path)
@@ -123,7 +132,9 @@ def main():
             args.output.parent.mkdir(parents=True, exist_ok=True)
             with zipfile.ZipFile(args.output, "w", zipfile.ZIP_DEFLATED) as z:
                 for name, data in sorted(files.items()):
-                    z.writestr("Nitrogen-Squared/" + name, data)
+                    info=zipfile.ZipInfo("Nitrogen-Squared/" + name, (1980,1,1,0,0,0))
+                    info.compress_type=zipfile.ZIP_DEFLATED
+                    z.writestr(info, data)
         print(f"Source package audit passed: {len(files)} reviewed text files; no game payloads.")
     except (ValueError, OSError) as e:
         p.exit(1, f"Package rejected: {e}\n")

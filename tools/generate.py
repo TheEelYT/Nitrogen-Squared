@@ -14,6 +14,7 @@ from pathlib import Path
 
 from build_recompiler import FRAMEWORK_REV, verify_framework
 from n2o_disc import ROOT, DiscError, exe_header
+from build_policy import report_stage
 
 
 def generate(installation: Path, framework: Path, recompiler: Path, output: Path) -> dict:
@@ -36,6 +37,7 @@ def generate(installation: Path, framework: Path, recompiler: Path, output: Path
     output.mkdir(parents=True)
     result = dict(schema=1, framework_revision=FRAMEWORK_REV, runtime_ready=False, executables=[])
     for path, header in inputs:
+        report_stage('Generating game code', f'Converting {path.name} ({len(result["executables"])+1} of {len(inputs)})…')
         dest = output / path.name
         dest.mkdir()
         seed = dest / "entry.txt"

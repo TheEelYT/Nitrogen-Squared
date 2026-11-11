@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import subprocess
 from pathlib import Path
+from build_policy import report_stage, report_workers
 
 ROOT = Path(__file__).resolve().parents[1]
 FRAMEWORK_URL = "https://github.com/RetroPortingToolKit/psxrecomp.git"
@@ -25,11 +26,14 @@ def build(framework: Path, build_dir: Path, cmake="cmake", bios=False):
         subprocess.run(["git", "clone", "--no-checkout", FRAMEWORK_URL, str(framework)], check=True)
         subprocess.run(["git", "-C", str(framework), "checkout", "--detach", FRAMEWORK_REV], check=True)
     verify_framework(framework)
+    report_stage('Configuring build tools', 'Checking the code generator and its dependencies…')
     subprocess.run([cmake, "-S", str(framework / "recompiler"), "-B", str(build_dir.resolve()),
                     "-DCMAKE_BUILD_TYPE=Release", "-DPSXRECOMP_ENABLE_CHD=OFF", "-DBUILD_TESTING=OFF"], check=True)
     targets = ["psxrecomp-game"] + (["psxrecomp-bios"] if bios else [])
+    report_stage('Building tools', 'Compiling the local code generator…')
+    jobs = report_workers()
     subprocess.run([cmake, "--build", str(build_dir.resolve()), "--config", "Release",
-                    "--target", *targets, "--parallel", "2"], check=True)
+                    "--target", *targets, "--parallel", str(jobs)], check=True)
 
 
 def main():

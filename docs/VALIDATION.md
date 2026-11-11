@@ -1784,3 +1784,64 @@ Native game selection/coverage remain 38.4156% linked / 61.5844% outside; no clo
 changed. Version stays unreleased 0.2.2; no private files are deleted or shipped.
 n0202 and the existing submitted result tail are preserved. Complete source is
 provided for the owner's commit/push; no remote writes or release action occurred.
+
+
+## 0.2.2 timestamp-loop recovery, desktop jobs and progress — 2026-11-11
+
+The owner setup(1).log contains 25 consecutive game CMake regenerations and no
+compiler jobs. Running VerifyGlobs.cmake directly produced no mismatch output.
+The subsequent real ninja-explain.log identifies app/CMakeLists.txt newer than
+build.ninja in four successive cycles (input 8160907320000000; regenerated
+output times increase but remain below it). This establishes the timestamp
+ordering responsible for the reported regeneration loop. ZIP's timezone-free
+dates are a plausible origin of future dates, not an independently proven
+extractor/clock diagnosis. Unconditionally rewritten renderer intermediates
+were inspected but were not identified by the trace and were not changed.
+
+Before configuration, normalize_build_timestamps repairs only future mtimes of
+reviewed runtime source inputs plus VERSION, without changing content hashes.
+It does not traverse .local, imports or saves. Source/platform ZIPs now use a
+fixed 1980 date and retain mode metadata. The tracked command runner aborts
+three consecutive CMake regenerations with no compilation and cleans up its
+child tree. This is a guard, not a bypass of CMake checks or disc validation.
+A real original LANGUAGES NONE CMake/Ninja fixture with a future CMakeLists.txt
+reproduces the loop; the guard aborts, timestamp repair preserves source bytes,
+and the same build directory then completes. No private directory is deleted.
+
+Desktop tool/game builds now select max(1, floor(available_threads * 0.8)), using
+process CPU count/affinity where available. Smaller explicit parallel budgets
+are respected; invalid, unlimited and excessive requests cannot exceed the cap.
+The future Vita target retains at most two jobs. Existing controlled synthetic
+runtime CI builds remain explicitly two-job. Jobs do not imply measured CPU use.
+Build policy is execution-only and not part of compiled-game identity; the
+already tracked build/generation script changes do update that identity once.
+
+Unbuffered build children emit flushed stage markers for verification, tool
+configuration/build, firmware, per-executable generation, assets, native code,
+game configuration/build and final verification. The service publishes stage,
+actual counter/action, worker summary and monotonic elapsed time. Home displays
+these, keeps elapsed moving during quiet stages and disposes its timer when
+navigating. Unknown totals stay indeterminate; numeric counters are stage-local.
+Existing actual-PID Running gating, stdin isolation and Stop behavior remain.
+
+All 166 Python tests pass without skips. They include the real Ninja regression,
+budget/affinity/fallback/override and both-layout environment checks, timestamp
+content/private-file preservation, ZIP date/permission checks, stage/worker/
+elapsed state and all prior copied-updater/launch/Stop fixtures. The new policy
+helper is copied into BOTH isolated updater runners and included in the source
+allowlist. Frontend unit tests (two cases) and production build pass. Browser
+interaction tests (seven cases including new progress coverage) could not launch
+Chromium: the workspace denied its process-singleton socket. A browser download
+also failed to provide a valid archive. No browser assertion was reached locally;
+CI must run the interactions. No full Windows/player build was performed here.
+
+Source audit passes for 188 reviewed text files, two approved launcher PNGs and
+five approved documentation PNGs in the complete source snapshot. Dashboard
+n0202 adds N2-TIMESTAMP-RESUME and N2-BUILD-STATUS; prior submitted result bytes
+are unchanged. Compiled-game input fingerprint becomes
+7bf57fbc867fa84052d5a6b0a3d0e4a4ffe0fc2a74b480561151f2f3d50718eb.
+Native coverage remains 38.4156% linked / 61.5844% outside, with no selected game
+code, native service inventory or clock changes. Allow one preparation/build
+update while retaining completed tools, imports, saves and settings. Fresh
+platform CI and owner Windows retry/icon/reuse checks remain pending. Version
+stays unreleased 0.2.2; source delivery only, with no remote writes or releases.

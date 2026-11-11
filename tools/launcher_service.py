@@ -22,7 +22,7 @@ from portable_support import Layout, write_json
 from portable_update import latest_release, stage_release, start_updater
 from runtime_paths import repair_portable_saves
 from launcher_presentation import (KEYBOARD, read_options, save_option, read_launcher_preferences,
-    set_accent, read_release_cache, release_list, fetch_release_history, progress_summary)
+    set_accent, read_release_cache, release_list, fetch_release_history, progress_summary, BUILD_STAGES)
 
 
 class Service:
@@ -42,6 +42,9 @@ class Service:
         self.releases = release_list(layout, read_release_cache(layout.local))
         self.revision = 0
         self.last_progress = 0
+        self.started_at = None
+        self.stage = ''
+        self.workers = ''
         if self.recovery:
             self.title = 'Restore previous version'
             self.detail = 'The previous update did not finish. Your game and saves are kept.'
@@ -61,6 +64,8 @@ class Service:
             return dict(revision=self.revision, version=self.layout.version,
                 platform=self.layout.display_name, busy=self.busy, phase=self.phase,
                 title=self.title, detail=self.detail, percent=self.percent, error=self.error,
+                elapsed=max(0,time.monotonic()-self.started_at) if self.started_at is not None else 0,
+                workers=self.workers,
                 recovery=self.recovery, disc=state.get('disc'), prepared=bool(state.get('prepared_version')),
                 imported=(self.layout.installation/'installation.json').is_file(),
                 extracted=(self.layout.local/'game').is_dir(), options=read_options(self.layout.local),
@@ -83,15 +88,19 @@ class Service:
     def notify(self, kind, text):
         with self.mutex:
             if kind == 'progress':
-                summary = progress_summary(text)
+                if text.startswith('Build workers: '):
+                    self.workers=text[len('Build workers: '):];self.publish();return
+                if text.startswith('Stage: '):self.stage=text[7:].split(' | ',1)[0]
+                summary = progress_summary(text,self.stage)
                 if not summary: return
                 previous=self.phase,self.title
                 self.title, self.detail, self.percent = summary
                 if self.title == 'Game running': self.phase = 'running'
                 elif self.title == 'Starting game': self.phase = 'starting'
-                elif self.title in ('Compiling','Setting up','Downloading tools','Checking SDL',
+                elif self.title in BUILD_STAGES-{'Verifying your disc'} or self.title in ('Compiling','Setting up','Downloading tools','Checking SDL',
                         'Checking framework','Downloading SDL','Downloading framework',
                         'Downloading setup components'): self.phase = 'setup'
+                if self.title in ('Building tools','Building game'):self.phase='build'
                 # Throttle repeated percentages, never lifecycle/stage changes.
                 # A reused build can verify and launch inside the same 80 ms.
                 if previous==(self.phase,self.title) and time.monotonic()-self.last_progress < .08: return
@@ -99,6 +108,7 @@ class Service:
             elif kind in ('done','error'):
                 cancelled = self.backend.cancel.is_set()
                 self.busy = False
+                self.started_at = None
                 self.phase = 'idle'
                 self.percent = None
                 self.title = text if kind == 'done' else 'Setup stopped' if cancelled else 'Something went wrong'
@@ -115,6 +125,8 @@ class Service:
             self.idle()
             self.busy, self.phase, self.title = True, phase, title
             self.percent, self.error = None, None
+            self.detail, self.stage, self.workers = '', '', ''
+            self.started_at = time.monotonic()
             self.backend.cancel.clear()
             self.publish()
         def work():

@@ -43,3 +43,21 @@ test('remote release text is literal and reduced-motion navigation remains scrol
   await page.getByRole('button',{name:'Settings',exact:true}).click();await page.getByRole('tab',{name:'Controls',exact:true}).check();
   expect(await page.locator('#view').evaluate(el=>getComputedStyle(el).overflowY)).toBe('auto');
 });
+test('build details and elapsed time stay visible and unknown progress is indeterminate',async({page})=>{
+  await page.setViewportSize({width:760,height:500});await page.goto('/');
+  await expect(page.getByRole('button',{name:'Choose game disc',exact:true})).toBeVisible();
+  await page.evaluate(()=>{const {state,emit}=window.__N2_MOCK__;Object.assign(state,{busy:true,phase:'setup',title:'Configuring game',detail:'Checking graphics and audio dependencies…',percent:null,elapsed:65,workers:'12 of 16 logical CPUs'});state.revision++;emit('state',structuredClone(state));});
+  await expect(page.locator('#task-msg')).toHaveText('Configuring game');
+  await expect(page.locator('#task-detail')).toHaveText('Checking graphics and audio dependencies…');
+  await expect(page.locator('#task-bar')).not.toHaveAttribute('value');
+  await expect(page.locator('#task-pct')).toHaveText('');
+  await expect(page.locator('#task-meta')).toContainText('12 of 16 logical CPUs');
+  await expect(page.locator('#task-meta')).toContainText('1:05 elapsed');
+  await expect(page.locator('#task-meta')).not.toContainText('1:05 elapsed',{timeout:4000});
+  await page.getByRole('button',{name:'Settings',exact:true}).click();
+  await page.locator('#task-pill').click();
+  await expect(page.locator('#task-detail')).toHaveText('Checking graphics and audio dependencies…');
+  expect(await page.locator('#view').evaluate(el=>el.scrollWidth<=el.clientWidth+1)).toBeTruthy();
+  await page.getByRole('button',{name:'Stop',exact:true}).click();
+  await expect(page.locator('#task')).toBeHidden();
+});

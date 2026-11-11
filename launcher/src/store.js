@@ -9,6 +9,7 @@ export const store={
   set(state){
     if (!state || (this.state && state.revision<this.state.revision)) return;
     this.state=state;
+    this.receivedAt=performance.now();
     document.documentElement.dataset.accent=state.accent;
     for(const fn of [...subscribers]) {try{fn(state);}catch(e){console.error(e);}}
   },
